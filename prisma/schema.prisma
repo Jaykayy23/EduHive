@@ -1,0 +1,216 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
+  output   = "../lib/generated/prisma"
+}
+
+// prisma/schema.prisma
+datasource db {
+  provider  = "postgresql"
+  url  	    = env("DATABASE_URL")
+}
+
+model User {
+  id        String @id
+  username      String @unique
+  displayName String
+  email     String?  @unique
+  passwordHash  String?
+  googleId     String?  @unique
+  avatarUrl   String?
+  bio       String?
+  sessions Session[]
+  posts     Post[]
+  following  Follow[] @relation("Following")
+  followers  Follow[] @relation("Followers")
+  likes Like[]
+  bookmarks Bookmark[]
+  comments Comment[]
+  receivedNotifications Notification[] @relation("Recipient")
+  issuedNotifications Notification[] @relation("Issuer")
+  achievements UserAchievement[]
+  chatSessions    ChatSession[]
+  
+
+  createdAt DateTime @default(now())
+  
+  @@map("users")
+}
+
+model Session {
+  id        String @id
+  userId    String
+  expiresAt   DateTime
+  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("sessions")
+}
+
+model Follow {
+  followerId String
+  follower User  @relation("Following", fields: [followerId], references: [id], onDelete: Cascade)
+  followingId String
+  following User  @relation("Followers", fields: [followingId], references: [id], onDelete: Cascade)
+
+  @@unique([followerId, followingId])
+  @@map("follows")
+
+}
+
+model Post {
+  id  String @id @default(cuid())
+  content String
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  attachments Media[]
+  likes Like[]
+  bookmarks Bookmark[]
+  comments Comment[]
+  linkedNotifications Notification[]
+
+  createdAt DateTime @default(now())
+
+  @@map("posts")
+}
+
+model Media {
+  id        String @id @default(cuid())
+  postId   String?
+  post     Post? @relation(fields: [postId], references: [id], onDelete: SetNull)
+  type MediaType
+  url       String
+
+  createdAt DateTime @default(now())
+
+  @@map("post_media")
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
+}
+
+model Comment {
+  id  String @id @default(cuid())
+  content String
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  postId   String
+  post     Post  @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@map("comments")
+}
+
+model Like {
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  postId String
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, postId])
+  @@map("likes")
+}
+
+model Bookmark {
+  id     String @id @default(cuid())
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  postId String
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@unique([userId, postId])
+  @@map("bookmarks")
+}
+
+model Notification {
+   id     String @id @default(cuid())
+   recipientId String
+   recipient User @relation("Recipient", fields: [recipientId], references: [id], onDelete: Cascade)
+   issuerId String
+   issuer User @relation("Issuer", fields: [issuerId], references: [id], onDelete: Cascade)
+   postId String?
+   post Post? @relation(fields: [postId], references: [id], onDelete: Cascade)
+  type NotificationType
+  read Boolean @default(false)
+
+
+  createdAt DateTime @default(now())
+
+  @@map("notifications")
+
+}
+
+enum NotificationType {
+  LIKE
+  FOLLOW
+  COMMENT
+}
+
+model Achievement {
+  id String @id
+  name String
+  description String
+  icon String
+  category AchievementCategory
+  rarity AchievementRarity @default(COMMON)
+  points Int @default(10)
+  userAchievements UserAchievement[]
+
+  createdAt DateTime @default(now())
+
+  @@map("achievements")
+}
+
+model UserAchievement {
+  id String @id @default(cuid())
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  achievementId String
+  achievement Achievement @relation(fields: [achievementId], references: [id], onDelete: Cascade)
+  unlockedAt DateTime @default(now())
+  progress Int @default(100)
+  maxProgress Int @default(100)
+
+  @@unique([userId, achievementId])
+  @@map("user_achievements")
+}
+
+enum AchievementCategory {
+  POSTING
+  ENGAGEMENT
+  SOCIAL
+  SUBJECT
+  STREAK
+  SPECIAL
+}
+
+enum AchievementRarity {
+  COMMON
+  UNCOMMON
+  RARE
+  EPIC
+  LEGENDARY
+}
+
+model ChatSession {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String
+  messages  Json // Store messages as JSON array
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("chat_sessions")
+}
+

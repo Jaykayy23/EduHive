@@ -1,6 +1,6 @@
 'use client';
-import { useState, useRef, useEffect, SetStateAction } from 'react';
-import { Send, Bot, User, Lightbulb, RefreshCw, AlertCircle } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { Send, Bot, User, RefreshCw, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Avatar } from '@/components/ui/avatar';
@@ -25,7 +25,7 @@ const TypingIndicator = () => (
         <div key={i} className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: `${i * 0.1}s` }} />
       ))}
     </div>
-    <span className="text-sm text-gray-600">EduHive AI is thinking...</span>
+    <span className="text-sm text-gray-600">Academic AI is thinking...</span>
   </div>
 );
 
@@ -45,12 +45,7 @@ const MessageBubble = ({ message }: { message: Message }) => (
 );
 
 export default function AcademicChatBot() {
-  const [messages, setMessages] = useState<Message[]>([{
-    id: '1',
-    content: "Hello! I'm EduHive AI, your intelligent study companion. What would you like to explore today?",
-    isUser: false,
-    timestamp: new Date()
-  }]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -62,7 +57,7 @@ export default function AcademicChatBot() {
   }, [messages, isLoading]);
 
   const handleSend = async () => {
-    if (!input.trim()) return;
+    if (!input.trim() || isLoading) return;
 
     const userMessage: Message = { 
       id: Date.now().toString(),
@@ -89,7 +84,7 @@ export default function AcademicChatBot() {
       setMessages(prev => [...prev, botMessage]);
     } catch (err) {
       console.error("Chat error:", err);
-      setError("Something went wrong. Please try again.");
+      setError("⚠️ Something went wrong. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -108,43 +103,55 @@ export default function AcademicChatBot() {
       const difficulty = difficultyMatch ? difficultyMatch[0] : "medium";
       const numQuestions = numberMatch ? parseInt(numberMatch[0]) : 3;
 
-      const res = await fetch("https://academic-chat-bot-app.onrender.com/api/generate-questions", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          username,
-          topic,
-          difficulty,
-          num_questions: numQuestions,
-          question_type: "multiple_choice"
-        })
-      });
+      try {
+        const res = await fetch("https://academic-chat-bot-app.onrender.com/api/generate-questions", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            username,
+            topic,
+            difficulty,
+            num_questions: numQuestions,
+            question_type: "multiple_choice"
+          })
+        });
 
-      if (!res.ok) throw new Error("Failed to generate questions");
+        if (!res.ok) throw new Error("Failed to generate questions");
 
-      const data = await res.json();
-      if (!data.questions || !Array.isArray(data.questions)) {
-        throw new Error("Invalid questions format");
+        const data = await res.json();
+
+        if (!data.questions || !Array.isArray(data.questions)) {
+          throw new Error("Invalid questions format");
+        }
+
+        return data.questions
+            .map((q: any, i: number) => {
+              if (!q || typeof q !== "object" || !q.question) return `${i + 1}. (Invalid question format)`;
+              return q.type === "multiple_choice"
+                  ? `${i + 1}. ${q.question}\nChoices: ${(q.choices || []).join(", ")}`
+                  : `${i + 1}. ${q.question} (Open-ended)`;
+            })
+            .join("\n\n");
+      } catch (err) {
+        console.error(err);
+        return "⚠️ Error generating quiz questions. Please try again.";
       }
-
-      return data.questions
-        .map((q: any, i: number) => {
-          if (!q || typeof q !== "object" || !q.question) return `${i + 1}. (Invalid question format)`;
-          return q.type === "multiple_choice"
-            ? `${i + 1}. ${q.question}\nChoices: ${(q.choices || []).join(", ")}`
-            : `${i + 1}. ${q.question} (Open-ended)`;
-        })
-        .join("\n\n");
     } else {
-      const res = await fetch("https://academic-chat-bot-app.onrender.com/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, question: inputText })
-      });
+      try {
+        const res = await fetch("https://academic-chat-bot-app.onrender.com/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, question: inputText })
+        });
 
-      if (!res.ok) throw new Error("Failed to fetch chatbot response");
-      const data = await res.json();
-      return data.message || "(No response received)";
+        if (!res.ok) throw new Error("Failed to fetch chatbot response");
+
+        const data = await res.json();
+        return data.message || "(No response received)";
+      } catch (err) {
+        console.error(err);
+        return "⚠️ Error communicating with chatbot. Please try again.";
+      }
     }
   };
 
@@ -153,7 +160,7 @@ export default function AcademicChatBot() {
       {/* Fixed Header */}
       <div className="bg-white border-b border-gray-200 px-6 py-4 sticky top-0 z-10">
         <div className="flex items-center space-x-4">
-          <h1 className="text-2xl font-bold text-gray-900">EduHive AI</h1>
+          <h1 className="text-2xl font-bold text-gray-900">Academic Assistant</h1>
           <div className="flex items-center space-x-2 text-green-600">
             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
             <span className="text-sm font-medium">Online</span>
@@ -164,6 +171,17 @@ export default function AcademicChatBot() {
       {/* Scrollable Content Area */}
       <div className="flex-1 overflow-y-auto p-6 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-4xl mx-auto">
+          {messages.length === 0 && (
+            <div className="flex flex-col items-center justify-center h-full text-gray-500">
+              <Bot size={48} className="mb-4 text-blue-400" />
+              <h2 className="text-xl font-semibold">How can I help you today?</h2>
+              <p className="text-center max-w-md mt-2">
+                Ask academic questions or try: 
+                <br />
+                <span className="text-blue-600">"Give me 5 biology questions"</span>
+              </p>
+            </div>
+          )}
           {messages.map((message) => (
             <MessageBubble key={message.id} message={message} />
           ))}
@@ -194,8 +212,8 @@ export default function AcademicChatBot() {
           <div className="flex space-x-3">
             <Input
               value={input}
-              onChange={(e: { target: { value: SetStateAction<string>; }; }) => setInput(e.target.value)}
-              onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => e.key === "Enter" && handleSend()}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleSend()}
               placeholder="Ask a question or request quiz..."
               className="flex-1 bg-gray-50"
               disabled={isLoading}
@@ -212,7 +230,7 @@ export default function AcademicChatBot() {
             <span>Press Enter to send • Shift + Enter for new line</span>
             <div className="flex items-center space-x-1">
               <Bot className="w-3 h-3" />
-              <span>Powered by EduHive AI</span>
+              <span>Powered by Academic AI</span>
             </div>
           </div>
         </div>

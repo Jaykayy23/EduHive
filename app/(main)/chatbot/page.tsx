@@ -79,19 +79,18 @@ export default function AcademicChatBot() {
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // Save conversations to localStorage
+  
   useEffect(() => {
     if (typeof window !== 'undefined') {
       localStorage.setItem('academic-chat-conversations', JSON.stringify(conversations));
     }
   }, [conversations]);
 
-  // Auto-scroll to bottom
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isLoading]);
 
-  // Initialize with a new conversation if none exists
+  
   useEffect(() => {
     if (conversations.length === 0 && !currentConversation) {
       startNewConversation();
@@ -157,7 +156,7 @@ export default function AcademicChatBot() {
       const finalMessages = [...updatedMessages, botMessage];
       setMessages(finalMessages);
 
-      // Update conversation
+    
       const conversationTitle = input.length > 30 ? `${input.substring(0, 30)}...` : input;
       const updatedConversation = {
         id: currentConversation?.id || Date.now().toString(),
@@ -324,7 +323,7 @@ export default function AcademicChatBot() {
         </div>
       </div>
 
-      {/* History Sidebar */}
+      
       <Dialog open={isHistoryOpen} onOpenChange={setIsHistoryOpen}>
         <DialogContent className="sm:max-w-md max-h-[80vh] flex flex-col">
           <DialogHeader>

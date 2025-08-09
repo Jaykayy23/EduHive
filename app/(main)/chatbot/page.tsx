@@ -9,6 +9,7 @@ import { AvatarFallback } from '@radix-ui/react-avatar';
 import { Dialog, DialogContent, DialogHeader, DialogTitle,  } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
+import Linkify from '@/components/Linkify';
 
 type Message = {
   id: string;
@@ -47,7 +48,7 @@ const MessageBubble = ({ message }: { message: Message }) => (
         ? 'bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-br-none' 
         : 'bg-white text-gray-900 rounded-bl-none border border-gray-200'
     }`}>
-      <p className="text-sm leading-relaxed whitespace-pre-wrap">{message.content}</p>
+      <p className="text-sm leading-relaxed whitespace-pre-wrap"><Linkify>{message.content}</Linkify></p>
       <p className={`text-xs mt-2 ${message.isUser ? 'text-blue-100' : 'text-gray-500'}`}>
         {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
       </p>
@@ -223,7 +224,7 @@ export default function AcademicChatBot() {
       const res = await fetch("https://academic-chat-bot-app.onrender.com/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username: "student_user", question: inputText })
+        body: JSON.stringify({ username: "student_user", question: inputText.slice(0, 500) })
       });
 
       if (!res.ok) throw new Error("Failed to fetch chatbot response");

@@ -65,7 +65,7 @@ export default function NewChatDialog({
         members: [loggedInUser.id, ...selectedUsers.map((u) => u.id)],
         name:
           selectedUsers.length > 1
-            ? [loggedInUser.name, ...selectedUsers.map((u) => u.name)].join(", ")
+            ? [loggedInUser.displayName, ...selectedUsers.map((u) => u.name)].join(", ")
             : undefined,
       });
       await channel.create();

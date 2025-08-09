@@ -1,13 +1,15 @@
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { useQueryClient } from "@tanstack/react-query";
+import { MailPlus, X } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
 import {
   ChannelList,
   ChannelPreviewMessenger,
   ChannelPreviewUIComponentProps,
+  useChatContext,
 } from "stream-chat-react";
 import { useSession } from "../SessionProvider";
-import { Button } from "@/components/ui/button";
-import { MailPlus, X } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { useCallback, useState } from "react";
 import NewChatDialog from "./NewChatDialog";
 
 interface ChatSidebarProps {
@@ -17,6 +19,16 @@ interface ChatSidebarProps {
 
 export default function ChatSidebar({ open, onClose }: ChatSidebarProps) {
   const { user } = useSession();
+
+  const queryClient = useQueryClient();
+
+  const { channel } = useChatContext();
+
+  useEffect(() => {
+    if (channel?.id) {
+      queryClient.invalidateQueries({ queryKey: ["unread-messages-count"] });
+    }
+  }, [channel?.id, queryClient]);
 
   const ChannelPreviewCustom = useCallback(
     (props: ChannelPreviewUIComponentProps) => (
@@ -77,19 +89,22 @@ function MenuHeader({ onClose }: MenuHeaderProps) {
           </Button>
         </div>
         <h1 className="me-auto text-xl font-bold md:ms-2">Messages</h1>
-        <Button size="icon" variant="ghost" title="Start new chat"
-        onClick={() => setShowNewChatDialog(true)}
+        <Button
+          size="icon"
+          variant="ghost"
+          title="Start new chat"
+          onClick={() => setShowNewChatDialog(true)}
         >
           <MailPlus className="size-5" />
         </Button>
       </div>
       {showNewChatDialog && (
-        <NewChatDialog 
-        onOpenChange={setShowNewChatDialog}
-        onChatCreated={() => {
-          setShowNewChatDialog(false);
-          onClose();
-        }}
+        <NewChatDialog
+          onOpenChange={setShowNewChatDialog}
+          onChatCreated={() => {
+            setShowNewChatDialog(false);
+            onClose();
+          }}
         />
       )}
     </>

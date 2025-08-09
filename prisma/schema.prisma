@@ -36,6 +36,9 @@ model User {
   issuedNotifications Notification[] @relation("Issuer")
   achievements UserAchievement[]
   chatSessions    ChatSession[]
+  reports Report[]
+  hostedConferences VideoConference[] @relation("ConferenceHost")
+  conferenceParticipations ConferenceParticipant[]
   
 
   createdAt DateTime @default(now())
@@ -73,6 +76,7 @@ model Post {
   bookmarks Bookmark[]
   comments Comment[]
   linkedNotifications Notification[]
+  reports Report[]
 
   createdAt DateTime @default(now())
 
@@ -103,6 +107,7 @@ model Comment {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   postId   String
   post     Post  @relation(fields: [postId], references: [id], onDelete: Cascade)
+  reports Report[]
 
   createdAt DateTime @default(now())
 
@@ -214,3 +219,72 @@ model ChatSession {
   @@map("chat_sessions")
 }
 
+enum ReportReason {
+  SPAM
+  EXPLICIT_CONTENT
+  HARASSMENT
+  OFF_TOPIC
+  OTHER
+}
+
+enum ReportStatus {
+  PENDING
+  APPROVED
+  DISMISSED
+  DELETED
+}
+
+model Report {
+  id              String       @id @default(cuid())
+  reportedPostId  String?
+  reportedPost    Post?        @relation(fields: [reportedPostId], references: [id], onDelete: Cascade)
+  reportedCommentId String?
+  reportedComment Comment?     @relation(fields: [reportedCommentId], references: [id], onDelete: Cascade)
+  reporterId      String
+  reporter        User         @relation(fields: [reporterId], references: [id])
+  reason          ReportReason
+  comments        String?      @db.Text
+  createdAt       DateTime     @default(now())
+  status          ReportStatus @default(PENDING)
+
+  @@index([reportedPostId])
+  @@index([reportedCommentId])
+  @@index([reporterId])
+}
+
+
+model VideoConference {
+  id              String    @id @default(cuid())
+  meetingId       String    @unique
+  title           String
+  description     String?
+  subject         String?
+  isPrivate       Boolean   @default(false)
+  maxParticipants Int       @default(50)
+  scheduledFor    DateTime?
+  hostId          String
+  host            User      @relation("ConferenceHost", fields: [hostId], references: [id], onDelete: Cascade)
+  participants    ConferenceParticipant[]
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@index([meetingId])
+  @@index([hostId])
+  @@index([scheduledFor])
+  @@map("video_conferences")
+}
+
+model ConferenceParticipant {
+  id           String          @id @default(cuid())
+  conferenceId String
+  conference   VideoConference @relation(fields: [conferenceId], references: [id], onDelete: Cascade)
+  userId       String
+  user         User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  joinedAt     DateTime        @default(now())
+  leftAt       DateTime?
+
+  @@unique([conferenceId, userId])
+  @@index([conferenceId])
+  @@index([userId])
+  @@map("conference_participants")
+}

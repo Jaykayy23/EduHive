@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Bookmark, Bot, Home, Mail, } from "lucide-react";
+import { Bookmark, Bot, BrainCircuit, Home, Mail, Video, } from "lucide-react";
 import Link from "next/link";
 import { validateRequest } from "../auth";
 import prisma from "@/lib/prisma";
@@ -71,6 +71,30 @@ export default async function MenuBar({ className }: MenuBarProps) {
         <Link href="/chatbot">
           <Bot />
           <span className="hidden lg:inline">EduHive Ai</span>
+        </Link>
+      </Button>
+
+      <Button
+        variant="ghost"
+        className="flex items-center justify-start gap-3"
+        title="HiveQ"
+        asChild
+      >
+        <Link href="/brainforge">
+          <BrainCircuit />
+          <span className="hidden lg:inline">HiveQ</span>
+        </Link>
+      </Button>
+
+      <Button
+        variant="ghost"
+        className="flex items-center justify-start gap-3"
+        title="Video Conference"
+        asChild
+      >
+        <Link href="/video-conference">
+          <Video />
+          <span className="hidden lg:inline">Conference</span>
         </Link>
       </Button>
     </div>

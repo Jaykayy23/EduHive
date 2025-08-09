@@ -63,7 +63,8 @@ env.bak/
 *.npz
 
 # Your large s2v vectors
-ml-backend/s2v_old/vectors
+ml-backend/s2v_old/
+ml-backend/venv
 
 # OS files
 Thumbs.db

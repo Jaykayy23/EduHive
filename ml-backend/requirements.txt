@@ -8,16 +8,14 @@ python-docx
 lxml
 
 # NLP Libraries
-# Using the git repository for Questgen.ai to ensure we have a version
-# that is more likely to be compatible with modern libraries.
 git+https://github.com/ramsrigouthamg/Questgen.ai.git
 git+https://github.com/boudinfl/pke.git
 
-# Modern, CPU-only PyTorch version that is widely available.
-# This should resolve the "No matching distribution found" error.
-torch --index-url https://download.pytorch.org/whl/cpu
+# Pinning torch versions to resolve dependency conflicts with Questgen
+torch==2.0.1 --index-url https://download.pytorch.org/whl/cpu
+torchvision==0.15.2 --index-url https://download.pytorch.org/whl/cpu
+torchaudio==2.0.2 --index-url https://download.pytorch.org/whl/cpu
 
-# We only need to specify a modern spacy to avoid a known build error.
 spacy>=3.0.0
 
 # Critical: Pin Pydantic to Version 1.x for compatibility with Spacy/Thinc

@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Bookmark, Bot, BrainCircuit, Home, Mail, Video } from "lucide-react";
+import { Bookmark, Bot, BrainCircuit, Home,  } from "lucide-react";
 import Link from "next/link";
 import streamServerClient from "@/lib/stream";
 import { validateRequest } from "../auth";
@@ -81,17 +81,7 @@ export default async function MenuBar({ className }: MenuBarProps) {
         </Link>
       </Button>
 
-      <Button
-        variant="ghost"
-        className="flex items-center justify-start gap-3"
-        title="Video Conference"
-        asChild
-      >
-        <Link href="/video-conference">
-          <Video />
-          <span className="hidden lg:inline">Conference</span>
-        </Link>
-      </Button>
+      
     </div>
   );
 }

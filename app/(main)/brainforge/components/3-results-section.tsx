@@ -1,93 +1,91 @@
-// brainforge/components/3-results-section.tsx
-"use client";
+"use client"
 
-import { useState, useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Download, CheckCircle, XCircle } from "lucide-react";
-import { toast } from "sonner";
-import type { GeneratedResponse, Question } from "../types";
-import {
-  getQuestionTypeColor,
-  formatQuestionType,
-  shuffleArray,
-} from "../lib/utils";
+import { useState, useEffect } from "react"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
+import { Input } from "@/components/ui/input"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { CheckCircle, XCircle } from "lucide-react"
+import { toast } from "sonner"
+import type { GeneratedResponse, Question } from "../types"
+import { getQuestionTypeColor, formatQuestionType, shuffleArray } from "../lib/utils"
 
 interface QuizQuestion extends Question {
-  // We'll store the shuffled options for MCQs here
-  displayOptions?: string[];
+  displayOptions?: string[]
 }
 
 interface ResultsSectionProps {
-  generatedQuestions: GeneratedResponse;
+  generatedQuestions: GeneratedResponse
 }
 
 export function ResultsSection({ generatedQuestions }: ResultsSectionProps) {
-  const [quizQuestions, setQuizQuestions] = useState<QuizQuestion[]>([]);
+  const [quizQuestions, setQuizQuestions] = useState<QuizQuestion[]>([])
   const [userAnswers, setUserAnswers] = useState<{
-    [key: number]: string | boolean;
-  }>({});
-  const [fillInInputs, setFillInInputs] = useState<{ [key: number]: string }>(
-    {},
-  );
-  const [score, setScore] = useState(0);
+    [key: number]: string | boolean
+  }>({})
+  const [fillInInputs, setFillInInputs] = useState<{ [key: number]: string }>({})
+  const [score, setScore] = useState(0)
 
-  // --- FIX: This entire useEffect block has been rewritten to be more robust ---
   useEffect(() => {
-    // This is for debugging. If the problem persists, check your browser's console (F12).
-    console.log("Received new questions from parent:", generatedQuestions);
+    console.log("Received new questions from parent:", generatedQuestions)
 
     if (generatedQuestions && generatedQuestions.questions) {
+      console.log(
+        "Question types found:",
+        generatedQuestions.questions.map((q) => q.question_type),
+      )
+      const fillInQuestions = generatedQuestions.questions.filter((q) => q.question_type.toLowerCase() === "fill_in")
+      console.log("Fill-in questions found:", fillInQuestions.length)
+
       const processedQuestions = generatedQuestions.questions.map((q) => {
-        // For Multiple Choice questions
-        // We ensure `answer` is a string and `options` is an array (even if empty)
         if (q.question_type.toLowerCase() === "mcq") {
-          const distractors = q.options || [];
-          const allOptions = [...distractors, q.answer as string];
+          const distractors = q.options || []
+          const allOptions = [...distractors, q.answer as string]
           return {
             ...q,
             displayOptions: shuffleArray(allOptions),
-          };
+          }
         }
-        // For all other question types, we just return them as is.
-        // True/False options will be handled directly in the JSX for simplicity.
-        return q;
-      });
+        return q
+      })
 
-      setQuizQuestions(processedQuestions);
-      // Reset all quiz state for the new set of questions
-      setUserAnswers({});
-      setFillInInputs({});
-      setScore(0);
+      setQuizQuestions(processedQuestions)
+      setUserAnswers({})
+      setFillInInputs({})
+      setScore(0)
     }
-  }, [generatedQuestions]);
-  // --- END OF FIX ---
+  }, [generatedQuestions])
 
-  const handleAnswerSubmit = (
-    questionIndex: number,
-    answer: string | boolean,
-  ) => {
-    if (userAnswers[questionIndex] !== undefined) return;
+  const handleAnswerSubmit = (questionIndex: number, answer: string | boolean) => {
+    if (userAnswers[questionIndex] !== undefined) return
 
-    setUserAnswers((prev) => ({ ...prev, [questionIndex]: answer }));
+    setUserAnswers((prev) => ({ ...prev, [questionIndex]: answer }))
 
-    // Case-insensitive comparison for strings
-    const correctAnswer = quizQuestions[questionIndex].answer;
-    if (String(answer).toLowerCase() === String(correctAnswer).toLowerCase()) {
-      setScore((prevScore) => prevScore + 1);
+    const correctAnswer = quizQuestions[questionIndex].answer
+    let isCorrect = false
+
+    if (typeof answer === "boolean" && typeof correctAnswer === "boolean") {
+      isCorrect = answer === correctAnswer
+    } else if (typeof answer === "boolean" && typeof correctAnswer === "string") {
+      // Handle true/false questions where backend returns string "True"/"False"
+      const normalizedCorrect = correctAnswer.toLowerCase() === "true"
+      isCorrect = answer === normalizedCorrect
+    } else {
+      // Case-insensitive comparison for strings
+      isCorrect = String(answer).toLowerCase().trim() === String(correctAnswer).toLowerCase().trim()
     }
-  };
+
+    if (isCorrect) {
+      setScore((prevScore) => prevScore + 1)
+    }
+  }
 
   const handleFillInChange = (questionIndex: number, value: string) => {
-    setFillInInputs((prev) => ({ ...prev, [questionIndex]: value }));
-  };
+    setFillInInputs((prev) => ({ ...prev, [questionIndex]: value }))
+  }
 
-  const isQuizFinished =
-    quizQuestions.length > 0 &&
-    Object.keys(userAnswers).length === quizQuestions.length;
+  const isQuizFinished = quizQuestions.length > 0 && Object.keys(userAnswers).length === quizQuestions.length
 
   return (
     <>
@@ -107,43 +105,35 @@ export function ResultsSection({ generatedQuestions }: ResultsSectionProps) {
           <ScrollArea className="h-[800px] pr-4">
             <div className="space-y-6">
               {quizQuestions.map((question, index) => {
-                const isAnswered = userAnswers[index] !== undefined;
-                const correctAnswer = question.answer;
+                const isAnswered = userAnswers[index] !== undefined
+                const correctAnswer = question.answer
 
                 return (
-                  <Card
-                    key={index}
-                    className="border border-gray-200 p-6 transition-shadow dark:border-gray-700"
-                  >
+                  <Card key={index} className="border border-gray-200 p-6 transition-shadow dark:border-gray-700">
                     <div className="mb-4 flex items-start justify-between">
                       <h3 className="flex-1 text-lg leading-relaxed font-semibold text-gray-900 dark:text-gray-100">
                         {index + 1}. {question.question_statement}
                       </h3>
-                      <Badge
-                        className={getQuestionTypeColor(question.question_type)}
-                      >
+                      <Badge className={getQuestionTypeColor(question.question_type)}>
                         {formatQuestionType(question.question_type)}
                       </Badge>
                     </div>
-
-                    {/* --- FIX: Rendering logic is now separated and more explicit --- */}
 
                     {/* RENDER MULTIPLE CHOICE OPTIONS */}
                     {question.question_type.toLowerCase() === "mcq" && (
                       <div className="mb-4 space-y-2">
                         {question.displayOptions?.map((option, optionIndex) => {
                           let optionStyle =
-                            "bg-gray-50 border-gray-200 dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700";
+                            "bg-gray-50 border-gray-200 dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700"
                           if (isAnswered) {
-                            const isSelectedOption =
-                              userAnswers[index] === option;
-                            const isCorrectOption = option === correctAnswer;
+                            const isSelectedOption = userAnswers[index] === option
+                            const isCorrectOption = option === correctAnswer
                             if (isCorrectOption) {
                               optionStyle =
-                                "bg-green-100 border-green-300 dark:bg-green-900/40 dark:border-green-700 text-green-900 dark:text-green-100 font-semibold";
+                                "bg-green-100 border-green-300 dark:bg-green-900/40 dark:border-green-700 text-green-900 dark:text-green-100 font-semibold"
                             } else if (isSelectedOption && !isCorrectOption) {
                               optionStyle =
-                                "bg-red-100 border-red-300 dark:bg-red-900/40 dark:border-red-700 text-red-900 dark:text-red-100 font-semibold";
+                                "bg-red-100 border-red-300 dark:bg-red-900/40 dark:border-red-700 text-red-900 dark:text-red-100 font-semibold"
                             }
                           }
                           return (
@@ -159,7 +149,7 @@ export function ResultsSection({ generatedQuestions }: ResultsSectionProps) {
                               </span>
                               {option}
                             </Button>
-                          );
+                          )
                         })}
                       </div>
                     )}
@@ -169,18 +159,24 @@ export function ResultsSection({ generatedQuestions }: ResultsSectionProps) {
                       <div className="mb-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
                         {[true, false].map((optionValue) => {
                           let optionStyle =
-                            "bg-gray-50 border-gray-200 dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700";
+                            "bg-gray-50 border-gray-200 dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700"
                           if (isAnswered) {
-                            const isSelectedOption =
-                              userAnswers[index] === optionValue;
-                            const isCorrectOption =
-                              optionValue === correctAnswer;
+                            const isSelectedOption = userAnswers[index] === optionValue
+                            let isCorrectOption = false
+                            if (typeof correctAnswer === "boolean") {
+                              isCorrectOption = optionValue === correctAnswer
+                            } else {
+                              // Handle case where backend returns "True"/"False" as strings
+                              const normalizedCorrect = String(correctAnswer).toLowerCase() === "true"
+                              isCorrectOption = optionValue === normalizedCorrect
+                            }
+
                             if (isCorrectOption) {
                               optionStyle =
-                                "bg-green-100 border-green-300 dark:bg-green-900/40 dark:border-green-700 text-green-900 dark:text-green-100 font-semibold";
+                                "bg-green-100 border-green-300 dark:bg-green-900/40 dark:border-green-700 text-green-900 dark:text-green-100 font-semibold"
                             } else if (isSelectedOption && !isCorrectOption) {
                               optionStyle =
-                                "bg-red-100 border-red-300 dark:bg-red-900/40 dark:border-red-700 text-red-900 dark:text-red-100 font-semibold";
+                                "bg-red-100 border-red-300 dark:bg-red-900/40 dark:border-red-700 text-red-900 dark:text-red-100 font-semibold"
                             }
                           }
                           return (
@@ -188,14 +184,12 @@ export function ResultsSection({ generatedQuestions }: ResultsSectionProps) {
                               key={String(optionValue)}
                               variant="outline"
                               disabled={isAnswered}
-                              onClick={() =>
-                                handleAnswerSubmit(index, optionValue)
-                              }
+                              onClick={() => handleAnswerSubmit(index, optionValue)}
                               className={`h-auto py-3 text-lg transition-colors ${optionStyle}`}
                             >
                               {optionValue ? "True" : "False"}
                             </Button>
-                          );
+                          )
                         })}
                       </div>
                     )}
@@ -203,22 +197,39 @@ export function ResultsSection({ generatedQuestions }: ResultsSectionProps) {
                     {/* RENDER FILL IN THE BLANK */}
                     {question.question_type.toLowerCase() === "fill_in" && (
                       <div className="mb-4 flex items-center gap-2">
+                        {(() => {
+                          console.log(`Rendering fill-in question ${index}:`, question);
+                          return null;
+                        })()}
                         <Input
                           type="text"
                           placeholder="Type your answer..."
                           value={fillInInputs[index] || ""}
-                          onChange={(e) =>
+                          onChange={(e) => {
+                            console.log(`Fill-in input ${index} changed to:`, e.target.value)
                             handleFillInChange(index, e.target.value)
-                          }
+                          }}
                           disabled={isAnswered}
+                          onFocus={() => console.log(`Fill-in input ${index} focused, disabled: ${isAnswered}`)}
+                          onKeyDown={(e) => console.log(`Fill-in input ${index} key pressed:`, e.key)}
+                          className={
+                            isAnswered
+                              ? String(fillInInputs[index] || "")
+                                  .toLowerCase()
+                                  .trim() === String(correctAnswer).toLowerCase().trim()
+                                ? "bg-green-50 border-green-300 text-green-900 dark:bg-green-900/20 dark:border-green-700 dark:text-green-100"
+                                : "bg-red-50 border-red-300 text-red-900 dark:bg-red-900/20 dark:border-red-700 dark:text-red-100"
+                              : "focus:border-blue-500 focus:ring-blue-500"
+                          }
+                          autoComplete="off"
+                          spellCheck={false}
                         />
                         <Button
-                          onClick={() =>
-                            handleAnswerSubmit(index, fillInInputs[index] || "")
-                          }
-                          disabled={isAnswered || !fillInInputs[index]}
+                          onClick={() => handleAnswerSubmit(index, fillInInputs[index] || "")}
+                          disabled={isAnswered || !fillInInputs[index]?.trim()}
+                          variant={isAnswered ? "secondary" : "default"}
                         >
-                          Submit
+                          {isAnswered ? "Submitted" : "Submit"}
                         </Button>
                       </div>
                     )}
@@ -226,28 +237,79 @@ export function ResultsSection({ generatedQuestions }: ResultsSectionProps) {
                     {/* RENDER FEEDBACK MESSAGE */}
                     {isAnswered && (
                       <div
-                        className={`flex items-center gap-2 rounded-lg p-3 text-sm font-medium ${String(userAnswers[index]).toLowerCase() === String(correctAnswer).toLowerCase() ? "bg-green-50 text-green-800" : "bg-red-50 text-red-800"}`}
+                        className={`flex items-center gap-2 rounded-lg p-3 text-sm font-medium ${(() => {
+                          let isCorrect = false
+                          if (typeof userAnswers[index] === "boolean") {
+                            if (typeof correctAnswer === "boolean") {
+                              isCorrect = userAnswers[index] === correctAnswer
+                            } else {
+                              const normalizedCorrect = String(correctAnswer).toLowerCase() === "true"
+                              isCorrect = userAnswers[index] === normalizedCorrect
+                            }
+                          } else {
+                            isCorrect =
+                              String(userAnswers[index]).toLowerCase().trim() ===
+                              String(correctAnswer).toLowerCase().trim()
+                          }
+                          return isCorrect
+                            ? "bg-green-50 text-green-800 dark:bg-green-900/20 dark:text-green-400"
+                            : "bg-red-50 text-red-800 dark:bg-red-900/20 dark:text-red-700"
+                        })()}`}
                       >
-                        {String(userAnswers[index]).toLowerCase() ===
-                        String(correctAnswer).toLowerCase() ? (
-                          <CheckCircle className="h-4 w-4" />
-                        ) : (
-                          <XCircle className="h-4 w-4" />
-                        )}
+                        {(() => {
+                          let isCorrect = false
+                          if (typeof userAnswers[index] === "boolean") {
+                            if (typeof correctAnswer === "boolean") {
+                              isCorrect = userAnswers[index] === correctAnswer
+                            } else {
+                              const normalizedCorrect = String(correctAnswer).toLowerCase() === "true"
+                              isCorrect = userAnswers[index] === normalizedCorrect
+                            }
+                          } else {
+                            isCorrect =
+                              String(userAnswers[index]).toLowerCase().trim() ===
+                              String(correctAnswer).toLowerCase().trim()
+                          }
+                          return isCorrect ? <CheckCircle className="h-4 w-4" /> : <XCircle className="h-4 w-4" />
+                        })()}
                         <span>
-                          {String(userAnswers[index]).toLowerCase() ===
-                          String(correctAnswer).toLowerCase()
-                            ? "Correct!"
-                            : `Incorrect. The correct answer is: `}
-                          {String(userAnswers[index]).toLowerCase() !==
-                            String(correctAnswer).toLowerCase() && (
-                            <strong>{String(correctAnswer)}</strong>
-                          )}
+                          {(() => {
+                            let isCorrect = false
+                            if (typeof userAnswers[index] === "boolean") {
+                              if (typeof correctAnswer === "boolean") {
+                                isCorrect = userAnswers[index] === correctAnswer
+                              } else {
+                                const normalizedCorrect = String(correctAnswer).toLowerCase() === "true"
+                                isCorrect = userAnswers[index] === normalizedCorrect
+                              }
+                            } else {
+                              isCorrect =
+                                String(userAnswers[index]).toLowerCase().trim() ===
+                                String(correctAnswer).toLowerCase().trim()
+                            }
+                            return isCorrect ? "Correct!" : `Incorrect. The correct answer is: `
+                          })()}
+                          {(() => {
+                            let isCorrect = false
+                            if (typeof userAnswers[index] === "boolean") {
+                              if (typeof correctAnswer === "boolean") {
+                                isCorrect = userAnswers[index] === correctAnswer
+                              } else {
+                                const normalizedCorrect = String(correctAnswer).toLowerCase() === "true"
+                                isCorrect = userAnswers[index] === normalizedCorrect
+                              }
+                            } else {
+                              isCorrect =
+                                String(userAnswers[index]).toLowerCase().trim() ===
+                                String(correctAnswer).toLowerCase().trim()
+                            }
+                            return !isCorrect && <strong>{String(correctAnswer)}</strong>
+                          })()}
                         </span>
                       </div>
                     )}
                   </Card>
-                );
+                )
               })}
             </div>
           </ScrollArea>
@@ -257,11 +319,7 @@ export function ResultsSection({ generatedQuestions }: ResultsSectionProps) {
               <Button
                 size="lg"
                 className="bg-primary hover:bg-primary/90 text-primary-foreground"
-                onClick={() =>
-                  toast.success(
-                    `Quiz Complete! Your score: ${score} / ${quizQuestions.length}`,
-                  )
-                }
+                onClick={() => toast.success(`Quiz Complete! Your score: ${score} / ${quizQuestions.length}`)}
               >
                 Show My Score
               </Button>
@@ -270,5 +328,5 @@ export function ResultsSection({ generatedQuestions }: ResultsSectionProps) {
         </CardContent>
       </Card>
     </>
-  );
+  )
 }

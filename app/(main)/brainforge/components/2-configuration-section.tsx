@@ -1,22 +1,19 @@
 // brainforge/components/2-configuration-section.tsx
-"use client";
+"use client"
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { Slider } from "@/components/ui/slider";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Label } from "@/components/ui/label"
+import { Slider } from "@/components/ui/slider"
+import { Badge } from "@/components/ui/badge"
+import { Separator } from "@/components/ui/separator"
 
 interface ConfigurationSectionProps {
-  totalQuestions: number;
-  setTotalQuestions: (value: number) => void;
-  mcqPercentage: number;
-  trueFalsePercentage: number;
-  fillInPercentage: number;
-  handlePercentageChange: (
-    type: "mcq" | "trueFalse" | "fillIn",
-    value: number,
-  ) => void;
+  totalQuestions: number
+  setTotalQuestions: (value: number) => void
+  mcqPercentage: number
+  trueFalsePercentage: number
+  fillInPercentage: number
+  handlePercentageChange: (type: "mcq" | "trueFalse" | "fillIn", value: number) => void
 }
 
 export function ConfigurationSection({
@@ -27,8 +24,7 @@ export function ConfigurationSection({
   fillInPercentage,
   handlePercentageChange,
 }: ConfigurationSectionProps) {
-  const totalPercentage =
-    mcqPercentage + trueFalsePercentage + fillInPercentage;
+  const totalPercentage = mcqPercentage + trueFalsePercentage + fillInPercentage
 
   return (
     <Card className="rounded-2xl border-0 bg-gradient-to-br from-white to-gray-50 shadow-lg dark:from-gray-900 dark:to-gray-800">
@@ -62,9 +58,7 @@ export function ConfigurationSection({
           <div>
             <div className="mb-2 flex items-center justify-between">
               <span className="text-sm">Multiple Choice</span>
-              <Badge className="bg-blue-100 text-blue-800">
-                {mcqPercentage}%
-              </Badge>
+              <Badge className="bg-blue-100 text-blue-800">{mcqPercentage}%</Badge>
             </div>
             <Slider
               value={[mcqPercentage]}
@@ -77,9 +71,7 @@ export function ConfigurationSection({
           <div>
             <div className="mb-2 flex items-center justify-between">
               <span className="text-sm">True/False</span>
-              <Badge className="bg-green-100 text-green-800">
-                {trueFalsePercentage}%
-              </Badge>
+              <Badge className="bg-green-100 text-green-800">{trueFalsePercentage}%</Badge>
             </div>
             <Slider
               value={[trueFalsePercentage]}
@@ -92,9 +84,7 @@ export function ConfigurationSection({
           <div>
             <div className="mb-2 flex items-center justify-between">
               <span className="text-sm">Fill in the Blank</span>
-              <Badge className="bg-purple-100 text-purple-800">
-                {fillInPercentage}%
-              </Badge>
+              <Badge className="bg-purple-100 text-purple-800">{fillInPercentage}%</Badge>
             </div>
             <Slider
               value={[fillInPercentage]}
@@ -110,5 +100,5 @@ export function ConfigurationSection({
         </div>
       </CardContent>
     </Card>
-  );
+  )
 }

@@ -1,87 +1,74 @@
-// brainforge/components/1-input-section.tsx
-"use client";
+// brainforge/components/input-section.tsx
+"use client"
 
-import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Badge } from "@/components/ui/badge";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import {
-  Upload,
-  FileText,
-  Sparkles,
-  CheckCircle,
-  XCircle,
-  Loader2,
-  RefreshCw,
-} from "lucide-react";
-import { toast } from "sonner";
+import type React from "react"
+
+import { useState } from "react"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Textarea } from "@/components/ui/textarea"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Badge } from "@/components/ui/badge"
+import { Alert, AlertDescription } from "@/components/ui/alert"
+import { Upload, FileText, Sparkles, CheckCircle, XCircle, Loader2, RefreshCw } from "lucide-react"
+import { toast } from "sonner"
 
 interface InputSectionProps {
-  isLoading: boolean;
-  onGenerate: (
-    source: { type: "text"; content: string } | { type: "file"; content: File },
-  ) => void;
-  onReset: () => void;
+  isLoading: boolean
+  onGenerate: (source: { type: "text"; content: string } | { type: "file"; content: File }) => void
+  onReset: () => void
 }
 
-export function InputSection({
-  isLoading,
-  onGenerate,
-  onReset,
-}: InputSectionProps) {
-  const [activeTab, setActiveTab] = useState("text");
-  const [textInput, setTextInput] = useState("");
-  const [file, setFile] = useState<File | null>(null);
-  const [error, setError] = useState<string | null>(null);
+export function InputSection({ isLoading, onGenerate, onReset }: InputSectionProps) {
+  const [activeTab, setActiveTab] = useState("text")
+  const [textInput, setTextInput] = useState("")
+  const [file, setFile] = useState<File | null>(null)
+  const [error, setError] = useState<string | null>(null)
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files?.[0];
+    const selectedFile = e.target.files?.[0]
     if (selectedFile) {
-      const allowedTypes = [".txt", ".pdf", ".docx", ".doc"];
-      const fileExtension =
-        "." + selectedFile.name.split(".").pop()?.toLowerCase();
+      const allowedTypes = [".txt", ".pdf", ".docx", ".doc"]
+      const fileExtension = "." + selectedFile.name.split(".").pop()?.toLowerCase()
 
       if (allowedTypes.includes(fileExtension)) {
-        setFile(selectedFile);
-        setError(null);
+        setFile(selectedFile)
+        setError(null)
       } else {
-        setError("Please upload a valid file type: TXT, PDF, DOC, or DOCX");
-        setFile(null);
+        setError("Please upload a valid file type: TXT, PDF, DOC, or DOCX")
+        setFile(null)
       }
     }
-  };
+  }
 
   const handleGenerateClick = () => {
     if (activeTab === "text") {
       if (!textInput.trim()) {
-        toast.error("Please enter some text to generate questions from");
-        return;
+        toast.error("Please enter some text to generate questions from")
+        return
       }
       if (textInput.length < 150) {
-        toast.error("Text must be at least 150 characters long");
-        return;
+        toast.error("Text must be at least 150 characters long")
+        return
       }
-      onGenerate({ type: "text", content: textInput });
+      onGenerate({ type: "text", content: textInput })
     } else {
       if (!file) {
-        toast.error("Please select a file to upload");
-        return;
+        toast.error("Please select a file to upload")
+        return
       }
-      onGenerate({ type: "file", content: file });
+      onGenerate({ type: "file", content: file })
     }
-  };
+  }
 
   const handleResetClick = () => {
-    setTextInput("");
-    setFile(null);
-    setError(null);
-    onReset();
-  };
+    setTextInput("")
+    setFile(null)
+    setError(null)
+    onReset()
+  }
 
   return (
     <Card className="rounded-2xl border-0 bg-gradient-to-br from-white to-gray-50 shadow-lg dark:from-gray-900 dark:to-gray-800">
@@ -114,14 +101,9 @@ export function InputSection({
               className="min-h-[200px] resize-none"
             />
             <div className="flex items-center justify-between">
-              <span className="text-muted-foreground text-sm">
-                {textInput.length} characters
-              </span>
+              <span className="text-muted-foreground text-sm">{textInput.length} characters</span>
               {textInput.length >= 150 && (
-                <Badge
-                  variant="secondary"
-                  className="bg-green-100 text-green-800"
-                >
+                <Badge variant="secondary" className="bg-green-100 text-green-800">
                   <CheckCircle className="mr-1 h-3 w-3" />
                   Ready
                 </Badge>
@@ -140,16 +122,12 @@ export function InputSection({
               onChange={handleFileChange}
               className="cursor-pointer"
             />
-            <p className="text-muted-foreground text-sm">
-              Supported formats: TXT, PDF, DOC, DOCX
-            </p>
+            <p className="text-muted-foreground text-sm">Supported formats: TXT, PDF, DOC, DOCX</p>
             {file && (
               <div className="mt-3 rounded-lg border border-green-200 bg-green-50 p-3 dark:border-green-800 dark:bg-green-900/20">
                 <div className="flex items-center gap-2">
                   <CheckCircle className="h-4 w-4 text-green-600" />
-                  <span className="text-sm font-medium text-green-800 dark:text-green-200">
-                    {file.name}
-                  </span>
+                  <span className="text-sm font-medium text-green-800 dark:text-green-200">{file.name}</span>
                   <Badge variant="secondary" className="ml-auto">
                     {(file.size / 1024).toFixed(1)} KB
                   </Badge>
@@ -162,21 +140,14 @@ export function InputSection({
         {error && (
           <Alert className="border-red-200 bg-red-50 dark:bg-red-900/20">
             <XCircle className="h-4 w-4 text-red-600" />
-            <AlertDescription className="text-red-800 dark:text-red-200">
-              {error}
-            </AlertDescription>
+            <AlertDescription className="text-red-800 dark:text-red-200">{error}</AlertDescription>
           </Alert>
         )}
 
         <div className="flex gap-3">
           <Button
             onClick={handleGenerateClick}
-            disabled={
-              isLoading ||
-              (activeTab === "text"
-                ? !textInput.trim() || textInput.length < 150
-                : !file)
-            }
+            disabled={isLoading || (activeTab === "text" ? !textInput.trim() || textInput.length < 150 : !file)}
             className="flex-1"
             size="lg"
           >
@@ -192,16 +163,11 @@ export function InputSection({
               </>
             )}
           </Button>
-          <Button
-            onClick={handleResetClick}
-            variant="outline"
-            size="lg"
-            disabled={isLoading}
-          >
+          <Button onClick={handleResetClick} variant="outline" size="lg" disabled={isLoading}>
             <RefreshCw className="h-4 w-4" />
           </Button>
         </div>
       </CardContent>
     </Card>
-  );
+  )
 }

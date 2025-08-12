@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Avatar } from '@/components/ui/avatar';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { AvatarFallback } from '@radix-ui/react-avatar';
-import { Dialog, DialogContent, DialogHeader, DialogTitle,  } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
 import Linkify from '@/components/Linkify';
@@ -25,6 +25,8 @@ type Conversation = {
   timestamp: Date;
   messages: Message[];
 };
+
+const generateId = () => crypto.randomUUID();
 
 const TypingIndicator = () => (
   <div className="flex items-center space-x-3 p-4 bg-gray-50 rounded-lg max-w-[200px] animate-fadeIn">
@@ -80,7 +82,6 @@ export default function AcademicChatBot() {
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  
   useEffect(() => {
     if (typeof window !== 'undefined') {
       localStorage.setItem('academic-chat-conversations', JSON.stringify(conversations));
@@ -91,7 +92,6 @@ export default function AcademicChatBot() {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isLoading]);
 
-  
   useEffect(() => {
     if (conversations.length === 0 && !currentConversation) {
       startNewConversation();
@@ -100,7 +100,7 @@ export default function AcademicChatBot() {
 
   const startNewConversation = () => {
     const newConversation: Conversation = {
-      id: Date.now().toString(),
+      id: generateId(),
       title: "New Conversation",
       lastMessage: "",
       timestamp: new Date(),
@@ -132,7 +132,7 @@ export default function AcademicChatBot() {
     if (!input.trim() || isLoading) return;
 
     const userMessage: Message = { 
-      id: Date.now().toString(),
+      id: generateId(),
       content: input,
       isUser: true,
       timestamp: new Date()
@@ -148,7 +148,7 @@ export default function AcademicChatBot() {
       const botReply = await handleUserInput(input);
       
       const botMessage: Message = {
-        id: (Date.now() + 1).toString(),
+        id: generateId(),
         content: botReply || "I didn't understand that",
         isUser: false,
         timestamp: new Date()
@@ -157,10 +157,9 @@ export default function AcademicChatBot() {
       const finalMessages = [...updatedMessages, botMessage];
       setMessages(finalMessages);
 
-    
       const conversationTitle = input.length > 30 ? `${input.substring(0, 30)}...` : input;
       const updatedConversation = {
-        id: currentConversation?.id || Date.now().toString(),
+        id: currentConversation?.id || generateId(),
         title: conversationTitle,
         lastMessage: botMessage.content,
         timestamp: new Date(),
@@ -244,16 +243,12 @@ export default function AcademicChatBot() {
           </div>
         </div>
         
-        <Button  
-          onClick={() => setIsHistoryOpen(true)}
-          className="flex items-center space-x-2 ml-20"
-        >
+        <Button onClick={() => setIsHistoryOpen(true)} className="flex items-center space-x-2 ml-20">
           <BookOpen className="w-4 h-4 text-black-700" />
           <span className='text-black-700'>History</span>
         </Button>
       </div>
 
-      
       <div className="flex-1 overflow-y-auto p-6 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-4xl mx-auto">
           {messages.length === 0 ? (
@@ -271,7 +266,6 @@ export default function AcademicChatBot() {
               <MessageBubble key={message.id} message={message} />
             ))
           )}
-          
           {error && (
             <Alert className="mb-4 border-red-200 bg-red-50">
               <AlertCircle className="h-4 w-4 text-red-600" />
@@ -288,13 +282,11 @@ export default function AcademicChatBot() {
               </AlertDescription>
             </Alert>
           )}
-          
           {isLoading && <TypingIndicator />}
           <div ref={messagesEndRef} />
         </div>
       </div>
 
-      
       <div className="bg-white border-t border-gray-200 sticky bottom-0 z-10">
         <div className="max-w-4xl mx-auto p-4">
           <div className="flex space-x-3">
@@ -324,19 +316,13 @@ export default function AcademicChatBot() {
         </div>
       </div>
 
-      
       <Dialog open={isHistoryOpen} onOpenChange={setIsHistoryOpen}>
         <DialogContent className="sm:max-w-md max-h-[80vh] flex flex-col">
           <DialogHeader>
             <DialogTitle>Conversation History</DialogTitle>
           </DialogHeader>
-          
           <div className="flex justify-between items-center mb-4">
-            <Button 
-              size="sm" 
-              onClick={startNewConversation}
-              className="bg-blue-600 hover:bg-blue-700 text-white"
-            >
+            <Button size="sm" onClick={startNewConversation} className="bg-blue-600 hover:bg-blue-700 text-white">
               <Plus className="w-4 h-4 mr-2" />
               New Chat
             </Button>
@@ -344,9 +330,7 @@ export default function AcademicChatBot() {
               {conversations.length} conversation{conversations.length !== 1 ? 's' : ''}
             </span>
           </div>
-          
           <Separator />
-          
           <ScrollArea className="flex-1 py-2">
             {conversations.length === 0 ? (
               <div className="text-center text-gray-500 py-8">

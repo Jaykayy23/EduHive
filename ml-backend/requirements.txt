@@ -13,10 +13,10 @@ lxml
 git+https://github.com/ramsrigouthamg/Questgen.ai.git
 git+https://github.com/boudinfl/pke.git
 
-# Pinning torch versions to resolve dependency conflicts with Questgen
-torch==2.0.1
-torchvision==0.15.2
-torchaudio==2.0.2
+# Let pip resolve the latest compatible torch versions from the extra index
+torch
+torchvision
+torchaudio
 
 spacy>=3.0.0
 

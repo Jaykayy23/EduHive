@@ -61,7 +61,6 @@ env.bak/
 *.dat
 *.npy
 *.npz
-ml-backend/
 
 # Your large s2v vectors
 ml-backend/s2v_old/

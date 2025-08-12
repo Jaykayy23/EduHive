@@ -39,3 +39,32 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+# Python cache
+__pycache__/
+*.py[cod]
+*.so
+
+# Virtual environments
+venv/
+env/
+*.venv/
+ENV/
+env.bak/
+
+# Model & data files
+*.pt
+*.pth
+*.h5
+*.lib
+*.dll
+*.bin
+*.dat
+*.npy
+*.npz
+
+# Your large s2v vectors
+ml-backend/s2v_old/
+ml-backend/venv
+
+# OS files
+Thumbs.db

@@ -36,6 +36,7 @@ model User {
   issuedNotifications   Notification[]    @relation("Issuer")
   achievements          UserAchievement[]
   chatSessions          ChatSession[]
+  reports               Report[]
 
   createdAt DateTime @default(now())
 
@@ -71,6 +72,7 @@ model Post {
   bookmarks           Bookmark[]
   comments            Comment[]
   linkedNotifications Notification[]
+  reports             Report[]
 
   createdAt DateTime @default(now())
 
@@ -95,12 +97,13 @@ enum MediaType {
 }
 
 model Comment {
-  id      String @id @default(cuid())
+  id      String   @id @default(cuid())
   content String
   userId  String
-  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   postId  String
-  post    Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  post    Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  reports Report[]
 
   createdAt DateTime @default(now())
 
@@ -208,4 +211,37 @@ model ChatSession {
   updatedAt DateTime @updatedAt
 
   @@map("chat_sessions")
+}
+
+enum ReportReason {
+  SPAM
+  EXPLICIT_CONTENT
+  HARASSMENT
+  OFF_TOPIC
+  OTHER
+}
+
+enum ReportStatus {
+  PENDING
+  APPROVED
+  DISMISSED
+  DELETED
+}
+
+model Report {
+  id                String       @id @default(cuid())
+  reportedPostId    String?
+  reportedPost      Post?        @relation(fields: [reportedPostId], references: [id], onDelete: Cascade)
+  reportedCommentId String?
+  reportedComment   Comment?     @relation(fields: [reportedCommentId], references: [id], onDelete: Cascade)
+  reporterId        String
+  reporter          User         @relation(fields: [reporterId], references: [id])
+  reason            ReportReason
+  comments          String?      @db.Text
+  createdAt         DateTime     @default(now())
+  status            ReportStatus @default(PENDING)
+
+  @@index([reportedPostId])
+  @@index([reportedCommentId])
+  @@index([reporterId])
 }

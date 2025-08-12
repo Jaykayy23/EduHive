@@ -5,6 +5,7 @@ import UserAvatar from "../UserAvatar";
 import { formatRelativeDate } from "@/lib/utils";
 import { useSession } from "@/app/(main)/SessionProvider";
 import CommentMoreButton from "./CommentMoreButton";
+import { ReportButton } from "../ReportButton"
 
 interface CommentProps {
   comment: CommentData;
@@ -41,6 +42,12 @@ export default function Comment({ comment }: CommentProps) {
         <CommentMoreButton 
         comment={comment}
         className="ms-auto opacity-0 transition-opacity group-hover/comment:opacity-100"
+        />
+      )}
+      {comment.user.id !== user.id && ( // Only show report button if not own comment
+        <ReportButton
+          reportedCommentId={comment.id}
+          className="ms-auto opacity-0 transition-opacity group-hover/comment:opacity-100"
         />
       )}
     </div>

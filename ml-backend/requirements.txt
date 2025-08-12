@@ -1,0 +1,24 @@
+# Web framework and server
+fastapi
+uvicorn[standard]
+
+# For parsing PDF and DOCX files
+PyMuPDF
+python-docx
+lxml
+
+# NLP Libraries from GitHub.
+# These will automatically pull in the correct, old versions of torch,
+# numpy, pandas, scipy, etc., that they need to work.
+git+https://github.com/ramsrigouthamg/Questgen.ai.git
+git+https://github.com/boudinfl/pke.git
+
+# We only need to specify a modern spacy to avoid a known build error.
+spacy>=3.0.0
+
+# Critical: Pin Pydantic to Version 1.x for compatibility with Spacy/Thinc
+pydantic<2
+python-multipart
+openai
+dotenv
+google-generativeai

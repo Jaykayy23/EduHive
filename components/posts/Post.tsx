@@ -15,6 +15,7 @@ import BookmarkButton from "./BookmarkButton";
 import { useState } from "react";
 import { MessageSquare } from "lucide-react";
 import Comments from "../comments/Comments";
+import { ReportButton } from "../ReportButton"
 
 interface PostProps {
   post: PostData;
@@ -59,6 +60,9 @@ export default function Post({ post }: PostProps) {
             post={post}
             className="opacity-0 transition-opacity group-hover/post:opacity-100"
           />
+        )}
+        {post.user.id !== user.id && ( // Only show report button if not own post
+          <ReportButton reportedPostId={post.id} className="ms-auto" />
         )}
       </div>
       <Linkify>

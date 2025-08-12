@@ -1,5 +1,6 @@
 import { Prisma } from "./generated/prisma";
 
+
 export function getUserDataSelect(loggedInUserId: string) {
   return {
     id: true,
@@ -106,6 +107,19 @@ export type NotificationData = Prisma.NotificationGetPayload<{
   include: typeof notificationsInclude
 }>
 
+export function getReportDataInclude(loggedInUserId: string) {
+  return {
+    reporter: { select: getUserDataSelect(loggedInUserId) },
+    reportedPost: { include: getPostDataInclude(loggedInUserId) },
+    reportedComment: { include: getCommentDataInclude(loggedInUserId) },
+  } satisfies Prisma.ReportInclude;
+}
+
+// 2. Derive the data shape with payload type
+export type ReportData = Prisma.ReportGetPayload<{
+  include: ReturnType<typeof getReportDataInclude>;
+}>;
+
 export interface NotificationsPage {
   notifications: NotificationData[];
   nextCursor: string | null;
@@ -127,6 +141,26 @@ export interface BookmarkInfo {
 
 export interface NotificationCountInfo {
   unreadCount: number;
+}
+
+export interface MessageCountInfo {
+  unreadCount: number;
+}
+
+
+export enum ReportReason {
+  SPAM = "SPAM",
+  EXPLICIT_CONTENT = "EXPLICIT_CONTENT",
+  HARASSMENT = "HARASSMENT",
+  OFF_TOPIC = "OFF_TOPIC",
+  OTHER = "OTHER",
+}
+
+export enum ReportStatus {
+  PENDING = "PENDING",
+  APPROVED = "APPROVED",
+  DISMISSED = "DISMISSED",
+  DELETED = "DELETED",
 }
 
 // Academic subject categories for filtering

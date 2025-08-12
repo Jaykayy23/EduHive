@@ -2,7 +2,7 @@ import os
 import google.generativeai as genai
 from dotenv import load_dotenv
 from pathlib import Path
-import re  # <-- THIS IS THE FIX. ADD THIS LINE.
+import re
 
 # Load environment variables robustly
 env_path = Path(__file__).parent.parent.parent / '.env'

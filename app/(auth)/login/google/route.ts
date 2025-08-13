@@ -1,3 +1,4 @@
+
 import { google } from "@/app/auth"
 import { generateCodeVerifier, generateState } from "arctic"
 import { cookies } from "next/headers"
@@ -8,9 +9,11 @@ export async function GET() {
     const codeVerifier = generateCodeVerifier()
 
     // Create authorization URL with proper scopes
-    const url = google.createAuthorizationURL(state, codeVerifier, 
-       ["openid", "profile", "email"],
-    )
+        const url = await google.createAuthorizationURL(state, codeVerifier, [
+          "openid",
+          "profile",
+          "email",
+        ])
 
     const cookieStore = await cookies()
 

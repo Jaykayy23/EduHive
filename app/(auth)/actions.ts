@@ -1,3 +1,4 @@
+
 "use server"
 
 import { cookies } from "next/headers";
@@ -14,10 +15,11 @@ export async function logout() {
 
     const sessionCookie = lucia.createBlankSessionCookie();
 
-    (await cookies()).set(
+    const cookieStore = await cookies();
+    cookieStore.set(
         sessionCookie.name,
         sessionCookie.value,
         sessionCookie.attributes,
     );
-    return redirect("/login");
+    return redirect("/");
 }

@@ -1,3 +1,4 @@
+
 import { PrismaAdapter } from "@lucia-auth/adapter-prisma"
 import prisma from "@/lib/prisma"
 import { Lucia, type Session, type User } from "lucia"
@@ -52,7 +53,9 @@ export const google = new Google(process.env.GOOGLE_CLIENT_ID!, process.env.GOOG
 
 export const validateRequest = cache(
   async (): Promise<{ user: User; session: Session } | { user: null; session: null }> => {
-    const sessionId = (await cookies()).get(lucia.sessionCookieName)?.value ?? null
+    // Retrieve cookies store once
+    const cookieStore = await cookies()
+    const sessionId = cookieStore.get(lucia.sessionCookieName)?.value ?? null
 
     if (!sessionId) {
       return { user: null, session: null }
@@ -60,13 +63,22 @@ export const validateRequest = cache(
 
     const result = await lucia.validateSession(sessionId)
     try {
-      if (result.session && result.session.fresh) {
+      // Only attempt to set cookie if the cookies object is writable (has set method)
+      const hasSet = (
+        obj: unknown,
+      ): obj is { set: (name: string, value: string, attributes: Record<string, unknown>) => void } =>
+        typeof obj === "object" &&
+        obj !== null &&
+        "set" in obj &&
+        typeof (obj as { set?: unknown }).set === "function"
+
+      if (result.session && result.session.fresh && hasSet(cookieStore)) {
         const sessionCookie = lucia.createSessionCookie(result.session.id)
-        ;(await cookies()).set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes)
+        cookieStore.set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes)
       }
-      if (!result.session) {
+      if (!result.session && hasSet(cookieStore)) {
         const sessionCookie = lucia.createBlankSessionCookie()
-        ;(await cookies()).set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes)
+        cookieStore.set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes)
       }
     } catch {}
     return result

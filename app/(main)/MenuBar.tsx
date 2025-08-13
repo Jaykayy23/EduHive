@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { Bookmark, Bot, BrainCircuit, Home,  } from "lucide-react";
 import Link from "next/link";
@@ -36,7 +37,7 @@ export default async function MenuBar({ className }: MenuBarProps) {
         title="Home"
         asChild
       >
-        <Link href="/">
+        <Link href="/home">
           <Home />
           <span className="hidden lg:inline">Home</span>
         </Link>

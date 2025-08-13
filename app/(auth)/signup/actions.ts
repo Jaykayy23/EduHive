@@ -1,3 +1,4 @@
+
 "use server";
 
 import { lucia } from "@/app/auth";
@@ -68,12 +69,13 @@ export async function signUp(
 
     const session = await lucia.createSession(userId, {});
     const sessionCookie = lucia.createSessionCookie(session.id);
-    (await cookies()).set(
+    const cookieStore = await cookies();
+    cookieStore.set(
       sessionCookie.name,
       sessionCookie.value,
       sessionCookie.attributes,
     );
-    return redirect("/");
+    return redirect("/home");
   } catch (error) {
     if (isRedirectError(error)) throw error;
     console.error(error);

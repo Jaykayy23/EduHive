@@ -1,3 +1,4 @@
+
 "use server"
 
 import { lucia } from "@/app/auth";
@@ -41,12 +42,29 @@ export async function login(
 
          const session =await lucia.createSession(existingUser.id, {})
                 const sessionCookie = lucia.createSessionCookie(session.id);
-                (await cookies()).set(
+                // Define a writable cookies interface to avoid using any
+                interface WritableCookies {
+                    set(
+                        name: string,
+                        value: string,
+                        options: {
+                            path?: string;
+                            domain?: string;
+                            expires?: Date;
+                            httpOnly?: boolean;
+                            secure?: boolean;
+                            sameSite?: "strict" | "lax" | "none";
+                            maxAge?: number;
+                        }
+                    ): void;
+                }
+                const cookieStore = cookies() as unknown as WritableCookies;
+                cookieStore.set(
                     sessionCookie.name,
                     sessionCookie.value,
                     sessionCookie.attributes,
                 );
-         return redirect("/");       
+         return redirect("/home");       
 
     } catch (error) {
         if (isRedirectError(error)) throw error;

@@ -1,3 +1,4 @@
+
 import { google, lucia } from "@/app/auth"
 import kyInstance from "@/lib/ky"
 import { cookies } from "next/headers"
@@ -45,7 +46,7 @@ export async function GET(req: NextRequest) {
     const googleUser = await kyInstance
       .get("https://openidconnect.googleapis.com/v1/userinfo", {
         headers: {
-          Authorization: `Bearer ${tokens.accessToken()}`,
+          Authorization: `Bearer ${tokens.accessToken}`,
         },
       })
       .json<{
@@ -78,7 +79,7 @@ export async function GET(req: NextRequest) {
       cookieStore.set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes)
       return new Response(null, {
         status: 302,
-        headers: { Location: "/" },
+        headers: { Location: "/home" },
       })
     }
 
@@ -103,7 +104,7 @@ export async function GET(req: NextRequest) {
       cookieStore.set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes)
       return new Response(null, {
         status: 302,
-        headers: { Location: "/" },
+        headers: { Location: "/home" },
       })
     }
 
@@ -138,7 +139,7 @@ export async function GET(req: NextRequest) {
 
     return new Response(null, {
       status: 302,
-      headers: { Location: "/" },
+      headers: { Location: "/home" },
     })
   } catch (error) {
     console.error("Google OAuth callback error:", error)

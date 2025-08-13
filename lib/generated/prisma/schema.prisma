@@ -17,26 +17,28 @@ datasource db {
 }
 
 model User {
-  id                    String            @id
-  username              String            @unique
-  displayName           String
-  email                 String?           @unique
-  passwordHash          String?
-  googleId              String?           @unique
-  avatarUrl             String?
-  bio                   String?
-  sessions              Session[]
-  posts                 Post[]
-  following             Follow[]          @relation("Following")
-  followers             Follow[]          @relation("Followers")
-  likes                 Like[]
-  bookmarks             Bookmark[]
-  comments              Comment[]
-  receivedNotifications Notification[]    @relation("Recipient")
-  issuedNotifications   Notification[]    @relation("Issuer")
-  achievements          UserAchievement[]
-  chatSessions          ChatSession[]
-  reports               Report[]
+  id                       String                  @id
+  username                 String                  @unique
+  displayName              String
+  email                    String?                 @unique
+  passwordHash             String?
+  googleId                 String?                 @unique
+  avatarUrl                String?
+  bio                      String?
+  sessions                 Session[]
+  posts                    Post[]
+  following                Follow[]                @relation("Following")
+  followers                Follow[]                @relation("Followers")
+  likes                    Like[]
+  bookmarks                Bookmark[]
+  comments                 Comment[]
+  receivedNotifications    Notification[]          @relation("Recipient")
+  issuedNotifications      Notification[]          @relation("Issuer")
+  achievements             UserAchievement[]
+  chatSessions             ChatSession[]
+  reports                  Report[]
+  hostedConferences        VideoConference[]       @relation("ConferenceHost")
+  conferenceParticipations ConferenceParticipant[]
 
   createdAt DateTime @default(now())
 
@@ -244,4 +246,40 @@ model Report {
   @@index([reportedPostId])
   @@index([reportedCommentId])
   @@index([reporterId])
+}
+
+model VideoConference {
+  id              String                  @id @default(cuid())
+  meetingId       String                  @unique
+  title           String
+  description     String?
+  subject         String?
+  isPrivate       Boolean                 @default(false)
+  maxParticipants Int                     @default(50)
+  scheduledFor    DateTime?
+  hostId          String
+  host            User                    @relation("ConferenceHost", fields: [hostId], references: [id], onDelete: Cascade)
+  participants    ConferenceParticipant[]
+  createdAt       DateTime                @default(now())
+  updatedAt       DateTime                @updatedAt
+
+  @@index([meetingId])
+  @@index([hostId])
+  @@index([scheduledFor])
+  @@map("video_conferences")
+}
+
+model ConferenceParticipant {
+  id           String          @id @default(cuid())
+  conferenceId String
+  conference   VideoConference @relation(fields: [conferenceId], references: [id], onDelete: Cascade)
+  userId       String
+  user         User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  joinedAt     DateTime        @default(now())
+  leftAt       DateTime?
+
+  @@unique([conferenceId, userId])
+  @@index([conferenceId])
+  @@index([userId])
+  @@map("conference_participants")
 }

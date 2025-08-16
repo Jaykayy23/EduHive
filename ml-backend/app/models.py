@@ -2,6 +2,14 @@ from pydantic import BaseModel, Field
 from typing import List, Optional, Union
 
 # This file should now contain both models
+class CleaningDiagnostics(BaseModel):
+    original_length: int
+    cleaned_length: int
+    headers_removed: int
+    citations_removed: int
+    equations_preserved: int
+    reading_time_min: float
+    avg_sentence_length: float
 
 class Question(BaseModel):
     """A flexible model for a single generated question."""

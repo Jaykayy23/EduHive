@@ -1,17 +1,26 @@
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 import json
+from io import BytesIO
 
-# Import all our custom modules
-from .utils.file_parser import parse_file
-from .services.text_cleaning_service import gemini_cleaner_instance
+# Import services and utilities
+from .services.pdf_text_cleaner import PDFTextCleaner, ProcessingMode
 from .services.questgen_service import questgen_instance
+from .utils.file_parser import FileParser  # Updated import
 from .models import GeneratedQuestionsResponse, TextGenerationRequest
 
-# Initialize the FastAPI app with a title for the docs
+# Initialize services
 app = FastAPI(title="EduHive Questgen AI Backend")
+file_parser = FileParser()  # Initialize the enhanced file parser
 
-# Standard CORS setup to allow your frontend to connect
+pdf_cleaner = PDFTextCleaner({
+    "processing_mode": ProcessingMode.ACADEMIC,
+    "diagnostic_mode": True,
+    "remove_citations": True,
+    "sentence_chunking": True
+})
+
+# CORS configuration
 origins = ["http://localhost:3000"]
 app.add_middleware(
     CORSMiddleware,
@@ -21,81 +30,144 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# This async helper function contains the core AI pipeline logic
-async def process_and_generate(context: str, total_questions: int, distribution: dict):
+async def process_and_generate(
+    context: str,
+    total_questions: int,
+    distribution: dict,
+    file_metadata: dict = None
+) -> GeneratedQuestionsResponse:
     """
-    The core AI pipeline: cleans text with Google Gemini, then generates questions with Questgen.
+    Enhanced processing pipeline:
+    1. Clean text with PDFTextCleaner
+    2. Generate questions with Questgen
+    3. Include comprehensive metadata
     """
     try:
-        # STEP 1: Clean the raw text using the powerful Google Gemini model.
-        print("Step 1: Cleaning text with Google Gemini...")
-        cleaned_context = await gemini_cleaner_instance.clean_text_with_llm(context)
-        print("Step 2: Text cleaned. Generating questions with Questgen...")
+        # STEP 1: Clean the text
+        print("Step 1: Cleaning text with PDFTextCleaner...")
+        cleaned_context, diagnostics = pdf_cleaner.clean_text(context)
+        
+        # Include file metadata if available
+        if file_metadata:
+            diagnostics.file_metadata = file_metadata
+            if file_metadata.get('was_summarized', False):
+                print(f"Used summarized content from {file_metadata['page_count']} page document")
 
-        # STEP 2: Feed the super-clean text to our Questgen service.
+        # STEP 2: Generate questions
+        print("Step 2: Generating questions...")
         payload = questgen_instance.generate_questions(
             context=cleaned_context,
             total_questions=total_questions,
             question_distribution=distribution
         )
-        
-        # Add the original source text back into the final payload for the user
-        payload['source_text'] = context
-        
+
+        # Prepare diagnostics
+        diagnostics_data = {
+            'original_length': diagnostics.original_length,
+            'cleaned_length': diagnostics.cleaned_length,
+            'headers_removed': diagnostics.removed_headers,
+            'citations_removed': diagnostics.removed_citations,
+            'equations_preserved': diagnostics.equations_preserved,
+            'reading_time_min': diagnostics.reading_time_min,
+            'avg_sentence_length': diagnostics.avg_sentence_length,
+            **({'file_metadata': file_metadata} if file_metadata else {})
+        }
+
+        payload.update({
+            'source_text': context[:1000] + "..." if len(context) > 1000 else context,
+            'cleaning_diagnostics': diagnostics_data
+        })
+
         if not payload['questions']:
             raise HTTPException(
                 status_code=404, 
-                detail="Could not generate any questions from the provided text, even after AI cleaning."
+                detail="No questions could be generated from the provided text."
             )
-            
-        print("Step 3: Question generation complete.")
-        return payload
 
-    except HTTPException as e:
-        raise e
+        print("Step 3: Pipeline complete")
+        return GeneratedQuestionsResponse(**payload)
+
+    except HTTPException:
+        raise
     except Exception as e:
-        print(f"An unexpected error occurred during the pipeline: {e}")
-        raise HTTPException(status_code=500, detail="An internal server error occurred during AI processing.")
-
+        print(f"Pipeline error: {str(e)}")
+        raise HTTPException(status_code=500, detail="Processing failed")
 
 @app.post("/generate-from-text/", response_model=GeneratedQuestionsResponse, tags=["Question Generation"])
 async def create_questions_from_text(request: TextGenerationRequest):
+    """Endpoint for direct text input"""
     if len(request.text_input) < 150:
-        raise HTTPException(status_code=400, detail="Input text is too short.")
+        raise HTTPException(status_code=400, detail="Input text too short (min 150 chars)")
+    
     distribution = {
         "mcq": request.mcq_percentage,
         "true_false": request.true_false_percentage,
         "fill_in": request.fill_in_percentage
     }
+    
     return await process_and_generate(
-        context=request.text_input, 
-        total_questions=request.total_questions, 
+        context=request.text_input,
+        total_questions=request.total_questions,
         distribution=distribution
     )
-
 
 @app.post("/generate-from-file/", response_model=GeneratedQuestionsResponse, tags=["Question Generation"])
 async def create_questions_from_file(
     file: UploadFile = File(...),
     total_questions: int = Form(10),
-    question_distribution_json: str = Form('{"mcq": 0.5, "true_false": 0.5, "fill_in": 0.0}')
+    question_distribution_json: str = Form('{"mcq": 0.5, "true_false": 0.5, "fill_in": 0.0}'),
+    summarize_large_files: bool = Form(True),
+    page_threshold: int = Form(5)
 ):
-    context = await parse_file(file)
-    if not context:
-        raise HTTPException(status_code=400, detail="Could not parse file.")
-    if len(context) < 150:
-        raise HTTPException(status_code=400, detail="Text from file is too short.")
+    """Enhanced file processing endpoint"""
     try:
+        # Parse distribution
         distribution = json.loads(question_distribution_json)
-    except json.JSONDecodeError:
-        raise HTTPException(status_code=400, detail="Invalid JSON for distribution.")
-    return await process_and_generate(
-        context=context, 
-        total_questions=total_questions, 
-        distribution=distribution
-    )
+        if abs(sum(distribution.values()) - 1.0) > 0.001:  # Account for floating point precision
+            raise ValueError("Question distribution must sum to 1.0")
 
+        # Process file (includes optional summarization)
+        text, file_metadata = await file_parser.parse_file(
+            file,
+            summarize_large_files=summarize_large_files,
+            page_threshold=page_threshold
+        )
+        
+        if not text or len(text) < 150:
+            raise ValueError("Text from file is too short or could not be extracted")
+
+        return await process_and_generate(
+            context=text,
+            total_questions=total_questions,
+            distribution=distribution,
+            file_metadata=file_metadata
+        )
+        
+    except json.JSONDecodeError:
+        raise HTTPException(status_code=400, detail="Invalid distribution format")
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"File processing failed: {str(e)}")
 
 @app.get("/", tags=["Health Check"])
-def read_root():
-    return {"message": "Questgen ML Backend with Google Gemini Cleaning is running."}
+def health_check():
+    return {
+        "status": "running",
+        "features": {
+            "file_support": list(file_parser.supported_types.keys()),
+            "max_page_threshold": 50  # Document your limits
+        }
+    }
+
+@app.get("/health", tags=["Health Check"])
+def health_check_render():
+    """Health check endpoint specifically for Render deployment"""
+    return {
+        "status": "healthy",
+        "message": "ML Backend is running",
+        "service": "eduhive-questgen-backend",
+        "version": "1.0.0"
+    }

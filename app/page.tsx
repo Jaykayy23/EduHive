@@ -62,7 +62,7 @@ export default async function LandingPage() {
                   </Link>
                 </Button>
                 <Button asChild variant="outline" size="lg">
-                  <Link href="/login">Sign In</Link>
+                  <Link href="/login">Log In</Link>
                 </Button>
               </div>
             </div>

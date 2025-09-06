@@ -270,10 +270,10 @@ export default function AcademicChatBot() {
               <Bot size={48} className="mb-4 text-blue-400" />
               <h2 className="text-xl font-semibold">How can I help you today?</h2>
               <p className="text-center max-w-md mt-2">
-                Ask academic questions or try: 
+                Ask academic questions
                 <br />
 
-                <span className="text-blue-600">&quot;Give me 5 biology questions&quot;</span>
+                <span className="text-blue-600"></span>
 
               </p>
             </div>
@@ -313,7 +313,7 @@ export default function AcademicChatBot() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && handleSend()}
-              placeholder="Ask a question or request quiz..."
+              placeholder="Ask a question..."
               className="flex-1 bg-gray-50"
               disabled={isLoading}
             />

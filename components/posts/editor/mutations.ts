@@ -10,9 +10,9 @@ import { toast, useSonner } from "sonner";
 import { submitPost } from "./actions";
 import type { PostsPage } from "@/lib/types";
 import { useSession } from "@/app/(main)/SessionProvider";
-import { checkUserAchievements } from "@/lib/achievement-checker"
-import { useState } from "react"
-import type { Achievement } from "@prisma/client"
+
+
+
 
 export function useSubmitPostMutation() {
   const {} = useSonner();
@@ -21,7 +21,7 @@ export function useSubmitPostMutation() {
 
   const { user } = useSession();
 
-  const [newAchievements, setNewAchievements] = useState<Achievement[]>([])
+  
 
   const mutation = useMutation({
     mutationFn: submitPost,
@@ -62,15 +62,7 @@ export function useSubmitPostMutation() {
           return queryFilter.predicate(query) && !query.state.data;
         },
       })
-       // Check for new achievements after posting
-       try {
-        const achievements = await checkUserAchievements(user.id)
-        if (achievements.length > 0) {
-          setNewAchievements(achievements)
-        }
-      } catch (error) {
-        console.error("Error checking achievements:", error)
-      }
+       
 
       toast.success("Post created")
     },
@@ -80,5 +72,5 @@ export function useSubmitPostMutation() {
     },
   });
 
-  return { ...mutation, newAchievements, clearAchievements: () => setNewAchievements([]) }
+  return { ...mutation, clearAchievements: () => ([]) }
 }

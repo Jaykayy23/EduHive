@@ -25,56 +25,77 @@ export default function UserButton({ className }: UserButtonProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className={cn("flex-none rounded-full", className)}>
+        <button 
+          className={cn(
+            "flex-none rounded-full p-1 ring-2 ring-transparent hover:ring-primary/20 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary/50", 
+            className
+          )}
+          aria-label="User menu"
+        >
           <UserAvatar avatarUrl={user.avatarUrl} size={40} />
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuLabel>
+      <DropdownMenuContent 
+        className="w-56 bg-card/95 backdrop-blur-sm border-border/50 shadow-strong rounded-modern-lg"
+        align="end"
+      >
+        <DropdownMenuLabel className="px-3 py-2 text-sm font-medium text-muted-foreground">
           Logged in as @{user.username}
         </DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <Link href ={`/users/${user.username}`}>
-          <DropdownMenuItem>
-            <UserIcon className="mr-2 size-4" />
+        <DropdownMenuSeparator className="bg-border/50" />
+        
+        <Link href={`/users/${user.username}`}>
+          <DropdownMenuItem className="px-3 py-2 cursor-pointer hover:bg-accent/50 transition-colors duration-200">
+            <UserIcon className="mr-3 size-4" />
             Profile
           </DropdownMenuItem>
         </Link>
+        
         <DropdownMenuSub>
-          <DropdownMenuSubTrigger>
-            <Monitor className="mr-2 size-4" />
+          <DropdownMenuSubTrigger className="px-3 py-2 hover:bg-accent/50 transition-colors duration-200">
+            <Monitor className="mr-3 size-4" />
             Theme
           </DropdownMenuSubTrigger>
           <DropdownMenuPortal>
-            <DropdownMenuSubContent>
-              <DropdownMenuItem onClick={() => setTheme("system")}>
-                <Monitor className="mr-2 size-4" />
+            <DropdownMenuSubContent className="bg-card/95 backdrop-blur-sm border-border/50 shadow-strong rounded-modern-lg">
+              <DropdownMenuItem 
+                onClick={() => setTheme("system")}
+                className="px-3 py-2 cursor-pointer hover:bg-accent/50 transition-colors duration-200"
+              >
+                <Monitor className="mr-3 size-4" />
                 System default
-                {theme === "system" && <Check className="ms-2 size-4"/> }
+                {theme === "system" && <Check className="ml-auto size-4 text-primary"/> }
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setTheme("light")}>
-                <Sun className="mr-2 size-4" />
+              <DropdownMenuItem 
+                onClick={() => setTheme("light")}
+                className="px-3 py-2 cursor-pointer hover:bg-accent/50 transition-colors duration-200"
+              >
+                <Sun className="mr-3 size-4" />
                 Light
-                {theme === "light" && <Check className="ms-2 size-4"/> }
+                {theme === "light" && <Check className="ml-auto size-4 text-primary"/> }
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setTheme("dark")}>
-                <Moon className="mr-2 size-4" />
+              <DropdownMenuItem 
+                onClick={() => setTheme("dark")}
+                className="px-3 py-2 cursor-pointer hover:bg-accent/50 transition-colors duration-200"
+              >
+                <Moon className="mr-3 size-4" />
                 Dark
-                {theme === "dark" && <Check className="ms-2 size-4"/> }
+                {theme === "dark" && <Check className="ml-auto size-4 text-primary"/> }
               </DropdownMenuItem>
-              
             </DropdownMenuSubContent>
           </DropdownMenuPortal>
         </DropdownMenuSub>
-        <DropdownMenuSeparator />
+        
+        <DropdownMenuSeparator className="bg-border/50" />
+        
         <DropdownMenuItem
-        onClick={() => {
-          queryClient.clear();
-          // Clear the session
-          logout();
-        }}
+          onClick={() => {
+            queryClient.clear();
+            logout();
+          }}
+          className="px-3 py-2 cursor-pointer hover:bg-destructive/10 hover:text-destructive transition-colors duration-200"
         >
-          <LogOutIcon className="mr-2 size-4" />
+          <LogOutIcon className="mr-3 size-4" />
           Logout
         </DropdownMenuItem>
       </DropdownMenuContent>

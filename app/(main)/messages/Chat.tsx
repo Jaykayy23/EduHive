@@ -20,7 +20,7 @@ export default function Chat() {
   }
 
   return (
-    <main className="relative w-full overflow-hidden rounded-2xl bg-card shadow-sm">
+    <main className="relative w-full h-[calc(100vh-8rem)] overflow-hidden rounded-modern-lg bg-card/50 backdrop-blur-sm shadow-medium border border-border/50 animate-fadeIn">
       <div className="absolute bottom-0 top-0 flex w-full">
         <StreamChat
           client={chatClient}

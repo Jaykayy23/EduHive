@@ -46,29 +46,31 @@ export default function ChatSidebar({ open, onClose }: ChatSidebarProps) {
   return (
     <div
       className={cn(
-        "size-full flex-col border-e md:flex md:w-72",
+        "size-full flex-col border-r border-border/50 bg-card/30 backdrop-blur-sm md:flex md:w-72",
         open ? "flex" : "hidden",
       )}
     >
       <MenuHeader onClose={onClose} />
-      <ChannelList
-        filters={{
-          type: "messaging",
-          members: { $in: [user.id] },
-        }}
-        showChannelSearch
-        options={{ state: true, presence: true, limit: 8 }}
-        sort={{ last_message_at: -1 }}
-        additionalChannelSearchProps={{
-          searchForChannels: true,
-          searchQueryParams: {
-            channelFilters: {
-              filters: { members: { $in: [user.id] } },
+      <div className="flex-1 overflow-hidden">
+        <ChannelList
+          filters={{
+            type: "messaging",
+            members: { $in: [user.id] },
+          }}
+          showChannelSearch
+          options={{ state: true, presence: true, limit: 8 }}
+          sort={{ last_message_at: -1 }}
+          additionalChannelSearchProps={{
+            searchForChannels: true,
+            searchQueryParams: {
+              channelFilters: {
+                filters: { members: { $in: [user.id] } },
+              },
             },
-          },
-        }}
-        Preview={ChannelPreviewCustom}
-      />
+          }}
+          Preview={ChannelPreviewCustom}
+        />
+      </div>
     </div>
   );
 }
@@ -82,18 +84,19 @@ function MenuHeader({ onClose }: MenuHeaderProps) {
 
   return (
     <>
-      <div className="flex items-center gap-3 p-2">
+      <div className="flex items-center gap-3 p-4 border-b border-border/50 bg-card/50">
         <div className="h-full md:hidden">
-          <Button size="icon" variant="ghost" onClick={onClose}>
+          <Button size="icon" variant="ghost" onClick={onClose} className="hover:bg-accent/50">
             <X className="size-5" />
           </Button>
         </div>
-        <h1 className="me-auto text-xl font-bold md:ms-2">Messages</h1>
+        <h1 className="me-auto text-xl font-bold text-foreground md:ms-2">Messages</h1>
         <Button
           size="icon"
           variant="ghost"
           title="Start new chat"
           onClick={() => setShowNewChatDialog(true)}
+          className="hover:bg-accent/50"
         >
           <MailPlus className="size-5" />
         </Button>

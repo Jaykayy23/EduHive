@@ -1,4 +1,4 @@
-import type { Achievement as PrismaAchievement, UserAchievement as PrismaUserAchievement } from "@prisma/client"
+import type { Achievement as PrismaAchievement, UserAchievement as PrismaUserAchievement } from "@/lib/generated/prisma"
 
 export type Achievement = PrismaAchievement
 export type UserAchievement = PrismaUserAchievement & {

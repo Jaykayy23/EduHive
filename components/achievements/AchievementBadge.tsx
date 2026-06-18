@@ -1,14 +1,15 @@
 import { RARITY_COLORS } from "@/lib/achievements"
-import type { Achievement } from "@prisma/client"
+import type { Achievement } from "@/lib/generated/prisma"
 import { cn } from "@/lib/utils"
 
 interface AchievementBadgeProps {
   achievement: Achievement
   unlocked?: boolean
   size?: "sm" | "md" | "lg"
+  showDetails?: boolean
 }
 
-export default function AchievementBadge({ achievement, unlocked = false, size = "md" }: AchievementBadgeProps) {
+export default function AchievementBadge({ achievement, unlocked = false, size = "md", showDetails = false }: AchievementBadgeProps) {
   const sizeClasses = {
     sm: "w-8 h-8 text-xs",
     md: "w-12 h-12 text-sm",

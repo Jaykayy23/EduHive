@@ -48,14 +48,14 @@ export async function POST(request: Request) {
       },
       update: {
         title: body.title,
-        messages: body.messages,
+        messages: JSON.parse(JSON.stringify(body.messages)),
         updatedAt: new Date(),
       },
       create: {
         id: body.id,
         userId: user.id,
         title: body.title,
-        messages: body.messages,
+        messages: JSON.parse(JSON.stringify(body.messages)),
         createdAt: new Date(body.createdAt),
         updatedAt: new Date(),
       },

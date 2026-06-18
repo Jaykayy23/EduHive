@@ -15,6 +15,8 @@ export default function TrendsSidebar() {
     <div className="sticky top-[5.25] hidden h-fit w-72 flex-none space-y-5 md:block lg:w-80">
       <Suspense fallback={<Loader2 className="mx-auto animate-spin" />}>
         <WhoToFollow />
+      </Suspense>
+      <Suspense fallback={<Loader2 className="mx-auto animate-spin" />}>
         <TrendingTopics />
       </Suspense>
     </div>
@@ -25,51 +27,37 @@ async function WhoToFollow() {
   const { user } = await validateRequest();
 
   if (!user) return null;
-  // Fetch users to follow, excluding the current user
 
-  const usersToFollow = await prisma.user.findMany({
-    where: {
-      NOT: {
-        id: user.id,
-      },
-      followers: {
-        none: {
-          followerId: user.id,
-        },
-      },
-    },
-    select: getUserDataSelect(user.id),
-    take: 5,
-  });
+  const usersToFollow = await getCachedUsersToFollow(user.id);
 
   return (
     <div className="bg-card space-y-5 rounded-2xl p-5 shadow-sm">
       <div className="text-xl font-bold">Who to follow</div>
-      {usersToFollow.map((user) => (
-        <div key={user.id} className="flex items-center justify-between gap-3">
-          <UserTooltip user={user}>
+      {usersToFollow.map((suggestedUser) => (
+        <div key={suggestedUser.id} className="flex items-center justify-between gap-3">
+          <UserTooltip user={suggestedUser}>
              <Link
-            href={`/users/${user.username}`}
+            href={`/users/${suggestedUser.username}`}
             className="flex items-center gap-3"
           >
-            <UserAvatar avatarUrl={user.avatarUrl} className="flex-none" />
+            <UserAvatar avatarUrl={suggestedUser.avatarUrl} className="flex-none" />
             <div>
                 <p className="line-clamp-1 break-all font-semibold hover:underline">
-                    {user.displayName}
+                    {suggestedUser.displayName}
                 </p>
                 <p className="line-clamp-1 break-all text-muted-foreground">
-                    @{user.username}
+                    @{suggestedUser.username}
                 </p>
             </div>
           </Link>
           </UserTooltip>
          
           <FollowButton
-          userId={user.id}
+          userId={suggestedUser.id}
           initialState={{
-            followers: user._count.followers,
-            isFollowedByUser: user.followers.some(
-              ({ followerId }) => followerId === user.id
+            followers: suggestedUser._count.followers,
+            isFollowedByUser: suggestedUser.followers.some(
+              ({ followerId }) => followerId === suggestedUser.id
             )
           }}
           />
@@ -77,6 +65,31 @@ async function WhoToFollow() {
       ))}
     </div>
   );
+}
+
+function getCachedUsersToFollow(loggedInUserId: string) {
+  return unstable_cache(
+    async () => {
+      return prisma.user.findMany({
+        where: {
+          NOT: {
+            id: loggedInUserId,
+          },
+          followers: {
+            none: {
+              followerId: loggedInUserId,
+            },
+          },
+        },
+        select: getUserDataSelect(loggedInUserId),
+        take: 5,
+      });
+    },
+    [`who-to-follow-${loggedInUserId}`],
+    {
+      revalidate: 5 * 60, // Cache for 5 minutes
+    },
+  )();
 }
 
 const getTrendingTopics = unstable_cache(
@@ -119,3 +132,4 @@ async function TrendingTopics() {
 })}
     </div>
 }
+

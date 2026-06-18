@@ -1,5 +1,6 @@
 "use client";
 
+import "stream-chat-react/dist/css/v2/index.css";
 import { Loader2 } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useState } from "react";

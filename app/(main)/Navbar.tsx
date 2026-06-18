@@ -3,11 +3,15 @@ import SearchField from "@/components/SearchField";
 import UserButton from "@/components/UserButton";
 import Image from "next/image";
 import Link from "next/link";
-import { validateRequest } from "../auth";
 import { Button } from "@/components/ui/button";
+import type { Session, User } from "lucia";
 
-export default async function Navbar() {
-  const { user } = await validateRequest();
+interface NavbarProps {
+  session?: { user: User; session: Session } | { user: null; session: null };
+}
+
+export default function Navbar({ session }: NavbarProps) {
+  const user = session?.user ?? null;
 
   return (
     <header className="glass-strong sticky top-0 z-50 shadow-dramatic border-b border-border/30 backdrop-blur-premium">

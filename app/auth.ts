@@ -47,7 +47,6 @@ const redirectUri =
     ? `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/callback/google`
     : "http://localhost:3000/api/auth/callback/google"
 
-console.log("Google OAuth redirect URI:", redirectUri)
 
 export const google = new Google(process.env.GOOGLE_CLIENT_ID!, process.env.GOOGLE_CLIENT_SECRET!, redirectUri)
 

@@ -1,7 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { ZodError } from "zod";
 import {
-  detectSubject,
   EDUHIVE_TUTOR_SYSTEM_PROMPT,
   getTutorModeInstructions,
   tutorChatRequestSchema,
@@ -20,20 +19,6 @@ const NVIDIA_TRANSIENT_STATUS_CODES = new Set([408, 500, 502, 503, 504]);
 const NVIDIA_RETRY_DELAY_MS = 750;
 const DEFAULT_NVIDIA_MODEL = "deepseek-ai/deepseek-v4-pro";
 const DEFAULT_MAX_TOKENS = 1_500;
-
-type NvidiaResponse = {
-  choices?: Array<{
-    message?: {
-      content?: string | null;
-    };
-  }>;
-};
-
-function getModelResponseText(response: NvidiaResponse): string | null {
-  const text = response.choices?.[0]?.message?.content?.trim();
-
-  return text || null;
-}
 
 function getMaxTokens(): number {
   const configured = Number.parseInt(process.env.NVIDIA_MAX_TOKENS ?? "", 10);
@@ -127,7 +112,7 @@ export async function POST(request: NextRequest) {
           top_p: 0.95,
           max_tokens: getMaxTokens(),
           chat_template_kwargs: { thinking: false },
-          stream: false,
+          stream: true,
         }),
       };
 
@@ -185,11 +170,8 @@ export async function POST(request: NextRequest) {
         );
       }
 
-      const response = getModelResponseText(
-        (await nvidiaResponse.json()) as NvidiaResponse,
-      );
-      if (!response) {
-        console.error("Tutor provider returned no usable response");
+      if (!nvidiaResponse.body) {
+        console.error("Tutor provider returned an empty response stream");
         return NextResponse.json(
           {
             error:
@@ -199,12 +181,12 @@ export async function POST(request: NextRequest) {
         );
       }
 
-      const finalQuestion = body.messages.at(-1)?.content ?? "";
-      return NextResponse.json({
-        response,
-        mode: body.mode,
-        subject: detectSubject(finalQuestion),
-        timestamp: new Date().toISOString(),
+      return new NextResponse(nvidiaResponse.body, {
+        headers: {
+          "Cache-Control": "no-cache, no-transform",
+          "Content-Type": "text/event-stream; charset=utf-8",
+          "X-Accel-Buffering": "no",
+        },
       });
     } finally {
       clearTimeout(timeout);

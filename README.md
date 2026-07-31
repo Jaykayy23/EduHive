@@ -34,7 +34,7 @@ NVIDIA_MAX_TOKENS=1500
 NVIDIA_TIMEOUT_MS=55000
 ```
 
-The route requires an authenticated EduHive user, accepts at most 11 alternating messages of up to 4,000 characters, times out provider calls, and applies a per-instance request guard.
+The route requires an authenticated EduHive user, accepts at most 11 alternating messages of up to 4,000 characters, streams tutor responses as they are generated, times out provider connection attempts, and applies a per-instance request guard.
 
 Students can choose Explain, Quiz Me, Flashcards, Practice Exam, Summarize, Simplify, Compare, or Step-by-Step. The selected mode is validated on the server and saved with the conversation.
 

@@ -10,11 +10,12 @@ import { validateRequest } from "@/lib/auth-server";
 import { checkTutorRateLimit } from "@/lib/tutor-rate-limit";
 
 export const runtime = "nodejs";
-export const maxDuration = 30;
+export const maxDuration = 60;
 
 const NVIDIA_CHAT_COMPLETIONS_URL =
   "https://integrate.api.nvidia.com/v1/chat/completions";
-const NVIDIA_TIMEOUT_MS = 25_000;
+const DEFAULT_NVIDIA_TIMEOUT_MS = 55_000;
+const MAX_NVIDIA_TIMEOUT_MS = 55_000;
 const DEFAULT_NVIDIA_MODEL = "deepseek-ai/deepseek-v4-pro";
 const DEFAULT_MAX_TOKENS = 1_500;
 
@@ -37,6 +38,14 @@ function getMaxTokens(): number {
   return Number.isSafeInteger(configured) && configured > 0
     ? configured
     : DEFAULT_MAX_TOKENS;
+}
+
+function getNvidiaTimeoutMs(): number {
+  const configured = Number.parseInt(process.env.NVIDIA_TIMEOUT_MS ?? "", 10);
+
+  return Number.isSafeInteger(configured) && configured > 0
+    ? Math.min(configured, MAX_NVIDIA_TIMEOUT_MS)
+    : DEFAULT_NVIDIA_TIMEOUT_MS;
 }
 
 export async function POST(request: NextRequest) {
@@ -74,7 +83,7 @@ export async function POST(request: NextRequest) {
     const abortController = new AbortController();
     const timeout = setTimeout(
       () => abortController.abort(),
-      NVIDIA_TIMEOUT_MS,
+      getNvidiaTimeoutMs(),
     );
 
     try {

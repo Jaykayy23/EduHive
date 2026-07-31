@@ -30,6 +30,8 @@ NVIDIA_API_KEY=your_nvidia_build_api_key
 NVIDIA_MODEL=deepseek-ai/deepseek-v4-pro
 # Optional: limits a single tutor response; defaults to 1500
 NVIDIA_MAX_TOKENS=1500
+# Optional: NVIDIA request timeout in milliseconds; defaults to 55000
+NVIDIA_TIMEOUT_MS=55000
 ```
 
 The route requires an authenticated EduHive user, accepts at most 11 alternating messages of up to 4,000 characters, times out provider calls, and applies a per-instance request guard.

@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 
 import { cn } from "@/lib/utils";
+import styles from "./book-loader.module.css";
 
 type BookLoaderProps = {
   className?: string;
@@ -20,13 +21,13 @@ export function BookLoader({
   return (
     <span
       aria-label={label}
-      className={cn("book-loader", className)}
+      className={cn(styles.loader, className)}
       role="status"
       style={{ "--book-loader-size": size } as CSSProperties}
     >
-      <span aria-hidden="true" className="book-loader__book">
+      <span aria-hidden="true" className={styles.book}>
         {Array.from({ length: 6 }, (_, index) => (
-          <span className="book-loader__page" key={index}>
+          <span className={styles.page} key={index}>
             <svg fill="currentColor" viewBox="0 0 90 120">
               <path d={PAGE_PATH} />
             </svg>
@@ -34,187 +35,6 @@ export function BookLoader({
         ))}
       </span>
       <span className="sr-only">{label}</span>
-
-      <style jsx>{`
-        .book-loader {
-          --book-loader-background: linear-gradient(135deg, #23c4f8, #275efe);
-          --book-loader-shadow: rgba(39, 94, 254, 0.28);
-          --book-loader-page: rgba(255, 255, 255, 0.38);
-          --book-loader-page-fold: rgba(255, 255, 255, 0.58);
-          display: inline-block;
-          width: calc(var(--book-loader-size) * 1.43);
-          height: var(--book-loader-size);
-          position: relative;
-          flex: none;
-        }
-
-        .book-loader::before,
-        .book-loader::after {
-          content: "";
-          position: absolute;
-          bottom: calc(var(--book-loader-size) * 0.06);
-          top: 80%;
-          width: calc(var(--book-loader-size) * 0.86);
-          box-shadow: 0 calc(var(--book-loader-size) * 0.11)
-            calc(var(--book-loader-size) * 0.09) var(--book-loader-shadow);
-          transform: rotate(-6deg);
-        }
-
-        .book-loader::before {
-          left: calc(var(--book-loader-size) * 0.03);
-        }
-
-        .book-loader::after {
-          right: calc(var(--book-loader-size) * 0.03);
-          transform: rotate(6deg);
-        }
-
-        .book-loader__book {
-          position: relative;
-          z-index: 1;
-          display: block;
-          width: 100%;
-          height: 100%;
-          border-radius: calc(var(--book-loader-size) * 0.1);
-          background-image: var(--book-loader-background);
-          box-shadow: 0 calc(var(--book-loader-size) * 0.03)
-            calc(var(--book-loader-size) * 0.05) var(--book-loader-shadow);
-          perspective: calc(var(--book-loader-size) * 4.3);
-        }
-
-        .book-loader__page {
-          position: absolute;
-          top: calc(var(--book-loader-size) * 0.07);
-          left: calc(var(--book-loader-size) * 0.07);
-          color: var(--book-loader-page);
-          opacity: 0;
-          transform: rotateY(180deg);
-          transform-origin: 100% 50%;
-          animation: book-loader-page 3s ease infinite;
-        }
-
-        .book-loader__page:nth-child(n + 2) {
-          color: var(--book-loader-page-fold);
-        }
-
-        .book-loader__page:nth-child(1),
-        .book-loader__page:nth-child(6) {
-          opacity: 1;
-        }
-
-        .book-loader__page:nth-child(2) {
-          animation-name: book-loader-page-2;
-        }
-
-        .book-loader__page:nth-child(3) {
-          animation-name: book-loader-page-3;
-        }
-
-        .book-loader__page:nth-child(4) {
-          animation-name: book-loader-page-4;
-        }
-
-        .book-loader__page:nth-child(5) {
-          animation-name: book-loader-page-5;
-        }
-
-        .book-loader__page svg {
-          display: block;
-          width: calc(var(--book-loader-size) * 0.64);
-          height: calc(var(--book-loader-size) * 0.86);
-        }
-
-        @keyframes book-loader-page {
-          0%,
-          100% {
-            transform: rotateY(180deg);
-            opacity: 0;
-          }
-        }
-
-        @keyframes book-loader-page-2 {
-          0% {
-            transform: rotateY(180deg);
-            opacity: 0;
-          }
-          20% {
-            opacity: 1;
-          }
-          35%,
-          100% {
-            opacity: 0;
-          }
-          50%,
-          100% {
-            transform: rotateY(0deg);
-          }
-        }
-
-        @keyframes book-loader-page-3 {
-          15% {
-            transform: rotateY(180deg);
-            opacity: 0;
-          }
-          35% {
-            opacity: 1;
-          }
-          50%,
-          100% {
-            opacity: 0;
-          }
-          65%,
-          100% {
-            transform: rotateY(0deg);
-          }
-        }
-
-        @keyframes book-loader-page-4 {
-          30% {
-            transform: rotateY(180deg);
-            opacity: 0;
-          }
-          50% {
-            opacity: 1;
-          }
-          65%,
-          100% {
-            opacity: 0;
-          }
-          80%,
-          100% {
-            transform: rotateY(0deg);
-          }
-        }
-
-        @keyframes book-loader-page-5 {
-          45% {
-            transform: rotateY(180deg);
-            opacity: 0;
-          }
-          65% {
-            opacity: 1;
-          }
-          80%,
-          100% {
-            opacity: 0;
-          }
-          95%,
-          100% {
-            transform: rotateY(0deg);
-          }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .book-loader__page {
-            animation: none;
-          }
-          .book-loader__page:nth-child(1),
-          .book-loader__page:nth-child(2) {
-            opacity: 1;
-            transform: rotateY(0deg);
-          }
-        }
-      `}</style>
     </span>
   );
 }

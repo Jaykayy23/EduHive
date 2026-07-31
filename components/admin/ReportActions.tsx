@@ -6,12 +6,17 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { MoreHorizontal, Check, X, Trash, Ban, Loader2 } from "lucide-react";
+import { MoreHorizontal, Check, X, Trash, Ban } from "lucide-react";
+import { BookLoader } from "@/components/ui/book-loader";
 import { useTransition } from "react";
 import { toast } from "sonner";
-import { deleteReport, deleteReportedContent, updateReportStatus } from "@/reports/actions";
+import {
+  deleteReport,
+  deleteReportedContent,
+  updateReportStatus,
+} from "@/reports/actions";
 import {
   Dialog,
   DialogTrigger,
@@ -20,7 +25,7 @@ import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
-  DialogClose
+  DialogClose,
 } from "@/components/ui/dialog";
 import {
   AlertDialog,
@@ -31,7 +36,7 @@ import {
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogCancel,
-  AlertDialogAction
+  AlertDialogAction,
 } from "@/components/ui/alert-dialog";
 
 interface ReportActionsProps {
@@ -85,13 +90,22 @@ export function ReportActions({ report }: ReportActionsProps) {
       <DropdownMenuContent align="end">
         {report.status === ReportStatus.PENDING && (
           <>
-            <DropdownMenuItem onClick={() => handleUpdateStatus(ReportStatus.APPROVED)} disabled={isPending}>
+            <DropdownMenuItem
+              onClick={() => handleUpdateStatus(ReportStatus.APPROVED)}
+              disabled={isPending}
+            >
               <Check className="mr-2 h-4 w-4" /> Approve
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => handleUpdateStatus(ReportStatus.DISMISSED)} disabled={isPending}>
+            <DropdownMenuItem
+              onClick={() => handleUpdateStatus(ReportStatus.DISMISSED)}
+              disabled={isPending}
+            >
               <X className="mr-2 h-4 w-4" /> Dismiss
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => handleUpdateStatus(ReportStatus.DELETED)} disabled={isPending}>
+            <DropdownMenuItem
+              onClick={() => handleUpdateStatus(ReportStatus.DELETED)}
+              disabled={isPending}
+            >
               <Ban className="mr-2 h-4 w-4" /> Mark as Deleted
             </DropdownMenuItem>
           </>
@@ -99,7 +113,10 @@ export function ReportActions({ report }: ReportActionsProps) {
         {/* Delete Report Dialog */}
         <Dialog>
           <DialogTrigger asChild>
-            <DropdownMenuItem onSelect={e => e.preventDefault()} disabled={isPending}>
+            <DropdownMenuItem
+              onSelect={(e) => e.preventDefault()}
+              disabled={isPending}
+            >
               <Trash className="mr-2 h-4 w-4" /> Delete Report
             </DropdownMenuItem>
           </DialogTrigger>
@@ -107,7 +124,8 @@ export function ReportActions({ report }: ReportActionsProps) {
             <DialogHeader>
               <DialogTitle>Are you absolutely sure?</DialogTitle>
               <DialogDescription>
-                This action cannot be undone. This will permanently delete the report entry.
+                This action cannot be undone. This will permanently delete the
+                report entry.
               </DialogDescription>
             </DialogHeader>
             <DialogFooter>
@@ -121,7 +139,7 @@ export function ReportActions({ report }: ReportActionsProps) {
                 onClick={handleDeleteReport}
                 disabled={isPending}
               >
-                {isPending && <Loader2 className="mr-2 size-4 animate-spin" />}
+                {isPending && <BookLoader className="mr-2" size="1rem" />}
                 Delete
               </Button>
             </DialogFooter>
@@ -131,7 +149,10 @@ export function ReportActions({ report }: ReportActionsProps) {
         {(report.reportedPostId || report.reportedCommentId) && (
           <AlertDialog>
             <AlertDialogTrigger asChild>
-              <DropdownMenuItem onSelect={e => e.preventDefault()} disabled={isPending}>
+              <DropdownMenuItem
+                onSelect={(e) => e.preventDefault()}
+                disabled={isPending}
+              >
                 <Trash className="mr-2 h-4 w-4" /> Delete Reported Content
               </DropdownMenuItem>
             </AlertDialogTrigger>
@@ -139,7 +160,8 @@ export function ReportActions({ report }: ReportActionsProps) {
               <AlertDialogHeader>
                 <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                 <AlertDialogDescription>
-                  This action cannot be undone. This will permanently delete the reported content (post or comment) and this report.
+                  This action cannot be undone. This will permanently delete the
+                  reported content (post or comment) and this report.
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
@@ -148,7 +170,7 @@ export function ReportActions({ report }: ReportActionsProps) {
                   onClick={handleDeleteReportedContent}
                   disabled={isPending}
                 >
-                  {isPending && <Loader2 className="mr-2 size-4 animate-spin" />}
+                  {isPending && <BookLoader className="mr-2" size="1rem" />}
                   Delete Content
                 </AlertDialogAction>
               </AlertDialogFooter>

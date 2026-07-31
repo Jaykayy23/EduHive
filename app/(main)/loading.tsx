@@ -1,5 +1,5 @@
-import { Loader2 } from "lucide-react";
+import { BookLoader } from "@/components/ui/book-loader";
 
 export default function Loading() {
-    return <Loader2 className="mx-auto my-3 animate-spin" />;
+  return <BookLoader className="mx-auto my-3" size="2rem" />;
 }

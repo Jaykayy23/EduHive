@@ -7,10 +7,9 @@ import PostsLoadingSkeleton from "@/components/posts/PostsLoadingSkeleton";
 import kyInstance from "@/lib/ky";
 import { PostsPage } from "@/lib/types";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { Loader2 } from "lucide-react";
+import { BookLoader } from "@/components/ui/book-loader";
 
 export default function Bookmarks() {
-
   const {
     data,
     fetchNextPage,
@@ -20,10 +19,13 @@ export default function Bookmarks() {
     status,
   } = useInfiniteQuery({
     queryKey: ["post-feed", "bookmarks"],
-    queryFn: ({pageParam}) => kyInstance.get(
-        "/api/posts/bookmarked", 
-        pageParam ? { searchParams: { cursor: pageParam }} : {}
-        ).json<PostsPage>(),
+    queryFn: ({ pageParam }) =>
+      kyInstance
+        .get(
+          "/api/posts/bookmarked",
+          pageParam ? { searchParams: { cursor: pageParam } } : {},
+        )
+        .json<PostsPage>(),
     initialPageParam: null as string | null,
     getNextPageParam: (lastPage) => lastPage.nextCursor,
   });
@@ -35,9 +37,11 @@ export default function Bookmarks() {
   }
 
   if (status === "success" && !posts.length && !hasNextPage) {
-    return <p className="text-center text-muted-foreground">
-      You don&apos;t have any bookmarks yet. 
-    </p>
+    return (
+      <p className="text-muted-foreground text-center">
+        You don&apos;t have any bookmarks yet.
+      </p>
+    );
   }
 
   if (status === "error") {
@@ -49,13 +53,16 @@ export default function Bookmarks() {
   }
 
   return (
-    <InfiniteScrollContainer className="space-y-5"
-    onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()}
+    <InfiniteScrollContainer
+      className="space-y-5"
+      onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()}
     >
       {posts.map((post) => (
         <Post key={post.id} post={post} />
       ))}
-     {isFetchingNextPage && <Loader2 className="mx-auto my-3 animate-spin" />}
+      {isFetchingNextPage && (
+        <BookLoader className="mx-auto my-3" size="2rem" />
+      )}
     </InfiniteScrollContainer>
   );
 }

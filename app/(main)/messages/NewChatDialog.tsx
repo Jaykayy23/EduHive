@@ -8,11 +8,12 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { toast } from "sonner";        
+import { toast } from "sonner";
 import UserAvatar from "@/components/UserAvatar";
 import useDebounce from "@/app/hooks/useDebounce";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { Check, Loader2, SearchIcon, X } from "lucide-react";
+import { Check, SearchIcon, X } from "lucide-react";
+import { BookLoader } from "@/components/ui/book-loader";
 import { useState } from "react";
 import { UserResponse } from "stream-chat";
 import { useChatContext } from "stream-chat-react";
@@ -47,16 +48,14 @@ export default function NewChatDialog({
             }
           : {},
         { name: 1, username: 1 },
-        { limit: 30 }
+        { limit: 30 },
       ),
   });
 
   // Select eligible users from query (filter out admins or yourself)
   const eligibleUsers =
     data?.users?.filter(
-      (user) =>
-        user.id !== loggedInUser.id &&
-        user.role !== "admin"
+      (user) => user.id !== loggedInUser.id && user.role !== "admin",
     ) ?? [];
 
   const mutation = useMutation({
@@ -65,7 +64,10 @@ export default function NewChatDialog({
         members: [loggedInUser.id, ...selectedUsers.map((u) => u.id)],
         name:
           selectedUsers.length > 1
-            ? [loggedInUser.displayName, ...selectedUsers.map((u) => u.name)].join(", ")
+            ? [
+                loggedInUser.displayName,
+                ...selectedUsers.map((u) => u.name),
+              ].join(", ")
             : undefined,
       });
       await channel.create();
@@ -74,11 +76,11 @@ export default function NewChatDialog({
     onSuccess: (channel) => {
       setActiveChannel(channel);
       onChatCreated();
-      toast.success("Chat created!");     // Sonner toast
+      toast.success("Chat created!"); // Sonner toast
     },
     onError(error) {
       console.error("Error starting chat", error);
-      toast.error("Error starting chat. Please try again.");   // Sonner toast
+      toast.error("Error starting chat. Please try again."); // Sonner toast
     },
   });
 
@@ -90,10 +92,10 @@ export default function NewChatDialog({
         </DialogHeader>
         <div>
           <div className="group relative">
-            <SearchIcon className="absolute left-5 top-1/2 size-5 -translate-y-1/2 transform text-muted-foreground group-focus-within:text-primary" />
+            <SearchIcon className="text-muted-foreground group-focus-within:text-primary absolute top-1/2 left-5 size-5 -translate-y-1/2 transform" />
             <input
               placeholder="Search users..."
-              className="h-12 w-full pe-4 ps-14 focus:outline-none"
+              className="h-12 w-full ps-14 pe-4 focus:outline-none"
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
             />
@@ -106,7 +108,7 @@ export default function NewChatDialog({
                   user={user}
                   onRemove={() =>
                     setSelectedUsers((prev) =>
-                      prev.filter((u) => u.id !== user.id)
+                      prev.filter((u) => u.id !== user.id),
                     )
                   }
                 />
@@ -125,19 +127,19 @@ export default function NewChatDialog({
                     setSelectedUsers((prev) =>
                       prev.some((u) => u.id === user.id)
                         ? prev.filter((u) => u.id !== user.id)
-                        : [...prev, user]
+                        : [...prev, user],
                     )
                   }
                 />
               ))}
             {isSuccess && !eligibleUsers.length && (
-              <p className="my-3 text-center text-muted-foreground">
+              <p className="text-muted-foreground my-3 text-center">
                 No users found. Try a different name.
               </p>
             )}
-            {isFetching && <Loader2 className="mx-auto my-3 animate-spin" />}
+            {isFetching && <BookLoader className="mx-auto my-3" size="2rem" />}
             {isError && (
-              <p className="my-3 text-center text-destructive">
+              <p className="text-destructive my-3 text-center">
                 An error occurred while loading users.
               </p>
             )}
@@ -166,7 +168,7 @@ interface UserResultProps {
 function UserResult({ user, selected, onClick }: UserResultProps) {
   return (
     <button
-      className="flex w-full items-center justify-between px-4 py-2.5 transition-colors hover:bg-muted/50"
+      className="hover:bg-muted/50 flex w-full items-center justify-between px-4 py-2.5 transition-colors"
       onClick={onClick}
       aria-pressed={selected}
       tabIndex={0}
@@ -192,12 +194,12 @@ function SelectedUserTag({ user, onRemove }: SelectedUserTagProps) {
   return (
     <button
       onClick={onRemove}
-      className="flex items-center gap-2 rounded-full border p-1 hover:bg-muted/50"
+      className="hover:bg-muted/50 flex items-center gap-2 rounded-full border p-1"
       type="button"
     >
       <UserAvatar avatarUrl={user.image} size={24} />
       <p className="font-bold">{user.name}</p>
-      <X className="mx-2 size-5 text-muted-foreground" />
+      <X className="text-muted-foreground mx-2 size-5" />
     </button>
   );
 }

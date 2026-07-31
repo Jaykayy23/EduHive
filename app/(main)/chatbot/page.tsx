@@ -7,7 +7,6 @@ import {
   Bot,
   Clock,
   Plus,
-  RefreshCw,
   Send,
   Sparkles,
   Trash2,
@@ -27,6 +26,7 @@ import { Separator } from "@/components/ui/separator";
 import Linkify from "@/components/Linkify";
 import { AvatarFallback } from "@radix-ui/react-avatar";
 import { tutorModes, type TutorMode } from "@/lib/tutor-modes";
+import { BookLoader } from "@/components/ui/book-loader";
 
 type Message = {
   id: string;
@@ -589,7 +589,7 @@ export default function AcademicChatBot() {
               aria-label={isLoading ? "Sending message..." : "Send message"}
             >
               {isLoading ? (
-                <RefreshCw className="h-4 w-4 animate-spin" />
+                <BookLoader size="1rem" />
               ) : (
                 <Send className="h-4 w-4" />
               )}

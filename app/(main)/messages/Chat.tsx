@@ -1,7 +1,7 @@
 "use client";
 
 import "stream-chat-react/dist/css/v2/index.css";
-import { Loader2 } from "lucide-react";
+import { BookLoader } from "@/components/ui/book-loader";
 import { useTheme } from "next-themes";
 import { useState } from "react";
 import { Chat as StreamChat } from "stream-chat-react";
@@ -17,12 +17,12 @@ export default function Chat() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   if (!chatClient) {
-    return <Loader2 className="mx-auto my-3 animate-spin" />;
+    return <BookLoader className="mx-auto my-3" size="2rem" />;
   }
 
   return (
-    <main className="relative w-full h-[calc(100vh-8rem)] overflow-hidden rounded-modern-lg bg-card/50 backdrop-blur-sm shadow-medium border border-border/50 animate-fadeIn">
-      <div className="absolute bottom-0 top-0 flex w-full">
+    <main className="rounded-modern-lg bg-card/50 shadow-medium border-border/50 animate-fadeIn relative h-[calc(100vh-8rem)] w-full overflow-hidden border backdrop-blur-sm">
+      <div className="absolute top-0 bottom-0 flex w-full">
         <StreamChat
           client={chatClient}
           theme={

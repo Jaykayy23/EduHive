@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState, useTransition } from "react"
+import { useState, useTransition } from "react";
 import {
   Dialog,
   DialogContent,
@@ -11,54 +11,65 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Textarea } from "@/components/ui/textarea"
-import { Label } from "@/components/ui/label"
-import { ReportReason } from "@/lib/types"
-import { submitReport } from "@/reports/actions"
-import { toast } from "sonner"
-import { Loader2 } from "lucide-react"
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { ReportReason } from "@/lib/types";
+import { submitReport } from "@/reports/actions";
+import { toast } from "sonner";
+import { BookLoader } from "@/components/ui/book-loader";
 
 interface ReportDialogProps {
-  reportedPostId?: string
-  reportedCommentId?: string
-  children: React.ReactNode
+  reportedPostId?: string;
+  reportedCommentId?: string;
+  children: React.ReactNode;
 }
 
-export function ReportDialog({ reportedPostId, reportedCommentId, children }: ReportDialogProps) {
-  const [isOpen, setIsOpen] = useState(false)
-  const [reason, setReason] = useState<ReportReason | "">("")
-  const [comments, setComments] = useState("")
-  const [isPending, startTransition] = useTransition()
+export function ReportDialog({
+  reportedPostId,
+  reportedCommentId,
+  children,
+}: ReportDialogProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [reason, setReason] = useState<ReportReason | "">("");
+  const [comments, setComments] = useState("");
+  const [isPending, startTransition] = useTransition();
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     if (!reason) {
-      toast.error("Please select a reason for the report.")
-      return
+      toast.error("Please select a reason for the report.");
+      return;
     }
 
     startTransition(async () => {
-      const formData = new FormData()
-      if (reportedPostId) formData.append("reportedPostId", reportedPostId)
-      if (reportedCommentId) formData.append("reportedCommentId", reportedCommentId)
-      formData.append("reason", reason)
-      if (comments) formData.append("comments", comments)
+      const formData = new FormData();
+      if (reportedPostId) formData.append("reportedPostId", reportedPostId);
+      if (reportedCommentId)
+        formData.append("reportedCommentId", reportedCommentId);
+      formData.append("reason", reason);
+      if (comments) formData.append("comments", comments);
 
-      const result = await submitReport(formData)
+      const result = await submitReport(formData);
 
       if (result?.error) {
-        toast.error(result.error)
+        toast.error(result.error);
       } else {
-        toast.success("Report submitted successfully!")
-        setIsOpen(false)
-        setReason("")
-        setComments("")
+        toast.success("Report submitted successfully!");
+        setIsOpen(false);
+        setReason("");
+        setComments("");
       }
-    })
-  }
+    });
+  };
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -67,7 +78,8 @@ export function ReportDialog({ reportedPostId, reportedCommentId, children }: Re
         <DialogHeader>
           <DialogTitle>Report Content</DialogTitle>
           <DialogDescription>
-            Please select a reason for reporting this content. Your report helps us keep the platform safe.
+            Please select a reason for reporting this content. Your report helps
+            us keep the platform safe.
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="grid gap-4 py-4">
@@ -75,7 +87,10 @@ export function ReportDialog({ reportedPostId, reportedCommentId, children }: Re
             <Label htmlFor="reason" className="text-right">
               Reason
             </Label>
-            <Select onValueChange={(value: ReportReason) => setReason(value)} value={reason}>
+            <Select
+              onValueChange={(value: ReportReason) => setReason(value)}
+              value={reason}
+            >
               <SelectTrigger className="col-span-3">
                 <SelectValue placeholder="Select a reason" />
               </SelectTrigger>
@@ -103,12 +118,12 @@ export function ReportDialog({ reportedPostId, reportedCommentId, children }: Re
           </div>
           <DialogFooter>
             <Button type="submit" disabled={isPending || !reason}>
-              {isPending && <Loader2 className="mr-2 size-4 animate-spin" />}
+              {isPending && <BookLoader className="mr-2" size="1rem" />}
               Submit Report
             </Button>
           </DialogFooter>
         </form>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

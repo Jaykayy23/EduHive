@@ -10,7 +10,7 @@ import {
   useMutation,
   useQueryClient,
 } from "@tanstack/react-query";
-import { Loader2 } from "lucide-react";
+import { BookLoader } from "@/components/ui/book-loader";
 import Notification from "./Notification";
 import { useEffect } from "react";
 
@@ -83,7 +83,9 @@ export default function Notifications() {
       {notifications.map((notification) => (
         <Notification key={notification.id} notification={notification} />
       ))}
-      {isFetchingNextPage && <Loader2 className="mx-auto my-3 animate-spin" />}
+      {isFetchingNextPage && (
+        <BookLoader className="mx-auto my-3" size="2rem" />
+      )}
     </InfiniteScrollContainer>
   );
 }

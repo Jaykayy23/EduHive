@@ -1,27 +1,28 @@
-"use client"
+"use client";
 
-import { EditorContent, useEditor } from "@tiptap/react"
-import { StarterKit } from "@tiptap/starter-kit"
-import { Placeholder } from "@tiptap/extension-placeholder"
-import { useSession } from "@/app/(main)/SessionProvider"
-import UserAvatar from "@/components/UserAvatar"
-import "./styles.css"
-import { useSubmitPostMutation } from "./mutations"
-import LoadingButton from "@/components/LoadingButton"
-import useMediaUpload, { type Attachment } from "./useMediaUpload"
-import { type ClipboardEvent, useRef, useState } from "react"
-import { Button } from "@/components/ui/button"
-import { ImageIcon, Loader2, X, Hash } from "lucide-react"
-import { cn } from "@/lib/utils"
-import Image from "next/image"
-import { useDropzone } from "@uploadthing/react"
-import { ACADEMIC_SUBJECTS } from "@/lib/types"
+import { EditorContent, useEditor } from "@tiptap/react";
+import { StarterKit } from "@tiptap/starter-kit";
+import { Placeholder } from "@tiptap/extension-placeholder";
+import { useSession } from "@/app/(main)/SessionProvider";
+import UserAvatar from "@/components/UserAvatar";
+import "./styles.css";
+import { useSubmitPostMutation } from "./mutations";
+import LoadingButton from "@/components/LoadingButton";
+import useMediaUpload, { type Attachment } from "./useMediaUpload";
+import { type ClipboardEvent, useRef, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { ImageIcon, X, Hash } from "lucide-react";
+import { BookLoader } from "@/components/ui/book-loader";
+import { cn } from "@/lib/utils";
+import Image from "next/image";
+import { useDropzone } from "@uploadthing/react";
+import { ACADEMIC_SUBJECTS } from "@/lib/types";
 
 export default function PostEditor() {
-  const { user } = useSession()
-  const [showSubjectSuggestions, setShowSubjectSuggestions] = useState(false)
+  const { user } = useSession();
+  const [showSubjectSuggestions, setShowSubjectSuggestions] = useState(false);
 
-  const mutation = useSubmitPostMutation()
+  const mutation = useSubmitPostMutation();
 
   const {
     startUpload,
@@ -30,13 +31,13 @@ export default function PostEditor() {
     uploadProgress,
     removeAttachment,
     reset: resetMediaUploads,
-  } = useMediaUpload()
+  } = useMediaUpload();
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop: startUpload,
-  })
+  });
 
-  const { onClick, ...rootProps } = getRootProps()
+  const { onClick, ...rootProps } = getRootProps();
 
   const editor = useEditor({
     extensions: [
@@ -45,16 +46,17 @@ export default function PostEditor() {
         italic: false,
       }),
       Placeholder.configure({
-        placeholder: "Got something to share? Buzz it here! 🐝 (Try adding #ComputerScience or other subject tags)",
+        placeholder:
+          "Got something to share? Buzz it here! 🐝 (Try adding #ComputerScience or other subject tags)",
       }),
     ],
     immediatelyRender: false,
-  })
+  });
 
   const input =
     editor?.getText({
       blockSeparator: "\n",
-    }) || ""
+    }) || "";
 
   function onSubmit() {
     mutation.mutate(
@@ -64,31 +66,34 @@ export default function PostEditor() {
       },
       {
         onSuccess: () => {
-          editor?.commands.clearContent()
-          resetMediaUploads()
+          editor?.commands.clearContent();
+          resetMediaUploads();
         },
       },
-    )
+    );
   }
 
   function onPaste(e: ClipboardEvent<HTMLInputElement>) {
     const files = Array.from(e.clipboardData.items)
       .filter((item) => item.kind === "file")
-      .map((item) => item.getAsFile()) as File[]
-    startUpload(files)
+      .map((item) => item.getAsFile()) as File[];
+    startUpload(files);
   }
 
   function insertSubjectTag(subject: string) {
-    const tag = `#${subject.replace(/\s+/g, "")} `
-    editor?.commands.insertContent(tag)
-    setShowSubjectSuggestions(false)
-    editor?.commands.focus()
+    const tag = `#${subject.replace(/\s+/g, "")} `;
+    editor?.commands.insertContent(tag);
+    setShowSubjectSuggestions(false);
+    editor?.commands.focus();
   }
 
   return (
     <div className="bg-card flex flex-col gap-5 rounded-2xl p-5 shadow-sm">
       <div className="flex gap-5">
-        <UserAvatar avatarUrl={user.avatarUrl} className="hidden sm:inline-flex" />
+        <UserAvatar
+          avatarUrl={user.avatarUrl}
+          className="hidden sm:inline-flex"
+        />
         <div {...rootProps} className="w-full">
           <EditorContent
             editor={editor}
@@ -105,13 +110,15 @@ export default function PostEditor() {
       {/* Subject Tag Suggestions */}
       {showSubjectSuggestions && (
         <div className="bg-muted rounded-lg p-3">
-          <p className="text-sm text-muted-foreground mb-2">Quick subject tags:</p>
+          <p className="text-muted-foreground mb-2 text-sm">
+            Quick subject tags:
+          </p>
           <div className="flex flex-wrap gap-2">
             {ACADEMIC_SUBJECTS.slice(1).map((subject) => (
               <button
                 key={subject.id}
                 onClick={() => insertSubjectTag(subject.name)}
-                className="flex items-center gap-1 px-3 py-1 bg-background rounded-full text-sm hover:bg-accent transition-colors"
+                className="bg-background hover:bg-accent flex items-center gap-1 rounded-full px-3 py-1 text-sm transition-colors"
               >
                 <span>{subject.emoji}</span>
                 <span>#{subject.name.replace(/\s+/g, "")}</span>
@@ -121,17 +128,25 @@ export default function PostEditor() {
         </div>
       )}
 
-      {!!attachments.length && <AttachmentPreviews attachments={attachments} removeAttachment={removeAttachment} />}
+      {!!attachments.length && (
+        <AttachmentPreviews
+          attachments={attachments}
+          removeAttachment={removeAttachment}
+        />
+      )}
 
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           {isUploading && (
             <>
               <span className="text-sm">{uploadProgress ?? 0}%</span>
-              <Loader2 className="text-primary size-5 animate-spin" />
+              <BookLoader size="1.25rem" />
             </>
           )}
-          <AddAttachmentsButton onFileSelected={startUpload} disabled={isUploading || attachments.length >= 5} />
+          <AddAttachmentsButton
+            onFileSelected={startUpload}
+            disabled={isUploading || attachments.length >= 5}
+          />
           <Button
             variant="ghost"
             size="icon"
@@ -153,16 +168,19 @@ export default function PostEditor() {
         </LoadingButton>
       </div>
     </div>
-  )
+  );
 }
 
 interface AddAttachmentsButtonProps {
-  onFileSelected: (files: File[]) => void
-  disabled: boolean
+  onFileSelected: (files: File[]) => void;
+  disabled: boolean;
 }
 
-function AddAttachmentsButton({ onFileSelected, disabled }: AddAttachmentsButtonProps) {
-  const fileInputRef = useRef<HTMLInputElement>(null)
+function AddAttachmentsButton({
+  onFileSelected,
+  disabled,
+}: AddAttachmentsButtonProps) {
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   return (
     <>
@@ -182,25 +200,33 @@ function AddAttachmentsButton({ onFileSelected, disabled }: AddAttachmentsButton
         ref={fileInputRef}
         className="sr-only hidden"
         onChange={(e) => {
-          const files = Array.from(e.target.files || [])
+          const files = Array.from(e.target.files || []);
           if (files.length) {
-            onFileSelected(files)
-            e.target.value = ""
+            onFileSelected(files);
+            e.target.value = "";
           }
         }}
       />
     </>
-  )
+  );
 }
 
 interface AttachmentPreviewsProps {
-  attachments: Attachment[]
-  removeAttachment: (fileName: string) => void
+  attachments: Attachment[];
+  removeAttachment: (fileName: string) => void;
 }
 
-function AttachmentPreviews({ attachments, removeAttachment }: AttachmentPreviewsProps) {
+function AttachmentPreviews({
+  attachments,
+  removeAttachment,
+}: AttachmentPreviewsProps) {
   return (
-    <div className={cn("flex flex-col gap-3", attachments.length > 1 && "sm:grid sm:grid-cols-2")}>
+    <div
+      className={cn(
+        "flex flex-col gap-3",
+        attachments.length > 1 && "sm:grid sm:grid-cols-2",
+      )}
+    >
       {attachments.map((attachment) => (
         <AttachmentPreview
           key={attachment.file.name}
@@ -209,19 +235,24 @@ function AttachmentPreviews({ attachments, removeAttachment }: AttachmentPreview
         />
       ))}
     </div>
-  )
+  );
 }
 
 interface AttachmentPreviewProps {
-  attachment: Attachment
-  onRemoveClick: () => void
+  attachment: Attachment;
+  onRemoveClick: () => void;
 }
 
-function AttachmentPreview({ attachment: { file, mediaId, isUploading }, onRemoveClick }: AttachmentPreviewProps) {
-  const src = URL.createObjectURL(file)
+function AttachmentPreview({
+  attachment: { file, mediaId, isUploading },
+  onRemoveClick,
+}: AttachmentPreviewProps) {
+  const src = URL.createObjectURL(file);
 
   return (
-    <div className={cn("relative mx-auto size-fit", isUploading && "opacity-50")}>
+    <div
+      className={cn("relative mx-auto size-fit", isUploading && "opacity-50")}
+    >
       {file.type.startsWith("image") ? (
         <Image
           src={src || "/placeholder.svg"}
@@ -244,5 +275,5 @@ function AttachmentPreview({ attachment: { file, mediaId, isUploading }, onRemov
         </button>
       )}
     </div>
-  )
+  );
 }

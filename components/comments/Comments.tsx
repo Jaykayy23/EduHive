@@ -4,7 +4,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import kyInstance from "@/lib/ky";
 import Comment from "./Comment";
 import { Button } from "../ui/button";
-import { Loader2 } from "lucide-react";
+import { BookLoader } from "@/components/ui/book-loader";
 
 interface CommentsProps {
   post: PostData;
@@ -36,21 +36,21 @@ export default function Comments({ post }: CommentsProps) {
       <CommentInput post={post} />
       {hasNextPage && (
         <Button
-            variant="link"
-            className="mx-auto block"
-            disabled={isFetching}
-            onClick={() => fetchNextPage()}
+          variant="link"
+          className="mx-auto block"
+          disabled={isFetching}
+          onClick={() => fetchNextPage()}
         >
-            Load previous comments
+          Load previous comments
         </Button>
       )}
-      {status === "pending" && <Loader2 className="mx-auto animate-spin"/>}
+      {status === "pending" && <BookLoader className="mx-auto" size="2rem" />}
       {status === "success" && !comments.length && (
         <p className="text-muted-foreground text-center">No comments yet.</p>
       )}
       {status === "error" && (
-        <p className="text-center text-destructive">
-            An error occured while loading comments.
+        <p className="text-destructive text-center">
+          An error occured while loading comments.
         </p>
       )}
       <div className="divide-y">

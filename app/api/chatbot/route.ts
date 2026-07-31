@@ -16,6 +16,8 @@ const NVIDIA_CHAT_COMPLETIONS_URL =
   "https://integrate.api.nvidia.com/v1/chat/completions";
 const DEFAULT_NVIDIA_TIMEOUT_MS = 55_000;
 const MAX_NVIDIA_TIMEOUT_MS = 55_000;
+const NVIDIA_TRANSIENT_STATUS_CODES = new Set([408, 500, 502, 503, 504]);
+const NVIDIA_RETRY_DELAY_MS = 750;
 const DEFAULT_NVIDIA_MODEL = "deepseek-ai/deepseek-v4-pro";
 const DEFAULT_MAX_TOKENS = 1_500;
 
@@ -46,6 +48,21 @@ function getNvidiaTimeoutMs(): number {
   return Number.isSafeInteger(configured) && configured > 0
     ? Math.min(configured, MAX_NVIDIA_TIMEOUT_MS)
     : DEFAULT_NVIDIA_TIMEOUT_MS;
+}
+
+function getProviderErrorMessage(body: string): string | undefined {
+  try {
+    const parsed = JSON.parse(body) as { error?: { message?: unknown } };
+    return typeof parsed.error?.message === "string"
+      ? parsed.error.message.slice(0, 500)
+      : undefined;
+  } catch {
+    return body.trim().slice(0, 500) || undefined;
+  }
+}
+
+function wait(milliseconds: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, milliseconds));
 }
 
 export async function POST(request: NextRequest) {
@@ -87,7 +104,7 @@ export async function POST(request: NextRequest) {
     );
 
     try {
-      const nvidiaResponse = await fetch(NVIDIA_CHAT_COMPLETIONS_URL, {
+      const nvidiaRequest = {
         method: "POST",
         headers: {
           Authorization: `Bearer ${apiKey}`,
@@ -112,12 +129,37 @@ export async function POST(request: NextRequest) {
           chat_template_kwargs: { thinking: false },
           stream: false,
         }),
-      });
+      };
+
+      let nvidiaResponse = await fetch(
+        NVIDIA_CHAT_COMPLETIONS_URL,
+        nvidiaRequest,
+      );
+
+      if (NVIDIA_TRANSIENT_STATUS_CODES.has(nvidiaResponse.status)) {
+        console.warn(
+          "Tutor provider returned a transient error; retrying once",
+          {
+            status: nvidiaResponse.status,
+            model,
+          },
+        );
+        await wait(NVIDIA_RETRY_DELAY_MS);
+        nvidiaResponse = await fetch(
+          NVIDIA_CHAT_COMPLETIONS_URL,
+          nvidiaRequest,
+        );
+      }
 
       if (!nvidiaResponse.ok) {
+        const providerError = getProviderErrorMessage(
+          await nvidiaResponse.text(),
+        );
         console.error("Tutor provider request failed", {
           status: nvidiaResponse.status,
           model,
+          retryAfter: nvidiaResponse.headers.get("retry-after"),
+          providerError,
         });
 
         if (nvidiaResponse.status === 429) {

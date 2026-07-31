@@ -1,162 +1,189 @@
-import { type NextRequest, NextResponse } from "next/server"
-import { validateRequest } from "@/lib/auth-server"
-import { universityEducationalDataset, getReferences } from "@/lib/educational-dataset"
+import { type NextRequest, NextResponse } from "next/server";
+import { ZodError } from "zod";
+import {
+  detectSubject,
+  EDUHIVE_TUTOR_SYSTEM_PROMPT,
+  getTutorModeInstructions,
+  tutorChatRequestSchema,
+} from "@/lib/edu-tutor";
+import { validateRequest } from "@/lib/auth-server";
+import { checkTutorRateLimit } from "@/lib/tutor-rate-limit";
 
-interface ChatMessage {
-  role: "user" | "assistant"
-  content: string
+export const runtime = "nodejs";
+export const maxDuration = 30;
+
+const NVIDIA_CHAT_COMPLETIONS_URL =
+  "https://integrate.api.nvidia.com/v1/chat/completions";
+const NVIDIA_TIMEOUT_MS = 25_000;
+const DEFAULT_NVIDIA_MODEL = "deepseek-ai/deepseek-v4-pro";
+const DEFAULT_MAX_TOKENS = 1_500;
+
+type NvidiaResponse = {
+  choices?: Array<{
+    message?: {
+      content?: string | null;
+    };
+  }>;
+};
+
+function getModelResponseText(response: NvidiaResponse): string | null {
+  const text = response.choices?.[0]?.message?.content?.trim();
+
+  return text || null;
 }
 
-interface ChatRequest {
-  messages: ChatMessage[]
-}
-
-// Enhanced AI response generator with educational context
-function generateEducationalResponse(userMessage: string, conversationHistory: ChatMessage[]): string {
-  const message = userMessage.toLowerCase()
-
-  // Detect subject and topic
-  const subjects = Object.keys(universityEducationalDataset.subjects)
-  let detectedSubject = ""
-  let detectedTopic = ""
-
-  for (const subject of subjects) {
-    const subjectData =
-      universityEducationalDataset.subjects[subject as keyof typeof universityEducationalDataset.subjects]
-
-    // Check if message contains subject keywords
-    if (subjectData.keywords.some((keyword) => message.includes(keyword.toLowerCase()))) {
-      detectedSubject = subject
-
-      // Find specific topic
-      const foundTopic = subjectData.topics.find((topic) => message.includes(topic.toLowerCase()))
-      if (foundTopic) {
-        detectedTopic = foundTopic
-          .toLowerCase()
-          .replace(/\s+/g, "")
-          .replace(/[^a-z]/g, "")
-      }
-      break
-    }
-  }
-
-  // Generate contextual response based on detected subject
-  let response = ""
-
-  if (detectedSubject) {
-    const subjectData =
-      universityEducationalDataset.subjects[detectedSubject as keyof typeof universityEducationalDataset.subjects]
-
-    // Provide relevant concepts
-    if (
-      detectedTopic &&
-      subjectData.concepts &&
-      subjectData.concepts[detectedTopic as keyof typeof subjectData.concepts]
-    ) {
-      const concepts = subjectData.concepts[detectedTopic as keyof typeof subjectData.concepts] as string[]
-      response = `Great question about ${detectedSubject}! Here's what you should know:\n\n`
-      response += concepts
-        .slice(0, 3)
-        .map((concept, index) => `${index + 1}. ${concept}`)
-        .join("\n\n")
-    } else {
-      // General subject response
-      response = `I'd be happy to help you with ${subjectData.topics[0].split(" ")[0]} in ${detectedSubject}! This field covers many important topics including:\n\n`
-      response += subjectData.topics
-        .slice(0, 6)
-        .map((topic, index) => `• ${topic}`)
-        .join("\n")
-      response += `\n\nWhat specific aspect would you like to explore further?`
-    }
-  } else {
-    // General educational responses
-    if (message.includes("study") || message.includes("learn")) {
-      const tips = universityEducationalDataset.studyTips.slice(0, 3)
-      response = "Here are some effective study strategies for university students:\n\n"
-      response += tips.map((tip, index) => `${index + 1}. ${tip}`).join("\n\n")
-    } else if (message.includes("exam") || message.includes("test")) {
-      const tips = universityEducationalDataset.examTips.slice(0, 3)
-      response = "Here are some proven exam preparation strategies:\n\n"
-      response += tips.map((tip, index) => `${index + 1}. ${tip}`).join("\n\n")
-    } else if (message.includes("research")) {
-      const tips = universityEducationalDataset.researchTips.slice(0, 3)
-      response = "Here are some essential research tips for university students:\n\n"
-      response += tips.map((tip, index) => `${index + 1}. ${tip}`).join("\n\n")
-    } else {
-      response = "Hello! I'm EduHive AI, your university study companion. I can help you with:\n\n"
-      response += "• Mathematics (Calculus, Linear Algebra, Statistics)\n"
-      response += "• Computer Science (Algorithms, Programming, ML)\n"
-      response += "• Physics (Quantum Mechanics, Electromagnetism)\n"
-      response += "• Chemistry (Organic, Physical, Analytical)\n"
-      response += "• Biology (Molecular Biology, Genetics)\n"
-      response += "• Engineering (Mechanical, Electrical, Civil)\n"
-      response += "• Study techniques and exam preparation\n\n"
-      response += "What would you like to learn about today?"
-    }
-  }
-
-  return response
-}
-
-function addReferences(response: string, subject: string, topic?: string): string {
-  const references = getReferences(subject, topic)
-
-  if (references.length > 0) {
-    response += "\n\n📚 **Helpful Resources:**\n"
-    references.slice(0, 2).forEach((ref, index) => {
-      const emoji = ref.type === "video" ? "🎥" : "📄"
-      response += `\n${emoji} **${ref.title}**\n`
-      response += `   ${ref.description}\n`
-      response += `   🔗 ${ref.url}\n`
-    })
-  }
-
-  return response
+function getMaxTokens(): number {
+  const configured = Number.parseInt(process.env.NVIDIA_MAX_TOKENS ?? "", 10);
+  return Number.isSafeInteger(configured) && configured > 0
+    ? configured
+    : DEFAULT_MAX_TOKENS;
 }
 
 export async function POST(request: NextRequest) {
+  const { user } = await validateRequest();
+  if (!user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const rateLimit = checkTutorRateLimit(user.id);
+  if (!rateLimit.allowed) {
+    return NextResponse.json(
+      { error: "Too many tutor requests. Please try again shortly." },
+      {
+        status: 429,
+        headers: { "Retry-After": String(rateLimit.retryAfterSeconds) },
+      },
+    );
+  }
+
   try {
-    // Validate user authentication
-    const { user } = await validateRequest()
-    if (!user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+    const body = tutorChatRequestSchema.parse(await request.json());
+    const apiKey = process.env.NVIDIA_API_KEY;
+
+    if (!apiKey) {
+      console.error(
+        "Tutor configuration error: NVIDIA_API_KEY is not configured",
+      );
+      return NextResponse.json(
+        { error: "The tutor is not configured yet. Please contact support." },
+        { status: 503 },
+      );
     }
 
-    const body: ChatRequest = await request.json()
+    const model = process.env.NVIDIA_MODEL || DEFAULT_NVIDIA_MODEL;
+    const abortController = new AbortController();
+    const timeout = setTimeout(
+      () => abortController.abort(),
+      NVIDIA_TIMEOUT_MS,
+    );
 
-    if (!body.messages || !Array.isArray(body.messages)) {
-      return NextResponse.json({ error: "Invalid request format" }, { status: 400 })
-    }
+    try {
+      const nvidiaResponse = await fetch(NVIDIA_CHAT_COMPLETIONS_URL, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          "Content-Type": "application/json",
+        },
+        signal: abortController.signal,
+        body: JSON.stringify({
+          model,
+          messages: [
+            {
+              role: "system",
+              content: `${EDUHIVE_TUTOR_SYSTEM_PROMPT}\n\nSelected learning mode: ${body.mode}\n${getTutorModeInstructions(body.mode)}`,
+            },
+            ...body.messages.map((message) => ({
+              role: message.role,
+              content: message.content,
+            })),
+          ],
+          temperature: 1,
+          top_p: 0.95,
+          max_tokens: getMaxTokens(),
+          chat_template_kwargs: { thinking: false },
+          stream: false,
+        }),
+      });
 
-    const lastMessage = body.messages[body.messages.length - 1]
+      if (!nvidiaResponse.ok) {
+        console.error("Tutor provider request failed", {
+          status: nvidiaResponse.status,
+          model,
+        });
 
-    if (!lastMessage || lastMessage.role !== "user") {
-      return NextResponse.json({ error: "Last message must be from user" }, { status: 400 })
-    }
+        if (nvidiaResponse.status === 429) {
+          const retryAfter = Number.parseInt(
+            nvidiaResponse.headers.get("retry-after") ?? "",
+            10,
+          );
+          const retrySeconds =
+            Number.isSafeInteger(retryAfter) && retryAfter > 0
+              ? retryAfter
+              : 60;
+          return NextResponse.json(
+            {
+              error: `The AI tutor has reached its usage limit. Please try again in about ${Math.ceil(retrySeconds / 60)} minute(s).`,
+            },
+            { status: 429, headers: { "Retry-After": String(retrySeconds) } },
+          );
+        }
 
-    // Generate educational response
-    let response = generateEducationalResponse(lastMessage.content, body.messages)
-
-    // Detect subject for references
-    const message = lastMessage.content.toLowerCase()
-    const subjects = Object.keys(universityEducationalDataset.subjects)
-
-    for (const subject of subjects) {
-      const subjectData =
-        universityEducationalDataset.subjects[subject as keyof typeof universityEducationalDataset.subjects]
-      if (subjectData.keywords.some((keyword) => message.includes(keyword.toLowerCase()))) {
-        response = addReferences(response, subject)
-        break
+        return NextResponse.json(
+          { error: "The tutor is temporarily unavailable. Please try again." },
+          { status: 502 },
+        );
       }
+
+      const response = getModelResponseText(
+        (await nvidiaResponse.json()) as NvidiaResponse,
+      );
+      if (!response) {
+        console.error("Tutor provider returned no usable response");
+        return NextResponse.json(
+          {
+            error:
+              "The tutor could not produce a response. Please rephrase and try again.",
+          },
+          { status: 502 },
+        );
+      }
+
+      const finalQuestion = body.messages.at(-1)?.content ?? "";
+      return NextResponse.json({
+        response,
+        mode: body.mode,
+        subject: detectSubject(finalQuestion),
+        timestamp: new Date().toISOString(),
+      });
+    } finally {
+      clearTimeout(timeout);
+    }
+  } catch (error) {
+    if (error instanceof ZodError) {
+      return NextResponse.json(
+        { error: "Invalid chat request.", details: error.flatten() },
+        { status: 400 },
+      );
     }
 
-    return NextResponse.json({
-      response,
-      timestamp: new Date().toISOString(),
-      subject: subjects.find((s) => message.includes(s)) || "general",
-    })
-  } catch (error) {
-    console.error("Chatbot API error:", error)
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 })
+    if (error instanceof SyntaxError) {
+      return NextResponse.json(
+        { error: "Invalid JSON request body." },
+        { status: 400 },
+      );
+    }
+
+    if (error instanceof Error && error.name === "AbortError") {
+      return NextResponse.json(
+        { error: "The tutor took too long to respond. Please try again." },
+        { status: 504 },
+      );
+    }
+
+    console.error("Tutor API error", error);
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 },
+    );
   }
 }

@@ -20,6 +20,22 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## EduHive AI tutor setup
+
+The tutor uses NVIDIA Build's OpenAI-compatible API through EduHive's server-side `/api/chatbot` route. Copy `.env.example` to `.env`, then add your NVIDIA key there. Never prefix the key with `NEXT_PUBLIC_` or put it in client-side code.
+
+```env
+NVIDIA_API_KEY=your_nvidia_build_api_key
+# Optional: defaults to deepseek-ai/deepseek-v4-pro
+NVIDIA_MODEL=deepseek-ai/deepseek-v4-pro
+# Optional: limits a single tutor response; defaults to 1500
+NVIDIA_MAX_TOKENS=1500
+```
+
+The route requires an authenticated EduHive user, accepts at most 11 alternating messages of up to 4,000 characters, times out provider calls, and applies a per-instance request guard.
+
+Students can choose Explain, Quiz Me, Flashcards, Practice Exam, Summarize, Simplify, Compare, or Step-by-Step. The selected mode is validated on the server and saved with the conversation.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

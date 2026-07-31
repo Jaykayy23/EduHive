@@ -5,6 +5,8 @@ import {
   AlertCircle,
   BookOpen,
   Bot,
+  Check,
+  ChevronDown,
   Clock,
   Plus,
   Send,
@@ -23,6 +25,14 @@ import {
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import Linkify from "@/components/Linkify";
 import { AvatarFallback } from "@radix-ui/react-avatar";
 import { tutorModes, type TutorMode } from "@/lib/tutor-modes";
@@ -46,15 +56,51 @@ type Conversation = {
 
 const generateId = () => crypto.randomUUID();
 
-const learningModes: Array<{ value: TutorMode; label: string }> = [
-  { value: "explain", label: "Explain" },
-  { value: "quiz", label: "Quiz Me" },
-  { value: "flashcards", label: "Flashcards" },
-  { value: "practice-exam", label: "Practice Exam" },
-  { value: "summarize", label: "Summarize" },
-  { value: "simplify", label: "Simplify" },
-  { value: "compare", label: "Compare" },
-  { value: "step-by-step", label: "Step-by-Step" },
+const learningModes: Array<{
+  value: TutorMode;
+  label: string;
+  description: string;
+}> = [
+  {
+    value: "explain",
+    label: "Explain",
+    description: "Clear concepts, examples, and a quick knowledge check.",
+  },
+  {
+    value: "quiz",
+    label: "Quiz Me",
+    description: "Ten questions to test recall, application, and reasoning.",
+  },
+  {
+    value: "flashcards",
+    label: "Flashcards",
+    description: "Ten concise prompt-and-answer cards for revision.",
+  },
+  {
+    value: "practice-exam",
+    label: "Practice Exam",
+    description: "A 50-mark exam-style paper without solutions.",
+  },
+  {
+    value: "summarize",
+    label: "Summarize",
+    description: "A concise, exam-focused overview of the essentials.",
+  },
+  {
+    value: "simplify",
+    label: "Simplify",
+    description: "Plain language and analogies for difficult topics.",
+  },
+  {
+    value: "compare",
+    label: "Compare",
+    description: "A direct comparison table with practical distinctions.",
+  },
+  {
+    value: "step-by-step",
+    label: "Step-by-Step",
+    description: "A worked process with assumptions and decision points.",
+  },
 ];
 
 const isTutorMode = (value: unknown): value is TutorMode =>
@@ -550,27 +596,47 @@ export default function AcademicChatBot() {
 
       <div className="rounded-b-modern-lg border-border/50 bg-card/80 sticky bottom-0 z-10 border-t backdrop-blur-sm">
         <div className="mx-auto max-w-4xl p-3 sm:p-4">
-          <div className="mb-3">
-            <p className="text-muted-foreground mb-2 text-xs font-medium">
-              Learning mode
-            </p>
-            <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-              {learningModes.map((learningMode) => (
-                <Button
-                  key={learningMode.value}
-                  type="button"
-                  variant={mode === learningMode.value ? "default" : "outline"}
-                  size="sm"
-                  disabled={isBusy}
-                  onClick={() => setMode(learningMode.value)}
-                  className="h-8 justify-center text-xs"
-                >
-                  {learningMode.label}
-                </Button>
-              ))}
-            </div>
-          </div>
           <div className="flex items-end space-x-2 sm:space-x-3">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  aria-label="Choose learning mode"
+                  disabled={isBusy}
+                  type="button"
+                  variant="outline"
+                  className="h-9 shrink-0 gap-1.5 px-2.5 text-xs sm:h-11 sm:px-3 sm:text-sm"
+                >
+                  <Sparkles className="text-primary size-3.5 sm:size-4" />
+                  <span className="hidden sm:inline">{getModeLabel(mode)}</span>
+                  <span className="sm:hidden">Mode</span>
+                  <ChevronDown className="text-muted-foreground size-3.5" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-80 p-1.5">
+                <DropdownMenuLabel>Choose response mode</DropdownMenuLabel>
+                <p className="text-muted-foreground px-2 pb-2 text-xs">
+                  The selected mode controls the next tutor response.
+                </p>
+                <DropdownMenuSeparator />
+                {learningModes.map((learningMode) => (
+                  <DropdownMenuItem
+                    key={learningMode.value}
+                    onSelect={() => setMode(learningMode.value)}
+                    className="min-h-14 items-start gap-3 px-2 py-2"
+                  >
+                    <div className="min-w-0 flex-1">
+                      <p className="font-medium">{learningMode.label}</p>
+                      <p className="text-muted-foreground mt-0.5 text-xs leading-snug">
+                        {learningMode.description}
+                      </p>
+                    </div>
+                    {mode === learningMode.value && (
+                      <Check className="text-primary mt-0.5 size-4" />
+                    )}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
             <Input
               value={input}
               onChange={(event) => setInput(event.target.value)}

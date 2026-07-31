@@ -1,11 +1,11 @@
 # Graph Report - EduHive_  (2026-07-31)
 
 ## Corpus Check
-- 218 files · ~518,675 words
+- 218 files · ~518,349 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 6003 nodes · 10847 edges · 254 communities (113 shown, 141 thin omitted)
+- 6003 nodes · 10847 edges · 257 communities (116 shown, 141 thin omitted)
 - Extraction: 93% EXTRACTED · 7% INFERRED · 0% AMBIGUOUS · INFERRED: 745 edges (avg confidence: 0.65)
 - Token cost: 0 input · 0 output
 
@@ -103,6 +103,8 @@
 - summarizer py
 - extractHostAndApiKey Subsystem
 - B Subsystem
+- write
+- to
 - DriverAdapter Subsystem
 - Span Subsystem
 - Aa Subsystem
@@ -164,6 +166,7 @@
 - PrismaClientValidationError Subsystem
 - Skip Subsystem
 - seed achievements ts
+- ai
 - class variance authority
 - clsx Subsystem
 - date fns
@@ -282,7 +285,7 @@
 ## Import Cycles
 - 3-file cycle: `components/Linkify.tsx -> components/UserLinkwithTooltip.tsx -> components/UserTooltip.tsx -> components/Linkify.tsx`
 
-## Communities (254 total, 141 thin omitted)
+## Communities (257 total, 141 thin omitted)
 
 ### Community 0 - "index d ts"
 Cohesion: 0.00
@@ -298,7 +301,7 @@ Nodes (59): Cl(), _a(), ac(), bs(), Bu(), build(), buildCaptureSettings(), cc() 
 
 ### Community 3 - "react native js"
 Cohesion: 0.02
-Nodes (60): ai(), Al(), ap(), As(), bs(), di(), Ea(), et() (+52 more)
+Nodes (58): applyPendingMigrations(), ar(), As(), buildQueryError(), consumeError(), createEngineSpan(), deref(), dispatchBatches() (+50 more)
 
 ### Community 4 - "edge js"
 Cohesion: 0.03
@@ -372,8 +375,8 @@ Cohesion: 0.12
 Nodes (28): An(), Cn(), ds(), findField(), fu(), getAllBatchQueryCallbacks(), getArgumentName(), getArgumentPath() (+20 more)
 
 ### Community 22 - "ba Subsystem"
-Cohesion: 0.06
-Nodes (18): ba(), ci(), ha(), Hr(), ii(), Je(), ni(), Oe() (+10 more)
+Cohesion: 0.07
+Nodes (5): ci(), Je(), pi(), T(), ui()
 
 ### Community 23 - "addErrorMessage Subsystem"
 Cohesion: 0.13
@@ -405,7 +408,7 @@ Nodes (53): addItem(), bo(), Bs(), Cr(), dc(), Do(), el(), es() (+45 more)
 
 ### Community 30 - "vo Subsystem"
 Cohesion: 0.09
-Nodes (33): addMarginSymbol(), afterNextNewline(), An(), au(), cp(), getCurrentLineLength(), getPrintWidth(), gt() (+25 more)
+Nodes (25): Al(), An(), at(), cp(), Fs(), gr(), gt(), handleAndLogRequestError() (+17 more)
 
 ### Community 31 - "CleaningDiagnostics Subsystem"
 Cohesion: 0.08
@@ -444,8 +447,8 @@ Cohesion: 0.08
 Nodes (31): qe(), be(), bl(), bn(), cu(), dr(), enabled(), Fa() (+23 more)
 
 ### Community 40 - "ac Subsystem"
-Cohesion: 0.15
-Nodes (26): ac(), at(), cc(), Cn(), findField(), fo(), Fs(), getArgumentName() (+18 more)
+Cohesion: 0.23
+Nodes (19): ac(), cc(), Cn(), findField(), fo(), getArgumentName(), getArgumentPath(), getComputedFields() (+11 more)
 
 ### Community 41 - "cobe Subsystem"
 Cohesion: 0.07
@@ -516,8 +519,8 @@ Cohesion: 0.10
 Nodes (41): a(), ac(), as(), bs(), constructor(), cs(), dispatchBatches(), ei() (+33 more)
 
 ### Community 58 - "An Subsystem"
-Cohesion: 0.08
-Nodes (31): applyPendingMigrations(), ar(), buildQueryError(), consumeError(), createEngineSpan(), deref(), dispatchBatches(), ep() (+23 more)
+Cohesion: 0.11
+Nodes (18): ap(), bs(), fromContent(), getLocation(), isRawAction(), kl(), lineAt(), ln() (+10 more)
 
 ### Community 59 - "index browser d ts"
 Cohesion: 0.10
@@ -587,13 +590,21 @@ Nodes (7): _c(), Fc(), gt(), hc(), isRawAction(), rc(), text()
 Cohesion: 0.31
 Nodes (13): B(), Jo(), Qo(), readIntBE(), readIntLE(), readUIntBE(), readUIntLE(), V() (+5 more)
 
+### Community 93 - "write"
+Cohesion: 0.22
+Nodes (17): addMarginSymbol(), afterNextNewline(), au(), getCurrentLineLength(), getPrintWidth(), indent(), newLine(), setColor() (+9 more)
+
+### Community 94 - "to"
+Cohesion: 0.18
+Nodes (11): addItem(), de(), Dl(), Fe(), _getName(), lt(), to(), up() (+3 more)
+
 ### Community 95 - "DriverAdapter Subsystem"
 Cohesion: 0.17
 Nodes (5): DriverAdapter, ErrorCapturingDriverAdapter, Queryable, $transaction(), TransactionContext
 
 ### Community 97 - "Aa Subsystem"
-Cohesion: 0.20
-Nodes (11): Aa(), Ca(), Da(), fi(), Kr(), La(), nr(), Pa() (+3 more)
+Cohesion: 0.11
+Nodes (24): Aa(), ba(), Ca(), Da(), fi(), ha(), Hr(), ii() (+16 more)
 
 ### Community 98 - "questgen service py"
 Cohesion: 0.21
@@ -717,9 +728,13 @@ Nodes (5): ./runtime/library, default, import, require, types
 Cohesion: 0.40
 Nodes (5): ./wasm, default, import, require, types
 
+### Community 157 - "ai"
+Cohesion: 0.40
+Nodes (6): ai(), di(), et(), Ia(), li(), Tt()
+
 ### Community 192 - "react hook form"
-Cohesion: 0.10
-Nodes (22): addItem(), Ae(), de(), Dl(), Gc(), getAllClientExtensions(), getAllModelExtensions(), _getName() (+14 more)
+Cohesion: 0.13
+Nodes (18): Ae(), Gc(), getAllClientExtensions(), getAllModelExtensions(), hc(), He(), Ht(), jc() (+10 more)
 
 ### Community 260 - "e"
 Cohesion: 0.33
@@ -733,9 +748,9 @@ Nodes (6): Br(), Ct(), e(), fl(), fs(), ss()
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `n()` connect `addItem Subsystem` to `Tn Subsystem`, `react native js`, `edge js`, `edge esm js`, `At Subsystem`, `index browser js`, `ko Subsystem`, `addErrorMessage Subsystem`, `buildQueryError Subsystem`, `a Subsystem`, `addErrorMessage Subsystem`, `addItem Subsystem`, `a Subsystem`, `ba Subsystem`, `addErrorMessage Subsystem`, `bl Subsystem`, `addErrorMessage Subsystem`, `addItem Subsystem`, `vo Subsystem`, `bo Subsystem`, `ap Subsystem`, `Be Subsystem`, `vl Subsystem`, `Aa Subsystem`, `qe Subsystem`, `ac Subsystem`, `addMarginSymbol Subsystem`, `ac Subsystem`, `addMarginSymbol Subsystem`, `de Subsystem`, `aa Subsystem`, `ai Subsystem`, `aa Subsystem`, `ReportActions tsx`, `Ba Subsystem`, `dm Subsystem`, `a Subsystem`, `An Subsystem`, `dc Subsystem`, `route ts`, `react hook form`, `Er Subsystem`, `addMarginSymbol Subsystem`, `a Subsystem`, `addMarginSymbol Subsystem`, `an Subsystem`?**
+- **Why does `n()` connect `addItem Subsystem` to `Tn Subsystem`, `react native js`, `edge js`, `edge esm js`, `At Subsystem`, `index browser js`, `ko Subsystem`, `addErrorMessage Subsystem`, `buildQueryError Subsystem`, `a Subsystem`, `addErrorMessage Subsystem`, `addItem Subsystem`, `a Subsystem`, `ba Subsystem`, `addErrorMessage Subsystem`, `bl Subsystem`, `addErrorMessage Subsystem`, `addItem Subsystem`, `ai`, `bo Subsystem`, `ap Subsystem`, `Be Subsystem`, `vl Subsystem`, `Aa Subsystem`, `qe Subsystem`, `ac Subsystem`, `addMarginSymbol Subsystem`, `ac Subsystem`, `addMarginSymbol Subsystem`, `de Subsystem`, `aa Subsystem`, `ai Subsystem`, `aa Subsystem`, `ReportActions tsx`, `Ba Subsystem`, `dm Subsystem`, `a Subsystem`, `dc Subsystem`, `route ts`, `react hook form`, `Er Subsystem`, `addMarginSymbol Subsystem`, `a Subsystem`, `addMarginSymbol Subsystem`, `an Subsystem`, `write`?**
   _High betweenness centrality (0.124) - this node is a cross-community bridge._
-- **Why does `i()` connect `addItem Subsystem` to `Tn Subsystem`, `react native js`, `edge js`, `edge esm js`, `At Subsystem`, `index browser js`, `ko Subsystem`, `addErrorMessage Subsystem`, `a Subsystem`, `addErrorMessage Subsystem`, `addItem Subsystem`, `a Subsystem`, `ba Subsystem`, `addErrorMessage Subsystem`, `addErrorMessage Subsystem`, `addErrorMessage Subsystem`, `addItem Subsystem`, `ap Subsystem`, `Be Subsystem`, `Aa Subsystem`, `qe Subsystem`, `ac Subsystem`, `ac Subsystem`, `de Subsystem`, `aa Subsystem`, `ai Subsystem`, `aa Subsystem`, `ReportActions tsx`, `Ba Subsystem`, `dm Subsystem`, `a Subsystem`, `dc Subsystem`, `route ts`, `Bd Subsystem`, `react hook form`, `Er Subsystem`, `En Subsystem`, `an Subsystem`?**
+- **Why does `i()` connect `addItem Subsystem` to `Tn Subsystem`, `react native js`, `edge js`, `edge esm js`, `At Subsystem`, `index browser js`, `ko Subsystem`, `addErrorMessage Subsystem`, `a Subsystem`, `addErrorMessage Subsystem`, `addItem Subsystem`, `a Subsystem`, `ba Subsystem`, `addErrorMessage Subsystem`, `addErrorMessage Subsystem`, `addErrorMessage Subsystem`, `addItem Subsystem`, `ai`, `ap Subsystem`, `Be Subsystem`, `Aa Subsystem`, `qe Subsystem`, `ac Subsystem`, `ac Subsystem`, `de Subsystem`, `aa Subsystem`, `ai Subsystem`, `aa Subsystem`, `ReportActions tsx`, `Ba Subsystem`, `dm Subsystem`, `a Subsystem`, `dc Subsystem`, `route ts`, `Bd Subsystem`, `react hook form`, `Er Subsystem`, `En Subsystem`, `an Subsystem`, `to`?**
   _High betweenness centrality (0.064) - this node is a cross-community bridge._
 - **Why does `cn()` connect `page tsx` to `actions ts`, `useFollowerInfo ts`, `GoogleSignInButton tsx`, `applyPendingMigrations Subsystem`, `useDebounce ts`, `AchievementBadge tsx`, `InputSection Subsystem`?**
   _High betweenness centrality (0.043) - this node is a cross-community bridge._

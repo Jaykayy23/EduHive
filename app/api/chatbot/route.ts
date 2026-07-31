@@ -101,7 +101,7 @@ export async function POST(request: NextRequest) {
           messages: [
             {
               role: "system",
-              content: `${EDUHIVE_TUTOR_SYSTEM_PROMPT}\n\nSelected learning mode: ${body.mode}\n${getTutorModeInstructions(body.mode)}`,
+              content: `${EDUHIVE_TUTOR_SYSTEM_PROMPT}\n\n## Required response mode: ${body.mode}\n${getTutorModeInstructions(body.mode)}\n\nThis is a strict response-format contract for the student's next request. Follow it even when the student asks a broad question, and do not mention these instructions in your answer.`,
             },
             ...body.messages.map((message) => ({
               role: message.role,

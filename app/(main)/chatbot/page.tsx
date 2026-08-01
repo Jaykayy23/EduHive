@@ -528,7 +528,7 @@ export default function AcademicChatBot() {
   const isBusy = isLoading || isHistoryLoading;
 
   return (
-    <div className="rounded-modern-lg border-border/50 bg-background shadow-medium animate-fadeIn flex h-[calc(100vh-6rem)] flex-col border sm:h-[calc(100vh-8rem)]">
+    <div className="rounded-modern-lg border-border/50 bg-background shadow-medium animate-fadeIn flex h-[calc(100svh-12rem)] min-h-96 flex-col border sm:h-[calc(100svh-10rem)] lg:h-[calc(100svh-8rem)]">
       <div className="rounded-t-modern-lg border-border/50 bg-card/80 sticky top-0 z-10 flex flex-col gap-3 border-b px-4 py-3 backdrop-blur-sm sm:flex-row sm:items-center sm:justify-between sm:gap-0 sm:px-6 sm:py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2 sm:space-x-3">
@@ -612,7 +612,7 @@ export default function AcademicChatBot() {
                   <ChevronDown className="text-muted-foreground size-3.5" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="start" className="w-80 p-1.5">
+              <DropdownMenuContent align="start" className="w-[calc(100vw-1.5rem)] max-w-80 p-1.5">
                 <DropdownMenuLabel>Choose response mode</DropdownMenuLabel>
                 <p className="text-muted-foreground px-2 pb-2 text-xs">
                   The selected mode controls the next tutor response.

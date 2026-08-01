@@ -27,19 +27,19 @@ export default function MessagesButton({ initialState }: MessagesButtonProps) {
   return (
     <Button
       variant="ghost"
-      className={`flex-1 justify-center sm:w-full sm:justify-start gap-2 h-12 sm:h-14 text-left hover:bg-accent/60 transition-all duration-300 hover-lift group ${
+      className={`h-12 min-w-0 flex-1 justify-center gap-1 px-1 text-left transition-all duration-300 hover:bg-accent/60 lg:h-14 lg:w-full lg:justify-start lg:gap-2 lg:px-4 hover-lift group ${
         isActive ? "bg-primary/10 border border-primary/20" : ""
       }`}
       title="Messages"
       asChild
     >
-      <Link href="/messages" className="flex items-center gap-2 sm:gap-4">
-        <div className={`relative p-1.5 sm:p-2 rounded-premium-sm transition-colors duration-300 ${
+      <Link href="/messages" className="flex items-center gap-1 lg:gap-4">
+        <div className={`relative p-1.5 lg:p-2 rounded-premium-sm transition-colors duration-300 ${
           isActive 
             ? "bg-primary/20" 
             : "bg-muted/50 group-hover:bg-primary/20"
         }`}>
-          <Mail className={`size-4 sm:size-5 transition-colors duration-300 ${
+          <Mail className={`size-5 transition-colors duration-300 ${
             isActive 
               ? "text-primary" 
               : "text-muted-foreground group-hover:text-primary"
@@ -50,7 +50,7 @@ export default function MessagesButton({ initialState }: MessagesButtonProps) {
             </span>
           )}
         </div>
-        <span className={`hidden sm:inline font-semibold transition-colors duration-300 ${
+        <span className={`hidden lg:inline font-semibold transition-colors duration-300 ${
           isActive 
             ? "text-primary" 
             : "text-foreground group-hover:text-primary"

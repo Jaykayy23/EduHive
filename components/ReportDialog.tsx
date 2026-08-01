@@ -83,15 +83,15 @@ export function ReportDialog({
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="reason" className="text-right">
+          <div className="grid gap-2 sm:grid-cols-4 sm:items-center sm:gap-4">
+            <Label htmlFor="reason" className="sm:text-right">
               Reason
             </Label>
             <Select
               onValueChange={(value: ReportReason) => setReason(value)}
               value={reason}
             >
-              <SelectTrigger className="col-span-3">
+              <SelectTrigger className="sm:col-span-3">
                 <SelectValue placeholder="Select a reason" />
               </SelectTrigger>
               <SelectContent>
@@ -103,14 +103,14 @@ export function ReportDialog({
               </SelectContent>
             </Select>
           </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="comments" className="text-right">
+          <div className="grid gap-2 sm:grid-cols-4 sm:items-center sm:gap-4">
+            <Label htmlFor="comments" className="sm:text-right">
               Comments (Optional)
             </Label>
             <Textarea
               id="comments"
               placeholder="Provide additional details..."
-              className="col-span-3"
+              className="sm:col-span-3"
               value={comments}
               onChange={(e) => setComments(e.target.value)}
               rows={4}

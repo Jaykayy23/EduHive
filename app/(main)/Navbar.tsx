@@ -14,11 +14,11 @@ export default function Navbar({ session }: NavbarProps) {
   const user = session?.user ?? null;
 
   return (
-    <header className="glass-strong sticky top-0 z-50 shadow-dramatic border-b border-border/30 backdrop-blur-premium">
-      <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:px-6 sm:py-6 lg:px-8">
+    <header className="glass-strong sticky top-0 z-40 border-b border-border/30 shadow-dramatic backdrop-blur-premium">
+      <div className="mx-auto flex max-w-7xl flex-col gap-2 px-3 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:px-6 sm:py-4 lg:px-8">
         {/* Logo Section */}
         <div className="flex items-center justify-between">
-          <Link href="/" className="flex items-center space-x-3 group sm:space-x-4">
+          <Link href="/" className="group flex items-center space-x-2 sm:space-x-4">
             <div className="relative">
               <div className="absolute inset-0 rounded-full bg-gradient-primary opacity-0 group-hover:opacity-20 transition-opacity duration-300 blur-sm" />
               <Image
@@ -26,11 +26,11 @@ export default function Navbar({ session }: NavbarProps) {
                 alt="EduHive Logo"
                 width={40}
                 height={40}
-                className="relative rounded-full transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 shadow-medium sm:w-12 sm:h-12"
+                className="relative h-9 w-9 rounded-full shadow-medium transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 sm:h-11 sm:w-11"
               />
               <div className="absolute inset-0 rounded-full bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
-            <span className="text-gradient text-2xl font-bold tracking-tight group-hover:scale-105 transition-transform duration-300 sm:text-3xl">
+            <span className="text-gradient text-xl font-bold tracking-tight transition-transform duration-300 group-hover:scale-105 sm:text-2xl">
               EduHive
             </span>
           </Link>
@@ -45,7 +45,7 @@ export default function Navbar({ session }: NavbarProps) {
         
         {/* Search Field - Visible on all screen sizes */}
         {user && (
-          <div className="flex-1 max-w-md mx-0 sm:max-w-lg sm:mx-6">
+          <div className="mx-0 min-w-0 flex-1 sm:mx-6 sm:max-w-lg">
             <SearchField />
           </div>
         )}

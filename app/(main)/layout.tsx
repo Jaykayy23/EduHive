@@ -17,9 +17,9 @@ export default async function Layout({
 
   return (
     <SessionProvider value={session}>
-      <div className="bg-gradient-surface flex min-h-screen flex-col">
+      <div className="bg-gradient-surface flex min-h-svh flex-col overflow-x-clip">
         <Navbar session={session} />
-        <div className="mx-auto flex w-full max-w-7xl grow flex-col gap-4 p-4 sm:gap-6 sm:p-6 lg:flex-row lg:gap-8 lg:p-8">
+        <div className="mx-auto flex w-full max-w-7xl grow flex-col gap-4 px-3 pt-3 pb-24 sm:gap-6 sm:px-6 sm:pt-6 lg:flex-row lg:gap-8 lg:p-8">
           {/* Desktop Sidebar — wrapped in Suspense so page content renders immediately */}
           <Suspense
             fallback={
@@ -42,12 +42,12 @@ export default async function Layout({
         {/* Mobile Bottom Navigation — wrapped in Suspense */}
         <Suspense
           fallback={
-            <div className="border-border/30 bg-card/95 backdrop-blur-premium shadow-dramatic glass sticky bottom-0 z-50 flex w-full justify-center gap-2 border-t p-3 sm:hidden">
+            <div className="border-border/30 bg-card/95 backdrop-blur-premium shadow-dramatic glass fixed inset-x-0 bottom-0 z-50 flex w-full justify-center border-t px-2 pt-2 pb-[calc(.5rem+env(safe-area-inset-bottom))] lg:hidden">
               <BookLoader size="1.25rem" />
             </div>
           }
         >
-          <MenuBarWrapper className="border-border/30 bg-card/95 backdrop-blur-premium shadow-dramatic glass sticky bottom-0 z-50 flex w-full justify-center gap-2 border-t p-3 sm:hidden" />
+          <MenuBarWrapper className="border-border/30 bg-card/95 backdrop-blur-premium shadow-dramatic glass fixed inset-x-0 bottom-0 z-50 w-full border-t px-2 pt-2 pb-[calc(.5rem+env(safe-area-inset-bottom))] lg:hidden" />
         </Suspense>
       </div>
     </SessionProvider>

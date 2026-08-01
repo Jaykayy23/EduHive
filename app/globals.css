@@ -273,6 +273,7 @@
   
   html {
     scroll-behavior: smooth;
+    overflow-x: clip;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
@@ -281,10 +282,19 @@
   
   body {
     @apply bg-background text-foreground;
+    min-width: 320px;
+    overflow-x: clip;
     font-feature-settings: "rlig" 1, "calt" 1, "kern" 1;
     line-height: var(--line-height-relaxed);
     letter-spacing: -0.01em;
     font-variant-numeric: oldstyle-nums;
+  }
+
+  img,
+  video,
+  canvas,
+  svg {
+    max-width: 100%;
   }
   
   /* Premium typography hierarchy with sophisticated scaling */

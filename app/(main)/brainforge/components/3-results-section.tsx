@@ -421,7 +421,7 @@ export function ResultsSection({ generatedQuestions }: ResultsSectionProps) {
   return (
     <>
       <Card className="border border-border bg-card shadow-lg">
-        <CardHeader className="space-y-6 p-8">
+        <CardHeader className="space-y-4 p-4 sm:space-y-6 sm:p-8">
           <div className="flex items-center justify-between flex-wrap gap-6">
             <div className="flex items-center gap-4">
               <div className="p-3 rounded-lg bg-primary text-primary-foreground">
@@ -465,7 +465,7 @@ export function ResultsSection({ generatedQuestions }: ResultsSectionProps) {
           </div>
         </CardHeader>
 
-        <CardContent className="p-8 pt-0">
+        <CardContent className="p-4 pt-0 sm:p-8 sm:pt-0">
           <div className="space-y-8">
             {quizQuestions.map((question, index) => {
               const isAnswered = userAnswers[index] !== undefined
@@ -685,16 +685,16 @@ export function ResultsSection({ generatedQuestions }: ResultsSectionProps) {
       </Card>
 
       <Dialog open={showScoreModal} onOpenChange={setShowScoreModal}>
-        <DialogContent className="max-w-7xl max-h-[95vh] overflow-hidden">
-          <DialogHeader className="p-6">
+        <DialogContent className="max-h-[95svh] max-w-7xl overflow-hidden p-0">
+          <DialogHeader className="p-4 pr-10 sm:p-6 sm:pr-12">
             <DialogTitle className="flex items-center gap-3 text-2xl font-bold">
               <Trophy className="h-6 w-6 text-primary" />
               Quiz Results
             </DialogTitle>
           </DialogHeader>
 
-          <ScrollArea className="max-h-[80vh] px-6">
-            <div className="space-y-12 pb-6">
+          <ScrollArea className="max-h-[80svh] px-4 sm:px-6">
+            <div className="space-y-8 pb-4 sm:space-y-12 sm:pb-6">
               {/* Score Display */}
               <div className="text-center space-y-6">
                 <div className="inline-flex items-center justify-center w-32 h-32 rounded-full bg-primary text-primary-foreground">

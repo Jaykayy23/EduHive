@@ -12,19 +12,19 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <main className="flex h-screen items-center justify-center p-5">
-      <div className="bg-card flex h-full max-h-[40rem] w-full max-w-[64rem] overflow-hidden rounded-2xl shadow-2xl">
-        <div className="w-full space-y-10 overflow-y-auto p-10 md:w-1/2">
+    <main className="flex min-h-svh items-center justify-center bg-gradient-to-br from-primary/10 via-background to-background p-0 sm:p-5">
+      <div className="bg-card flex min-h-svh w-full max-w-[64rem] overflow-hidden sm:min-h-0 sm:max-h-[40rem] sm:rounded-2xl sm:shadow-2xl">
+        <div className="w-full space-y-6 overflow-y-auto px-5 py-8 sm:space-y-8 sm:p-10 md:w-1/2">
           <div className="mb-1 flex justify-center">
             <Image
               src="/images/EduLogo.png"
               alt="Logo"
-              width={155}
-              height={150}
+              width={120}
+              height={116}
               priority
             />
           </div>
-          <h1 className="text-center text-3xl font-bold">Login to EduHive</h1>
+          <h1 className="text-center text-2xl font-bold sm:text-3xl">Login to EduHive</h1>
           <div className="space-y-5">
             
             <LoginForm />

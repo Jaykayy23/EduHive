@@ -13,8 +13,8 @@ import {
   Sparkles,
   Trash2,
 } from "lucide-react";
+import { Component as AiLoader } from "@/components/ui/ai-loader";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -34,7 +34,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Linkify from "@/components/Linkify";
-import { AvatarFallback } from "@radix-ui/react-avatar";
 import { tutorModes, type TutorMode } from "@/lib/tutor-modes";
 import { BookLoader } from "@/components/ui/book-loader";
 
@@ -185,28 +184,6 @@ const restoreConversation = (value: unknown): Conversation | null => {
     messages,
   };
 };
-
-const TypingIndicator = () => (
-  <div className="rounded-modern-lg border-border/50 bg-card/50 animate-fadeIn flex max-w-[200px] items-center space-x-2 border p-3 backdrop-blur-sm sm:p-4">
-    <Avatar className="bg-primary h-6 w-6 sm:h-8 sm:w-8">
-      <AvatarFallback>
-        <Bot className="text-primary-foreground h-3 w-3 sm:h-4 sm:w-4" />
-      </AvatarFallback>
-    </Avatar>
-    <div className="flex space-x-1">
-      {[...Array(3)].map((_, index) => (
-        <div
-          key={index}
-          className="bg-primary h-1.5 w-1.5 animate-bounce rounded-full sm:h-2 sm:w-2"
-          style={{ animationDelay: `${index * 0.1}s` }}
-        />
-      ))}
-    </div>
-    <span className="text-muted-foreground text-xs sm:text-sm">
-      EduHive is thinking...
-    </span>
-  </div>
-);
 
 const MessageBubble = ({ message }: { message: Message }) => (
   <div
@@ -589,7 +566,9 @@ export default function AcademicChatBot() {
             </Alert>
           )}
 
-          {isLoading && <TypingIndicator />}
+          {isLoading && (
+            <AiLoader className="mb-4 max-w-fit" />
+          )}
           <div ref={messagesEndRef} />
         </div>
       </div>

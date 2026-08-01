@@ -23,7 +23,7 @@ export function BookLoader({
       style={{ "--book-loader-size": size } as CSSProperties}
     >
       <span aria-hidden="true" className={styles.book}>
-        {Array.from({ length: 4 }, (_, index) => (
+        {Array.from({ length: 5 }, (_, index) => (
           <span className={styles.page} key={index} />
         ))}
         <span className={styles.spine} />

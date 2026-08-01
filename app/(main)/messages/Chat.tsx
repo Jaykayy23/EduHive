@@ -17,7 +17,11 @@ export default function Chat() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   if (!chatClient) {
-    return <BookLoader className="mx-auto my-3" size="2rem" />;
+    return (
+      <div className="flex min-h-[calc(100svh-10rem)] w-full items-center justify-center">
+        <BookLoader label="Loading chat" size="3.5rem" />
+      </div>
+    );
   }
 
   return (

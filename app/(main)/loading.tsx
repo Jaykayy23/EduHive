@@ -1,5 +1,9 @@
 import { BookLoader } from "@/components/ui/book-loader";
 
 export default function Loading() {
-  return <BookLoader className="mx-auto my-3" size="2rem" />;
+  return (
+    <div className="flex min-h-[calc(100svh-10rem)] w-full items-center justify-center py-12">
+      <BookLoader label="Loading page" size="3.5rem" />
+    </div>
+  );
 }

@@ -3,6 +3,7 @@
 
 import { useState } from "react";
 import { toast } from "sonner";
+import { getQuestgenUrl } from "@/lib/questgen";
 import { Brain, Sparkles } from "lucide-react";
 
 import { InputSection } from "./components/1-input-section";
@@ -80,7 +81,7 @@ export default function BrainForgePage() {
     try {
       let response: Response;
       if (source.type === "text") {
-        response = await fetch("http://localhost:8000/generate-from-text/", {
+        response = await fetch(getQuestgenUrl("/generate-from-text/"), {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -104,7 +105,7 @@ export default function BrainForgePage() {
             fill_in: fillInPercentage / 100,
           }),
         );
-        response = await fetch("http://localhost:8000/generate-from-file/", {
+        response = await fetch(getQuestgenUrl("/generate-from-file/"), {
           method: "POST",
           body: formData,
         });

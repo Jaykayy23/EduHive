@@ -65,7 +65,7 @@ const formatQuestionType = (type: string) => {
   return formats[type.toLowerCase() as keyof typeof formats] || type
 }
 
-const shuffleArray = (array: any[]) => {
+const shuffleArray = <T,>(array: T[]): T[] => {
   const shuffled = [...array]
   for (let i = shuffled.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1))
@@ -194,8 +194,6 @@ export function ResultsSection({ generatedQuestions }: ResultsSectionProps) {
   }
 
   const exportAsPDF = () => {
-    const textContent = formatQuestionsAsText()
-
     // Create a simple HTML structure for PDF conversion
     const htmlContent = `
       <!DOCTYPE html>

@@ -2,6 +2,7 @@ import { validateRequest } from "@/app/auth"
 import prisma from "@/lib/prisma"
 import { getPostDataInclude, type PostsPage, ACADEMIC_SUBJECTS } from "@/lib/types"
 import type { NextRequest } from "next/server"
+import type { Prisma } from "@/lib/generated/prisma"
 
 export async function GET(req: NextRequest) {
   try {
@@ -16,7 +17,7 @@ export async function GET(req: NextRequest) {
     }
 
     // Build where clause based on subject filter
-    let whereClause: any = {}
+    let whereClause: Prisma.PostWhereInput = {}
 
     if (subject && subject !== "all") {
       // Check if the subject is valid

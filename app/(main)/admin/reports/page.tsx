@@ -5,16 +5,15 @@ import {getReportDataInclude} from "@/lib/types"
 import { redirect } from "next/navigation"
 import { ReportTable } from "@/components/admin/ReportTable"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { isAdminUser } from "@/lib/admin"
 
 export const dynamic = "force-dynamic" // Ensure data is always fresh
 
 export default async function AdminReportsPage() {
   const { user } = await validateRequest()
 
-  // Basic admin check: redirect if not logged in or not an admin
-  // Replace "admin" with your actual admin user check
-  if (!user || user.username !== "jaykayy") {
-    redirect("/login") // Or show an unauthorized message
+  if (!user || !isAdminUser(user)) {
+    redirect("/login")
   }
 
   const reports: ReportData[] = await prisma.report.findMany({

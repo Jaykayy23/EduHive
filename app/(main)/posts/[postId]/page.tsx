@@ -12,9 +12,9 @@ import Linkify from "@/components/Linkify";
 import FollowButton from "@/components/FollowButton";
 
 interface PageProps {
-  params: {
+  params: Promise<{
     postId: string;
-  };
+  }>;
 }
 
 const getPost = cache(async (postId: string, loggedInUserId: string) => {
@@ -85,7 +85,7 @@ async function UserInfoSidebar({ user }: UserInfoSidebarProps) {
       <div className="text-xl font-bold">About this user</div>
       <UserTooltip user={user}>
         <Link
-          href={`users/${user.username}`}
+          href={`/users/${user.username}`}
           className="flex items-center gap-3"
         >
           <UserAvatar avatarUrl={user.avatarUrl} className="flex-none" />

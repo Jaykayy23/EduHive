@@ -244,7 +244,7 @@ export default function BrainForgeDemoPage() {
         </CardHeader>
         <CardContent>
           <p className="text-muted-foreground italic leading-relaxed">
-            "{generatedResponse.source_text.substring(0, 300)}..."
+            &ldquo;{generatedResponse.source_text.substring(0, 300)}...&rdquo;
           </p>
         </CardContent>
       </Card>

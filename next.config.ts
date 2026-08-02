@@ -1,7 +1,7 @@
 import type { NextConfig } from "next"
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  outputFileTracingRoot: process.cwd(),
   experimental: {
     staleTimes: {
       dynamic: 30,
@@ -37,12 +37,6 @@ const nextConfig: NextConfig = {
       },
     ],
     unoptimized: true,
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  typescript: {
-    ignoreBuildErrors: true,
   },
   async rewrites() {
     return [

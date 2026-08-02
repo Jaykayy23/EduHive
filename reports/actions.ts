@@ -5,6 +5,7 @@ import prisma from "@/lib/prisma"
 import { ReportReason, ReportStatus } from "@/lib/types"
 import { revalidatePath } from "next/cache"
 import { z } from "zod"
+import { isAdminUser } from "@/lib/admin"
 
 const reportSchema = z.object({
   reportedPostId: z.string().optional(),
@@ -65,10 +66,12 @@ export async function submitReport(formData: FormData) {
 export async function updateReportStatus(reportId: string, status: ReportStatus) {
   const { user } = await validateRequest()
 
-  // Basic admin check (you might want a more robust role-based access control)
-  if (!user || user.username !== "admin") {
-    // Replace "admin" with your actual admin user check
+  if (!isAdminUser(user)) {
     return { error: "Unauthorized" }
+  }
+
+  if (!Object.values(ReportStatus).includes(status)) {
+    return { error: "Invalid report status" }
   }
 
   try {
@@ -87,8 +90,7 @@ export async function updateReportStatus(reportId: string, status: ReportStatus)
 export async function deleteReport(reportId: string) {
   const { user } = await validateRequest()
 
-  if (!user || user.username !== "admin") {
-    // Replace "admin" with your actual admin user check
+  if (!isAdminUser(user)) {
     return { error: "Unauthorized" }
   }
 
@@ -107,8 +109,7 @@ export async function deleteReport(reportId: string) {
 export async function deleteReportedContent(reportId: string) {
   const { user } = await validateRequest()
 
-  if (!user || user.username !== "admin") {
-    // Replace "admin" with your actual admin user check
+  if (!isAdminUser(user)) {
     return { error: "Unauthorized" }
   }
 

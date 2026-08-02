@@ -15,9 +15,9 @@ import Linkify from "@/components/Linkify";
 import EditProfileButton from "./EditProfileButton";
 
 interface PageProps {
-  params: {
+  params: Promise<{
     username: string;
-  };
+  }>;
 }
 
 const getUser = cache(async (username: string, loggedInUserId: string) => {

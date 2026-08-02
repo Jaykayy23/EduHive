@@ -24,7 +24,7 @@ export default function AchievementBadge({ achievement, unlocked = false, size =
         unlocked ? RARITY_COLORS[achievement.rarity] : "text-gray-400 border-gray-200 bg-gray-50",
         unlocked && "shadow-sm hover:shadow-md",
       )}
-      title={`${achievement.name} - ${achievement.description}`}
+      title={showDetails ? `${achievement.name} - ${achievement.description}` : achievement.name}
     >
       <span className={cn("text-center", unlocked ? "" : "grayscale")}>{achievement.icon}</span>
     </div>

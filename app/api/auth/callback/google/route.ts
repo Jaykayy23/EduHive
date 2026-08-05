@@ -1,26 +1,45 @@
-
 import { google, lucia } from "@/app/auth"
+import { normalizeEmail } from "@/lib/auth/tokens"
 import kyInstance from "@/lib/ky"
+import prisma from "@/lib/prisma"
+import { provisionStreamUser } from "@/lib/stream"
+import { slugify } from "@/lib/utils"
 import { cookies } from "next/headers"
 import type { NextRequest } from "next/server"
-import prisma from "@/lib/prisma"
 import { generateIdFromEntropySize } from "lucia"
-import { slugify } from "@/lib/utils"
+
+async function provisionStreamUserSafely(user: {
+  id: string
+  username: string
+  displayName: string
+  avatarUrl: string | null
+}) {
+  try {
+    await provisionStreamUser(user)
+  } catch (error) {
+    // Google has already verified the identity. Keep sign-in available if
+    // Stream is temporarily unavailable; later profile operations can retry.
+    console.error("Stream provisioning after Google sign-in failed:", error)
+  }
+}
+
+function redirectToLogin(error: string) {
+  return new Response(null, {
+    status: 302,
+    headers: {
+      Location: `/login?error=${encodeURIComponent(error)}`,
+    },
+  })
+}
 
 export async function GET(req: NextRequest) {
   const code = req.nextUrl.searchParams.get("code")
   const state = req.nextUrl.searchParams.get("state")
-  const error = req.nextUrl.searchParams.get("error")
+  const oauthError = req.nextUrl.searchParams.get("error")
 
-  // Handle OAuth errors from Google
-  if (error) {
-    console.error("OAuth error from Google:", error)
-    return new Response(null, {
-      status: 302,
-      headers: {
-        Location: `/login?error=oauth_${error}`,
-      },
-    })
+  if (oauthError) {
+    console.error("OAuth error from Google:", oauthError)
+    return redirectToLogin(`oauth_${oauthError}`)
   }
 
   const cookieStore = await cookies()
@@ -28,18 +47,12 @@ export async function GET(req: NextRequest) {
   const storedCodeVerifier = cookieStore.get("google_oauth_code_verifier")?.value ?? null
 
   if (!code || !state || !storedState || !storedCodeVerifier || state !== storedState) {
-    return new Response(null, {
-      status: 302,
-      headers: {
-        Location: "/login?error=invalid_request",
-      },
-    })
+    return redirectToLogin("invalid_request")
   }
 
   try {
     const tokens = await google.validateAuthorizationCode(code, storedCodeVerifier)
 
-    // Clear OAuth cookies
     cookieStore.delete("google_oauth_state")
     cookieStore.delete("google_oauth_code_verifier")
 
@@ -53,25 +66,39 @@ export async function GET(req: NextRequest) {
         sub: string
         name: string
         email: string
+        email_verified: boolean
         picture?: string
       }>()
 
-    // Simple avatar URL - just use what Google gives us
-    const avatarUrl = googleUser.picture || null
+    // Never create a trusted session or link a password account unless the
+    // provider explicitly confirms ownership of the email address.
+    if (googleUser.email_verified !== true || !googleUser.email) {
+      return redirectToLogin("unverified_google_email")
+    }
 
-    // Check if user exists with Google ID
+    const email = normalizeEmail(googleUser.email)
+    const displayName = googleUser.name || email.split("@")[0]
+    const avatarUrl = googleUser.picture || null
+    const now = new Date()
+
     const existingUser = await prisma.user.findUnique({
       where: { googleId: googleUser.sub },
     })
 
     if (existingUser) {
-      // Update existing user
       await prisma.user.update({
         where: { id: existingUser.id },
         data: {
-          avatarUrl: avatarUrl,
-          displayName: googleUser.name,
+          avatarUrl,
+          displayName,
+          emailVerifiedAt: existingUser.emailVerifiedAt ?? now,
         },
+      })
+      await provisionStreamUserSafely({
+        id: existingUser.id,
+        username: existingUser.username,
+        displayName,
+        avatarUrl,
       })
 
       const session = await lucia.createSession(existingUser.id, {})
@@ -83,20 +110,30 @@ export async function GET(req: NextRequest) {
       })
     }
 
-    // Check if email exists
-    const existingEmailUser = await prisma.user.findUnique({
-      where: { email: googleUser.email },
+    const existingEmailUser = await prisma.user.findFirst({
+      where: {
+        email: {
+          equals: email,
+          mode: "insensitive",
+        },
+      },
     })
 
     if (existingEmailUser) {
-      // Link Google account
       await prisma.user.update({
         where: { id: existingEmailUser.id },
         data: {
           googleId: googleUser.sub,
-          avatarUrl: avatarUrl,
-          displayName: googleUser.name,
+          avatarUrl,
+          displayName,
+          emailVerifiedAt: now,
         },
+      })
+      await provisionStreamUserSafely({
+        id: existingEmailUser.id,
+        username: existingEmailUser.username,
+        displayName,
+        avatarUrl,
       })
 
       const session = await lucia.createSession(existingEmailUser.id, {})
@@ -108,12 +145,10 @@ export async function GET(req: NextRequest) {
       })
     }
 
-    // Create new user
     const userId = generateIdFromEntropySize(10)
-    const baseUsername = slugify(googleUser.name)
-    let username = baseUsername + "-" + userId.slice(0, 4)
+    const baseUsername = slugify(displayName) || "user"
+    let username = `${baseUsername}-${userId.slice(0, 4)}`
 
-    // Ensure username is unique
     let usernameExists = await prisma.user.findUnique({ where: { username } })
     let counter = 1
     while (usernameExists) {
@@ -126,11 +161,19 @@ export async function GET(req: NextRequest) {
       data: {
         id: userId,
         username,
-        displayName: googleUser.name,
-        email: googleUser.email,
+        displayName,
+        email,
         googleId: googleUser.sub,
-        avatarUrl: avatarUrl,
+        avatarUrl,
+        emailVerifiedAt: now,
       },
+    })
+
+    await provisionStreamUserSafely({
+      id: userId,
+      username,
+      displayName,
+      avatarUrl,
     })
 
     const session = await lucia.createSession(userId, {})
@@ -145,12 +188,6 @@ export async function GET(req: NextRequest) {
     console.error("Google OAuth callback error:", error)
     cookieStore.delete("google_oauth_state")
     cookieStore.delete("google_oauth_code_verifier")
-
-    return new Response(null, {
-      status: 302,
-      headers: {
-        Location: "/login?error=server_error",
-      },
-    })
+    return redirectToLogin("server_error")
   }
 }

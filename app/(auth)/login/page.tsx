@@ -10,7 +10,22 @@ export const metadata: Metadata = {
   description: "Login to your account",
 };
 
-export default function Page() {
+interface PageProps {
+  searchParams?: Promise<{
+    error?: string | string[];
+    reset?: string | string[];
+  }>;
+}
+
+function firstValue(value: string | string[] | undefined) {
+  return Array.isArray(value) ? value[0] : value;
+}
+
+export default async function Page({ searchParams }: PageProps) {
+  const params = searchParams ? await searchParams : {};
+  const resetMessage = firstValue(params.reset) === "success";
+  const oauthError = firstValue(params.error);
+
   return (
     <main className="flex min-h-svh items-center justify-center bg-gradient-to-br from-primary/10 via-background to-background p-0 sm:p-5">
       <div className="bg-card flex min-h-svh w-full max-w-[64rem] overflow-hidden sm:min-h-0 sm:max-h-[40rem] sm:rounded-2xl sm:shadow-2xl">
@@ -26,7 +41,18 @@ export default function Page() {
           </div>
           <h1 className="text-center text-2xl font-bold sm:text-3xl">Login to EduHive</h1>
           <div className="space-y-5">
-            
+            {resetMessage && (
+              <p className="text-center text-sm text-emerald-600">
+                Password updated. You can now log in with your new password.
+              </p>
+            )}
+            {oauthError && (
+              <p className="text-center text-sm text-destructive">
+                {oauthError === "unverified_google_email"
+                  ? "Google could not verify this email address. Please use a verified Google account."
+                  : "We could not sign you in with Google. Please try again."}
+              </p>
+            )}
             <LoginForm />
             <Link href="/signup" className="block text-center hover:underline">
               Don&apos;t have an account? Sign up

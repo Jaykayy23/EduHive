@@ -5,78 +5,112 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["fullTextSearch"]
-  output   = "../lib/generated/prisma"
+  output          = "../lib/generated/prisma"
 }
 
 // prisma/schema.prisma
 datasource db {
-  provider  = "postgresql"
-  url  	    = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
-  id        String @id
-  username      String @unique
-  displayName String
-  email     String?  @unique
-  passwordHash  String?
-  googleId     String?  @unique
-  avatarUrl   String?
-  bio       String?
-  sessions Session[]
-  posts     Post[]
-  following  Follow[] @relation("Following")
-  followers  Follow[] @relation("Followers")
-  likes Like[]
-  bookmarks Bookmark[]
-  comments Comment[]
-  receivedNotifications Notification[] @relation("Recipient")
-  issuedNotifications Notification[] @relation("Issuer")
-  achievements UserAchievement[]
-  chatSessions    ChatSession[]
-  reports Report[]
-  hostedConferences VideoConference[] @relation("ConferenceHost")
+  id                       String                  @id
+  username                 String                  @unique
+  displayName              String
+  email                    String?                 @unique
+  passwordHash             String?
+  googleId                 String?                 @unique
+  avatarUrl                String?
+  bio                      String?
+  emailVerifiedAt          DateTime?
+  sessions                 Session[]
+  emailVerificationToken   EmailVerificationToken?
+  passwordResetToken       PasswordResetToken?
+  posts                    Post[]
+  following                Follow[]                @relation("Following")
+  followers                Follow[]                @relation("Followers")
+  likes                    Like[]
+  bookmarks                Bookmark[]
+  comments                 Comment[]
+  receivedNotifications    Notification[]          @relation("Recipient")
+  issuedNotifications      Notification[]          @relation("Issuer")
+  achievements             UserAchievement[]
+  chatSessions             ChatSession[]
+  reports                  Report[]
+  hostedConferences        VideoConference[]       @relation("ConferenceHost")
   conferenceParticipations ConferenceParticipant[]
-  
 
   createdAt DateTime @default(now())
-  
+
   @@map("users")
 }
 
+model EmailVerificationToken {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  tokenHash String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([expiresAt])
+}
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  tokenHash String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([expiresAt])
+}
+
+model AuthEmailRateLimit {
+  key             String   @id
+  windowStartedAt DateTime
+  requestCount    Int      @default(1)
+  updatedAt       DateTime @updatedAt
+
+  @@index([updatedAt])
+}
+
 model Session {
-  id        String @id
+  id        String   @id
   userId    String
-  expiresAt   DateTime
-  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
+  expiresAt DateTime
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   @@map("sessions")
 }
 
 model Follow {
-  followerId String
-  follower User  @relation("Following", fields: [followerId], references: [id], onDelete: Cascade)
+  followerId  String
+  follower    User   @relation("Following", fields: [followerId], references: [id], onDelete: Cascade)
   followingId String
-  following User  @relation("Followers", fields: [followingId], references: [id], onDelete: Cascade)
+  following   User   @relation("Followers", fields: [followingId], references: [id], onDelete: Cascade)
 
   @@unique([followerId, followingId])
   @@map("follows")
-
 }
 
 model Post {
-  id  String @id @default(cuid())
-  content String
-  userId String
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  attachments Media[]
-  likes Like[]
-  bookmarks Bookmark[]
-  comments Comment[]
+  id                  String         @id @default(cuid())
+  content             String
+  userId              String
+  user                User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  attachments         Media[]
+  likes               Like[]
+  bookmarks           Bookmark[]
+  comments            Comment[]
   linkedNotifications Notification[]
-  reports Report[]
+  reports             Report[]
 
   createdAt DateTime @default(now())
 
@@ -84,11 +118,11 @@ model Post {
 }
 
 model Media {
-  id        String @id @default(cuid())
-  postId   String?
-  post     Post? @relation(fields: [postId], references: [id], onDelete: SetNull)
-  type MediaType
-  url       String
+  id     String    @id @default(cuid())
+  postId String?
+  post   Post?     @relation(fields: [postId], references: [id], onDelete: SetNull)
+  type   MediaType
+  url    String
 
   createdAt DateTime @default(now())
 
@@ -101,12 +135,12 @@ enum MediaType {
 }
 
 model Comment {
-  id  String @id @default(cuid())
+  id      String   @id @default(cuid())
   content String
-  userId String
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  postId   String
-  post     Post  @relation(fields: [postId], references: [id], onDelete: Cascade)
+  userId  String
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  postId  String
+  post    Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   reports Report[]
 
   createdAt DateTime @default(now())
@@ -116,9 +150,9 @@ model Comment {
 
 model Like {
   userId String
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   postId String
-  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
 
   @@unique([userId, postId])
   @@map("likes")
@@ -127,9 +161,9 @@ model Like {
 model Bookmark {
   id     String @id @default(cuid())
   userId String
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   postId String
-  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
 
@@ -138,21 +172,19 @@ model Bookmark {
 }
 
 model Notification {
-   id     String @id @default(cuid())
-   recipientId String
-   recipient User @relation("Recipient", fields: [recipientId], references: [id], onDelete: Cascade)
-   issuerId String
-   issuer User @relation("Issuer", fields: [issuerId], references: [id], onDelete: Cascade)
-   postId String?
-   post Post? @relation(fields: [postId], references: [id], onDelete: Cascade)
-  type NotificationType
-  read Boolean @default(false)
-
+  id          String           @id @default(cuid())
+  recipientId String
+  recipient   User             @relation("Recipient", fields: [recipientId], references: [id], onDelete: Cascade)
+  issuerId    String
+  issuer      User             @relation("Issuer", fields: [issuerId], references: [id], onDelete: Cascade)
+  postId      String?
+  post        Post?            @relation(fields: [postId], references: [id], onDelete: Cascade)
+  type        NotificationType
+  read        Boolean          @default(false)
 
   createdAt DateTime @default(now())
 
   @@map("notifications")
-
 }
 
 enum NotificationType {
@@ -162,13 +194,13 @@ enum NotificationType {
 }
 
 model Achievement {
-  id String @id
-  name String
-  description String
-  icon String
-  category AchievementCategory
-  rarity AchievementRarity @default(COMMON)
-  points Int @default(10)
+  id               String              @id
+  name             String
+  description      String
+  icon             String
+  category         AchievementCategory
+  rarity           AchievementRarity   @default(COMMON)
+  points           Int                 @default(10)
   userAchievements UserAchievement[]
 
   createdAt DateTime @default(now())
@@ -177,14 +209,14 @@ model Achievement {
 }
 
 model UserAchievement {
-  id String @id @default(cuid())
-  userId String
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id            String      @id @default(cuid())
+  userId        String
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   achievementId String
-  achievement Achievement @relation(fields: [achievementId], references: [id], onDelete: Cascade)
-  unlockedAt DateTime @default(now())
-  progress Int @default(100)
-  maxProgress Int @default(100)
+  achievement   Achievement @relation(fields: [achievementId], references: [id], onDelete: Cascade)
+  unlockedAt    DateTime    @default(now())
+  progress      Int         @default(100)
+  maxProgress   Int         @default(100)
 
   @@unique([userId, achievementId])
   @@map("user_achievements")
@@ -235,38 +267,37 @@ enum ReportStatus {
 }
 
 model Report {
-  id              String       @id @default(cuid())
-  reportedPostId  String?
-  reportedPost    Post?        @relation(fields: [reportedPostId], references: [id], onDelete: Cascade)
+  id                String       @id @default(cuid())
+  reportedPostId    String?
+  reportedPost      Post?        @relation(fields: [reportedPostId], references: [id], onDelete: Cascade)
   reportedCommentId String?
-  reportedComment Comment?     @relation(fields: [reportedCommentId], references: [id], onDelete: Cascade)
-  reporterId      String
-  reporter        User         @relation(fields: [reporterId], references: [id])
-  reason          ReportReason
-  comments        String?      @db.Text
-  createdAt       DateTime     @default(now())
-  status          ReportStatus @default(PENDING)
+  reportedComment   Comment?     @relation(fields: [reportedCommentId], references: [id], onDelete: Cascade)
+  reporterId        String
+  reporter          User         @relation(fields: [reporterId], references: [id])
+  reason            ReportReason
+  comments          String?      @db.Text
+  createdAt         DateTime     @default(now())
+  status            ReportStatus @default(PENDING)
 
   @@index([reportedPostId])
   @@index([reportedCommentId])
   @@index([reporterId])
 }
 
-
 model VideoConference {
-  id              String    @id @default(cuid())
-  meetingId       String    @unique
+  id              String                  @id @default(cuid())
+  meetingId       String                  @unique
   title           String
   description     String?
   subject         String?
-  isPrivate       Boolean   @default(false)
-  maxParticipants Int       @default(50)
+  isPrivate       Boolean                 @default(false)
+  maxParticipants Int                     @default(50)
   scheduledFor    DateTime?
   hostId          String
-  host            User      @relation("ConferenceHost", fields: [hostId], references: [id], onDelete: Cascade)
+  host            User                    @relation("ConferenceHost", fields: [hostId], references: [id], onDelete: Cascade)
   participants    ConferenceParticipant[]
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
+  createdAt       DateTime                @default(now())
+  updatedAt       DateTime                @updatedAt
 
   @@index([meetingId])
   @@index([hostId])

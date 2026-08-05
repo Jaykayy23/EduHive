@@ -22,6 +22,7 @@ export const lucia = new Lucia(adapter, {
       displayName: databaseUserAttributes.displayName,
       avatarUrl: databaseUserAttributes.avatarUrl,
       googleId: databaseUserAttributes.googleId,
+      emailVerifiedAt: databaseUserAttributes.emailVerifiedAt,
     }
   },
 })
@@ -39,6 +40,7 @@ interface DatabaseUserAttributes {
   displayName: string
   avatarUrl: string | null
   googleId: string | null
+  emailVerifiedAt: Date | null
 }
 
 // Ensure the redirect URI exactly matches what's in Google Console
@@ -61,6 +63,18 @@ export const validateRequest = cache(
     }
 
     const result = await lucia.validateSession(sessionId)
+
+    // Sessions should never survive an unverified password account. This is
+    // enforced here so pages and API routes receive the same protection.
+    if (result.user && result.user.emailVerifiedAt == null) {
+      await lucia.invalidateSession(result.session.id)
+      const sessionCookie = lucia.createBlankSessionCookie()
+      try {
+        cookieStore.set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes)
+      } catch {}
+      return { user: null, session: null }
+    }
+
     try {
       // Only attempt to set cookie if the cookies object is writable (has set method)
       const hasSet = (

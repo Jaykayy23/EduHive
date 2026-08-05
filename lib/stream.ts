@@ -5,4 +5,18 @@ const streamServerClient = StreamChat.getInstance(
   process.env.STREAM_SECRET,
 );
 
+export async function provisionStreamUser(user: {
+  id: string;
+  username: string;
+  displayName: string;
+  avatarUrl?: string | null;
+}) {
+  return streamServerClient.upsertUser({
+    id: user.id,
+    username: user.username,
+    name: user.displayName,
+    image: user.avatarUrl ?? undefined,
+  });
+}
+
 export default streamServerClient;

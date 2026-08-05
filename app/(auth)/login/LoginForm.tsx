@@ -16,6 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/PasswordInput";
 import LoadingButton from "@/components/LoadingButton";
+import Link from "next/link";
 
 export default function LoginForm() {
   const [error, setError] = useState<string>();
@@ -74,6 +75,12 @@ export default function LoginForm() {
             type="submit" className="w-full">
               Log in
             </LoadingButton>
+            <Link
+              href="/forgot-password"
+              className="block text-center text-sm text-primary hover:underline"
+            >
+              Forgot your password?
+            </Link>
       </form>
     </Form>
   );

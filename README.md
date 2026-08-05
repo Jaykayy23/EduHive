@@ -38,6 +38,22 @@ The route requires an authenticated EduHive user, accepts at most 11 alternating
 
 Students can choose Explain, Quiz Me, Flashcards, Practice Exam, Summarize, Simplify, Compare, or Step-by-Step. The selected mode is validated on the server and saved with the conversation.
 
+## Transactional authentication email setup
+
+Authentication emails are delivered through Resend, while EduHive stores only hashed verification and reset tokens. Configure a dedicated Resend subdomain such as `auth.eduhive.com`, publish the SPF and DKIM records shown by Resend, and create a send-only API key restricted to that domain.
+
+Add these server-side values to `.env`:
+
+```env
+RESEND_API_KEY=re_...
+EMAIL_FROM="EduHive <security@auth.eduhive.com>"
+APP_URL=http://localhost:3000
+```
+
+Keep `RESEND_API_KEY` out of any `NEXT_PUBLIC_` variable. Once the database is reachable, apply the additive auth migration with `npm exec prisma migrate deploy`.
+
+Resend references: [domain setup](https://resend.com/docs/dashboard/domains/introduction), [API keys](https://resend.com/docs/dashboard/api-keys/introduction), and [Next.js sending](https://resend.com/docs/send-with-nextjs).
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

@@ -9,6 +9,7 @@ import { useState, useTransition } from "react";
 import { signUp } from "./actions";
 import { PasswordInput } from "@/components/PasswordInput";
 import LoadingButton from "@/components/LoadingButton";
+import Link from "next/link";
 
 export default function SignUpForm() {
     const [error, setError] = useState<string>();
@@ -39,6 +40,14 @@ export default function SignUpForm() {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
             {error && <p className="text-center text-destructive">{error}</p>}
+            {error === "Email already taken" && (
+              <Link
+                href="/verify-email/sent"
+                className="block text-center text-sm text-primary hover:underline"
+              >
+                Need a new verification email?
+              </Link>
+            )}
             <FormField
               control={form.control}
               name="username"

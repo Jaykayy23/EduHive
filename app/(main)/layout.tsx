@@ -23,14 +23,14 @@ export default async function Layout({
           {/* Desktop Sidebar — wrapped in Suspense so page content renders immediately */}
           <Suspense
             fallback={
-              <div className="glass-strong rounded-premium-lg shadow-dramatic border-border/30 sticky top-[5rem] hidden h-fit flex-none border px-4 py-6 sm:px-6 sm:py-8 lg:block xl:w-80">
+              <div className="glass-strong rounded-premium-lg shadow-dramatic border-border/30 sticky top-20 hidden h-fit flex-none border px-4 py-6 sm:px-6 sm:py-8 lg:block xl:w-80">
                 <div className="flex flex-col items-center justify-center py-8">
                   <BookLoader size="1.5rem" />
                 </div>
               </div>
             }
           >
-            <MenuBarWrapper className="glass-strong rounded-premium-lg shadow-dramatic border-border/30 animate-slideInLeft sticky top-[5rem] hidden h-fit flex-none space-y-2 border px-4 py-6 sm:space-y-3 sm:px-6 sm:py-8 lg:block xl:w-80" />
+            <MenuBarWrapper className="glass-strong rounded-premium-lg shadow-dramatic border-border/30 animate-slideInLeft sticky top-20 hidden h-fit flex-none space-y-2 border px-4 py-6 sm:space-y-3 sm:px-6 sm:py-8 lg:block xl:w-80" />
           </Suspense>
 
           {/* Main Content */}

@@ -205,7 +205,7 @@
   "203": "tiptap starter kit",
   "204": "uploadthing Subsystem",
   "205": "uploadthing react",
-  "206": "zod Subsystem",
+  "206": "clsx",
   "207": "postcss config mjs",
   "208": "Back navigation icon",
   "209": "Unliked heart icon",
@@ -257,5 +257,6 @@
   "255": "Next Subsystem",
   "256": "Vercel Subsystem",
   "257": "Window Subsystem",
-  "262": "framer-motion"
+  "258": "Fe",
+  "259": "class-variance-authority"
 }

@@ -1,29 +1,27 @@
-
 "use server";
 
-import { lucia } from "@/app/auth";
 import prisma from "@/lib/prisma";
-import streamServerClient from "@/lib/stream";
+import { sendVerificationEmail } from "@/lib/email/send-verification-email";
+import {
+  EMAIL_VERIFICATION_TOKEN_TTL_MS,
+  generateAuthToken,
+  getTokenExpiry,
+  hashAuthToken,
+  normalizeEmail,
+} from "@/lib/auth/tokens";
 import { signUpSchema, SignUpValues } from "@/lib/validation";
 import { hash } from "@node-rs/argon2";
 import { generateIdFromEntropySize } from "lucia";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+
 export async function signUp(
   credentials: SignUpValues,
 ): Promise<{ error: string | null }> {
   try {
-    const { username, email, password } = signUpSchema.parse(credentials);
-
-    const passwordHash = await hash(password, {
-      memoryCost: 19456,
-      timeCost: 2,
-      outputLen: 32,
-      parallelism: 1,
-    });
-
-    const userId = generateIdFromEntropySize(10);
+    const parsed = signUpSchema.parse(credentials);
+    const username = parsed.username.trim();
+    const email = normalizeEmail(parsed.email);
 
     const existingUsername = await prisma.user.findFirst({
       where: {
@@ -37,6 +35,7 @@ export async function signUp(
     if (existingUsername) {
       return { error: "Username already exists" };
     }
+
     const existingEmail = await prisma.user.findFirst({
       where: {
         email: {
@@ -45,37 +44,68 @@ export async function signUp(
         },
       },
     });
+
     if (existingEmail) {
       return { error: "Email already taken" };
     }
 
-    await prisma.$transaction(async (tx) => {
-      await tx.user.create({
-        data: {
-          id: userId,
-          username,
-          displayName: username,
-          email,
-          passwordHash,
-        },
-      });
-
-      await streamServerClient.upsertUser({
-        id: userId,
-        username,
-        name: username,
-      });
+    const passwordHash = await hash(parsed.password, {
+      memoryCost: 19456,
+      timeCost: 2,
+      outputLen: 32,
+      parallelism: 1,
     });
+    const userId = generateIdFromEntropySize(10);
+    const token = generateAuthToken();
+    const tokenHash = hashAuthToken(token);
+    const expiresAt = getTokenExpiry(EMAIL_VERIFICATION_TOKEN_TTL_MS);
 
-    const session = await lucia.createSession(userId, {});
-    const sessionCookie = lucia.createSessionCookie(session.id);
-    const cookieStore = await cookies();
-    cookieStore.set(
-      sessionCookie.name,
-      sessionCookie.value,
-      sessionCookie.attributes,
-    );
-    return redirect("/home");
+    try {
+      await prisma.$transaction(async (tx) => {
+        await tx.user.create({
+          data: {
+            id: userId,
+            username,
+            displayName: username,
+            email,
+            passwordHash,
+            emailVerifiedAt: null,
+          },
+        });
+
+        await tx.emailVerificationToken.create({
+          data: {
+            userId,
+            tokenHash,
+            expiresAt,
+          },
+        });
+      });
+    } catch (error) {
+      if (
+        typeof error === "object" &&
+        error !== null &&
+        "code" in error &&
+        error.code === "P2002"
+      ) {
+        return { error: "Username or email already exists" };
+      }
+      throw error;
+    }
+
+    try {
+      await sendVerificationEmail({
+        email,
+        username,
+        token,
+        tokenHash,
+      });
+    } catch (error) {
+      console.error("Verification email delivery failed:", error);
+      redirect("/verify-email/sent?delivery=failed");
+    }
+
+    redirect("/verify-email/sent");
   } catch (error) {
     if (isRedirectError(error)) throw error;
     console.error(error);

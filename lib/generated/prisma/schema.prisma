@@ -25,7 +25,10 @@ model User {
   googleId                 String?                 @unique
   avatarUrl                String?
   bio                      String?
+  emailVerifiedAt          DateTime?
   sessions                 Session[]
+  emailVerificationToken   EmailVerificationToken?
+  passwordResetToken       PasswordResetToken?
   posts                    Post[]
   following                Follow[]                @relation("Following")
   followers                Follow[]                @relation("Followers")
@@ -43,6 +46,39 @@ model User {
   createdAt DateTime @default(now())
 
   @@map("users")
+}
+
+model EmailVerificationToken {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  tokenHash String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([expiresAt])
+}
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  tokenHash String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([expiresAt])
+}
+
+model AuthEmailRateLimit {
+  key             String   @id
+  windowStartedAt DateTime
+  requestCount    Int      @default(1)
+  updatedAt       DateTime @updatedAt
+
+  @@index([updatedAt])
 }
 
 model Session {

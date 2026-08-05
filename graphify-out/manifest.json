@@ -40,8 +40,8 @@
     "semantic_hash": "9991ac41aaaa096807d0a1e7bc344c0e"
   },
   "app/(auth)/login/page.tsx": {
-    "mtime": 1785684479.691544,
-    "ast_hash": "719e49223b061527a78d174a4a53727d",
+    "mtime": 1785945149.4479249,
+    "ast_hash": "3983b9682cbe7d1cd25fb6f5cd42794b",
     "semantic_hash": ""
   },
   "app/(auth)/signup/SignUpForm.tsx": {
@@ -55,8 +55,8 @@
     "semantic_hash": ""
   },
   "app/(auth)/signup/page.tsx": {
-    "mtime": 1785590625.913268,
-    "ast_hash": "1b2fd1e2508ff5c91b77341046fe8f45",
+    "mtime": 1785945150.8100584,
+    "ast_hash": "353ea72358ede559b4ea0bf34f949387",
     "semantic_hash": ""
   },
   "app/(main)/Demo/page.tsx": {
@@ -95,8 +95,8 @@
     "semantic_hash": ""
   },
   "app/(main)/Navbar.tsx": {
-    "mtime": 1785590622.6284578,
-    "ast_hash": "8f00b95b52dd0a510c93204b0390a2e3",
+    "mtime": 1785945147.8416648,
+    "ast_hash": "dbd7303ca29a3f61f11bf0dcfc800b60",
     "semantic_hash": ""
   },
   "app/(main)/NotificationsButton.tsx": {
@@ -275,8 +275,8 @@
     "semantic_hash": ""
   },
   "app/LoginForm/page.tsx": {
-    "mtime": 1785664224.2169142,
-    "ast_hash": "d67265487dd7405b4047a8e1d8fa936a",
+    "mtime": 1785945152.7117867,
+    "ast_hash": "7ae83deff7ad2492d98b20b866a9becd",
     "semantic_hash": ""
   },
   "app/ReactQueryProvider.tsx": {
@@ -1470,8 +1470,8 @@
     "semantic_hash": ""
   },
   "components/landing/LandingPageExperience.tsx": {
-    "mtime": 1785942099.655645,
-    "ast_hash": "9616a2bf4040c9afc4fa3eb5736aeec4",
+    "mtime": 1785945146.107316,
+    "ast_hash": "a1655a8a4a402c48e88327c9254c9f26",
     "semantic_hash": ""
   },
   "skills-lock.json": {
@@ -1602,6 +1602,21 @@
   "public/images/eduhive-collaboration-hero.png": {
     "mtime": 1785941454.5769868,
     "ast_hash": "3350a7bfdc41c186d99d9106cc09d48a",
+    "semantic_hash": ""
+  },
+  "app/apple-icon.png": {
+    "mtime": 1785944058.1070576,
+    "ast_hash": "9039017f890d065cda0392354051e734",
+    "semantic_hash": ""
+  },
+  "app/icon.png": {
+    "mtime": 1785944058.0957189,
+    "ast_hash": "5ce23fa1ec4471f4c5eef06552986190",
+    "semantic_hash": ""
+  },
+  "public/images/eduhive-icon.png": {
+    "mtime": 1785944058.0957189,
+    "ast_hash": "5ce23fa1ec4471f4c5eef06552986190",
     "semantic_hash": ""
   }
 }

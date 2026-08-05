@@ -61,11 +61,11 @@ export default function LandingPageExperience() {
         <div className="mx-auto flex h-[72px] max-w-[1400px] items-center justify-between px-4 sm:px-6 lg:px-8">
           <Link href="/" className="flex items-center gap-3 no-underline hover:no-underline" aria-label="EduHive home">
             <Image
-              src="/images/ChatGPT Image May 14, 2025, 12_17_46 PM.png"
+              src="/images/eduhive-icon.png"
               alt=""
               width={38}
               height={38}
-              className="h-9 w-9 rounded-xl object-cover"
+              className="h-9 w-9 object-contain"
             />
             <span className="text-lg font-semibold tracking-[-0.04em]">EduHive</span>
           </Link>
@@ -333,11 +333,11 @@ export default function LandingPageExperience() {
         <div className="mx-auto flex max-w-[1400px] flex-col gap-5 px-4 py-8 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
           <div className="flex items-center gap-3 text-foreground">
             <Image
-              src="/images/ChatGPT Image May 14, 2025, 12_17_46 PM.png"
+              src="/images/eduhive-icon.png"
               alt=""
               width={32}
               height={32}
-              className="h-8 w-8 rounded-lg object-cover"
+              className="h-8 w-8 object-contain"
             />
             <span className="font-semibold">EduHive</span>
           </div>

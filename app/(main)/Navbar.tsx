@@ -20,15 +20,13 @@ export default function Navbar({ session }: NavbarProps) {
         <div className="flex items-center justify-between">
           <Link href="/" className="group flex items-center space-x-2 sm:space-x-4">
             <div className="relative">
-              <div className="absolute inset-0 rounded-full bg-gradient-primary opacity-0 group-hover:opacity-20 transition-opacity duration-300 blur-sm" />
               <Image
-                src="/images/mylogo.png"
+                src="/images/eduhive-icon.png"
                 alt="EduHive Logo"
                 width={40}
                 height={40}
-                className="relative h-9 w-9 rounded-full shadow-medium transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 sm:h-11 sm:w-11"
+                className="relative h-9 w-9 object-contain transition-transform duration-300 group-hover:scale-105 sm:h-11 sm:w-11"
               />
-              <div className="absolute inset-0 rounded-full bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
             <span className="text-gradient text-xl font-bold tracking-tight transition-transform duration-300 group-hover:scale-105 sm:text-2xl">
               EduHive

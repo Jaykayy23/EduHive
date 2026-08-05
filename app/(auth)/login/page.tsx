@@ -32,10 +32,11 @@ export default async function Page({ searchParams }: PageProps) {
         <div className="w-full space-y-6 overflow-y-auto px-5 py-8 sm:space-y-8 sm:p-10 md:w-1/2">
           <div className="mb-1 flex justify-center">
             <Image
-              src="/images/EduLogo.png"
-              alt="Logo"
-              width={120}
-              height={116}
+              src="/images/eduhive-icon.png"
+              alt="EduHive"
+              width={88}
+              height={88}
+              className="h-20 w-20 object-contain sm:h-24 sm:w-24"
               priority
             />
           </div>

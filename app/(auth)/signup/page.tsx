@@ -17,10 +17,11 @@ export default function Page() {
                     <div className="space-y-1 text-center">
                         <div className="mb-1 flex justify-center">
                                 <Image
-                                  src="/images/EduLogo.png"
-                                  alt="Logo"
-                                  width={120}
-                                  height={116}
+                                  src="/images/eduhive-icon.png"
+                                  alt="EduHive"
+                                  width={88}
+                                  height={88}
+                                  className="h-20 w-20 object-contain sm:h-24 sm:w-24"
                                   priority
                                 />
                         </div>

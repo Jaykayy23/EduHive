@@ -22,10 +22,11 @@ export default function LoginFormPage() {
       {/* Logo above the form */}
       <div className="mb-8">
         <Image
-          src="/images/EduLogo.png"
-          alt="Logo"
-          width={200}
-          height={200}
+          src="/images/eduhive-icon.png"
+          alt="EduHive"
+          width={128}
+          height={128}
+          className="h-28 w-28 object-contain sm:h-32 sm:w-32"
           priority
         />
       </div>

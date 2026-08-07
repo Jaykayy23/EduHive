@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useQueryClient } from "@tanstack/react-query";
-import { MailPlus, X } from "lucide-react";
+import { ChevronLeft, MailPlus } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import {
   ChannelList,
@@ -46,11 +46,11 @@ export default function ChatSidebar({ open, onClose }: ChatSidebarProps) {
   return (
     <div
       className={cn(
-        "size-full flex-col border-r border-border/50 bg-card/30 backdrop-blur-sm md:flex md:w-72",
+        "border-border/50 bg-card/30 size-full flex-col border-r backdrop-blur-sm md:flex md:w-72",
         open ? "flex" : "hidden",
       )}
     >
-      <MenuHeader onClose={onClose} />
+      <MenuHeader hasActiveChannel={Boolean(channel)} onClose={onClose} />
       <div className="flex-1 overflow-hidden">
         <ChannelList
           filters={{
@@ -76,29 +76,37 @@ export default function ChatSidebar({ open, onClose }: ChatSidebarProps) {
 }
 
 interface MenuHeaderProps {
+  hasActiveChannel: boolean;
   onClose: () => void;
 }
 
-function MenuHeader({ onClose }: MenuHeaderProps) {
+function MenuHeader({ hasActiveChannel, onClose }: MenuHeaderProps) {
   const [showNewChatDialog, setShowNewChatDialog] = useState(false);
 
   return (
     <>
-      <div className="flex items-center gap-3 p-4 border-b border-border/50 bg-card/50">
-        <div className="h-full md:hidden">
-          <Button size="icon" variant="ghost" onClick={onClose} className="hover:bg-accent/50">
-            <X className="size-5" />
+      <div className="border-border/50 bg-card/50 flex items-center gap-3 border-b p-3 sm:p-4">
+        {hasActiveChannel && (
+          <Button
+            size="icon"
+            variant="ghost"
+            onClick={onClose}
+            aria-label="Return to conversation"
+            className="md:hidden"
+          >
+            <ChevronLeft data-icon="inline-start" />
           </Button>
-        </div>
-        <h1 className="me-auto text-xl font-bold text-foreground md:ms-2">Messages</h1>
+        )}
+        <h1 className="text-foreground me-auto text-xl font-bold md:ms-2">
+          Messages
+        </h1>
         <Button
           size="icon"
           variant="ghost"
-          title="Start new chat"
           onClick={() => setShowNewChatDialog(true)}
-          className="hover:bg-accent/50"
+          aria-label="Start new chat"
         >
-          <MailPlus className="size-5" />
+          <MailPlus data-icon="inline-start" />
         </Button>
       </div>
       {showNewChatDialog && (

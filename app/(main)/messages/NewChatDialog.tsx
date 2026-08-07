@@ -1,6 +1,7 @@
 "use client";
 
 import LoadingButton from "@/components/LoadingButton";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -8,11 +9,13 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
 import { toast } from "sonner";
 import UserAvatar from "@/components/UserAvatar";
 import useDebounce from "@/app/hooks/useDebounce";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { Check, SearchIcon, X } from "lucide-react";
+import { Check, X } from "lucide-react";
 import { BookLoader } from "@/components/ui/book-loader";
 import { useState } from "react";
 import { UserResponse } from "stream-chat";
@@ -79,22 +82,21 @@ export default function NewChatDialog({
 
   return (
     <Dialog open onOpenChange={onOpenChange}>
-      <DialogContent className="bg-card p-0">
-        <DialogHeader className="px-6 pt-6">
+      <DialogContent className="bg-card grid max-h-[calc(100dvh-1rem)] grid-rows-[auto_minmax(0,1fr)_auto] overflow-hidden p-0 sm:max-h-[min(42rem,calc(100dvh-2rem))]">
+        <DialogHeader className="px-4 pt-4 sm:px-6 sm:pt-6">
           <DialogTitle>New chat</DialogTitle>
         </DialogHeader>
-        <div>
-          <div className="group relative">
-            <SearchIcon className="text-muted-foreground group-focus-within:text-primary absolute top-1/2 left-5 size-5 -translate-y-1/2 transform" />
-            <input
-              placeholder="Search users..."
-              className="h-12 w-full ps-14 pe-4 focus:outline-none"
+        <div className="flex min-h-0 flex-col">
+          <div className="px-4 sm:px-6">
+            <Input
+              placeholder="Search users"
+              aria-label="Search users"
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
             />
           </div>
           {!!selectedUsers.length && (
-            <div className="mt-4 flex flex-wrap gap-2 p-2">
+            <div className="scrollbar-hide mt-3 flex shrink-0 gap-2 overflow-x-auto px-4 pb-3 sm:px-6">
               {selectedUsers.map((user) => (
                 <SelectedUserTag
                   key={user.id}
@@ -108,8 +110,8 @@ export default function NewChatDialog({
               ))}
             </div>
           )}
-          <hr />
-          <div className="h-96 overflow-y-auto">
+          <Separator className="mt-3" />
+          <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain py-1">
             {isSuccess &&
               eligibleUsers.map((user) => (
                 <UserResult
@@ -138,11 +140,12 @@ export default function NewChatDialog({
             )}
           </div>
         </div>
-        <DialogFooter className="px-6 pb-6">
+        <DialogFooter className="border-t px-4 py-4 sm:px-6">
           <LoadingButton
             disabled={!selectedUsers.length}
             loading={mutation.isPending}
             onClick={() => mutation.mutate()}
+            className="w-full sm:w-auto"
           >
             Start chat
           </LoadingButton>
@@ -160,11 +163,12 @@ interface UserResultProps {
 
 function UserResult({ user, selected, onClick }: UserResultProps) {
   return (
-    <button
-      className="hover:bg-muted/50 flex w-full items-center justify-between px-4 py-2.5 transition-colors"
+    <Button
+      type="button"
+      variant="ghost"
+      className="h-auto w-full justify-between rounded-none px-4 py-2.5"
       onClick={onClick}
       aria-pressed={selected}
-      tabIndex={0}
     >
       <div className="flex items-center gap-2">
         <UserAvatar avatarUrl={user.image} />
@@ -173,8 +177,8 @@ function UserResult({ user, selected, onClick }: UserResultProps) {
           <p className="text-muted-foreground">@{user.username}</p>
         </div>
       </div>
-      {selected && <Check className="size-5 text-green-500" />}
-    </button>
+      {selected && <Check data-icon="inline-end" className="text-primary" />}
+    </Button>
   );
 }
 
@@ -185,14 +189,17 @@ interface SelectedUserTagProps {
 
 function SelectedUserTag({ user, onRemove }: SelectedUserTagProps) {
   return (
-    <button
+    <Button
       onClick={onRemove}
-      className="hover:bg-muted/50 flex items-center gap-2 rounded-full border p-1"
       type="button"
+      variant="outline"
+      size="sm"
+      className="shrink-0 rounded-full px-2"
+      aria-label={`Remove ${user.name ?? user.username} from chat`}
     >
       <UserAvatar avatarUrl={user.image} size={24} />
       <p className="font-bold">{user.name}</p>
-      <X className="text-muted-foreground mx-2 size-5" />
-    </button>
+      <X data-icon="inline-end" className="text-muted-foreground" />
+    </Button>
   );
 }

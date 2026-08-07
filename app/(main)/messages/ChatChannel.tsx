@@ -17,7 +17,12 @@ interface ChatChannelProps {
 
 export default function ChatChannel({ open, openSidebar }: ChatChannelProps) {
   return (
-    <div className={cn("w-full md:block bg-card/30 backdrop-blur-sm", !open && "hidden")}>
+    <div
+      className={cn(
+        "bg-card/30 h-full min-w-0 flex-1 backdrop-blur-sm md:block",
+        !open && "hidden",
+      )}
+    >
       <Channel>
         <Window>
           <CustomChannelHeader openSidebar={openSidebar} />
@@ -38,12 +43,16 @@ function CustomChannelHeader({
   ...props
 }: CustomChannelHeaderProps) {
   return (
-    <div className="flex items-center gap-3 p-4 border-b border-border/50 bg-card/50">
-      <div className="h-full md:hidden">
-        <Button size="icon" variant="ghost" onClick={openSidebar} className="hover:bg-accent/50">
-          <Menu className="size-5" />
-        </Button>
-      </div>
+    <div className="border-border/50 bg-card/50 flex items-center gap-3 border-b p-3 sm:p-4">
+      <Button
+        size="icon"
+        variant="ghost"
+        onClick={openSidebar}
+        aria-label="Open conversations"
+        className="md:hidden"
+      >
+        <Menu data-icon="inline-start" />
+      </Button>
       <ChannelHeader {...props} />
     </div>
   );

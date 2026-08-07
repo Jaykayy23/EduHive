@@ -19,11 +19,6 @@
     "ast_hash": "35b92e4d1064070bad840f9813c8a176",
     "semantic_hash": "35b92e4d1064070bad840f9813c8a176"
   },
-  "app/(auth)/login/GoogleSignInButton.tsx": {
-    "mtime": 1785664219.9040892,
-    "ast_hash": "644051d55d98d374d62cacbcf837d7c5",
-    "semantic_hash": ""
-  },
   "app/(auth)/login/LoginForm.tsx": {
     "mtime": 1785684478.1618075,
     "ast_hash": "51378a31c73441d1b21dd7a9df99b71b",
@@ -40,8 +35,8 @@
     "semantic_hash": "9991ac41aaaa096807d0a1e7bc344c0e"
   },
   "app/(auth)/login/page.tsx": {
-    "mtime": 1785945149.4479249,
-    "ast_hash": "3983b9682cbe7d1cd25fb6f5cd42794b",
+    "mtime": 1786104330.067,
+    "ast_hash": "4048b245cb843899dab031309cc17007",
     "semantic_hash": ""
   },
   "app/(auth)/signup/SignUpForm.tsx": {
@@ -55,8 +50,8 @@
     "semantic_hash": ""
   },
   "app/(auth)/signup/page.tsx": {
-    "mtime": 1785945150.8100584,
-    "ast_hash": "353ea72358ede559b4ea0bf34f949387",
+    "mtime": 1786104331.5743344,
+    "ast_hash": "56c20059fe7e6d3b17f897fae3c3d499",
     "semantic_hash": ""
   },
   "app/(main)/Demo/page.tsx": {
@@ -495,9 +490,9 @@
     "semantic_hash": "d93fe31a04af8ec9e8eaf1f186d09aaf"
   },
   "components/SubjectFilter.tsx": {
-    "mtime": 1750713264.076234,
-    "ast_hash": "aae3bdc399cd72aec35d20b3531f1ecf",
-    "semantic_hash": "aae3bdc399cd72aec35d20b3531f1ecf"
+    "mtime": 1786114706.783817,
+    "ast_hash": "cc7ebda5e86931fdf534bb4fbc8c86f7",
+    "semantic_hash": ""
   },
   "components/TrendsSidebar.tsx": {
     "mtime": 1785506256.3662336,
@@ -1617,6 +1612,16 @@
   "public/images/eduhive-icon.png": {
     "mtime": 1785944058.0957189,
     "ast_hash": "5ce23fa1ec4471f4c5eef06552986190",
+    "semantic_hash": ""
+  },
+  "app/(auth)/GoogleSignInButton.tsx": {
+    "mtime": 1786104328.7925365,
+    "ast_hash": "fcaa8bfba721d58559f2e8eb28902111",
+    "semantic_hash": ""
+  },
+  "graphify-out/memory/query_20260807_143502_where_are_the_dark_mode_theme_tokens_defined__and.md": {
+    "mtime": 1786113302.3898866,
+    "ast_hash": "998b2494b929acfb32704c5a0169892b",
     "semantic_hash": ""
   }
 }

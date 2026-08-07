@@ -14,7 +14,7 @@ export default function Chat() {
 
   const { resolvedTheme } = useTheme();
 
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
 
   if (!chatClient) {
     return (
@@ -25,7 +25,7 @@ export default function Chat() {
   }
 
   return (
-    <main className="rounded-modern-lg bg-card/50 shadow-medium border-border/50 animate-fadeIn relative h-[calc(100svh-12rem)] min-h-96 w-full overflow-hidden border backdrop-blur-sm sm:h-[calc(100svh-10rem)] lg:h-[calc(100svh-8rem)]">
+    <main className="rounded-modern-lg bg-card/50 shadow-medium border-border/50 animate-fadeIn relative h-[calc(100dvh-13rem-env(safe-area-inset-bottom))] min-h-88 w-full overflow-hidden border backdrop-blur-sm sm:h-[calc(100dvh-11rem-env(safe-area-inset-bottom))] sm:min-h-96 lg:h-[calc(100dvh-8rem)]">
       <div className="absolute top-0 bottom-0 flex w-full">
         <StreamChat
           client={chatClient}

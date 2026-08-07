@@ -1,5 +1,134 @@
 {
-  "generated_at": "2026-08-07T14:25:40.238524+00:00",
-  "nodes": {},
+  "generated_at": "2026-08-07T15:01:44.770986+00:00",
+  "nodes": {
+    "agents_skills_migrate_radix_to_base_overlays_popover": {
+      "code_fingerprint": "238c2b529c55c4ff0ff36ad93de9f452e615cd7912b32bd290a0ffe8aa8053f2",
+      "label": "popover",
+      "last": "2026-08-07T14:35:02.388889+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-07T14:35:02.388889+00:00",
+          "outcome": "useful",
+          "q": "Where are the dark mode theme tokens defined, and which components depend on background, card, popover, muted, border, and sidebar colors?"
+        }
+      ],
+      "score": 0.999571586,
+      "source_file": ".agents/skills/migrate-radix-to-base/overlays.md",
+      "status": "tentative",
+      "uses": 1
+    },
+    "agents_skills_shadcn_customization_dark_mode": {
+      "code_fingerprint": "8b34cdc4c3ac3dd37031a5fa09092c3678c6eecc7283c2f5dad2eae29ef13d41",
+      "label": "Dark Mode",
+      "last": "2026-08-07T14:35:02.388889+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-07T14:35:02.388889+00:00",
+          "outcome": "useful",
+          "q": "Where are the dark mode theme tokens defined, and which components depend on background, card, popover, muted, border, and sidebar colors?"
+        }
+      ],
+      "score": 0.999571586,
+      "source_file": ".agents/skills/shadcn/customization.md",
+      "status": "tentative",
+      "uses": 1
+    },
+    "app_main_navbar": {
+      "code_fingerprint": "4b5fae28cb60f5013af910d648dff223db4fe219a217ed138d544b8d7f0544ac",
+      "label": "Navbar.tsx",
+      "last": "2026-08-07T14:59:52.798601+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-07T14:59:52.798601+00:00",
+          "outcome": "useful",
+          "q": "Why do the subject tabs look displaced on mobile?"
+        }
+      ],
+      "score": 0.999970057,
+      "source_file": "app/(main)/Navbar.tsx",
+      "status": "tentative",
+      "uses": 1
+    },
+    "components_subjectfilter": {
+      "code_fingerprint": "17e1db7682520ce51d1b68198b49a98f2a77c950a7feeff7ce8b0f93c53218dd",
+      "label": "SubjectFilter.tsx",
+      "last": "2026-08-07T14:59:52.798601+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-07T14:59:52.798601+00:00",
+          "outcome": "useful",
+          "q": "Why do the subject tabs look displaced on mobile?"
+        }
+      ],
+      "score": 0.999970057,
+      "source_file": "components/SubjectFilter.tsx",
+      "status": "tentative",
+      "uses": 1
+    },
+    "components_tailwind_css": {
+      "code_fingerprint": "14fa3cd5351177123b96afcb9b74fb38df977cc8bbf1defccfefaa4b69af3002",
+      "label": "css",
+      "last": "2026-08-07T14:35:02.388889+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-07T14:35:02.388889+00:00",
+          "outcome": "useful",
+          "q": "Where are the dark mode theme tokens defined, and which components depend on background, card, popover, muted, border, and sidebar colors?"
+        }
+      ],
+      "score": 0.999571586,
+      "source_file": "components.json",
+      "status": "tentative",
+      "uses": 1
+    },
+    "components_trendssidebar": {
+      "code_fingerprint": "830103a2c195a346be08df9e9b8aa4ba9c42fad5f1101140a595c5819c3f0011",
+      "label": "TrendsSidebar.tsx",
+      "last": "2026-08-07T14:35:02.388889+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-07T14:35:02.388889+00:00",
+          "outcome": "useful",
+          "q": "Where are the dark mode theme tokens defined, and which components depend on background, card, popover, muted, border, and sidebar colors?"
+        }
+      ],
+      "score": 0.999571586,
+      "source_file": "components/TrendsSidebar.tsx",
+      "status": "tentative",
+      "uses": 1
+    },
+    "components_ui_button_button": {
+      "code_fingerprint": "8469ac1ccab7b71e5aec029b761c8627e4b38f7cbc894927b78b6112cabbdf03",
+      "label": "Button()",
+      "last": "2026-08-07T14:59:52.798601+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-07T14:59:52.798601+00:00",
+          "outcome": "useful",
+          "q": "Why do the subject tabs look displaced on mobile?"
+        }
+      ],
+      "score": 0.999970057,
+      "source_file": "components/ui/button.tsx",
+      "status": "tentative",
+      "uses": 1
+    },
+    "components_ui_card_card": {
+      "code_fingerprint": "78cdb63dff3ec7ef074ada630ff20a5d8004768b6cbe24ed134a8bfba12bafbb",
+      "label": "Card()",
+      "last": "2026-08-07T14:35:02.388889+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-07T14:35:02.388889+00:00",
+          "outcome": "useful",
+          "q": "Where are the dark mode theme tokens defined, and which components depend on background, card, popover, muted, border, and sidebar colors?"
+        }
+      ],
+      "score": 0.999571586,
+      "source_file": "components/ui/card.tsx",
+      "status": "tentative",
+      "uses": 1
+    }
+  },
   "version": 1
 }

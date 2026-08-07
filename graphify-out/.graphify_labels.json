@@ -300,8 +300,5 @@
   "298": "wasm.js",
   "299": "(new) Fieldset.Root and Fieldset.Legend",
   "300": "overlays.md",
-  "301": "@radix-ui/react-dropdown-menu",
-  "302": "ai",
-  "303": "Ht",
-  "304": "class-variance-authority"
+  "301": "@radix-ui/react-dropdown-menu"
 }

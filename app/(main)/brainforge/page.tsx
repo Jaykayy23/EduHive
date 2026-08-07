@@ -146,7 +146,7 @@ export default function BrainForgePage() {
       <div className="mb-8 text-center">
         <div className="mb-4 flex items-center justify-center gap-3">
           <Brain className="text-primary h-8 w-8" />
-          <h1 className="from-primary bg-gradient-to-r to-purple-600 bg-clip-text text-4xl font-bold text-transparent">
+          <h1 className="from-primary bg-linear-to-r to-purple-600 bg-clip-text text-4xl font-bold text-transparent">
             HiveQ
           </h1>
           <Sparkles className="h-8 w-8 text-purple-600" />

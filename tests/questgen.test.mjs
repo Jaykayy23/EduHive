@@ -3,14 +3,14 @@ import test from "node:test"
 
 import { getQuestgenUrl } from "../lib/questgen.ts"
 
-test("uses localhost only in development", () => {
+test("uses localhost in development and the deployed API in production", () => {
   assert.equal(
     getQuestgenUrl("/generate-from-text/", undefined, "development"),
     "http://localhost:8000/generate-from-text/",
   )
-  assert.throws(
-    () => getQuestgenUrl("/generate-from-text/", undefined, "production"),
-    /NEXT_PUBLIC_QUESTGEN_API_URL/,
+  assert.equal(
+    getQuestgenUrl("/generate-from-text/", undefined, "production"),
+    "https://eduhive-0jo6.onrender.com/generate-from-text/",
   )
 })
 

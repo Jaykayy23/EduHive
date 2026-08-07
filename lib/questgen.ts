@@ -1,13 +1,12 @@
+const DEPLOYED_QUESTGEN_URL = "https://eduhive-0jo6.onrender.com"
+
 export function getQuestgenUrl(
   path: string,
   configuredUrl = process.env.NEXT_PUBLIC_QUESTGEN_API_URL?.trim(),
   nodeEnv = process.env.NODE_ENV,
 ): string {
-  const baseUrl = configuredUrl || (nodeEnv === "development" ? "http://localhost:8000" : "")
-
-  if (!baseUrl) {
-    throw new Error("BrainForge is not configured. Set NEXT_PUBLIC_QUESTGEN_API_URL.")
-  }
+  const baseUrl =
+    configuredUrl || (nodeEnv === "development" ? "http://localhost:8000" : DEPLOYED_QUESTGEN_URL)
 
   let url: URL
   try {

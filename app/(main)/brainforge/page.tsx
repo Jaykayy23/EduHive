@@ -159,14 +159,7 @@ export default function BrainForgePage() {
       </div>
 
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-        <div className="lg:col-span-2">
-          <InputSection
-            isLoading={isLoading}
-            onGenerate={handleGenerate}
-            onReset={handleReset}
-          />
-        </div>
-        <div>
+        <div className="lg:col-start-3 lg:row-start-1">
           <ConfigurationSection
             totalQuestions={totalQuestions}
             setTotalQuestions={setTotalQuestions}
@@ -174,6 +167,13 @@ export default function BrainForgePage() {
             trueFalsePercentage={trueFalsePercentage}
             fillInPercentage={fillInPercentage}
             handlePercentageChange={handlePercentageChange}
+          />
+        </div>
+        <div className="lg:col-span-2 lg:col-start-1 lg:row-start-1">
+          <InputSection
+            isLoading={isLoading}
+            onGenerate={handleGenerate}
+            onReset={handleReset}
           />
         </div>
       </div>

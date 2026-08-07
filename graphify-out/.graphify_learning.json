@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-07T15:01:44.770986+00:00",
+  "generated_at": "2026-08-07T19:25:16.259524+00:00",
   "nodes": {
     "agents_skills_migrate_radix_to_base_overlays_popover": {
       "code_fingerprint": "238c2b529c55c4ff0ff36ad93de9f452e615cd7912b32bd290a0ffe8aa8053f2",
@@ -12,7 +12,7 @@
           "q": "Where are the dark mode theme tokens defined, and which components depend on background, card, popover, muted, border, and sidebar colors?"
         }
       ],
-      "score": 0.999571586,
+      "score": 0.995354045,
       "source_file": ".agents/skills/migrate-radix-to-base/overlays.md",
       "status": "tentative",
       "uses": 1
@@ -28,8 +28,72 @@
           "q": "Where are the dark mode theme tokens defined, and which components depend on background, card, popover, muted, border, and sidebar colors?"
         }
       ],
-      "score": 0.999571586,
+      "score": 0.995354045,
       "source_file": ".agents/skills/shadcn/customization.md",
+      "status": "tentative",
+      "uses": 1
+    },
+    "app_main_messages_chat": {
+      "code_fingerprint": "26d6152689841a3e6a152ac03af9c7f59ab189f50795588f8e2e47d5df043415",
+      "label": "Chat.tsx",
+      "last": "2026-08-07T15:07:24.336436+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-07T15:07:24.336436+00:00",
+          "outcome": "useful",
+          "q": "Why are features missing from the messages page on mobile?"
+        }
+      ],
+      "score": 0.995871078,
+      "source_file": "app/(main)/messages/Chat.tsx",
+      "status": "tentative",
+      "uses": 1
+    },
+    "app_main_messages_chatchannel": {
+      "code_fingerprint": "9071ce933bcbdc8c40c8c7619b09045d16b13aa7ea80abc4c8ec811a7eeb7a06",
+      "label": "ChatChannel.tsx",
+      "last": "2026-08-07T15:07:24.336436+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-07T15:07:24.336436+00:00",
+          "outcome": "useful",
+          "q": "Why are features missing from the messages page on mobile?"
+        }
+      ],
+      "score": 0.995871078,
+      "source_file": "app/(main)/messages/ChatChannel.tsx",
+      "status": "tentative",
+      "uses": 1
+    },
+    "app_main_messages_chatsidebar": {
+      "code_fingerprint": "22c455fc4e27ee99afa16d35c926bda037c0e7c078ce19d8bb8c980d94a4f72f",
+      "label": "ChatSidebar.tsx",
+      "last": "2026-08-07T15:07:24.336436+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-07T15:07:24.336436+00:00",
+          "outcome": "useful",
+          "q": "Why are features missing from the messages page on mobile?"
+        }
+      ],
+      "score": 0.995871078,
+      "source_file": "app/(main)/messages/ChatSidebar.tsx",
+      "status": "tentative",
+      "uses": 1
+    },
+    "app_main_messages_newchatdialog": {
+      "code_fingerprint": "8e2767733e31dd1a78172025c67e3ca1596688417d5e5f15fe270e1b44335e24",
+      "label": "NewChatDialog.tsx",
+      "last": "2026-08-07T15:07:24.336436+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-07T15:07:24.336436+00:00",
+          "outcome": "useful",
+          "q": "Why are features missing from the messages page on mobile?"
+        }
+      ],
+      "score": 0.995871078,
+      "source_file": "app/(main)/messages/NewChatDialog.tsx",
       "status": "tentative",
       "uses": 1
     },
@@ -44,7 +108,7 @@
           "q": "Why do the subject tabs look displaced on mobile?"
         }
       ],
-      "score": 0.999970057,
+      "score": 0.995750835,
       "source_file": "app/(main)/Navbar.tsx",
       "status": "tentative",
       "uses": 1
@@ -60,7 +124,7 @@
           "q": "Why do the subject tabs look displaced on mobile?"
         }
       ],
-      "score": 0.999970057,
+      "score": 0.995750835,
       "source_file": "components/SubjectFilter.tsx",
       "status": "tentative",
       "uses": 1
@@ -76,7 +140,7 @@
           "q": "Where are the dark mode theme tokens defined, and which components depend on background, card, popover, muted, border, and sidebar colors?"
         }
       ],
-      "score": 0.999571586,
+      "score": 0.995354045,
       "source_file": "components.json",
       "status": "tentative",
       "uses": 1
@@ -92,7 +156,7 @@
           "q": "Where are the dark mode theme tokens defined, and which components depend on background, card, popover, muted, border, and sidebar colors?"
         }
       ],
-      "score": 0.999571586,
+      "score": 0.995354045,
       "source_file": "components/TrendsSidebar.tsx",
       "status": "tentative",
       "uses": 1
@@ -108,7 +172,7 @@
           "q": "Why do the subject tabs look displaced on mobile?"
         }
       ],
-      "score": 0.999970057,
+      "score": 0.995750835,
       "source_file": "components/ui/button.tsx",
       "status": "tentative",
       "uses": 1
@@ -124,7 +188,7 @@
           "q": "Where are the dark mode theme tokens defined, and which components depend on background, card, popover, muted, border, and sidebar colors?"
         }
       ],
-      "score": 0.999571586,
+      "score": 0.995354045,
       "source_file": "components/ui/card.tsx",
       "status": "tentative",
       "uses": 1

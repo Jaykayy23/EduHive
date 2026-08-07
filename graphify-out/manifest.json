@@ -145,8 +145,8 @@
     "semantic_hash": "32397b20fe316ec492bbd7568cb3b98b"
   },
   "app/(main)/brainforge/page.tsx": {
-    "mtime": 1786121111.410115,
-    "ast_hash": "8987bf9c6bdaf168e203f9e59ad9346d",
+    "mtime": 1786131668.661007,
+    "ast_hash": "2cc93f329bd8f81a66d1a03144884c71",
     "semantic_hash": ""
   },
   "app/(main)/brainforge/types/index.ts": {

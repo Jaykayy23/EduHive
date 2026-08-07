@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-07T19:25:16.259524+00:00",
+  "generated_at": "2026-08-07T21:52:14.612126+00:00",
   "nodes": {
     "agents_skills_migrate_radix_to_base_overlays_popover": {
       "code_fingerprint": "238c2b529c55c4ff0ff36ad93de9f452e615cd7912b32bd290a0ffe8aa8053f2",
@@ -12,7 +12,7 @@
           "q": "Where are the dark mode theme tokens defined, and which components depend on background, card, popover, muted, border, and sidebar colors?"
         }
       ],
-      "score": 0.995354045,
+      "score": 0.993009582,
       "source_file": ".agents/skills/migrate-radix-to-base/overlays.md",
       "status": "tentative",
       "uses": 1
@@ -28,7 +28,7 @@
           "q": "Where are the dark mode theme tokens defined, and which components depend on background, card, popover, muted, border, and sidebar colors?"
         }
       ],
-      "score": 0.995354045,
+      "score": 0.993009582,
       "source_file": ".agents/skills/shadcn/customization.md",
       "status": "tentative",
       "uses": 1
@@ -44,7 +44,7 @@
           "q": "Why are features missing from the messages page on mobile?"
         }
       ],
-      "score": 0.995871078,
+      "score": 0.993525397,
       "source_file": "app/(main)/messages/Chat.tsx",
       "status": "tentative",
       "uses": 1
@@ -60,7 +60,7 @@
           "q": "Why are features missing from the messages page on mobile?"
         }
       ],
-      "score": 0.995871078,
+      "score": 0.993525397,
       "source_file": "app/(main)/messages/ChatChannel.tsx",
       "status": "tentative",
       "uses": 1
@@ -76,7 +76,7 @@
           "q": "Why are features missing from the messages page on mobile?"
         }
       ],
-      "score": 0.995871078,
+      "score": 0.993525397,
       "source_file": "app/(main)/messages/ChatSidebar.tsx",
       "status": "tentative",
       "uses": 1
@@ -92,7 +92,7 @@
           "q": "Why are features missing from the messages page on mobile?"
         }
       ],
-      "score": 0.995871078,
+      "score": 0.993525397,
       "source_file": "app/(main)/messages/NewChatDialog.tsx",
       "status": "tentative",
       "uses": 1
@@ -108,7 +108,7 @@
           "q": "Why do the subject tabs look displaced on mobile?"
         }
       ],
-      "score": 0.995750835,
+      "score": 0.993405437,
       "source_file": "app/(main)/Navbar.tsx",
       "status": "tentative",
       "uses": 1
@@ -124,7 +124,7 @@
           "q": "Why do the subject tabs look displaced on mobile?"
         }
       ],
-      "score": 0.995750835,
+      "score": 0.993405437,
       "source_file": "components/SubjectFilter.tsx",
       "status": "tentative",
       "uses": 1
@@ -140,7 +140,7 @@
           "q": "Where are the dark mode theme tokens defined, and which components depend on background, card, popover, muted, border, and sidebar colors?"
         }
       ],
-      "score": 0.995354045,
+      "score": 0.993009582,
       "source_file": "components.json",
       "status": "tentative",
       "uses": 1
@@ -156,7 +156,7 @@
           "q": "Where are the dark mode theme tokens defined, and which components depend on background, card, popover, muted, border, and sidebar colors?"
         }
       ],
-      "score": 0.995354045,
+      "score": 0.993009582,
       "source_file": "components/TrendsSidebar.tsx",
       "status": "tentative",
       "uses": 1
@@ -172,7 +172,7 @@
           "q": "Why do the subject tabs look displaced on mobile?"
         }
       ],
-      "score": 0.995750835,
+      "score": 0.993405437,
       "source_file": "components/ui/button.tsx",
       "status": "tentative",
       "uses": 1
@@ -188,8 +188,77 @@
           "q": "Where are the dark mode theme tokens defined, and which components depend on background, card, popover, muted, border, and sidebar colors?"
         }
       ],
-      "score": 0.995354045,
+      "score": 0.993009582,
       "source_file": "components/ui/card.tsx",
+      "status": "tentative",
+      "uses": 1
+    },
+    "lib_hiveq_options_getmultiplechoiceoptions": {
+      "code_fingerprint": "e6bcf6ffd95919dcb9f1beeda9ff4d0588c5e2c3a509057736a59e9603f578b0",
+      "label": "getMultipleChoiceOptions()",
+      "last": "2026-08-07T21:48:48.244545+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-07T21:48:48.244545+00:00",
+          "outcome": "useful",
+          "q": "with hiveq, the questions being generated for multiple choice, the correct answer is obvious because its appearing twice in the option which shouldnt be so"
+        }
+      ],
+      "score": 0.999944815,
+      "source_file": "lib/hiveq-options.ts",
+      "status": "tentative",
+      "uses": 1
+    },
+    "ml_backend_app_main": {
+      "code_fingerprint": "2409e8eb057b4cf3687b703a865c56d555fa1cb5d036562fa269d6622896208e",
+      "label": "main.py",
+      "last": "2026-08-07T19:56:13.861665+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-07T19:56:13.861665+00:00",
+          "outcome": "useful",
+          "q": "now hiveQ when i use it, configure question types and hit generate it loads and shows load failed. its not working like its suppose to"
+        }
+      ],
+      "score": 0.998140302,
+      "source_file": "ml-backend/app/main.py",
+      "status": "tentative",
+      "uses": 1
+    },
+    "ml_backend_app_services_questgen_service_questgenservice": {
+      "code_fingerprint": "32972d5c29d762df95f68d4e95c01f6fd144ca34941135d5d5247172bc3767ab",
+      "label": "QuestgenService",
+      "last": "2026-08-07T21:48:48.244545+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-07T21:48:48.244545+00:00",
+          "outcome": "useful",
+          "q": "with hiveq, the questions being generated for multiple choice, the correct answer is obvious because its appearing twice in the option which shouldnt be so"
+        },
+        {
+          "date": "2026-08-07T19:56:13.861665+00:00",
+          "outcome": "useful",
+          "q": "now hiveQ when i use it, configure question types and hit generate it loads and shows load failed. its not working like its suppose to"
+        }
+      ],
+      "score": 1.998085117,
+      "source_file": "ml-backend/app/services/questgen_service.py",
+      "status": "preferred",
+      "uses": 2
+    },
+    "ml_backend_readme_hiveq_api": {
+      "code_fingerprint": "c5207aff8b0783c72a4a0ffb97f27bbe6ef6d807c3cae7e0068187c7ec2405ff",
+      "label": "HiveQ API",
+      "last": "2026-08-07T19:56:13.861665+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-07T19:56:13.861665+00:00",
+          "outcome": "useful",
+          "q": "now hiveQ when i use it, configure question types and hit generate it loads and shows load failed. its not working like its suppose to"
+        }
+      ],
+      "score": 0.998140302,
+      "source_file": "ml-backend/README.md",
       "status": "tentative",
       "uses": 1
     }

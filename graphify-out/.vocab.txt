@@ -99,7 +99,6 @@ bool
 boolean
 border
 bot
-brain
 breadcrumb
 broken
 browser
@@ -150,6 +149,7 @@ checker
 checking
 checklist
 child
+choice
 choices
 choosing
 chunk
@@ -229,6 +229,7 @@ convertible
 copy
 core
 corner
+correct
 cors
 cos
 cosh
@@ -396,6 +397,7 @@ extracted
 extraction
 factory
 fade
+failed
 fallback
 false
 family
@@ -434,7 +436,6 @@ following
 footer
 footers
 for
-forge
 forgot
 form
 format
@@ -492,7 +493,9 @@ hidden
 high
 highlight
 histogram
+hit
 hive
+hiveq
 home
 hook
 hookform
@@ -557,6 +560,7 @@ issuer
 item
 items
 iterable
+its
 itx
 job
 join
@@ -607,6 +611,7 @@ load
 loaded
 loader
 loading
+loads
 local
 locale
 locally
@@ -723,6 +728,7 @@ notes
 notication
 notification
 notifications
+now
 null
 nullable
 nulls
@@ -947,6 +953,7 @@ round
 rounding
 route
 router
+routing
 row
 rows
 rsc
@@ -1004,6 +1011,7 @@ shimmer
 shortcut
 shorthand
 should
+shows
 shuffle
 side
 sidebar
@@ -1078,6 +1086,7 @@ suggestion
 sum
 summarize
 summarizer
+suppose
 surfaces
 swap
 sweep
@@ -1250,6 +1259,7 @@ word
 words
 worked
 workflow
+working
 works
 worth
 wrapper

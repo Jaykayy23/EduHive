@@ -51,6 +51,41 @@ class QuestionNormalizationTests(unittest.TestCase):
         )
         self.assertIsNone(QuestgenService._normalize_question(question))
 
+    def test_mcq_answer_is_not_duplicated_by_option_labels(self):
+        question = Question(
+            question_statement="What process converts light into chemical energy?",
+            question_type="mcq",
+            answer="Photosynthesis",
+            options=[
+                "A. Photosynthesis",
+                "B. Respiration",
+                "C. Fermentation",
+                "D. Transpiration",
+            ],
+        )
+
+        normalized = QuestgenService._normalize_question(question)
+
+        self.assertIsNotNone(normalized)
+        self.assertEqual(normalized.answer, "Photosynthesis")
+        self.assertEqual(normalized.options.count("Photosynthesis"), 1)
+        self.assertEqual(len(normalized.options), 4)
+
+    def test_mcq_with_equivalent_duplicate_options_is_discarded(self):
+        question = Question(
+            question_statement="What process converts light into chemical energy?",
+            question_type="mcq",
+            answer="Photosynthesis",
+            options=[
+                "Photosynthesis",
+                "photosynthesis.",
+                "Respiration",
+                "Fermentation",
+            ],
+        )
+
+        self.assertIsNone(QuestgenService._normalize_question(question))
+
 
 class LightweightRuntimeTests(unittest.TestCase):
     def test_summarizer_reduces_without_model_downloads(self):

@@ -9,6 +9,7 @@ from __future__ import annotations
 import logging
 import os
 import re
+import unicodedata
 from collections import defaultdict
 from math import floor
 from typing import Any
@@ -29,6 +30,28 @@ TYPE_ALIASES = {
     "fill-in": "fill_in",
     "fill in the blank": "fill_in",
 }
+OPTION_PREFIX = re.compile(
+    r"^\s*(?:(?:[a-d1-4])\s*[.)\-:]|\((?:[a-d1-4])\))\s*", re.IGNORECASE
+)
+INVISIBLE_CHARACTERS = re.compile(r"[\u200b-\u200d\ufeff]")
+TRAILING_SENTENCE_PUNCTUATION = re.compile(r"[.!?]+$")
+
+
+def normalize_choice_text(value: str) -> str:
+    """Remove presentation-only differences from a generated answer choice."""
+
+    normalized = unicodedata.normalize("NFKC", value)
+    normalized = INVISIBLE_CHARACTERS.sub("", normalized)
+    normalized = " ".join(normalized.split())
+    return OPTION_PREFIX.sub("", normalized).strip()
+
+
+def choice_key(value: str) -> str:
+    """Build a comparison key without changing the displayed choice."""
+
+    normalized = normalize_choice_text(value)
+    normalized = TRAILING_SENTENCE_PUNCTUATION.sub("", normalized).strip()
+    return normalized.casefold()
 
 
 class QuestionGenerationConfigurationError(RuntimeError):
@@ -177,14 +200,24 @@ SOURCE TEXT:
     def _normalize_question(question: Question) -> Question | None:
         kind = TYPE_ALIASES.get(question.question_type.strip().lower())
         statement = " ".join(question.question_statement.split())
-        answer = str(question.answer).strip()
-        options = list(dict.fromkeys(" ".join(option.split()) for option in question.options if option.strip()))
+        answer = normalize_choice_text(str(question.answer))
+        options: list[str] = []
+        seen_options: set[str] = set()
+        for option in question.options:
+            normalized_option = normalize_choice_text(option)
+            key = choice_key(normalized_option)
+            if key and key not in seen_options:
+                seen_options.add(key)
+                options.append(normalized_option)
 
         if not kind or not statement or not answer:
             return None
 
         if kind == "mcq":
-            answer_match = next((option for option in options if option.casefold() == answer.casefold()), None)
+            answer_match = next(
+                (option for option in options if choice_key(option) == choice_key(answer)),
+                None,
+            )
             if answer_match is None:
                 options.append(answer)
             else:

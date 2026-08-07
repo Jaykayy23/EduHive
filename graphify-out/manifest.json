@@ -925,8 +925,8 @@
     "semantic_hash": ""
   },
   "ml-backend/app/services/questgen_service.py": {
-    "mtime": 1786119893.915883,
-    "ast_hash": "3ec62a88e1c6823e8806cf86ced5632c",
+    "mtime": 1786139232.4169798,
+    "ast_hash": "625575a04fcbed7ab34733aaf52f1c74",
     "semantic_hash": ""
   },
   "ml-backend/app/services/summarizer.py": {
@@ -1595,8 +1595,8 @@
     "semantic_hash": ""
   },
   "ml-backend/tests/test_backend.py": {
-    "mtime": 1786119246.1523342,
-    "ast_hash": "aa2aab5af3f6953b8b4fe2a7a9d0d0b8",
+    "mtime": 1786139206.1325133,
+    "ast_hash": "f343cc9f7a55fcc4629ad0369eb7a231",
     "semantic_hash": ""
   },
   "graphify-out/memory/query_20260807_150724_why_are_features_missing_from_the_messages_page_on.md": {
@@ -1630,8 +1630,8 @@
     "semantic_hash": ""
   },
   "app/(main)/hiveq/components/3-results-section.tsx": {
-    "mtime": 1786138666.038709,
-    "ast_hash": "f00be7c4505bcaab112a05aae835fee5",
+    "mtime": 1786139304.3019142,
+    "ast_hash": "d967dd9969db0500a0480871ddd5284e",
     "semantic_hash": ""
   },
   "app/(main)/hiveq/demo/page.tsx": {
@@ -1657,6 +1657,21 @@
   "tests/hiveq-routing.test.mjs": {
     "mtime": 1786135103.3383925,
     "ast_hash": "fb447e3d3f5742be3ba6d09e13e5c3c1",
+    "semantic_hash": ""
+  },
+  "lib/hiveq-options.ts": {
+    "mtime": 1786139230.6574996,
+    "ast_hash": "0c4bdd070f26ceb9dbf2236a384a40b7",
+    "semantic_hash": ""
+  },
+  "tests/hiveq-options.test.mjs": {
+    "mtime": 1786139219.3292348,
+    "ast_hash": "fa47f293293048d27851cdbc9bd7b51f",
+    "semantic_hash": ""
+  },
+  "graphify-out/memory/query_20260807_214848_with_hiveq__the_questions_being_generated_for_mult.md": {
+    "mtime": 1786139328.2455397,
+    "ast_hash": "0c7460c58fe2819cd19b4df30de65778",
     "semantic_hash": ""
   }
 }

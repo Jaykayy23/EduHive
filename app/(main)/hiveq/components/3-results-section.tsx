@@ -44,6 +44,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
+import {
+  areEquivalentChoices,
+  getMultipleChoiceOptions,
+} from "@/lib/hiveq-options";
 import { cn } from "@/lib/utils";
 
 import type { GeneratedResponse, Question } from "../types";
@@ -78,19 +82,6 @@ const shuffleArray = <T,>(items: T[]) => {
   return shuffled;
 };
 
-const getMultipleChoiceOptions = (question: Question) => {
-  const options = (question.options ?? [])
-    .map((option) => option.trim())
-    .filter(Boolean);
-  const answer = String(question.answer).trim();
-  if (
-    !options.some((option) => option.toLowerCase() === answer.toLowerCase())
-  ) {
-    options.push(answer);
-  }
-  return [...new Set(options)];
-};
-
 const isAnswerCorrect = (
   question: Question,
   answer: string | boolean | undefined,
@@ -98,6 +89,9 @@ const isAnswerCorrect = (
   if (answer === undefined) return false;
   if (typeof answer === "boolean") {
     return answer === (String(question.answer).toLowerCase() === "true");
+  }
+  if (question.question_type.toLowerCase() === "mcq") {
+    return areEquivalentChoices(answer, question.answer);
   }
   return (
     String(answer).toLowerCase().trim() ===
@@ -370,8 +364,7 @@ export function ResultsSection({
                         const isSelected = currentAnswer === option;
                         const isCorrectOption =
                           currentIsAnswered &&
-                          option.toLowerCase().trim() ===
-                            String(currentQuestion.answer).toLowerCase().trim();
+                          areEquivalentChoices(option, currentQuestion.answer);
 
                         return (
                           <Button

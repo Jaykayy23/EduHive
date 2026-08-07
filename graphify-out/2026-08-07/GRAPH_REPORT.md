@@ -1,13 +1,18 @@
 # Graph Report - EduHive_  (2026-08-07)
 
 ## Corpus Check
-- 277 files · ~652,559 words
+- 278 files · ~652,727 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 6844 nodes · 11860 edges · 310 communities (159 shown, 151 thin omitted)
+- 6849 nodes · 11867 edges · 307 communities (156 shown, 151 thin omitted)
 - Extraction: 94% EXTRACTED · 6% INFERRED · 0% AMBIGUOUS · INFERRED: 764 edges (avg confidence: 0.65)
 - Token cost: 0 input · 0 output
+
+## Graph Freshness
+- Built from commit: `40ca1df8`
+- Run `git rev-parse HEAD` and compare to check if the graph is stale.
+- Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
 - index d ts
@@ -194,7 +199,6 @@
 - radix ui react label
 - radix ui react select
 - radix ui react separator
-- radix ui react slider
 - radix ui react tooltip
 - react cropper
 - @radix-ui/react-slot
@@ -266,7 +270,6 @@
 - validation.ts
 - actions.ts
 - page.tsx
-- chatbot-utils.ts
 - ResetPasswordForm.tsx
 - Dn
 - index-browser.js
@@ -306,13 +309,12 @@
 - HiveQ API
 - Q: Why are features missing from the messages page on mobile?
 - index-browser.js
-- wasm.js
 - class-variance-authority
 
 ## God Nodes (most connected - your core abstractions)
 1. `n()` - 171 edges
 2. `i()` - 136 edges
-3. `cn()` - 121 edges
+3. `cn()` - 123 edges
 4. `Decimal` - 117 edges
 5. `Decimal` - 117 edges
 6. `validateRequest` - 85 edges
@@ -326,17 +328,17 @@
   README.md → ml-backend/requirements.txt
 - `Notication()` --calls--> `cn()`  [EXTRACTED]
   app/(main)/notifications/Notification.tsx → lib/utils.ts
-- `CommentProps` --references--> `CommentData`  [EXTRACTED]
-  components/comments/Comment.tsx → lib/types.ts
 - `MediaPreviews()` --calls--> `cn()`  [EXTRACTED]
   components/posts/Post.tsx → lib/utils.ts
 - `AttachmentPreviews()` --calls--> `cn()`  [EXTRACTED]
+  components/posts/editor/PostEditor.tsx → lib/utils.ts
+- `AttachmentPreview()` --calls--> `cn()`  [EXTRACTED]
   components/posts/editor/PostEditor.tsx → lib/utils.ts
 
 ## Import Cycles
 - 3-file cycle: `components/Linkify.tsx -> components/UserLinkwithTooltip.tsx -> components/UserTooltip.tsx -> components/Linkify.tsx`
 
-## Communities (310 total, 151 thin omitted)
+## Communities (307 total, 151 thin omitted)
 
 ### Community 0 - "index d ts"
 Cohesion: 0.00
@@ -347,76 +349,83 @@ Cohesion: 0.01
 Nodes (305): AccelerateEngineConfig, Action, ActiveConnectorType, Aggregate, AllModelsToStringIndex, ApplyOmit, Args, Args_3 (+297 more)
 
 ### Community 2 - "Tn Subsystem"
-Cohesion: 0.02
-Nodes (81): _a(), an(), ap(), As(), bs(), Bu(), build(), buildCaptureSettings() (+73 more)
+Cohesion: 0.03
+Nodes (52): _a(), ac(), As(), bs(), Bu(), build(), buildCaptureSettings(), Cd() (+44 more)
 
 ### Community 3 - "react native js"
 Cohesion: 0.02
-Nodes (69): ap(), applyPendingMigrations(), ar(), As(), bl(), bs(), buildQueryError(), consumeError() (+61 more)
+Nodes (70): addItem(), applyPendingMigrations(), ar(), As(), buildQueryError(), consumeError(), cp(), createEngineSpan() (+62 more)
 
 ### Community 4 - "edge js"
 Cohesion: 0.03
-Nodes (50): bc(), build(), buildCaptureSettings(), ce(), Cl(), createEngineSpan(), Ee(), emit() (+42 more)
+Nodes (56): bc(), build(), buildCaptureSettings(), ce(), Cl(), createEngineSpan(), emit(), Eo() (+48 more)
 
 ### Community 5 - "edge esm js"
 Cohesion: 0.03
-Nodes (51): build(), buildCaptureSettings(), ce(), createEngineSpan(), di(), Ea(), el(), emit() (+43 more)
+Nodes (55): Br(), build(), buildCaptureSettings(), Cc(), ce(), createEngineSpan(), Ct(), di() (+47 more)
 
 ### Community 8 - "useFollowerInfo ts"
 Cohesion: 0.05
 Nodes (50): POST(), useFollowerInfo(), metadata, Notication(), NotificationProps, metadata, generateMetadata(), getPost (+42 more)
 
 ### Community 9 - "At Subsystem"
-Cohesion: 0.04
-Nodes (31): _a(), al(), Ar(), as(), at(), ca(), Ce(), enabled() (+23 more)
+Cohesion: 0.03
+Nodes (45): _a(), al(), Ar(), as(), at(), ca(), Ce(), createEngineSpan() (+37 more)
 
 ### Community 10 - "page tsx"
 Cohesion: 0.08
-Nodes (26): Tn(), Cn(), constructor(), Cu(), Dl(), extractHostAndApiKey(), fo(), ga() (+18 more)
+Nodes (28): Tn(), constructor(), Dl(), e(), extractHostAndApiKey(), fo(), get(), getAllBatchQueryCallbacks() (+20 more)
 
 ### Community 11 - "route ts"
 Cohesion: 0.05
-Nodes (68): GET(), GET(), provisionStreamUserSafely(), redirectToLogin(), GET(), POST(), DELETE(), GET() (+60 more)
+Nodes (65): GET(), GET(), POST(), DELETE(), GET(), GET(), PATCH(), GET() (+57 more)
 
 ### Community 12 - "GoogleSignInButton tsx"
-Cohesion: 0.06
-Nodes (40): addItem(), Bs(), dc(), dispatchBatches(), dt(), ec(), el(), Fr() (+32 more)
+Cohesion: 0.09
+Nodes (32): addItem(), bo(), Bs(), Cr(), dc(), Do(), dt(), el() (+24 more)
 
 ### Community 13 - "index browser js"
-Cohesion: 0.07
-Nodes (32): Ae(), B(), be(), constructor(), e(), Ee(), F(), fe() (+24 more)
+Cohesion: 0.05
+Nodes (40): {
+  Decimal,
+  objectEnumValues,
+  makeStrictEnum,
+  Public,
+  getRuntime,
+  skip
+}, Prisma, PrismaClient, Ae(), an(), B(), be(), bn() (+32 more)
 
 ### Community 14 - "ko Subsystem"
 Cohesion: 0.05
-Nodes (56): metadata, InputSection(), InputSectionProps, ConfigurationSection(), ConfigurationSectionProps, formatQuestionType(), GeneratedResponse, getQuestionTypeColor() (+48 more)
+Nodes (49): metadata, InputSection(), InputSectionProps, ConfigurationSection(), ConfigurationSectionProps, BrainForgePage(), GeneratedResponse, Question (+41 more)
 
 ### Community 15 - "addErrorMessage Subsystem"
-Cohesion: 0.11
-Nodes (47): addErrorMessage(), addField(), addSuggestion(), asObject(), bo(), br(), Bt(), bu() (+39 more)
+Cohesion: 0.10
+Nodes (49): addErrorMessage(), addField(), addSuggestion(), asObject(), bo(), br(), Bt(), bu() (+41 more)
 
 ### Community 16 - "useDebounce ts"
-Cohesion: 0.07
-Nodes (33): login(), ResendVerificationForm(), firstValue(), Page(), PageProps, ForgotPasswordForm(), metadata, InputProps (+25 more)
+Cohesion: 0.05
+Nodes (61): login(), ResendVerificationForm(), firstValue(), Page(), PageProps, useDebounce(), formatQuestionType(), GeneratedResponse (+53 more)
 
 ### Community 17 - "buildQueryError Subsystem"
-Cohesion: 0.09
-Nodes (34): buildQueryError(), cm(), consumeError(), ct(), dispatchBatches(), fd(), Ft(), getExternalAdapterError() (+26 more)
+Cohesion: 0.07
+Nodes (42): buildQueryError(), cm(), consumeError(), createEngineSpan(), ct(), dispatchBatches(), fd(), fm() (+34 more)
 
 ### Community 18 - "a Subsystem"
-Cohesion: 0.08
-Nodes (43): a(), ai(), Ba(), cc(), cs(), ds(), enabled(), Fa() (+35 more)
+Cohesion: 0.12
+Nodes (22): Ba(), enabled(), Fa(), fo(), hi(), Il(), ke(), kt() (+14 more)
 
 ### Community 19 - "addErrorMessage Subsystem"
 Cohesion: 0.12
 Nodes (48): addErrorMessage(), addField(), addSuggestion(), Ao(), Ar(), asObject(), Au(), bu() (+40 more)
 
 ### Community 20 - "addItem Subsystem"
-Cohesion: 0.06
-Nodes (43): addItem(), cl(), constructor(), Da(), ds(), ei(), extractHostAndApiKey(), get() (+35 more)
+Cohesion: 0.07
+Nodes (41): addItem(), cl(), constructor(), Da(), ds(), e(), ei(), extractHostAndApiKey() (+33 more)
 
 ### Community 21 - "a Subsystem"
-Cohesion: 0.22
-Nodes (21): An(), Cn(), findField(), fu(), getArgumentName(), getArgumentPath(), getComputedFields(), getOutputTypeDescription() (+13 more)
+Cohesion: 0.16
+Nodes (26): An(), Cn(), findField(), fu(), getArgumentName(), getArgumentPath(), getComputedFields(), getOutputTypeDescription() (+18 more)
 
 ### Community 22 - "ba Subsystem"
 Cohesion: 0.06
@@ -424,11 +433,11 @@ Nodes (18): ba(), ci(), ha(), Hr(), ii(), Je(), ni(), Oe() (+10 more)
 
 ### Community 23 - "addErrorMessage Subsystem"
 Cohesion: 0.14
-Nodes (43): addErrorMessage(), addField(), addSuggestion(), Ao(), asObject(), Au(), bu(), co() (+35 more)
+Nodes (44): addErrorMessage(), addField(), addSuggestion(), Ao(), asObject(), Au(), bu(), co() (+36 more)
 
 ### Community 24 - "bl Subsystem"
-Cohesion: 0.07
-Nodes (7): bl(), fi(), gi(), hi(), ne(), re(), T()
+Cohesion: 0.05
+Nodes (33): Aa(), ai(), ba(), be(), bl(), bt(), de(), enabled() (+25 more)
 
 ### Community 25 - "addErrorMessage Subsystem"
 Cohesion: 0.14
@@ -439,16 +448,16 @@ Cohesion: 0.13
 Nodes (42): addErrorMessage(), addField(), addSuggestion(), asObject(), Bs(), ds(), dt(), ei() (+34 more)
 
 ### Community 27 - "route ts"
-Cohesion: 0.15
-Nodes (16): getMaxTokens(), getNvidiaTimeoutMs(), getProviderErrorMessage(), NVIDIA_TRANSIENT_STATUS_CODES, POST(), wait(), getTutorModeInstructions(), SUBJECT_KEYWORDS (+8 more)
+Cohesion: 0.19
+Nodes (13): getMaxTokens(), getNvidiaTimeoutMs(), getProviderErrorMessage(), NVIDIA_TRANSIENT_STATUS_CODES, POST(), wait(), getTutorModeInstructions(), SUBJECT_KEYWORDS (+5 more)
 
 ### Community 28 - "InputSection Subsystem"
-Cohesion: 0.08
-Nodes (36): logout(), AcademicChatBot(), Conversation, createConversation(), generateId(), getConversationMode(), getModeLabel(), getStreamDelta() (+28 more)
+Cohesion: 0.13
+Nodes (19): AcademicChatBot(), Conversation, createConversation(), generateId(), getConversationMode(), getModeLabel(), getStreamDelta(), isRecord() (+11 more)
 
 ### Community 29 - "addItem Subsystem"
-Cohesion: 0.07
-Nodes (44): ReportActions(), ReportActionsProps, ReportTableProps, Alert(), AlertDescription(), AlertTitle(), alertVariants, AlertDialog() (+36 more)
+Cohesion: 0.11
+Nodes (23): ReportActions(), ReportDialog(), ReportDialogProps, DialogTrigger(), Select(), SelectContent(), SelectItem(), SelectLabel() (+15 more)
 
 ### Community 31 - "CleaningDiagnostics Subsystem"
 Cohesion: 0.09
@@ -459,28 +468,28 @@ Cohesion: 0.04
 Nodes (48): Arrow / Item / Group / Label / CheckboxItem / RadioGroup / RadioItem / ItemIndicator / Separator / Sub / SubTrigger / SubContent, Arrow → Menu.Arrow, Base UI only, data attributes, CSS variables, Base UI only props worth knowing (Menu), Base UI only props worth knowing (NavigationMenu), CheckboxItem → Menu.CheckboxItem, Content → ContextMenu.Portal > Positioner > Popup, Content → Menu.Portal > Menu.Positioner > Menu.Popup (+40 more)
 
 ### Community 34 - "ap Subsystem"
-Cohesion: 0.09
-Nodes (26): ac(), constructor(), e(), es(), get(), getAllBatchQueryCallbacks(), getGlobalOmit(), _getNamespace() (+18 more)
+Cohesion: 0.15
+Nodes (17): Bd(), da(), Gd(), getAllClientExtensions(), getAllComputedFields(), getAllModelExtensions(), getAllQueryCallbacks(), gr() (+9 more)
 
 ### Community 35 - "Be Subsystem"
-Cohesion: 0.08
-Nodes (6): Be(), bi(), Ei(), re(), T(), xi()
+Cohesion: 0.06
+Nodes (24): Aa(), Be(), bi(), Ca(), de(), di(), ec(), Ei() (+16 more)
 
 ### Community 36 - "vl Subsystem"
 Cohesion: 0.09
-Nodes (26): vl(), kl(), Ne(), addItem(), ao(), be(), Ct(), es() (+18 more)
+Nodes (28): addItem(), ao(), be(), Bt(), Ct(), es(), Fa(), getGlobalOmit() (+20 more)
 
 ### Community 38 - "Aa Subsystem"
-Cohesion: 0.11
-Nodes (25): Aa(), Ca(), Da(), de(), di(), fi(), ho(), Ia() (+17 more)
+Cohesion: 0.18
+Nodes (12): Da(), gi(), Ia(), ja(), ka(), ln(), Ma(), mr() (+4 more)
 
 ### Community 39 - "qe Subsystem"
-Cohesion: 0.12
-Nodes (22): qe(), Ls(), be(), bn(), enabled(), eo(), mr(), Nt() (+14 more)
+Cohesion: 0.07
+Nodes (35): qe(), Ls(), be(), bl(), bn(), cu(), dr(), enabled() (+27 more)
 
 ### Community 40 - "ac Subsystem"
-Cohesion: 0.17
-Nodes (26): ac(), cc(), Cn(), findField(), fo(), Fr(), getArgumentName(), getArgumentPath() (+18 more)
+Cohesion: 0.11
+Nodes (35): ac(), at(), cc(), Cn(), Fe(), findField(), fo(), Fr() (+27 more)
 
 ### Community 41 - "cobe Subsystem"
 Cohesion: 0.06
@@ -491,84 +500,84 @@ Cohesion: 0.07
 Nodes (29): eslint, eslint-config-next, eslint-config-prettier, @eslint/eslintrc, devDependencies, eslint, eslint-config-next, eslint-config-prettier (+21 more)
 
 ### Community 43 - "addMarginSymbol Subsystem"
-Cohesion: 0.20
-Nodes (18): addMarginSymbol(), afterNextNewline(), cs(), getCurrentLineLength(), getPrintWidth(), indent(), newLine(), Rs() (+10 more)
+Cohesion: 0.12
+Nodes (26): addMarginSymbol(), afterNextNewline(), ci(), cs(), getCurrentLineLength(), getPrintWidth(), handleAndLogRequestError(), handleRequestError() (+18 more)
 
 ### Community 44 - "ac Subsystem"
-Cohesion: 0.28
-Nodes (9): alloc(), allocUnsafe(), allocUnsafeSlow(), construct(), fill(), from(), le(), nn() (+1 more)
+Cohesion: 0.16
+Nodes (14): alloc(), allocUnsafe(), allocUnsafeSlow(), byteLength(), construct(), fill(), from(), gr() (+6 more)
 
 ### Community 45 - "addMarginSymbol Subsystem"
-Cohesion: 0.24
-Nodes (16): addMarginSymbol(), afterNextNewline(), getCurrentLineLength(), getPrintWidth(), indent(), newLine(), setColor(), underline() (+8 more)
+Cohesion: 0.11
+Nodes (29): addMarginSymbol(), afterNextNewline(), $c(), dispatchBatches(), Dr(), getCurrentLineLength(), getPrintWidth(), handleAndLogRequestError() (+21 more)
 
 ### Community 46 - "applyPendingMigrations Subsystem"
-Cohesion: 0.08
-Nodes (25): SearchResultsProps, UserPostsProps, CommentInput(), CommentInputProps, CommentsProps, useSubmitCommentMutation(), InfiniteScrollContainer(), InfiniteScrollContainerProps (+17 more)
+Cohesion: 0.06
+Nodes (29): SearchResultsProps, UserPostsProps, CommentInput(), CommentInputProps, CommentsProps, useSubmitCommentMutation(), InfiniteScrollContainer(), InfiniteScrollContainerProps (+21 more)
 
 ### Community 47 - "de Subsystem"
-Cohesion: 0.24
-Nodes (14): bs(), Cc(), handleError(), json(), nr(), propagateResponseExtensions(), Qe(), requestInternal() (+6 more)
+Cohesion: 0.13
+Nodes (18): ai(), ea(), et(), ga(), ge(), getAllClientExtensions(), getAllComputedFields(), getAllModelExtensions() (+10 more)
 
 ### Community 48 - "aa Subsystem"
-Cohesion: 0.15
-Nodes (30): aa(), concat(), de(), di(), Dr(), et(), fi(), findField() (+22 more)
+Cohesion: 0.17
+Nodes (28): aa(), concat(), da(), de(), di(), Dr(), fi(), findField() (+20 more)
 
 ### Community 49 - "dom Subsystem"
 Cohesion: 0.07
 Nodes (26): dom, dom.iterable, esnext, next-env.d.ts, .next/types/**/*.ts, node_modules, **/*.ts, **/*.tsx (+18 more)
 
 ### Community 50 - "ai Subsystem"
-Cohesion: 0.15
-Nodes (20): ai(), be(), Ca(), cr(), de(), en(), ga(), ha() (+12 more)
+Cohesion: 0.31
+Nodes (8): Ca(), cr(), en(), Pa(), Ta(), va(), wi(), xa()
 
 ### Community 51 - "aa Subsystem"
-Cohesion: 0.08
-Nodes (43): aa(), ad(), addItem(), Am(), Bl(), Br(), ed(), Fe() (+35 more)
+Cohesion: 0.17
+Nodes (26): aa(), ad(), ed(), findField(), getArgumentName(), getArgumentPath(), getComputedFields(), getOutputTypeDescription() (+18 more)
 
 ### Community 52 - "AchievementBadge tsx"
 Cohesion: 0.04
 Nodes (46): accordion, Accordion.Content → Accordion.Panel, Accordion.Header → Accordion.Header, Accordion.Item → Accordion.Item, Accordion.Root → Accordion.Root, Accordion.Trigger → Accordion.Trigger, Base UI only props worth knowing, Base UI only props worth knowing (+38 more)
 
 ### Community 53 - "ReportActions tsx"
-Cohesion: 0.10
-Nodes (32): dr(), bi(), da(), e(), fe(), getAllBatchQueryCallbacks(), getAllQueryCallbacks(), getOrCreate() (+24 more)
+Cohesion: 0.12
+Nodes (29): bi(), e(), getAllBatchQueryCallbacks(), getAllQueryCallbacks(), getOrCreate(), has(), hn(), isEmpty() (+21 more)
 
 ### Community 54 - "Ba Subsystem"
-Cohesion: 0.27
-Nodes (13): bt(), handleError(), ir(), json(), propagateResponseExtensions(), Qe(), requestInternal(), transaction() (+5 more)
+Cohesion: 0.09
+Nodes (43): a(), ai(), bt(), cc(), constructor(), cs(), dispatchBatches(), ds() (+35 more)
 
 ### Community 55 - "dm Subsystem"
 Cohesion: 0.06
-Nodes (66): xn(), an(), bn(), n(), vn(), ac(), Au(), cc() (+58 more)
+Nodes (47): addItem(), Am(), an(), Br(), cc(), Cn(), Cu(), dc() (+39 more)
 
 ### Community 56 - "BaseModel Subsystem"
 Cohesion: 0.13
 Nodes (18): BaseModel, create_questions_from_text(), process_and_generate(), CleaningDiagnostics, GeneratedQuestionBatch, GeneratedQuestionsResponse, Response shared by text and file generation endpoints., Structured response schema sent to Gemini. (+10 more)
 
 ### Community 57 - "a Subsystem"
-Cohesion: 0.17
-Nodes (13): fromContent(), getLocation(), kc(), kl(), lineAt(), ln(), mapLineAt(), mapLines() (+5 more)
+Cohesion: 0.09
+Nodes (27): ap(), Bl(), ci(), cp(), enabled(), ep(), Fe(), getGlobalOmit() (+19 more)
 
 ### Community 58 - "An Subsystem"
-Cohesion: 0.27
-Nodes (10): Dn(), ha(), handleRequestError(), Ja(), kn(), Ot(), sanitizeMessage(), Tt() (+2 more)
+Cohesion: 0.19
+Nodes (13): Dn(), ha(), hi(), Ja(), kd(), kn(), Lt(), On() (+5 more)
 
 ### Community 59 - "index browser d ts"
 Cohesion: 0.10
 Nodes (18): AnyNull, Args, Config, Constructor, DbNull, Exact, GetRuntimeOutput, Instance (+10 more)
 
 ### Community 60 - "dc Subsystem"
-Cohesion: 0.09
-Nodes (28): dc(), Do(), Ee(), Es(), fc(), ft(), gc(), getAllClientExtensions() (+20 more)
+Cohesion: 0.15
+Nodes (19): Do(), Ee(), Es(), fc(), gc(), getAllClientExtensions(), getAllComputedFields(), getAllModelExtensions() (+11 more)
 
 ### Community 61 - "route ts"
-Cohesion: 0.18
-Nodes (14): Ae(), Ao(), Gc(), getAllClientExtensions(), getAllComputedFields(), getAllModelExtensions(), hc(), He() (+6 more)
+Cohesion: 0.11
+Nodes (22): ac(), e(), es(), getAllBatchQueryCallbacks(), getGlobalOmit(), ht(), ic(), it() (+14 more)
 
 ### Community 62 - "Bd Subsystem"
-Cohesion: 0.11
-Nodes (23): Bd(), da(), ea(), Gd(), getAllClientExtensions(), getAllComputedFields(), getAllModelExtensions(), getAllQueryCallbacks() (+15 more)
+Cohesion: 0.16
+Nodes (15): Ae(), Ao(), Gc(), getAllClientExtensions(), getAllComputedFields(), getAllModelExtensions(), hc(), He() (+7 more)
 
 ### Community 63 - "components json"
 Cohesion: 0.11
@@ -579,52 +588,52 @@ Cohesion: 0.23
 Nodes (8): BytesIO, FileParser, Any, UploadFile, Handle plain text files, Main entry point that handles all file types         Returns tuple of (extracte, Extract text from a PDF with the small, pure-Python pypdf package., Handle modern Word documents
 
 ### Community 81 - "Er Subsystem"
-Cohesion: 0.11
-Nodes (27): Er(), xr(), Z(), ae(), Bt(), byteLength(), cn(), D() (+19 more)
+Cohesion: 0.20
+Nodes (15): Z(), ae(), cn(), D(), equals(), indentedCurrentLine(), It(), ke() (+7 more)
 
 ### Community 83 - "addMarginSymbol Subsystem"
 Cohesion: 0.24
 Nodes (16): addMarginSymbol(), afterNextNewline(), getCurrentLineLength(), getPrintWidth(), indent(), newLine(), setColor(), underline() (+8 more)
 
 ### Community 84 - "a Subsystem"
-Cohesion: 0.13
-Nodes (31): bo(), Cr(), Do(), findField(), getAllComputedFields(), getArgumentName(), getArgumentPath(), getComputedFields() (+23 more)
+Cohesion: 0.19
+Nodes (20): findField(), getAllComputedFields(), getArgumentName(), getArgumentPath(), getComputedFields(), getOrCreate(), getOutputTypeDescription(), getSelectionPath() (+12 more)
 
 ### Community 85 - "addMarginSymbol Subsystem"
 Cohesion: 0.24
 Nodes (16): addMarginSymbol(), afterNextNewline(), getCurrentLineLength(), getPrintWidth(), indent(), newLine(), setColor(), underline() (+8 more)
 
 ### Community 86 - "En Subsystem"
-Cohesion: 0.09
-Nodes (36): a(), ac(), as(), ci(), cs(), Fe(), Fn(), g() (+28 more)
+Cohesion: 0.07
+Nodes (47): a(), ac(), as(), bs(), ci(), cs(), dc(), Fe() (+39 more)
 
 ### Community 87 - "addItem Subsystem"
 Cohesion: 0.04
 Nodes (44): Base UI only props worth knowing (checkbox), Base UI only props worth knowing (radio-group), Base UI only props worth knowing (select), Base UI only props worth knowing (slider), Base UI only props worth knowing (switch), checkbox, Checkbox.Indicator → Checkbox.Indicator, Checkbox.Root → Checkbox.Root (+36 more)
 
 ### Community 88 - "an Subsystem"
-Cohesion: 0.08
-Nodes (36): At, applyPendingMigrations(), bo(), buildQueryError(), constructor(), consumeError(), createEngineSpan(), deref() (+28 more)
+Cohesion: 0.10
+Nodes (28): At, applyPendingMigrations(), bo(), buildQueryError(), constructor(), consumeError(), dispatchBatches(), en() (+20 more)
 
 ### Community 90 - "summarizer py"
 Cohesion: 0.21
 Nodes (5): health_check(), Small deterministic text reducer used for long uploaded documents., Extract representative sentences with no model or network dependency., Summarizer, LightweightRuntimeTests
 
 ### Community 91 - "extractHostAndApiKey Subsystem"
-Cohesion: 0.11
-Nodes (18): Aa(), ba(), Br(), bt(), Ct(), e(), enabled(), fl() (+10 more)
+Cohesion: 0.40
+Nodes (6): ai(), di(), et(), Ia(), li(), Tt()
 
 ### Community 92 - "B Subsystem"
-Cohesion: 0.04
-Nodes (53): useDebounce(), ForYouFeedProps, Layout(), MenuBar(), MenuBarProps, Chat(), ChatChannel(), ChatChannelProps (+45 more)
+Cohesion: 0.07
+Nodes (28): Layout(), Chat(), ChatChannel(), ChatChannelProps, CustomChannelHeaderProps, ChatSidebar(), ChatSidebarProps, MenuHeaderProps (+20 more)
 
 ### Community 93 - "write"
-Cohesion: 0.09
-Nodes (25): Al(), An(), at(), cp(), Fs(), gr(), gt(), handleRequestError() (+17 more)
+Cohesion: 0.18
+Nodes (13): fromContent(), handleRequestError(), lineAt(), mapLineAt(), mapLines(), Ot(), prependSymbolAt(), read() (+5 more)
 
 ### Community 94 - "to"
-Cohesion: 0.14
-Nodes (15): $c(), dispatchBatches(), Dr(), handleAndLogRequestError(), handleRequestError(), isRawAction(), jr(), kr() (+7 more)
+Cohesion: 0.25
+Nodes (8): MenuBar(), MenuBarProps, MessagesButton(), MessagesButtonProps, NotificationsButton(), NotificationsButtonProps, MessageCountInfo, NotificationCountInfo
 
 ### Community 95 - "DriverAdapter Subsystem"
 Cohesion: 0.17
@@ -753,36 +762,32 @@ Cohesion: 0.40
 Nodes (5): ./wasm, default, import, require, types
 
 ### Community 157 - "ai"
-Cohesion: 0.09
-Nodes (32): createEngineSpan(), dm(), Do(), Fu(), getActiveContext(), getGlobalTracingHelper(), getTraceParent(), ii() (+24 more)
+Cohesion: 0.12
+Nodes (25): dm(), Do(), Fu(), ii(), In(), ju(), ko(), Lo() (+17 more)
 
 ### Community 162 - "Fr"
-Cohesion: 0.19
-Nodes (13): En(), ai(), ea(), ga(), ge(), getAllClientExtensions(), getAllModelExtensions(), H() (+5 more)
+Cohesion: 0.24
+Nodes (7): AddAttachmentsButtonProps, AttachmentPreview(), AttachmentPreviewProps, AttachmentPreviews(), AttachmentPreviewsProps, Attachment, useMediaUpload()
 
 ### Community 163 - "clsx Subsystem"
-Cohesion: 0.10
-Nodes (32): AvatarInputProps, EditProfileDialog(), useUpdateProfileMutation(), DeleteCommentDialog(), useDeleteCommentMutation(), CropImageDialog(), CropImageDialogProps, LoadingButton() (+24 more)
+Cohesion: 0.07
+Nodes (52): ReportActionsProps, ReportTableProps, Alert(), AlertDescription(), AlertTitle(), alertVariants, AlertDialog(), AlertDialogAction() (+44 more)
 
 ### Community 164 - "date fns"
 Cohesion: 0.26
 Nodes (15): B(), compare(), copy(), Jo(), Qo(), readIntBE(), readIntLE(), readUIntBE() (+7 more)
 
 ### Community 166 - "ky Subsystem"
-Cohesion: 0.20
-Nodes (18): vo(), addMarginSymbol(), afterNextNewline(), au(), getCurrentLineLength(), getPrintWidth(), indent(), newLine() (+10 more)
+Cohesion: 0.09
+Nodes (35): addMarginSymbol(), afterNextNewline(), Al(), An(), au(), Fs(), getCurrentLineLength(), getPrintWidth() (+27 more)
 
 ### Community 179 - "next Subsystem"
 Cohesion: 0.12
 Nodes (17): `add` — Add components, `apply` — Apply a preset to an existing project, `build` — Build a custom registry, Commands, Contents, `diff` — Check for updates, `docs` — Get component documentation URLs, Dry-Run Mode (+9 more)
 
 ### Community 187 - "radix ui react select"
-Cohesion: 0.17
-Nodes (12): _c(), extractHostAndApiKey(), Fc(), Gr(), gt(), hc(), isRawAction(), ms() (+4 more)
-
-### Community 189 - "radix ui react slider"
-Cohesion: 0.18
-Nodes (11): ci(), handleAndLogRequestError(), handleRequestError(), Ht(), oi(), Pa(), renderAllMessages(), sanitizeMessage() (+3 more)
+Cohesion: 0.20
+Nodes (10): _c(), Fc(), gt(), hc(), isRawAction(), ks(), ni(), Qe() (+2 more)
 
 ### Community 259 - "class-variance-authority"
 Cohesion: 0.24
@@ -805,20 +810,16 @@ Cohesion: 0.15
 Nodes (13): Avatar always needs AvatarFallback, Button has no isPending or isLoading prop, Callouts use Alert, Card structure, Choosing between overlay components, Component Composition, Contents, Dialog, Sheet, and Drawer always need a Title (+5 more)
 
 ### Community 265 - "actions.ts"
-Cohesion: 0.10
-Nodes (33): signUp(), resendVerificationEmail(), verifyEmail(), Page(), PageProps, VerifyEmailForm(), requestPasswordReset(), resetPassword() (+25 more)
+Cohesion: 0.08
+Nodes (45): GET(), provisionStreamUserSafely(), redirectToLogin(), signUp(), resendVerificationEmail(), verifyEmail(), Page(), PageProps (+37 more)
 
 ### Community 266 - "page.tsx"
 Cohesion: 0.15
 Nodes (13): Built-in variants first, className for layout only, Contents, No manual dark: color overrides, No manual z-index on overlay components, No raw color values for status/state indicators, No space-x-* / space-y-*, Prefer size-* over w-* h-* when equal (+5 more)
 
-### Community 267 - "chatbot-utils.ts"
-Cohesion: 0.20
-Nodes (3): ChatMessage, ChatSession, Reference
-
 ### Community 269 - "Dn"
 Cohesion: 0.06
-Nodes (59): i(), a(), addItem(), ai(), Bc(), Ce(), co(), constructor() (+51 more)
+Nodes (49): a(), ap(), Bc(), bs(), constructor(), cs(), Dc(), Dn() (+41 more)
 
 ### Community 274 - "alert-dialog"
 Cohesion: 0.17
@@ -889,8 +890,8 @@ Cohesion: 0.29
 Nodes (6): Animation idiom, Class-string rewrites (layer 2), CSS variables, Data-attribute selectors, Disabled-state hooks, Element changes kill pseudo-class variants
 
 ### Community 291 - "display-misc.md"
-Cohesion: 0.40
-Nodes (5): AccessibleIcon (radix `AccessibleIcon.Root`: `label` required), AspectRatio (radix `AspectRatio.Root`: `asChild`, `ratio` default `1`), Label (radix `Label.Root`: `asChild`, `htmlFor`), No Base UI counterpart, VisuallyHidden (radix `VisuallyHidden.Root`: `asChild`)
+Cohesion: 0.29
+Nodes (6): AccessibleIcon (radix `AccessibleIcon.Root`: `label` required), AspectRatio (radix `AspectRatio.Root`: `asChild`, `ratio` default `1`), Label (radix `Label.Root`: `asChild`, `htmlFor`), No Base UI counterpart, Radix UI → Base UI props mapping: progress, scroll-area, separator, avatar, toast, form, VisuallyHidden (radix `VisuallyHidden.Root`: `asChild`)
 
 ### Community 292 - "avatar"
 Cohesion: 0.29
@@ -909,8 +910,8 @@ Cohesion: 0.33
 Nodes (6): Base UI only props worth knowing, CSS variables, Data attributes, progress, Progress.Indicator → Progress.Indicator, Progress.Root → Progress.Root
 
 ### Community 296 - "Separator.Root → Separator"
-Cohesion: 0.29
-Nodes (6): Base UI only props worth knowing, CSS variables, Data attributes, Radix UI → Base UI props mapping: progress, scroll-area, separator, avatar, toast, form, separator, Separator.Root → Separator
+Cohesion: 0.40
+Nodes (5): Base UI only props worth knowing, CSS variables, Data attributes, separator, Separator.Root → Separator
 
 ### Community 297 - "index-browser.js"
 Cohesion: 0.40
@@ -920,9 +921,13 @@ Nodes (4): Answer, Outcome, Q: Where are the dark mode theme tokens defined, and
 Cohesion: 0.50
 Nodes (4): Base UI only props worth knowing (form-wide), CSS variables, Data attributes, (new) Fieldset.Root and Fieldset.Legend
 
+### Community 301 - "@radix-ui/react-dropdown-menu"
+Cohesion: 0.40
+Nodes (4): Answer, Outcome, Q: now hiveQ when i use it, configure question types and hit generate it loads and shows load failed. its not working like its suppose to, Source Nodes
+
 ### Community 302 - "Zt"
-Cohesion: 0.20
-Nodes (10): Fe(), getGlobalOmit(), gp(), lt(), shouldApplyGlobalOmit(), ss(), st(), up() (+2 more)
+Cohesion: 0.08
+Nodes (49): Ee(), ft(), ko(), ku(), nc(), qr(), rc(), registerNewError() (+41 more)
 
 ### Community 303 - "pdf_text_cleaner.py"
 Cohesion: 0.29
@@ -940,47 +945,25 @@ Nodes (6): Build with Docker, Configuration, Deploy on Render, HiveQ API, Run lo
 Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: Why are features missing from the messages page on mobile?, Source Nodes
 
-### Community 307 - "index-browser.js"
-Cohesion: 0.40
-Nodes (3): {
-  Decimal,
-  objectEnumValues,
-  makeStrictEnum,
-  Public,
-  getRuntime,
-  skip
-}, Prisma, PrismaClient
-
-### Community 308 - "wasm.js"
-Cohesion: 0.40
-Nodes (3): {
-  Decimal,
-  objectEnumValues,
-  makeStrictEnum,
-  Public,
-  getRuntime,
-  skip
-}, Prisma, PrismaClient
-
 ## Knowledge Gaps
-- **2955 isolated node(s):** `metadata`, `PageProps`, `metadata`, `PageProps`, `PageProps` (+2950 more)
+- **2958 isolated node(s):** `metadata`, `PageProps`, `metadata`, `PageProps`, `PageProps` (+2953 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **151 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `n()` connect `dm Subsystem` to `Tn Subsystem`, `react native js`, `edge js`, `edge esm js`, `At Subsystem`, `page tsx`, `GoogleSignInButton tsx`, `index browser js`, `Dn`, `addErrorMessage Subsystem`, `buildQueryError Subsystem`, `a Subsystem`, `addErrorMessage Subsystem`, `addItem Subsystem`, `a Subsystem`, `ba Subsystem`, `addErrorMessage Subsystem`, `addErrorMessage Subsystem`, `ai`, `ap Subsystem`, `Fr`, `vl Subsystem`, `Aa Subsystem`, `qe Subsystem`, `ac Subsystem`, `ky Subsystem`, `addMarginSymbol Subsystem`, `addMarginSymbol Subsystem`, `Zt`, `de Subsystem`, `aa Subsystem`, `aa Subsystem`, `ReportActions tsx`, `Ba Subsystem`, `a Subsystem`, `dc Subsystem`, `radix ui react slider`, `Bd Subsystem`, `Er Subsystem`, `addMarginSymbol Subsystem`, `a Subsystem`, `addMarginSymbol Subsystem`, `En Subsystem`, `an Subsystem`, `extractHostAndApiKey Subsystem`, `to`?**
+- **Why does `n()` connect `Zt` to `Tn Subsystem`, `react native js`, `edge js`, `edge esm js`, `At Subsystem`, `page tsx`, `GoogleSignInButton tsx`, `index browser js`, `Dn`, `addErrorMessage Subsystem`, `buildQueryError Subsystem`, `a Subsystem`, `addErrorMessage Subsystem`, `addItem Subsystem`, `a Subsystem`, `ba Subsystem`, `addErrorMessage Subsystem`, `bl Subsystem`, `addErrorMessage Subsystem`, `ai`, `Be Subsystem`, `vl Subsystem`, `Aa Subsystem`, `qe Subsystem`, `ac Subsystem`, `ky Subsystem`, `addMarginSymbol Subsystem`, `addMarginSymbol Subsystem`, `de Subsystem`, `aa Subsystem`, `ai Subsystem`, `aa Subsystem`, `ReportActions tsx`, `Ba Subsystem`, `dm Subsystem`, `a Subsystem`, `An Subsystem`, `radix ui react select`, `route ts`, `addMarginSymbol Subsystem`, `a Subsystem`, `addMarginSymbol Subsystem`, `En Subsystem`, `an Subsystem`, `extractHostAndApiKey Subsystem`, `write`?**
   _High betweenness centrality (0.061) - this node is a cross-community bridge._
-- **Why does `i()` connect `Dn` to `Tn Subsystem`, `edge js`, `edge esm js`, `page tsx`, `GoogleSignInButton tsx`, `index browser js`, `addErrorMessage Subsystem`, `a Subsystem`, `addErrorMessage Subsystem`, `addItem Subsystem`, `a Subsystem`, `ba Subsystem`, `addErrorMessage Subsystem`, `addErrorMessage Subsystem`, `addErrorMessage Subsystem`, `ai`, `ap Subsystem`, `Fr`, `qe Subsystem`, `ac Subsystem`, `aa Subsystem`, `ai Subsystem`, `aa Subsystem`, `ReportActions tsx`, `dm Subsystem`, `a Subsystem`, `dc Subsystem`, `route ts`, `Bd Subsystem`, `radix ui react slider`, `Er Subsystem`, `a Subsystem`, `En Subsystem`, `an Subsystem`, `write`?**
+- **Why does `i()` connect `Zt` to `Tn Subsystem`, `react native js`, `edge js`, `edge esm js`, `At Subsystem`, `page tsx`, `GoogleSignInButton tsx`, `index browser js`, `Dn`, `addErrorMessage Subsystem`, `a Subsystem`, `addErrorMessage Subsystem`, `addItem Subsystem`, `a Subsystem`, `ba Subsystem`, `addErrorMessage Subsystem`, `bl Subsystem`, `addErrorMessage Subsystem`, `addErrorMessage Subsystem`, `ai`, `ap Subsystem`, `Be Subsystem`, `vl Subsystem`, `qe Subsystem`, `ac Subsystem`, `de Subsystem`, `aa Subsystem`, `aa Subsystem`, `ReportActions tsx`, `Ba Subsystem`, `dm Subsystem`, `dc Subsystem`, `route ts`, `Bd Subsystem`, `En Subsystem`, `an Subsystem`, `extractHostAndApiKey Subsystem`, `write`?**
   _High betweenness centrality (0.051) - this node is a cross-community bridge._
-- **Why does `cn()` connect `addItem Subsystem` to `clsx Subsystem`, `useFollowerInfo ts`, `route ts`, `InputSection Subsystem`, `ko Subsystem`, `applyPendingMigrations Subsystem`, `useDebounce ts`, `B Subsystem`?**
-  _High betweenness centrality (0.039) - this node is a cross-community bridge._
+- **Why does `cn()` connect `clsx Subsystem` to `Fr`, `useFollowerInfo ts`, `route ts`, `InputSection Subsystem`, `ko Subsystem`, `applyPendingMigrations Subsystem`, `useDebounce ts`, `B Subsystem`, `addItem Subsystem`?**
+  _High betweenness centrality (0.040) - this node is a cross-community bridge._
 - **Are the 170 inferred relationships involving `n()` (e.g. with `Aa()` and `ai()`) actually correct?**
   _`n()` has 170 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 135 inferred relationships involving `i()` (e.g. with `bo()` and `bu()`) actually correct?**
   _`i()` has 135 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `metadata`, `PageProps`, `metadata` to the rest of the system?**
-  _2955 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _2958 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `index d ts` be split into smaller, more focused modules?**
   _Cohesion score 0.0010460251046025104 - nodes in this community are weakly interconnected._

@@ -124,25 +124,25 @@ export default function MenuBar({
         <Button
           variant="ghost"
           className={`h-12 min-w-0 flex-1 justify-center gap-1 px-1 text-left transition-all duration-300 hover:bg-accent/60 lg:h-14 lg:w-full lg:justify-start lg:gap-2 lg:px-4 hover-lift group ${
-            isActive("/brainforge") ? "bg-primary/10 border border-primary/20" : ""
+            isActive("/hiveq") ? "bg-primary/10 border border-primary/20" : ""
           }`}
           title="HiveQ"
           asChild
         >
-          <Link href="/brainforge" className="flex items-center gap-1 lg:gap-4">
+          <Link href="/hiveq" className="flex items-center gap-1 lg:gap-4">
             <div className={`p-1.5 lg:p-2 rounded-premium-sm transition-colors duration-300 ${
-              isActive("/brainforge") 
+              isActive("/hiveq")
                 ? "bg-primary/20" 
                 : "bg-muted/50 group-hover:bg-primary/20"
             }`}>
               <BrainCircuit className={`size-5 transition-all duration-300 ${
-                isActive("/brainforge") 
+                isActive("/hiveq")
                   ? "text-primary scale-110" 
                   : "text-muted-foreground group-hover:text-primary group-hover:scale-110"
               }`} />
             </div>
             <span className={`hidden lg:inline font-semibold transition-colors duration-300 ${
-              isActive("/brainforge") 
+              isActive("/hiveq")
                 ? "text-primary" 
                 : "text-foreground group-hover:text-primary"
             }`}>HiveQ</span>

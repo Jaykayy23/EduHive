@@ -1,4 +1,4 @@
-// brainforge/components/2-configuration-section.tsx
+// hiveq/components/2-configuration-section.tsx
 "use client"
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"

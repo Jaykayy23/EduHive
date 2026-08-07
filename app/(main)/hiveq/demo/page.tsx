@@ -129,7 +129,7 @@ const generatedResponse = {
   questions: demoQuestions
 }
 
-export default function BrainForgeDemoPage() {
+export default function HiveQDemoPage() {
   const getQuestionTypeColor = (type: string) => {
     switch (type.toLowerCase()) {
       case 'mcq':
@@ -168,7 +168,7 @@ export default function BrainForgeDemoPage() {
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
-    a.download = `brainforge-demo-questions-${Date.now()}.json`
+    a.download = `hiveq-demo-questions-${Date.now()}.json`
     document.body.appendChild(a)
     a.click()
     document.body.removeChild(a)
@@ -186,10 +186,10 @@ export default function BrainForgeDemoPage() {
   return (
     <div className="container mx-auto py-8 px-4 max-w-7xl">
       <div className="mb-8">
-        <Link href="/brainforge">
+        <Link href="/hiveq">
           <Button variant="outline" className="mb-4">
             <ArrowLeft className="h-4 w-4 mr-2" />
-            Back to BrainForge
+            Back to HiveQ
           </Button>
         </Link>
         
@@ -197,7 +197,7 @@ export default function BrainForgeDemoPage() {
           <div className="flex items-center justify-center gap-3 mb-4">
             <Brain className="h-8 w-8 text-primary" />
             <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
-              BrainForge Demo
+              HiveQ Demo
             </h1>
             <Sparkles className="h-8 w-8 text-purple-600" />
           </div>
@@ -339,10 +339,10 @@ export default function BrainForgeDemoPage() {
 
       {/* Action Buttons */}
       <div className="mt-8 flex justify-center gap-4">
-        <Link href="/brainforge">
+        <Link href="/hiveq">
           <Button size="lg" className="bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90">
             <Brain className="h-4 w-4 mr-2" />
-            Try BrainForge Now
+            Try HiveQ Now
           </Button>
         </Link>
         <Button onClick={exportQuestions} variant="outline" size="lg">

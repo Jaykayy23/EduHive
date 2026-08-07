@@ -1,6 +1,6 @@
 # HiveQ API
 
-This is the lightweight question-generation backend for HiveQ/BrainForge. It
+This is the lightweight question-generation backend for HiveQ. It
 parses PDF, DOCX, and text uploads locally, cleans their text, and asks Gemini
 for validated quiz JSON. It does not download or run PyTorch, spaCy,
 Transformers, Questgen, NLTK models, or Hugging Face models.

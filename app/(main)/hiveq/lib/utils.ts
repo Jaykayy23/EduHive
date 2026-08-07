@@ -1,4 +1,4 @@
-// brainforge/lib/utils.ts
+// hiveq/lib/utils.ts
 
 export const getQuestionTypeColor = (type: string) => {
   switch (type.toLowerCase()) {

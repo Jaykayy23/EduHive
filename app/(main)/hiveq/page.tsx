@@ -1,4 +1,4 @@
-// brainforge/page.tsx
+// hiveq/page.tsx
 "use client";
 
 import { useState } from "react";
@@ -11,7 +11,7 @@ import { ConfigurationSection } from "./components/2-configuration-section";
 import { ResultsSection } from "./components/3-results-section";
 import type { GeneratedResponse } from "./types";
 
-export default function BrainForgePage() {
+export default function HiveQPage() {
   // Configuration State
   const [totalQuestions, setTotalQuestions] = useState(10);
   const [mcqPercentage, setMcqPercentage] = useState(50);

@@ -1,4 +1,4 @@
-// brainforge/types/index.ts
+// hiveq/types/index.ts
 
 export interface Question {
   question_statement: string;

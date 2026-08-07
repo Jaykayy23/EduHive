@@ -38,6 +38,20 @@ const nextConfig: NextConfig = {
     ],
     unoptimized: true,
   },
+  async redirects() {
+    return [
+      {
+        source: "/brainforge/:path*",
+        destination: "/hiveq/:path*",
+        permanent: true,
+      },
+      {
+        source: "/Demo",
+        destination: "/hiveq/demo",
+        permanent: true,
+      },
+    ]
+  },
   async rewrites() {
     return [
       {

@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { cn } from "@/lib/utils"
 import {
   CheckCircle,
   XCircle,
@@ -146,7 +147,7 @@ export function ResultsSection({ generatedQuestions }: ResultsSectionProps) {
 
   const formatQuestionsAsText = () => {
     const timestamp = new Date().toLocaleString()
-    let textContent = `BRAINFORGE QUIZ EXPORT\n`
+    let textContent = `HIVEQ QUIZ EXPORT\n`
     textContent += `Generated on: ${timestamp}\n`
     textContent += `Total Questions: ${generatedQuestions.questions.length}\n`
     textContent += `Source Text Preview: ${generatedQuestions.source_text.substring(0, 200)}...\n`
@@ -184,7 +185,7 @@ export function ResultsSection({ generatedQuestions }: ResultsSectionProps) {
     const url = URL.createObjectURL(blob)
     const a = document.createElement("a")
     a.href = url
-    a.download = `brainforge-quiz-${Date.now()}.txt`
+    a.download = `hiveq-quiz-${Date.now()}.txt`
     document.body.appendChild(a)
     a.click()
     document.body.removeChild(a)
@@ -200,7 +201,7 @@ export function ResultsSection({ generatedQuestions }: ResultsSectionProps) {
       <html>
       <head>
         <meta charset="utf-8">
-        <title>BrainForge Quiz Export</title>
+        <title>HiveQ Quiz Export</title>
         <style>
           body { 
             font-family: Arial, sans-serif; 
@@ -249,7 +250,7 @@ export function ResultsSection({ generatedQuestions }: ResultsSectionProps) {
       </head>
       <body>
         <div class="header">
-          <h1>BrainForge Quiz Export</h1>
+          <h1>HiveQ Quiz Export</h1>
           <p>Generated on: ${new Date().toLocaleString()}</p>
           <p>Total Questions: ${generatedQuestions.questions.length}</p>
           <p><strong>Source Text Preview:</strong> ${generatedQuestions.source_text.substring(0, 200)}...</p>
@@ -337,7 +338,7 @@ export function ResultsSection({ generatedQuestions }: ResultsSectionProps) {
     const url = URL.createObjectURL(blob)
     const a = document.createElement("a")
     a.href = url
-    a.download = `brainforge-quiz-${Date.now()}.json`
+    a.download = `hiveq-quiz-${Date.now()}.json`
     document.body.appendChild(a)
     a.click()
     document.body.removeChild(a)
@@ -418,7 +419,7 @@ export function ResultsSection({ generatedQuestions }: ResultsSectionProps) {
 
   return (
     <>
-      <Card className="border border-border bg-card shadow-lg">
+      <Card className="min-w-0 overflow-hidden border border-border bg-card shadow-lg">
         <CardHeader className="space-y-4 p-4 sm:space-y-6 sm:p-8">
           <div className="flex items-center justify-between flex-wrap gap-6">
             <div className="flex items-center gap-4">
@@ -464,18 +465,18 @@ export function ResultsSection({ generatedQuestions }: ResultsSectionProps) {
         </CardHeader>
 
         <CardContent className="p-4 pt-0 sm:p-8 sm:pt-0">
-          <div className="space-y-8">
+          <div className="flex min-w-0 flex-col gap-4 sm:gap-8">
             {quizQuestions.map((question, index) => {
               const isAnswered = userAnswers[index] !== undefined
               const correctAnswer = question.answer
 
               return (
-                <Card key={index} className="border border-border p-6 space-y-6">
-                  <div className="flex items-start gap-4">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground font-semibold text-sm flex-shrink-0">
+                <Card key={index} className="min-w-0 gap-4 border border-border p-3 sm:gap-6 sm:p-6">
+                  <div className="flex min-w-0 items-start gap-3 sm:gap-4">
+                    <div className="flex size-7 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-foreground sm:size-8">
                       {index + 1}
                     </div>
-                    <div className="flex-1 space-y-3">
+                    <div className="flex min-w-0 flex-1 flex-col gap-2 sm:gap-3">
                       <div className="flex items-center gap-3 flex-wrap">
                         <Badge
                           className={`${getQuestionTypeColor(question.question_type)} px-3 py-1 text-xs font-medium`}
@@ -483,7 +484,7 @@ export function ResultsSection({ generatedQuestions }: ResultsSectionProps) {
                           {formatQuestionType(question.question_type)}
                         </Badge>
                       </div>
-                      <h3 className="text-lg font-semibold leading-relaxed text-card-foreground break-words">
+                      <h3 className="break-words text-base font-semibold leading-relaxed text-card-foreground sm:text-lg">
                         {question.question_statement}
                       </h3>
                     </div>
@@ -492,23 +493,10 @@ export function ResultsSection({ generatedQuestions }: ResultsSectionProps) {
                   {/* ... existing question type handling code ... */}
 
                   {question.question_type.toLowerCase() === "mcq" && (
-                    <div className="space-y-3">
+                    <div className="flex min-w-0 flex-col gap-2.5 sm:gap-3">
                       {question.displayOptions?.map((option, optionIndex) => {
-                        let optionClasses =
-                          "w-full justify-start gap-3 p-4 h-auto text-left border border-border hover:bg-muted/50"
-
-                        if (isAnswered) {
-                          const isSelectedOption = userAnswers[index] === option
-                          const isCorrectOption = option === correctAnswer
-
-                          if (isCorrectOption) {
-                            optionClasses =
-                              "w-full justify-start gap-3 p-4 h-auto text-left border-2 border-emerald-500 bg-emerald-50 text-emerald-800 dark:bg-emerald-900/20 dark:text-emerald-200"
-                          } else if (isSelectedOption && !isCorrectOption) {
-                            optionClasses =
-                              "w-full justify-start gap-3 p-4 h-auto text-left border-2 border-red-500 bg-red-50 text-red-800 dark:bg-red-900/20 dark:text-red-200"
-                          }
-                        }
+                        const isSelectedOption = isAnswered && userAnswers[index] === option
+                        const isCorrectOption = isAnswered && option === correctAnswer
 
                         return (
                           <Button
@@ -516,12 +504,21 @@ export function ResultsSection({ generatedQuestions }: ResultsSectionProps) {
                             variant="outline"
                             disabled={isAnswered}
                             onClick={() => handleAnswerSubmit(index, option)}
-                            className={optionClasses}
+                            className={cn(
+                              "h-auto min-h-12 w-full min-w-0 max-w-full items-start justify-start gap-3 overflow-hidden whitespace-normal border border-border px-3 py-3 text-left leading-relaxed hover:bg-muted/50 sm:p-4",
+                              isCorrectOption &&
+                                "border-2 border-emerald-500 bg-emerald-50 text-emerald-800 dark:bg-emerald-900/20 dark:text-emerald-200",
+                              isSelectedOption &&
+                                !isCorrectOption &&
+                                "border-2 border-red-500 bg-red-50 text-red-800 dark:bg-red-900/20 dark:text-red-200",
+                            )}
                           >
-                            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-primary/10 text-primary text-sm font-semibold flex-shrink-0">
+                            <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold text-primary">
                               {String.fromCharCode(65 + optionIndex)}
                             </span>
-                            <span className="flex-1 text-left break-words">{option}</span>
+                            <span className="min-w-0 flex-1 whitespace-normal break-words text-left [overflow-wrap:anywhere]">
+                              {option}
+                            </span>
                           </Button>
                         )
                       })}

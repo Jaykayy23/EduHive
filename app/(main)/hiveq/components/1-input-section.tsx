@@ -1,4 +1,4 @@
-// brainforge/components/input-section.tsx
+// hiveq/components/input-section.tsx
 "use client";
 
 import type React from "react";

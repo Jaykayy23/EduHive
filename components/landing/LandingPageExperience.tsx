@@ -73,7 +73,7 @@ export default function LandingPageExperience() {
           <nav className="hidden items-center gap-7 text-sm font-medium text-muted-foreground md:flex" aria-label="Main navigation">
             <Link href="#inside" className="hover:text-foreground">Inside EduHive</Link>
             <Link href="#how-it-works" className="hover:text-foreground">How it works</Link>
-            <Link href="/Demo" className="hover:text-foreground">View demo</Link>
+            <Link href="/hiveq/demo" className="hover:text-foreground">View demo</Link>
           </nav>
 
           <div className="flex items-center gap-2 sm:gap-3">
@@ -114,7 +114,7 @@ export default function LandingPageExperience() {
                   </Link>
                 </Button>
                 <Button asChild variant="outline" size="lg" className="rounded-xl px-6 active:scale-[0.98]">
-                  <Link href="/Demo">View demo</Link>
+                  <Link href="/hiveq/demo">View demo</Link>
                 </Button>
               </div>
             </motion.div>

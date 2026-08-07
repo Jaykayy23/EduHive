@@ -32,14 +32,12 @@ from collections import Counter
 from dataclasses import dataclass
 from enum import Enum, auto
 from typing import Dict, List, Optional, Tuple, Callable
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import ThreadPoolExecutor
 
-try:
-    import nltk
-    from nltk.tokenize import sent_tokenize
-    NLTK_AVAILABLE = True
-except ImportError:
-    NLTK_AVAILABLE = False
+
+def _sent_tokenize(text: str) -> List[str]:
+    """Split prose without downloading NLTK data at application startup."""
+    return [sentence for sentence in re.split(r'(?<=[.!?])\s+', text) if sentence]
 
 # -----------------------------------------------------------------------------
 # CONSTANTS & CONFIGURATION
@@ -72,10 +70,7 @@ DEFAULT_CONFIG = {
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-    handlers=[
-        logging.FileHandler("pdf_cleaning.log"),
-        logging.StreamHandler(),
-    ],
+    handlers=[logging.StreamHandler()],
 )
 logger = logging.getLogger("PDFTextCleaner")
 
@@ -109,22 +104,9 @@ class PDFTextCleaner:
         self.config = {**DEFAULT_CONFIG, **(config or {})}
         self._pattern_cache: Dict[str, re.Pattern] = {}
         self._common_headers_cache: Dict[str, set] = {}
-        self.executor = ThreadPoolExecutor(max_workers=4)
-
-        # Initialize NLTK if available
-        if NLTK_AVAILABLE:
-            self._ensure_nltk_data()
         
         # Mode-specific adjustments
         self._setup_processing_mode()
-
-    def _ensure_nltk_data(self):
-        """Ensure required NLTK data is downloaded."""
-        for pkg in ["punkt", "stopwords"]:
-            try:
-                nltk.data.find(f"tokenizers/{pkg}" if pkg == "punkt" else f"corpora/{pkg}")
-            except LookupError:
-                nltk.download(pkg, quiet=True)
 
     def _setup_processing_mode(self):
         """Configure mode-specific settings."""
@@ -177,14 +159,8 @@ class PDFTextCleaner:
     def _process_large_text(self, text: str, config: Dict) -> str:
         """Process large documents in parallel chunks."""
         chunks = self._split_text(text, config["max_text_length"])
-        futures = []
-        
         with ThreadPoolExecutor(max_workers=4) as executor:
-            for chunk in chunks:
-                future = executor.submit(self._process_text_chunk, chunk, config)
-                futures.append(future)
-            
-            results = [f.result() for f in as_completed(futures)]
+            results = list(executor.map(lambda chunk: self._process_text_chunk(chunk, config), chunks))
             return "\n".join(results)
 
     def _process_text_chunk(
@@ -394,7 +370,7 @@ class PDFTextCleaner:
     def _chunk_sentences(self, text: str, chunk_size: int) -> str:
         """Group sentences into meaningful chunks."""
         try:
-            sentences = sent_tokenize(text) if NLTK_AVAILABLE else re.split(r'(?<=[.!?])\s+', text)
+            sentences = _sent_tokenize(text)
             chunks = []
             current_chunk = []
             
@@ -437,7 +413,7 @@ class PDFTextCleaner:
     def _finalize_diagnostics(self, text: str, diagnostics: CleaningDiagnostics):
         """Calculate final diagnostic metrics."""
         words = text.split()
-        sentences = sent_tokenize(text) if NLTK_AVAILABLE else re.split(r'(?<=[.!?])\s+', text)
+        sentences = _sent_tokenize(text)
         
         diagnostics.reading_time_min = len(words) / 200.0  # 200 wpm
         diagnostics.avg_sentence_length = sum(len(s.split()) for s in sentences) / max(1, len(sentences))
@@ -446,7 +422,7 @@ class PDFTextCleaner:
 # Example usage when run directly
 if __name__ == "__main__":
     # Example academic text with various PDF artifacts
-    sample_text = """
+    sample_text = r"""
     Page 1 of 10
     CONFIDENTIAL - Do Not Distribute
     

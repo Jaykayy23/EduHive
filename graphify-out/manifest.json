@@ -940,14 +940,14 @@
     "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
   },
   "ml-backend/app/main.py": {
-    "mtime": 1755355663.3696508,
-    "ast_hash": "192c6605234d9369d4f6ec8af0386ffb",
-    "semantic_hash": "192c6605234d9369d4f6ec8af0386ffb"
+    "mtime": 1786119148.9053032,
+    "ast_hash": "38ad6313803ed676a307f524b12b19e6",
+    "semantic_hash": ""
   },
   "ml-backend/app/models.py": {
-    "mtime": 1755257085.300348,
-    "ast_hash": "6ae67326723f6b6b118e0a2d5cd34731",
-    "semantic_hash": "6ae67326723f6b6b118e0a2d5cd34731"
+    "mtime": 1786119010.8100872,
+    "ast_hash": "abf8c33a5906c4edf825b57fb1ce269e",
+    "semantic_hash": ""
   },
   "ml-backend/app/services/__init__.py": {
     "mtime": 1755126071.3683772,
@@ -955,19 +955,19 @@
     "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
   },
   "ml-backend/app/services/pdf_text_cleaner.py": {
-    "mtime": 1755257341.4591882,
-    "ast_hash": "0bb813d5355dca53ae87cf7d08ab07f7",
-    "semantic_hash": "0bb813d5355dca53ae87cf7d08ab07f7"
+    "mtime": 1786119626.0423133,
+    "ast_hash": "a31efb5b5b065cd428cd707129d29505",
+    "semantic_hash": ""
   },
   "ml-backend/app/services/questgen_service.py": {
-    "mtime": 1755126071.3703759,
-    "ast_hash": "fd4e21e9d9b1b9f6eee5b70b46f2c130",
-    "semantic_hash": "fd4e21e9d9b1b9f6eee5b70b46f2c130"
+    "mtime": 1786119893.915883,
+    "ast_hash": "3ec62a88e1c6823e8806cf86ced5632c",
+    "semantic_hash": ""
   },
   "ml-backend/app/services/summarizer.py": {
-    "mtime": 1755352041.0293977,
-    "ast_hash": "d2027d065f11d7e272d5c238709fd5ee",
-    "semantic_hash": "d2027d065f11d7e272d5c238709fd5ee"
+    "mtime": 1786119080.7462444,
+    "ast_hash": "f6f9e6b5eabc3a66263927d35425afdd",
+    "semantic_hash": ""
   },
   "ml-backend/app/utils/__init__.py": {
     "mtime": 1755126071.3713765,
@@ -975,14 +975,14 @@
     "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
   },
   "ml-backend/app/utils/file_parser.py": {
-    "mtime": 1755350656.8057115,
-    "ast_hash": "708790a4a88c767af97be842a42aec2e",
-    "semantic_hash": "708790a4a88c767af97be842a42aec2e"
+    "mtime": 1786119103.2516797,
+    "ast_hash": "15a7a00c0d2cbd0a5c4b617674f64e8e",
+    "semantic_hash": ""
   },
   "ml-backend/setup.ps1": {
-    "mtime": 1755126071.374377,
-    "ast_hash": "6d44b41dcf1feeb6c799f9a8bb752dd8",
-    "semantic_hash": "6d44b41dcf1feeb6c799f9a8bb752dd8"
+    "mtime": 1786119627.4689717,
+    "ast_hash": "eaeeec3a81432153f59f1c857a623a29",
+    "semantic_hash": ""
   },
   "next.config.ts": {
     "mtime": 1785664177.0203192,
@@ -1080,9 +1080,9 @@
     "semantic_hash": ""
   },
   "ml-backend/requirements.txt": {
-    "mtime": 1755126071.3733785,
-    "ast_hash": "04d2b81e38f901acd50b6589b289dcb5",
-    "semantic_hash": "04d2b81e38f901acd50b6589b289dcb5"
+    "mtime": 1786119003.5296295,
+    "ast_hash": "9da508578f38f2287b2306525bcfd91e",
+    "semantic_hash": ""
   },
   "public/file.svg": {
     "mtime": 1743179425.6382868,
@@ -1627,6 +1627,26 @@
   "graphify-out/memory/query_20260807_145952_why_do_the_subject_tabs_look_displaced_on_mobile.md": {
     "mtime": 1786114792.799602,
     "ast_hash": "d37d54e895ba4bdcff0023fa2a7b99d6",
+    "semantic_hash": ""
+  },
+  "ml-backend/tests/test_backend.py": {
+    "mtime": 1786119246.1523342,
+    "ast_hash": "aa2aab5af3f6953b8b4fe2a7a9d0d0b8",
+    "semantic_hash": ""
+  },
+  "graphify-out/memory/query_20260807_150724_why_are_features_missing_from_the_messages_page_on.md": {
+    "mtime": 1786115244.3364367,
+    "ast_hash": "9e34dd2287d81c979729a02a626a6577",
+    "semantic_hash": ""
+  },
+  "ml-backend/README.md": {
+    "mtime": 1786119628.8118114,
+    "ast_hash": "4b9073a7c828d8ea8bb68628bf82a062",
+    "semantic_hash": ""
+  },
+  "render.yaml": {
+    "mtime": 1786119242.29909,
+    "ast_hash": "94ce605a748467bf0f46dcce8f7d2d62",
     "semantic_hash": ""
   }
 }

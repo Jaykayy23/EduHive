@@ -1,12 +1,15 @@
-# setup.ps1 - A script to set up the ML backend environment
+# Creates a small, isolated environment without downloading local ML models.
+$ErrorActionPreference = "Stop"
+$Python = Get-Command python -ErrorAction Stop
+$VersionOk = & $Python.Source -c "import sys; print(int(sys.version_info >= (3, 10)))"
 
-Write-Host "STEP 1: Installing Python packages from requirements.txt..." -ForegroundColor Green
-pip install -r requirements.txt
+if ($VersionOk -ne "1") {
+    throw "HiveQ requires Python 3.10 or newer. Install Python 3.12, then rerun setup.ps1."
+}
 
-Write-Host "`nSTEP 2: Downloading Spacy language model (en_core_web_sm)..." -ForegroundColor Green
-python -m spacy download en_core_web_sm
+& $Python.Source -m venv .venv
+$VenvPython = Join-Path $PSScriptRoot ".venv\Scripts\python.exe"
+& $VenvPython -m pip install --upgrade pip
+& $VenvPython -m pip install -r (Join-Path $PSScriptRoot "requirements.txt")
 
-Write-Host "`nSTEP 3: Downloading NLTK universal tagset..." -ForegroundColor Green
-python -m nltk.downloader universal_tagset
-
-Write-Host "`nSetup Complete! Your environment is ready." -ForegroundColor Cyan
+Write-Host "Setup complete. Start with: .\.venv\Scripts\python -m uvicorn app.main:app --reload --env-file .env" -ForegroundColor Cyan

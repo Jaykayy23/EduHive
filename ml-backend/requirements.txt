@@ -1,28 +1,10 @@
---extra-index-url https://download.pytorch.org/whl/cpu
-
-# Web framework and server
-fastapi
-uvicorn[standard]
-
-# For parsing PDF and DOCX files
-PyMuPDF
-python-docx
-lxml
-
-# NLP Libraries
-git+https://github.com/ramsrigouthamg/Questgen.ai.git
-git+https://github.com/boudinfl/pke.git
-
-# Let pip resolve the latest compatible torch versions from the extra index
-torch
-torchvision
-torchaudio
-
-spacy>=3.0.0
-
-# Critical: Pin Pydantic to Version 1.x for compatibility with Spacy/Thinc
-pydantic<2
-python-multipart
-openai
-python-dotenv
-google-generativeai
+# Runtime dependencies only. Keep this list pinned so Docker builds are
+# reproducible and do not unexpectedly pull large ML frameworks.
+fastapi==0.139.2
+google-genai==2.13.0
+pydantic==2.13.4
+pypdf==6.14.2
+python-docx==1.2.0
+python-dotenv==1.2.2
+python-multipart==0.0.32
+uvicorn==0.51.0

@@ -1,7 +1,8 @@
-from pydantic import BaseModel, Field
-from typing import List, Optional, Union
+from typing import Any, Literal
 
-# This file should now contain both models
+from pydantic import BaseModel, Field, model_validator
+
+
 class CleaningDiagnostics(BaseModel):
     original_length: int
     cleaned_length: int
@@ -12,25 +13,38 @@ class CleaningDiagnostics(BaseModel):
     avg_sentence_length: float
 
 class Question(BaseModel):
-    """A flexible model for a single generated question."""
+    """A generated quiz question returned to the HiveQ frontend."""
+
     question_statement: str
-    question_type: str
-    answer: Union[str, bool]
-    options: Optional[List[str]] = None
-    context: Optional[str] = None
+    question_type: Literal["mcq", "true_false", "fill_in"]
+    answer: str | bool
+    options: list[str] = Field(default_factory=list)
+    context: str | None = None
 
 class GeneratedQuestionsResponse(BaseModel):
-    """This is the main response model that our API will return."""
-    source_text: str
-    questions: List[Question]
+    """Response shared by text and file generation endpoints."""
 
-# --- ADD THIS NEW MODEL ---
+    source_text: str
+    questions: list[Question]
+    cleaning_diagnostics: dict[str, Any] | None = None
+
+
 class TextGenerationRequest(BaseModel):
-    """
-    Defines the structure for a JSON request to the /generate-from-text/ endpoint.
-    """
-    text_input: str
-    total_questions: int = 10
-    mcq_percentage: float = 0.5
-    true_false_percentage: float = 0.5
-    fill_in_percentage: float = 0.0
+    text_input: str = Field(min_length=150, max_length=60_000)
+    total_questions: int = Field(default=10, ge=1, le=50)
+    mcq_percentage: float = Field(default=0.5, ge=0, le=1)
+    true_false_percentage: float = Field(default=0.5, ge=0, le=1)
+    fill_in_percentage: float = Field(default=0.0, ge=0, le=1)
+
+    @model_validator(mode="after")
+    def validate_distribution(self) -> "TextGenerationRequest":
+        total = self.mcq_percentage + self.true_false_percentage + self.fill_in_percentage
+        if abs(total - 1.0) > 0.001:
+            raise ValueError("Question percentages must sum to 1.0")
+        return self
+
+
+class GeneratedQuestionBatch(BaseModel):
+    """Structured response schema sent to Gemini."""
+
+    questions: list[Question]

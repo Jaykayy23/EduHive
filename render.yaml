@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: hiveq-api
+    runtime: docker
+    plan: free
+    dockerfilePath: ./ml-backend/Dockerfile
+    dockerContext: ./ml-backend
+    healthCheckPath: /health
+    autoDeployTrigger: commit
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: CORS_ORIGINS
+        sync: false
+      - key: GEMINI_MODEL
+        value: gemini-2.5-flash
+      - key: MAX_UPLOAD_MB
+        value: "10"
+      - key: MAX_CONTEXT_CHARS
+        value: "60000"
+      - key: SUMMARY_MAX_WORDS
+        value: "3500"

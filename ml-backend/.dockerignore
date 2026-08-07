@@ -24,8 +24,13 @@ MANIFEST
 
 # Virtual environments
 venv/
+.venv/
+.verify-venv/
 env/
 ENV/
+
+# Retired local model artifacts
+s2v_old/
 
 # IDE
 .vscode/
@@ -56,6 +61,11 @@ README.md
 
 # Cache
 .cache/
+.pytest_cache/
+.verify-cache/
+
+# Local-only tests
+tests/
 
 # Temporary files
 tmp/

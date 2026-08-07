@@ -54,11 +54,6 @@
     "ast_hash": "56c20059fe7e6d3b17f897fae3c3d499",
     "semantic_hash": ""
   },
-  "app/(main)/Demo/page.tsx": {
-    "mtime": 1785664222.782259,
-    "ast_hash": "b2c2e7bff69c3bc97ad4296ee3bd1462",
-    "semantic_hash": ""
-  },
   "app/(main)/FollowingFeed.tsx": {
     "mtime": 1785506256.578821,
     "ast_hash": "cb08f24d63dcf2e0707071fd7f4a7e66",
@@ -75,8 +70,8 @@
     "semantic_hash": "b7652faddcfeae0a25bf8e1eb6c5e6cb"
   },
   "app/(main)/MenuBar.tsx": {
-    "mtime": 1785590561.5970988,
-    "ast_hash": "72f98b36013b30b54579307538433520",
+    "mtime": 1786135410.4757137,
+    "ast_hash": "ce5f8aca9c75de18fe829d85b0367276",
     "semantic_hash": ""
   },
   "app/(main)/MenuBarWrapper.tsx": {
@@ -123,36 +118,6 @@
     "mtime": 1748890536.6500244,
     "ast_hash": "d96f29385f5aabe6a86228f239419d3a",
     "semantic_hash": "d96f29385f5aabe6a86228f239419d3a"
-  },
-  "app/(main)/brainforge/components/1-input-section.tsx": {
-    "mtime": 1785506256.76307,
-    "ast_hash": "2f98e6fc33a1efe1e154975a33c888dc",
-    "semantic_hash": ""
-  },
-  "app/(main)/brainforge/components/2-configuration-section.tsx": {
-    "mtime": 1755126071.174438,
-    "ast_hash": "5f4861765d0883a66bc07e8cd67fc4f1",
-    "semantic_hash": "5f4861765d0883a66bc07e8cd67fc4f1"
-  },
-  "app/(main)/brainforge/components/3-results-section.tsx": {
-    "mtime": 1786134650.608194,
-    "ast_hash": "01c957dac97711d9f89c88e55ad5d4a8",
-    "semantic_hash": ""
-  },
-  "app/(main)/brainforge/lib/utils.ts": {
-    "mtime": 1755126071.1764352,
-    "ast_hash": "32397b20fe316ec492bbd7568cb3b98b",
-    "semantic_hash": "32397b20fe316ec492bbd7568cb3b98b"
-  },
-  "app/(main)/brainforge/page.tsx": {
-    "mtime": 1786131668.661007,
-    "ast_hash": "2cc93f329bd8f81a66d1a03144884c71",
-    "semantic_hash": ""
-  },
-  "app/(main)/brainforge/types/index.ts": {
-    "mtime": 1755126071.1774352,
-    "ast_hash": "91540758104e0007c4c33bc954a912a1",
-    "semantic_hash": "91540758104e0007c4c33bc954a912a1"
   },
   "app/(main)/chatbot/page.tsx": {
     "mtime": 1785616157.9209828,
@@ -985,8 +950,8 @@
     "semantic_hash": ""
   },
   "next.config.ts": {
-    "mtime": 1785664177.0203192,
-    "ast_hash": "aea06cb18f962d75e268d8cc25cfca68",
+    "mtime": 1786135046.9337618,
+    "ast_hash": "ca4087b2734f6905fcfc5a933aa57cf1",
     "semantic_hash": ""
   },
   "package.json": {
@@ -1465,8 +1430,8 @@
     "semantic_hash": ""
   },
   "components/landing/LandingPageExperience.tsx": {
-    "mtime": 1785945146.107316,
-    "ast_hash": "a1655a8a4a402c48e88327c9254c9f26",
+    "mtime": 1786135071.6687906,
+    "ast_hash": "a62d52d7b08980581938ca4cb3bb398f",
     "semantic_hash": ""
   },
   "skills-lock.json": {
@@ -1640,8 +1605,8 @@
     "semantic_hash": ""
   },
   "ml-backend/README.md": {
-    "mtime": 1786119628.8118114,
-    "ast_hash": "4b9073a7c828d8ea8bb68628bf82a062",
+    "mtime": 1786135045.3383496,
+    "ast_hash": "23e7e1db8cfc58e6c9eab3668c7479a0",
     "semantic_hash": ""
   },
   "render.yaml": {
@@ -1652,6 +1617,46 @@
   "graphify-out/memory/query_20260807_195613_now_hiveq_when_i_use_it__configure_question_types.md": {
     "mtime": 1786132573.8616657,
     "ast_hash": "016256456a9331943194d73315963964",
+    "semantic_hash": ""
+  },
+  "app/(main)/hiveq/components/1-input-section.tsx": {
+    "mtime": 1786135036.314664,
+    "ast_hash": "b60532ee1ccc6c83157dffe32698c9a4",
+    "semantic_hash": ""
+  },
+  "app/(main)/hiveq/components/2-configuration-section.tsx": {
+    "mtime": 1786135038.0646062,
+    "ast_hash": "47be4d48b86ec1f601f841e7c61ae485",
+    "semantic_hash": ""
+  },
+  "app/(main)/hiveq/components/3-results-section.tsx": {
+    "mtime": 1786135039.7975652,
+    "ast_hash": "0499dfc5ebd80831caca9e31663d18a2",
+    "semantic_hash": ""
+  },
+  "app/(main)/hiveq/demo/page.tsx": {
+    "mtime": 1786135041.7521617,
+    "ast_hash": "2e71f2fb8e81f05901bce2b79375747d",
+    "semantic_hash": ""
+  },
+  "app/(main)/hiveq/lib/utils.ts": {
+    "mtime": 1786135034.727389,
+    "ast_hash": "a1eecc24100a1bcdb4a2cef6d0992af2",
+    "semantic_hash": ""
+  },
+  "app/(main)/hiveq/page.tsx": {
+    "mtime": 1786135031.2424095,
+    "ast_hash": "c7feb38d8e2c4b4629e6e7932dbcd39b",
+    "semantic_hash": ""
+  },
+  "app/(main)/hiveq/types/index.ts": {
+    "mtime": 1786135032.7549732,
+    "ast_hash": "70242a1213b545b88cb70086c93e3173",
+    "semantic_hash": ""
+  },
+  "tests/hiveq-routing.test.mjs": {
+    "mtime": 1786135103.3383925,
+    "ast_hash": "fb447e3d3f5742be3ba6d09e13e5c3c1",
     "semantic_hash": ""
   }
 }

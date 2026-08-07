@@ -1,24 +1,27 @@
-// hiveq/page.tsx
 "use client";
 
 import { useState } from "react";
+import { Sparkles } from "lucide-react";
 import { toast } from "sonner";
-import { getQuestgenUrl } from "@/lib/questgen";
-import { Brain, Sparkles } from "lucide-react";
 
-import { InputSection } from "./components/1-input-section";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { getQuestgenUrl } from "@/lib/questgen";
+
+import { InputSection, type QuizSource } from "./components/1-input-section";
 import { ConfigurationSection } from "./components/2-configuration-section";
 import { ResultsSection } from "./components/3-results-section";
 import type { GeneratedResponse } from "./types";
 
+type HiveQView = "build" | "quiz";
+
 export default function HiveQPage() {
-  // Configuration State
   const [totalQuestions, setTotalQuestions] = useState(10);
   const [mcqPercentage, setMcqPercentage] = useState(50);
   const [trueFalsePercentage, setTrueFalsePercentage] = useState(50);
   const [fillInPercentage, setFillInPercentage] = useState(0);
-
-  // API/Data State
+  const [source, setSource] = useState<QuizSource | null>(null);
+  const [resetVersion, setResetVersion] = useState(0);
+  const [activeView, setActiveView] = useState<HiveQView>("build");
   const [isLoading, setIsLoading] = useState(false);
   const [generatedQuestions, setGeneratedQuestions] =
     useState<GeneratedResponse | null>(null);
@@ -27,56 +30,58 @@ export default function HiveQPage() {
     type: "mcq" | "trueFalse" | "fillIn",
     value: number,
   ) => {
-    let newMcq = mcqPercentage,
-      newTf = trueFalsePercentage,
-      newFib = fillInPercentage;
-    const setValue = Math.max(0, Math.min(100, value));
+    let newMcq = mcqPercentage;
+    let newTrueFalse = trueFalsePercentage;
+    let newFillIn = fillInPercentage;
+    const nextValue = Math.max(0, Math.min(100, value));
 
     if (type === "mcq") {
-      newMcq = setValue;
+      newMcq = nextValue;
       const remaining = 100 - newMcq;
-      const otherTotal = newTf + newFib;
+      const otherTotal = newTrueFalse + newFillIn;
       if (otherTotal > 0) {
-        newTf = Math.round(remaining * (newTf / otherTotal));
-        newFib = remaining - newTf;
+        newTrueFalse = Math.round(remaining * (newTrueFalse / otherTotal));
+        newFillIn = remaining - newTrueFalse;
       } else {
-        newTf = Math.floor(remaining / 2);
-        newFib = remaining - newTf;
+        newTrueFalse = Math.floor(remaining / 2);
+        newFillIn = remaining - newTrueFalse;
       }
     } else if (type === "trueFalse") {
-      newTf = setValue;
-      const remaining = 100 - newTf;
-      const otherTotal = newMcq + newFib;
+      newTrueFalse = nextValue;
+      const remaining = 100 - newTrueFalse;
+      const otherTotal = newMcq + newFillIn;
       if (otherTotal > 0) {
         newMcq = Math.round(remaining * (newMcq / otherTotal));
-        newFib = remaining - newMcq;
+        newFillIn = remaining - newMcq;
       } else {
         newMcq = Math.floor(remaining / 2);
-        newFib = remaining - newMcq;
+        newFillIn = remaining - newMcq;
       }
     } else {
-      // fillIn
-      newFib = setValue;
-      const remaining = 100 - newFib;
-      const otherTotal = newMcq + newTf;
+      newFillIn = nextValue;
+      const remaining = 100 - newFillIn;
+      const otherTotal = newMcq + newTrueFalse;
       if (otherTotal > 0) {
         newMcq = Math.round(remaining * (newMcq / otherTotal));
-        newTf = remaining - newMcq;
+        newTrueFalse = remaining - newMcq;
       } else {
         newMcq = Math.floor(remaining / 2);
-        newTf = remaining - newMcq;
+        newTrueFalse = remaining - newMcq;
       }
     }
+
     setMcqPercentage(newMcq);
-    setTrueFalsePercentage(newTf);
-    setFillInPercentage(newFib);
+    setTrueFalsePercentage(newTrueFalse);
+    setFillInPercentage(newFillIn);
   };
 
-  const handleGenerate = async (
-    source: { type: "text"; content: string } | { type: "file"; content: File },
-  ) => {
+  const handleGenerate = async () => {
+    if (!source) {
+      toast.error("Add valid study material before generating a quiz.");
+      return;
+    }
+
     setIsLoading(true);
-    setGeneratedQuestions(null);
 
     try {
       let response: Response;
@@ -93,7 +98,6 @@ export default function HiveQPage() {
           }),
         });
       } else {
-        // file
         const formData = new FormData();
         formData.append("file", source.content);
         formData.append("total_questions", totalQuestions.toString());
@@ -120,13 +124,12 @@ export default function HiveQPage() {
 
       const data: GeneratedResponse = await response.json();
       setGeneratedQuestions(data);
-      toast.success(
-        `Successfully generated ${data.questions.length} questions!`,
-      );
-    } catch (err) {
-      const errorMessage =
-        err instanceof Error ? err.message : "An unexpected error occurred";
-      toast.error(errorMessage);
+      setActiveView("quiz");
+      toast.success(`Generated ${data.questions.length} questions.`);
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "An unexpected error occurred";
+      toast.error(message);
     } finally {
       setIsLoading(false);
     }
@@ -134,55 +137,75 @@ export default function HiveQPage() {
 
   const handleReset = () => {
     setGeneratedQuestions(null);
+    setSource(null);
     setTotalQuestions(10);
     setMcqPercentage(50);
     setTrueFalsePercentage(50);
     setFillInPercentage(0);
-    toast.success("Form reset successfully!");
+    setResetVersion((version) => version + 1);
+    setActiveView("build");
+    toast.success("HiveQ is ready for new study material.");
   };
 
   return (
-    <div className="container mx-auto max-w-7xl px-4 py-8">
-      <div className="mb-8 text-center">
-        <div className="mb-4 flex items-center justify-center gap-3">
-          <Brain className="text-primary h-8 w-8" />
-          <h1 className="from-primary bg-linear-to-r to-purple-600 bg-clip-text text-4xl font-bold text-transparent">
-            HiveQ
-          </h1>
-          <Sparkles className="h-8 w-8 text-purple-600" />
+    <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 pb-8">
+      <header className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+        <div className="flex min-w-0 items-start gap-3">
+          <div className="bg-primary text-primary-foreground flex size-11 shrink-0 items-center justify-center rounded-xl shadow-sm">
+            <Sparkles className="size-5" aria-hidden="true" />
+          </div>
+          <div className="min-w-0">
+            <p className="text-primary text-sm font-medium">HiveQ</p>
+            <h1 className="max-w-2xl text-3xl font-semibold tracking-tight sm:text-4xl">
+              Turn notes into a focused quiz
+            </h1>
+            <p className="text-muted-foreground mt-2 max-w-2xl text-sm leading-relaxed sm:text-base">
+              Choose your source, shape the question mix, then generate when
+              everything looks right.
+            </p>
+          </div>
         </div>
-        <p className="text-muted-foreground mx-auto max-w-2xl text-lg">
-          Transform your educational content into intelligent questions using
-          advanced AI. Upload documents or paste text to generate customized
-          quizzes instantly.
-        </p>
-      </div>
+      </header>
 
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-        <div className="lg:col-start-3 lg:row-start-1">
-          <ConfigurationSection
-            totalQuestions={totalQuestions}
-            setTotalQuestions={setTotalQuestions}
-            mcqPercentage={mcqPercentage}
-            trueFalsePercentage={trueFalsePercentage}
-            fillInPercentage={fillInPercentage}
-            handlePercentageChange={handlePercentageChange}
-          />
-        </div>
-        <div className="lg:col-span-2 lg:col-start-1 lg:row-start-1">
-          <InputSection
-            isLoading={isLoading}
-            onGenerate={handleGenerate}
-            onReset={handleReset}
-          />
-        </div>
-      </div>
+      <Tabs
+        value={activeView}
+        onValueChange={(value) => setActiveView(value as HiveQView)}
+        className="gap-5"
+      >
+        <TabsList className="w-full sm:ml-auto sm:w-auto sm:min-w-80">
+          <TabsTrigger value="build">Build</TabsTrigger>
+          <TabsTrigger value="quiz" disabled={!generatedQuestions}>
+            Question preview
+          </TabsTrigger>
+        </TabsList>
 
-      {generatedQuestions && (
-        <div className="mt-8">
-          <ResultsSection generatedQuestions={generatedQuestions} />
-        </div>
-      )}
+        <TabsContent value="build">
+          <div className="grid min-w-0 grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1.2fr)_minmax(19rem,.8fr)]">
+            <InputSection key={resetVersion} onSourceChange={setSource} />
+            <ConfigurationSection
+              totalQuestions={totalQuestions}
+              setTotalQuestions={setTotalQuestions}
+              mcqPercentage={mcqPercentage}
+              trueFalsePercentage={trueFalsePercentage}
+              fillInPercentage={fillInPercentage}
+              handlePercentageChange={handlePercentageChange}
+              canGenerate={source !== null}
+              isLoading={isLoading}
+              onGenerate={handleGenerate}
+              onReset={handleReset}
+            />
+          </div>
+        </TabsContent>
+
+        <TabsContent value="quiz">
+          {generatedQuestions && (
+            <ResultsSection
+              generatedQuestions={generatedQuestions}
+              onEditSetup={() => setActiveView("build")}
+            />
+          )}
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }

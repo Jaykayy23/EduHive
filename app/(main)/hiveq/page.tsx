@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Sparkles } from "lucide-react";
+import { BrainCircuit } from "lucide-react";
 import { toast } from "sonner";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -152,7 +152,7 @@ export default function HiveQPage() {
       <header className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
         <div className="flex min-w-0 items-start gap-3">
           <div className="bg-primary text-primary-foreground flex size-11 shrink-0 items-center justify-center rounded-xl shadow-sm">
-            <Sparkles className="size-5" aria-hidden="true" />
+            <BrainCircuit className="size-5" aria-hidden="true" />
           </div>
           <div className="min-w-0">
             <p className="text-primary text-sm font-medium">HiveQ</p>

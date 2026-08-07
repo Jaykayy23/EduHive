@@ -44,6 +44,7 @@ answer
 any
 api
 app
+appearing
 append
 application
 apply
@@ -86,7 +87,9 @@ base
 basic
 batch
 batches
+because
 before
+being
 between
 biggest
 binary
@@ -186,6 +189,7 @@ commit
 common
 compare
 compared
+comparison
 compat
 compiler
 component
@@ -280,18 +284,23 @@ deploy
 deprecation
 deref
 derived
+des
 description
+design
+designer
 destructive
 detailed
 details
 detect
 deterministic
 dev
+developer
 devtools
 diagnostic
 diagnostics
 dialog
 diff
+differences
 digits
 dirname
 disable
@@ -302,6 +311,7 @@ disconnect
 dispatch
 displaced
 display
+displayed
 distribution
 div
 divided
@@ -324,6 +334,8 @@ drawer
 driver
 dropdown
 dry
+duplicate
+duplicated
 dynamic
 each
 edge
@@ -359,6 +371,7 @@ envelope
 equal
 equals
 equations
+equivalent
 error
 escape
 eslint
@@ -381,6 +394,7 @@ exp
 expand
 expansion
 experience
+expert
 expiry
 exponential
 export
@@ -461,6 +475,7 @@ generative
 generator
 get
 git
+github
 global
 globe
 golden
@@ -577,6 +592,7 @@ kit
 knowing
 known
 label
+labels
 landing
 large
 largest
@@ -589,6 +605,7 @@ least
 legend
 length
 less
+let
 level
 lib
 library
@@ -687,6 +704,7 @@ most
 motion
 moved
 mul
+mult
 multiple
 must
 mutation
@@ -738,6 +756,7 @@ nvidia
 object
 objects
 observer
+obvious
 octal
 offset
 omission
@@ -768,6 +787,7 @@ overrides
 overwrite
 package
 page
+pages
 pair
 panel
 panic
@@ -826,6 +846,7 @@ prefer
 prefix
 preflight
 prepend
+presentation
 preserving
 preset
 presets
@@ -865,6 +886,7 @@ proxy
 pseudo
 public
 pure
+push
 pypdf
 python
 query
@@ -895,6 +917,7 @@ recipient
 reconstruct
 record
 recording
+redesign
 redirect
 reducer
 reduces
@@ -981,6 +1004,7 @@ sdl
 search
 second
 section
+see
 seed
 select
 selectable
@@ -1011,6 +1035,7 @@ shimmer
 shortcut
 shorthand
 should
+shouldnt
 shows
 shuffle
 side
@@ -1120,6 +1145,7 @@ than
 that
 the
 their
+them
 theme
 themes
 theming
@@ -1171,6 +1197,7 @@ tsconfig
 tsx
 tuple
 tutor
+twice
 type
 typecheck
 typed
@@ -1244,6 +1271,7 @@ wasm
 watch
 weights
 welcome
+well
 when
 where
 which
@@ -1252,6 +1280,7 @@ who
 why
 wide
 width
+will
 window
 with
 without

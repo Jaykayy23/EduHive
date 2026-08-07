@@ -7,12 +7,9 @@ export default function GoogleSignInButton() {
       className="bg-white text-black hover:bg-gray-100 hover:text-black"
       asChild
     >
-      <a
-      href="/login/google"
-      className="flex w-full items-center gap-2"
-      >
+      <a href="/login/google" className="flex w-full items-center gap-2">
         <GoogleIcon />
-        Sign in with Google
+        Continue with Google
       </a>
     </Button>
   );

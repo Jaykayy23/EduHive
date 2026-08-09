@@ -13,6 +13,40 @@ test("password login awaits the Next.js cookie store", () => {
   assert.doesNotMatch(loginAction, /cookies\(\) as unknown/);
 });
 
+test("Google OAuth uses the initiating origin for its callback", () => {
+  const auth = source("app/auth.ts");
+  const initiation = source("app/(auth)/login/google/route.ts");
+  const callback = source("app/api/auth/callback/google/route.ts");
+
+  assert.match(
+    auth,
+    /new URL\("\/api\/auth\/callback\/google", requestUrl\)/,
+  );
+  assert.match(initiation, /createGoogleOAuthClient\(request\.url\)/);
+  assert.match(callback, /createGoogleOAuthClient\(req\.url\)/);
+  assert.doesNotMatch(auth, /NEXT_PUBLIC_BASE_URL/);
+});
+
+test("Google OAuth cookies are attached to their redirect responses", () => {
+  const initiation = source("app/(auth)/login/google/route.ts");
+  const callback = source("app/api/auth/callback/google/route.ts");
+
+  assert.match(initiation, /const response = NextResponse\.redirect\(url, 302\)/);
+  assert.match(
+    initiation,
+    /response\.cookies\.set\("google_oauth_state", state/,
+  );
+  assert.match(
+    initiation,
+    /response\.cookies\.set\("google_oauth_code_verifier", codeVerifier/,
+  );
+  assert.match(
+    callback,
+    /NextResponse\.redirect\(new URL\("\/home", request\.url\), 302\)/,
+  );
+  assert.match(callback, /response\.cookies\.set\([\s\S]*sessionCookie\.name/);
+});
+
 test("recovery routes are outside the signed-in auth redirect layout", () => {
   assert.equal(
     existsSync(

@@ -1,24 +1,26 @@
 
-import { google } from "@/app/auth"
+import { createGoogleOAuthClient } from "@/app/auth"
 import { generateCodeVerifier, generateState } from "arctic"
-import { cookies } from "next/headers"
+import { type NextRequest, NextResponse } from "next/server"
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
     const state = generateState()
     const codeVerifier = generateCodeVerifier()
+    const google = createGoogleOAuthClient(request.url)
 
     // Create authorization URL with proper scopes
-        const url = await google.createAuthorizationURL(state, codeVerifier, [
-          "openid",
-          "profile",
-          "email",
-        ])
+    const url = google.createAuthorizationURL(state, codeVerifier, [
+      "openid",
+      "profile",
+      "email",
+    ])
 
-    const cookieStore = await cookies()
+    const response = NextResponse.redirect(url, 302)
 
-    // Set cookies with longer expiration and proper settings
-    cookieStore.set("google_oauth_state", state, {
+    // Put the PKCE cookies on the same response that sends the browser to
+    // Google, so the callback is guaranteed to receive them.
+    response.cookies.set("google_oauth_state", state, {
       path: "/",
       secure: process.env.NODE_ENV === "production",
       httpOnly: true,
@@ -26,7 +28,7 @@ export async function GET() {
       sameSite: "lax",
     })
 
-    cookieStore.set("google_oauth_code_verifier", codeVerifier, {
+    response.cookies.set("google_oauth_code_verifier", codeVerifier, {
       path: "/",
       secure: process.env.NODE_ENV === "production",
       httpOnly: true,
@@ -34,22 +36,11 @@ export async function GET() {
       sameSite: "lax",
     })
 
-    console.log("OAuth initiation - State:", state)
-    console.log("OAuth initiation - Redirect URL:", url.toString())
-
-    return new Response(null, {
-      status: 302,
-      headers: {
-        Location: url.toString(),
-      },
-    })
+    return response
   } catch (error) {
     console.error("Google OAuth initiation error:", error)
-    return new Response(null, {
-      status: 302,
-      headers: {
-        Location: "/login?error=oauth_init_error",
-      },
-    })
+    const loginUrl = new URL("/login", request.url)
+    loginUrl.searchParams.set("error", "oauth_init_error")
+    return NextResponse.redirect(loginUrl, 302)
   }
 }

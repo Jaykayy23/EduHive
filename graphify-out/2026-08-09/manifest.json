@@ -30,9 +30,9 @@
     "semantic_hash": ""
   },
   "app/(auth)/login/google/route.ts": {
-    "mtime": 1786281954.0100436,
-    "ast_hash": "1867bd2e9ab9c3f35cc81255e14ab754",
-    "semantic_hash": ""
+    "mtime": 1786144112.9751685,
+    "ast_hash": "9991ac41aaaa096807d0a1e7bc344c0e",
+    "semantic_hash": "9991ac41aaaa096807d0a1e7bc344c0e"
   },
   "app/(auth)/login/page.tsx": {
     "mtime": 1786144112.978474,
@@ -255,8 +255,8 @@
     "semantic_hash": "102f8673bccb54b699b0871fede6e6dc"
   },
   "app/api/auth/callback/google/route.ts": {
-    "mtime": 1786281956.2182417,
-    "ast_hash": "cab1f59c76f57ea271d63225da797463",
+    "mtime": 1786144113.0630765,
+    "ast_hash": "92bce70175f25f95405cdddad7129f3e",
     "semantic_hash": ""
   },
   "app/api/chat-sessions/[sessionId]/route.ts": {
@@ -365,8 +365,8 @@
     "semantic_hash": ""
   },
   "app/auth.ts": {
-    "mtime": 1786281952.3612576,
-    "ast_hash": "d6e08db5198fe3a74a3283adf351b944",
+    "mtime": 1786144113.133882,
+    "ast_hash": "4e8884d211d9ff5d7c92b5e15e1b7a80",
     "semantic_hash": ""
   },
   "app/hooks/use-toast.ts": {
@@ -1410,8 +1410,8 @@
     "semantic_hash": ""
   },
   "tests/auth-flows.test.mjs": {
-    "mtime": 1786281957.8813767,
-    "ast_hash": "2c07252a7cc3e69954687efd8c85d0e0",
+    "mtime": 1785686540.92836,
+    "ast_hash": "54fba4dc3c306ddb3dcc6e80ac2af431",
     "semantic_hash": ""
   },
   "prisma/migrations/0_init/migration.sql": {
@@ -1687,11 +1687,6 @@
   "graphify-out/memory/query_20260807_233831_undo_this_redesign_and_revert_back_to_the_previous.md": {
     "mtime": 1786145911.2532115,
     "ast_hash": "5befd5452c835b75b3c5a00a81bda9b3",
-    "semantic_hash": ""
-  },
-  "graphify-out/memory/query_20260807_234544_use_the_hiveq_icon_on_the_menu_bar_for_the_one_on.md": {
-    "mtime": 1786146344.2819064,
-    "ast_hash": "21795231a15d4c4aa8327587f948dc2a",
     "semantic_hash": ""
   }
 }

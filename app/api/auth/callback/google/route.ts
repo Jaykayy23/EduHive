@@ -1,11 +1,10 @@
-import { google, lucia } from "@/app/auth"
+import { createGoogleOAuthClient, lucia } from "@/app/auth"
 import { normalizeEmail } from "@/lib/auth/tokens"
 import kyInstance from "@/lib/ky"
 import prisma from "@/lib/prisma"
 import { provisionStreamUser } from "@/lib/stream"
 import { slugify } from "@/lib/utils"
-import { cookies } from "next/headers"
-import type { NextRequest } from "next/server"
+import { type NextRequest, NextResponse } from "next/server"
 import { generateIdFromEntropySize } from "lucia"
 
 async function provisionStreamUserSafely(user: {
@@ -23,13 +22,33 @@ async function provisionStreamUserSafely(user: {
   }
 }
 
-function redirectToLogin(error: string) {
-  return new Response(null, {
-    status: 302,
-    headers: {
-      Location: `/login?error=${encodeURIComponent(error)}`,
-    },
-  })
+function clearGoogleOAuthCookies(response: NextResponse) {
+  response.cookies.delete("google_oauth_state")
+  response.cookies.delete("google_oauth_code_verifier")
+}
+
+function redirectToLogin(request: NextRequest, error: string) {
+  const loginUrl = new URL("/login", request.url)
+  loginUrl.searchParams.set("error", error)
+  const response = NextResponse.redirect(loginUrl, 302)
+  clearGoogleOAuthCookies(response)
+  return response
+}
+
+async function createSessionResponse(request: NextRequest, userId: string) {
+  const session = await lucia.createSession(userId, {})
+  const sessionCookie = lucia.createSessionCookie(session.id)
+  const response = NextResponse.redirect(new URL("/home", request.url), 302)
+
+  // Attach the session to the redirect itself. This prevents /home from
+  // arriving before the browser has received the authenticated cookie.
+  response.cookies.set(
+    sessionCookie.name,
+    sessionCookie.value,
+    sessionCookie.attributes,
+  )
+  clearGoogleOAuthCookies(response)
+  return response
 }
 
 export async function GET(req: NextRequest) {
@@ -39,22 +58,19 @@ export async function GET(req: NextRequest) {
 
   if (oauthError) {
     console.error("OAuth error from Google:", oauthError)
-    return redirectToLogin(`oauth_${oauthError}`)
+    return redirectToLogin(req, `oauth_${oauthError}`)
   }
 
-  const cookieStore = await cookies()
-  const storedState = cookieStore.get("google_oauth_state")?.value ?? null
-  const storedCodeVerifier = cookieStore.get("google_oauth_code_verifier")?.value ?? null
+  const storedState = req.cookies.get("google_oauth_state")?.value ?? null
+  const storedCodeVerifier = req.cookies.get("google_oauth_code_verifier")?.value ?? null
 
   if (!code || !state || !storedState || !storedCodeVerifier || state !== storedState) {
-    return redirectToLogin("invalid_request")
+    return redirectToLogin(req, "invalid_request")
   }
 
   try {
+    const google = createGoogleOAuthClient(req.url)
     const tokens = await google.validateAuthorizationCode(code, storedCodeVerifier)
-
-    cookieStore.delete("google_oauth_state")
-    cookieStore.delete("google_oauth_code_verifier")
 
     const googleUser = await kyInstance
       .get("https://openidconnect.googleapis.com/v1/userinfo", {
@@ -73,7 +89,7 @@ export async function GET(req: NextRequest) {
     // Never create a trusted session or link a password account unless the
     // provider explicitly confirms ownership of the email address.
     if (googleUser.email_verified !== true || !googleUser.email) {
-      return redirectToLogin("unverified_google_email")
+      return redirectToLogin(req, "unverified_google_email")
     }
 
     const email = normalizeEmail(googleUser.email)
@@ -101,13 +117,7 @@ export async function GET(req: NextRequest) {
         avatarUrl,
       })
 
-      const session = await lucia.createSession(existingUser.id, {})
-      const sessionCookie = lucia.createSessionCookie(session.id)
-      cookieStore.set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes)
-      return new Response(null, {
-        status: 302,
-        headers: { Location: "/home" },
-      })
+      return createSessionResponse(req, existingUser.id)
     }
 
     const existingEmailUser = await prisma.user.findFirst({
@@ -136,13 +146,7 @@ export async function GET(req: NextRequest) {
         avatarUrl,
       })
 
-      const session = await lucia.createSession(existingEmailUser.id, {})
-      const sessionCookie = lucia.createSessionCookie(session.id)
-      cookieStore.set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes)
-      return new Response(null, {
-        status: 302,
-        headers: { Location: "/home" },
-      })
+      return createSessionResponse(req, existingEmailUser.id)
     }
 
     const userId = generateIdFromEntropySize(10)
@@ -176,18 +180,9 @@ export async function GET(req: NextRequest) {
       avatarUrl,
     })
 
-    const session = await lucia.createSession(userId, {})
-    const sessionCookie = lucia.createSessionCookie(session.id)
-    cookieStore.set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes)
-
-    return new Response(null, {
-      status: 302,
-      headers: { Location: "/home" },
-    })
+    return createSessionResponse(req, userId)
   } catch (error) {
     console.error("Google OAuth callback error:", error)
-    cookieStore.delete("google_oauth_state")
-    cookieStore.delete("google_oauth_code_verifier")
-    return redirectToLogin("server_error")
+    return redirectToLogin(req, "server_error")
   }
 }

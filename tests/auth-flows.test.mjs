@@ -47,6 +47,29 @@ test("Google OAuth cookies are attached to their redirect responses", () => {
   assert.match(callback, /response\.cookies\.set\([\s\S]*sessionCookie\.name/);
 });
 
+test("Google OAuth calls Arctic's access-token accessor", () => {
+  const callback = source("app/api/auth/callback/google/route.ts");
+
+  assert.match(
+    callback,
+    /Authorization: `Bearer \$\{tokens\.accessToken\(\)\}`/,
+  );
+  assert.doesNotMatch(
+    callback,
+    /Authorization: `Bearer \$\{tokens\.accessToken\}`/,
+  );
+});
+
+test("Google OAuth errors do not serialize bearer-token request headers", () => {
+  const callback = source("app/api/auth/callback/google/route.ts");
+
+  assert.doesNotMatch(
+    callback,
+    /console\.error\("Google OAuth callback error:", error\)/,
+  );
+  assert.match(callback, /error instanceof Error \? error\.message/);
+});
+
 test("recovery routes are outside the signed-in auth redirect layout", () => {
   assert.equal(
     existsSync(

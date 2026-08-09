@@ -75,7 +75,7 @@ export async function GET(req: NextRequest) {
     const googleUser = await kyInstance
       .get("https://openidconnect.googleapis.com/v1/userinfo", {
         headers: {
-          Authorization: `Bearer ${tokens.accessToken}`,
+          Authorization: `Bearer ${tokens.accessToken()}`,
         },
       })
       .json<{
@@ -182,7 +182,12 @@ export async function GET(req: NextRequest) {
 
     return createSessionResponse(req, userId)
   } catch (error) {
-    console.error("Google OAuth callback error:", error)
+    // Log the useful error message without serializing ky's Request object,
+    // which contains the bearer token in its Authorization header.
+    console.error(
+      "Google OAuth callback error:",
+      error instanceof Error ? error.message : "Unknown error",
+    )
     return redirectToLogin(req, "server_error")
   }
 }

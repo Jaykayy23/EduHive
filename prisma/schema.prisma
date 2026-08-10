@@ -35,6 +35,7 @@ model User {
   likes                    Like[]
   bookmarks                Bookmark[]
   comments                 Comment[]
+  media                    Media[]
   receivedNotifications    Notification[]          @relation("Recipient")
   issuedNotifications      Notification[]          @relation("Issuer")
   achievements             UserAchievement[]
@@ -120,14 +121,17 @@ model Post {
 }
 
 model Media {
-  id     String    @id @default(cuid())
-  postId String?
-  post   Post?     @relation(fields: [postId], references: [id], onDelete: SetNull)
-  type   MediaType
-  url    String
+  id      String    @id @default(cuid())
+  ownerId String?
+  owner   User?     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  postId  String?
+  post    Post?     @relation(fields: [postId], references: [id], onDelete: SetNull)
+  type    MediaType
+  url     String
 
   createdAt DateTime @default(now())
 
+  @@index([ownerId, postId])
   @@map("post_media")
 }
 

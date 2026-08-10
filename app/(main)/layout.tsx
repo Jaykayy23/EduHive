@@ -7,6 +7,10 @@ import { Suspense } from "react";
 import { BookLoader } from "@/components/ui/book-loader";
 import prisma from "@/lib/prisma";
 
+// Every route in this group depends on the current session and live user data.
+// Never execute those database reads during a deployment build.
+export const dynamic = "force-dynamic";
+
 export default async function Layout({
   children,
 }: {

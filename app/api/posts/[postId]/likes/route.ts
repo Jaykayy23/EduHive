@@ -1,6 +1,25 @@
 import { validateRequest } from "@/app/auth";
 import prisma from "@/lib/prisma";
 import { LikeInfo } from "@/lib/types";
+import { claimRateLimit } from "@/lib/rate-limit";
+
+async function enforceLikeMutationLimit(userId: string) {
+  const rateLimit = await claimRateLimit({
+    namespace: "like:mutation",
+    identifier: userId,
+    limit: 100,
+    windowMs: 10 * 60 * 1_000,
+  });
+  if (rateLimit.allowed) return null;
+
+  return Response.json(
+    { error: "Like limit reached. Please try again shortly." },
+    {
+      status: 429,
+      headers: { "Retry-After": String(rateLimit.retryAfterSeconds) },
+    },
+  );
+}
 
 export async function GET(
   req: Request,
@@ -13,7 +32,6 @@ export async function GET(
     if (!loggedInUser) {
       return Response.json({ error: "Unauthorized" }, { status: 401 });
     }
-
     const post = await prisma.post.findUnique({
       where: { id: postId },
       select: {
@@ -57,6 +75,8 @@ export async function POST(
     if (!loggedInUser) {
       return Response.json({ error: "Unauthorized" }, { status: 401 });
     }
+    const rateLimitResponse = await enforceLikeMutationLimit(loggedInUser.id);
+    if (rateLimitResponse) return rateLimitResponse;
 
     const post = await prisma.post.findUnique({
       where: { id: postId },
@@ -68,33 +88,25 @@ export async function POST(
       return Response.json({ error: "Post not found" }, { status: 404 });
     }
 
-    await prisma.$transaction([
-      prisma.like.upsert({
-        where: {
-          userId_postId: {
-            userId: loggedInUser.id,
-            postId,
-          },
-        },
-        create: {
+    await prisma.$transaction(async (tx) => {
+      const created = await tx.like.createMany({
+        data: {
           userId: loggedInUser.id,
           postId,
         },
-        update: {},
-      }),
-      ...(loggedInUser.id !== post.userId
-        ? [
-            prisma.notification.create({
-              data: {
-                issuerId: loggedInUser.id,
-                recipientId: post.userId,
-                postId,
-                type: "LIKE",
-              },
-            }),
-          ]
-        : []),
-    ]);
+        skipDuplicates: true,
+      });
+      if (created.count === 1 && loggedInUser.id !== post.userId) {
+        await tx.notification.create({
+          data: {
+            issuerId: loggedInUser.id,
+            recipientId: post.userId,
+            postId,
+            type: "LIKE",
+          },
+        });
+      }
+    });
 
     
 
@@ -116,6 +128,8 @@ export async function DELETE(
     if (!loggedInUser) {
       return Response.json({ error: "Unauthorized" }, { status: 401 });
     }
+    const rateLimitResponse = await enforceLikeMutationLimit(loggedInUser.id);
+    if (rateLimitResponse) return rateLimitResponse;
 
     const post = await prisma.post.findUnique({
       where: { id: postId },

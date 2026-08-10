@@ -31,34 +31,37 @@ export default function NotificationsButton({
   return (
     <Button
       variant="ghost"
-      className={`h-12 min-w-0 flex-1 justify-center gap-1 px-1 text-left transition-all duration-300 hover:bg-accent/60 lg:h-14 lg:w-full lg:justify-start lg:gap-2 lg:px-4 hover-lift group ${
-        isActive ? "bg-primary/10 border border-primary/20" : ""
+      className={`group hover-lift hover:bg-accent/60 h-14 w-full min-w-0 flex-col justify-center gap-1 border border-transparent px-1 text-left transition-colors duration-200 lg:flex-row lg:justify-start lg:gap-2 lg:px-4 ${
+        isActive ? "border-primary/20 bg-primary/10" : ""
       }`}
       title="Notifications"
       asChild
     >
-      <Link href="/notifications" className="flex items-center gap-1 lg:gap-4">
-        <div className={`relative p-1.5 lg:p-2 rounded-premium-sm transition-colors duration-300 ${
-          isActive 
-            ? "bg-primary/20" 
-            : "bg-muted/50 group-hover:bg-primary/20"
-        }`}>
-          <Bell className={`size-5 transition-colors duration-300 ${
-            isActive 
-              ? "text-primary" 
-              : "text-muted-foreground group-hover:text-primary"
-          }`} />
+      <Link href="/notifications" aria-current={isActive ? "page" : undefined}>
+        <div
+          className={`rounded-premium-sm bg-muted/50 group-hover:bg-primary/20 relative p-1.5 transition-colors duration-200 lg:p-2 ${
+            isActive ? "bg-primary/20" : ""
+          }`}
+        >
+          <Bell
+            data-icon="inline-start"
+            className={`text-muted-foreground group-hover:text-primary size-5 transition-colors duration-200 ${
+              isActive ? "text-primary" : ""
+            }`}
+          />
           {!!data.unreadCount && (
-            <span className="absolute -right-1 -top-1 rounded-full bg-primary text-primary-foreground px-1.5 py-0.5 text-xs font-semibold tabular-nums shadow-soft">
-                {data.unreadCount}
+            <span className="shadow-soft bg-primary text-primary-foreground absolute -top-1 -right-1 min-w-4 rounded-full px-1 py-0.5 text-center text-[10px] leading-none font-semibold tabular-nums">
+              {data.unreadCount > 99 ? "99+" : data.unreadCount}
             </span>
           )}
         </div>
-        <span className={`hidden lg:inline font-semibold transition-colors duration-300 ${
-          isActive 
-            ? "text-primary" 
-            : "text-foreground group-hover:text-primary"
-        }`}>Notifications</span>
+        <span
+          className={`text-muted-foreground group-hover:text-primary lg:text-foreground max-w-full truncate text-[9px] leading-none font-medium tracking-[-0.03em] transition-colors duration-200 min-[360px]:text-[10px] lg:text-sm lg:leading-normal lg:font-semibold lg:tracking-normal ${
+            isActive ? "text-primary" : ""
+          }`}
+        >
+          Notifications
+        </span>
       </Link>
     </Button>
   );

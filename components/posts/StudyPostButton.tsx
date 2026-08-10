@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import {
@@ -73,8 +73,7 @@ export default function StudyPostButton({
 }: StudyPostButtonProps) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
-  const [mode, setMode] = useState<PreferredStudyMode>("summarize");
-  const [hasChosenMode, setHasChosenMode] = useState(false);
+  const [chosenMode, setChosenMode] = useState<PreferredStudyMode | null>(null);
   const { data: preferences } = useQuery({
     queryKey: ["personalization"],
     queryFn: () =>
@@ -83,17 +82,16 @@ export default function StudyPostButton({
     staleTime: Infinity,
   });
 
-  useEffect(() => {
-    if (!open || hasChosenMode || !preferences) return;
-    setMode(getPreferredStudyMode(preferences.studyModes));
-  }, [hasChosenMode, open, preferences]);
+  const mode =
+    chosenMode ??
+    (preferences ? getPreferredStudyMode(preferences.studyModes) : "summarize");
 
   const selectedOption =
     studyOptions.find((option) => option.value === mode) ?? studyOptions[1];
 
   function handleOpenChange(nextOpen: boolean) {
     setOpen(nextOpen);
-    if (!nextOpen) setHasChosenMode(false);
+    if (!nextOpen) setChosenMode(null);
   }
 
   function startStudying() {
@@ -134,8 +132,7 @@ export default function StudyPostButton({
             value={mode}
             onValueChange={(nextMode) => {
               if (!nextMode) return;
-              setHasChosenMode(true);
-              setMode(nextMode as PreferredStudyMode);
+              setChosenMode(nextMode as PreferredStudyMode);
             }}
             variant="outline"
             spacing={2}

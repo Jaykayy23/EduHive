@@ -1,47 +1,62 @@
 "use server";
 
 import { validateRequest } from "@/app/auth";
-import { getCommentDataInclude, PostData } from "@/lib/types";
+import { getCommentDataInclude } from "@/lib/types";
 import { createCommentSchema } from "@/lib/validation";
 import prisma from "@/lib/prisma";
+import { claimRateLimit } from "@/lib/rate-limit";
 
 export async function submitComment({
-  post,
+  postId,
   content,
 }: {
-  post: PostData;
+  postId: string;
   content: string;
 }) {
   const { user } = await validateRequest();
 
   if (!user) throw Error("Unauthorized");
 
-  const { content: contentValidated } = createCommentSchema.parse({ content });
+  const parsed = createCommentSchema.parse({ postId, content });
+  const rateLimit = await claimRateLimit({
+    namespace: "comment:create",
+    identifier: user.id,
+    limit: 30,
+    windowMs: 10 * 60 * 1_000,
+  });
+  if (!rateLimit.allowed) {
+    throw new Error("Comment limit reached. Please wait before commenting again.");
+  }
 
-  const [newComment] = await prisma.$transaction([
-    prisma.comment.create({
+  return prisma.$transaction(async (tx) => {
+    const post = await tx.post.findUnique({
+      where: { id: parsed.postId },
+      select: { userId: true },
+    });
+    if (!post) throw new Error("Post not found");
+
+    const newComment = await tx.comment.create({
       data: {
-        content: contentValidated,
-        postId: post.id,
+        content: parsed.content,
+        postId: parsed.postId,
         userId: user.id,
       },
       include: getCommentDataInclude(user.id),
-    }),
-    ...(post.user.id !== user.id 
-      ? [
-        prisma.notification.create({
-          data: {
-            issuerId: user.id,
-            recipientId: post.user.id,
-            postId: post.id,
-            type: "COMMENT",
-          }
-        })
-      ] : []
-    )
-  ])
+    });
 
-  return newComment;
+    if (post.userId !== user.id) {
+      await tx.notification.create({
+        data: {
+          issuerId: user.id,
+          recipientId: post.userId,
+          postId: parsed.postId,
+          type: "COMMENT",
+        },
+      });
+    }
+
+    return newComment;
+  });
 }
 
 export async function deleteComment(id: string) {

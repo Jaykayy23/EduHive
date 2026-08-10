@@ -34,9 +34,27 @@ NVIDIA_MAX_TOKENS=1500
 NVIDIA_TIMEOUT_MS=55000
 ```
 
-The route requires an authenticated EduHive user, accepts at most 11 alternating messages of up to 4,000 characters, streams tutor responses as they are generated, times out provider connection attempts, and applies a per-instance request guard.
+The route requires an authenticated EduHive user, accepts at most 11 alternating messages of up to 4,000 characters, streams tutor responses as they are generated, times out provider connection attempts, and applies a database-backed request limit shared by every deployment instance.
 
 Students can choose Explain, Quiz Me, Flashcards, Practice Exam, Summarize, Simplify, Compare, or Step-by-Step. The selected mode is validated on the server and saved with the conversation.
+
+## HiveQ setup
+
+HiveQ generation is proxied through authenticated Next.js routes. Configure the
+backend URL and the same randomly generated 32+ character key in both services:
+
+```env
+# Next.js only
+QUESTGEN_API_URL=http://127.0.0.1:8000
+HIVEQ_INTERNAL_API_KEY=replace_with_a_long_random_value
+
+# ml-backend only
+GEMINI_API_KEY=replace_with_your_gemini_key
+HIVEQ_INTERNAL_API_KEY=replace_with_the_same_long_random_value
+```
+
+Do not restore `NEXT_PUBLIC_QUESTGEN_API_URL`; it bypasses authentication and
+exposes the provider-backed service directly to browsers.
 
 ## Transactional authentication email setup
 
@@ -50,7 +68,7 @@ EMAIL_FROM="EduHive <security@auth.eduhive.com>"
 APP_URL=http://localhost:3000
 ```
 
-Keep `RESEND_API_KEY` out of any `NEXT_PUBLIC_` variable. Once the database is reachable, apply the additive auth migration with `npm exec prisma migrate deploy`.
+Keep `RESEND_API_KEY` out of any `NEXT_PUBLIC_` variable. Once the database is reachable, apply additive migrations, including media ownership, with `npm exec prisma migrate deploy`.
 
 Resend references: [domain setup](https://resend.com/docs/dashboard/domains/introduction), [API keys](https://resend.com/docs/dashboard/api-keys/introduction), and [Next.js sending](https://resend.com/docs/send-with-nextjs).
 

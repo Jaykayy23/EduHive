@@ -1,6 +1,25 @@
 import { validateRequest } from "@/app/auth";
 import prisma from "@/lib/prisma";
 import { FollowerInfo } from "@/lib/types";
+import { claimRateLimit } from "@/lib/rate-limit";
+
+async function enforceFollowMutationLimit(userId: string) {
+  const rateLimit = await claimRateLimit({
+    namespace: "follow:mutation",
+    identifier: userId,
+    limit: 60,
+    windowMs: 10 * 60 * 1_000,
+  });
+  if (rateLimit.allowed) return null;
+
+  return Response.json(
+    { error: "Follow limit reached. Please try again shortly." },
+    {
+      status: 429,
+      headers: { "Retry-After": String(rateLimit.retryAfterSeconds) },
+    },
+  );
+}
 
 export async function GET(
   req: Request,
@@ -60,29 +79,30 @@ export async function POST(
     if (!loggedInUser) {
       return Response.json({ error: "Unauthorized" }, { status: 401 });
     }
+    if (userId === loggedInUser.id) {
+      return Response.json({ error: "You cannot follow yourself" }, { status: 400 });
+    }
+    const rateLimitResponse = await enforceFollowMutationLimit(loggedInUser.id);
+    if (rateLimitResponse) return rateLimitResponse;
 
-    await prisma.$transaction([
-      prisma.follow.upsert({
-        where: {
-          followerId_followingId: {
-            followerId: loggedInUser.id,
-            followingId: userId,
-          },
-        },
-        create: {
+    await prisma.$transaction(async (tx) => {
+      const created = await tx.follow.createMany({
+        data: {
           followerId: loggedInUser.id,
           followingId: userId,
         },
-        update: {},
-      }),
-      prisma.notification.create({
-        data: {
-          issuerId: loggedInUser.id,
-          recipientId: userId,
-          type: "FOLLOW",
-        },
-      }),
-    ]);
+        skipDuplicates: true,
+      });
+      if (created.count === 1) {
+        await tx.notification.create({
+          data: {
+            issuerId: loggedInUser.id,
+            recipientId: userId,
+            type: "FOLLOW",
+          },
+        });
+      }
+    });
 
     return new Response();
   } catch (error) {
@@ -102,6 +122,8 @@ export async function DELETE(
     if (!loggedInUser) {
       return Response.json({ error: "Unauthorized" }, { status: 401 });
     }
+    const rateLimitResponse = await enforceFollowMutationLimit(loggedInUser.id);
+    if (rateLimitResponse) return rateLimitResponse;
 
     await prisma.$transaction([
       prisma.follow.deleteMany({

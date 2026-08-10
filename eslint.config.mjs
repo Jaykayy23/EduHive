@@ -1,26 +1,20 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
+import { defineConfig, globalIgnores } from "eslint/config";
+import nextCoreWebVitals from "eslint-config-next/core-web-vitals";
+import nextTypeScript from "eslint-config-next/typescript";
+import prettier from "eslint-config-prettier/flat";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
-
-const eslintConfig = [
-  {
-    ignores: [
-      ".next/**",
-      ".venv/**",
-      "graphify-out/**",
-      "lib/generated/**",
-      "ml-backend/**",
-      "next-env.d.ts",
-    ],
-  },
-  ...compat.extends("next/core-web-vitals", "next/typescript", "prettier"),
-];
+const eslintConfig = defineConfig([
+  ...nextCoreWebVitals,
+  ...nextTypeScript,
+  prettier,
+  globalIgnores([
+    ".next/**",
+    ".venv/**",
+    "graphify-out/**",
+    "lib/generated/**",
+    "ml-backend/**",
+    "next-env.d.ts",
+  ]),
+]);
 
 export default eslintConfig;

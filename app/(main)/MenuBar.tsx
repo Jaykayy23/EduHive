@@ -1,11 +1,28 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Bookmark, Bot, BrainCircuit, Home } from "lucide-react";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { cn } from "@/lib/utils";
+import {
+  Bookmark,
+  Bot,
+  BrainCircuit,
+  Ellipsis,
+  Home,
+  type LucideIcon,
+} from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import NotificationsButton from "./NotificationsButton";
 import MessagesButton from "./MessagesButton";
+import NotificationsButton from "./NotificationsButton";
 
 interface MenuBarProps {
   className?: string;
@@ -13,141 +30,230 @@ interface MenuBarProps {
   unreadMessagesCount?: number;
 }
 
-export default function MenuBar({ 
-  className, 
-  unreadNotificationCount = 0, 
-  unreadMessagesCount = 0 
+interface MenuLinkProps {
+  active: boolean;
+  desktopOnly?: boolean;
+  href: string;
+  icon: LucideIcon;
+  label: string;
+}
+
+const menuButtonClassName =
+  "group hover-lift h-14 w-full min-w-0 flex-col justify-center gap-1 border border-transparent px-1 text-left transition-colors duration-200 hover:bg-accent/60 lg:flex-row lg:justify-start lg:gap-2 lg:px-4";
+
+function MenuLink({
+  active,
+  desktopOnly = false,
+  href,
+  icon: Icon,
+  label,
+}: MenuLinkProps) {
+  return (
+    <Button
+      variant="ghost"
+      className={cn(
+        menuButtonClassName,
+        desktopOnly && "hidden lg:inline-flex",
+        active && "border-primary/20 bg-primary/10",
+      )}
+      title={label}
+      asChild
+    >
+      <Link href={href} aria-current={active ? "page" : undefined}>
+        <div
+          className={cn(
+            "rounded-premium-sm bg-muted/50 group-hover:bg-primary/20 p-1.5 transition-colors duration-200 lg:p-2",
+            active && "bg-primary/20",
+          )}
+        >
+          <Icon
+            data-icon="inline-start"
+            className={cn(
+              "text-muted-foreground group-hover:text-primary size-5 transition-colors duration-200",
+              active && "text-primary",
+            )}
+          />
+        </div>
+        <span
+          className={cn(
+            "text-muted-foreground group-hover:text-primary lg:text-foreground max-w-full truncate text-[9px] leading-none font-medium tracking-[-0.03em] transition-colors duration-200 min-[360px]:text-[10px] lg:text-sm lg:leading-normal lg:font-semibold lg:tracking-normal",
+            active && "text-primary",
+          )}
+        >
+          {label}
+        </span>
+      </Link>
+    </Button>
+  );
+}
+
+export default function MenuBar({
+  className,
+  unreadNotificationCount = 0,
+  unreadMessagesCount = 0,
 }: MenuBarProps) {
   const pathname = usePathname();
 
-  // Helper function to check if a menu item is active
   const isActive = (href: string) => {
     if (href === "/home") {
       return pathname === "/" || pathname === "/home";
     }
+
     return pathname.startsWith(href);
   };
 
+  const isMoreActive = isActive("/bookmarks") || isActive("/chatbot");
+
   return (
     <nav className={className} role="navigation" aria-label="Main navigation">
-      <div className="mx-auto flex max-w-2xl gap-1 lg:flex-col lg:space-y-3 lg:gap-0">
-        <Button
-          variant="ghost"
-          className={`h-12 min-w-0 flex-1 justify-center gap-1 px-1 text-left transition-all duration-300 hover:bg-accent/60 lg:h-14 lg:w-full lg:justify-start lg:gap-2 lg:px-4 hover-lift group ${
-            isActive("/home") ? "bg-primary/10 border border-primary/20" : ""
-          }`}
-          title="Home"
-          asChild
-        >
-          <Link href="/home" className="flex items-center gap-1 lg:gap-4">
-            <div className={`p-1.5 lg:p-2 rounded-premium-sm transition-colors duration-300 ${
-              isActive("/home") 
-                ? "bg-primary/20" 
-                : "bg-muted/50 group-hover:bg-primary/20"
-            }`}>
-              <Home className={`size-5 transition-colors duration-300 ${
-                isActive("/home") 
-                  ? "text-primary" 
-                  : "text-muted-foreground group-hover:text-primary"
-              }`} />
-            </div>
-            <span className={`hidden lg:inline font-semibold transition-colors duration-300 ${
-              isActive("/home") 
-                ? "text-primary" 
-                : "text-foreground group-hover:text-primary"
-            }`}>Home</span>
-          </Link>
-        </Button>
-        
+      <div className="mx-auto grid max-w-lg grid-cols-5 gap-1 lg:flex lg:max-w-2xl lg:flex-col lg:gap-0 lg:space-y-3">
+        <MenuLink
+          href="/home"
+          label="Home"
+          icon={Home}
+          active={isActive("/home")}
+        />
+
         <NotificationsButton
           initialState={{ unreadCount: unreadNotificationCount }}
         />
-        
+
         <MessagesButton initialState={{ unreadCount: unreadMessagesCount }} />
-        
-        <Button
-          variant="ghost"
-          className={`h-12 min-w-0 flex-1 justify-center gap-1 px-1 text-left transition-all duration-300 hover:bg-accent/60 lg:h-14 lg:w-full lg:justify-start lg:gap-2 lg:px-4 hover-lift group ${
-            isActive("/bookmarks") ? "bg-primary/10 border border-primary/20" : ""
-          }`}
-          title="Bookmarks"
-          asChild
-        >
-          <Link href="/bookmarks" className="flex items-center gap-1 lg:gap-4">
-            <div className={`p-1.5 lg:p-2 rounded-premium-sm transition-colors duration-300 ${
-              isActive("/bookmarks") 
-                ? "bg-primary/20" 
-                : "bg-muted/50 group-hover:bg-primary/20"
-            }`}>
-              <Bookmark className={`size-5 transition-colors duration-300 ${
-                isActive("/bookmarks") 
-                  ? "text-primary" 
-                  : "text-muted-foreground group-hover:text-primary"
-              }`} />
-            </div>
-            <span className={`hidden lg:inline font-semibold transition-colors duration-300 ${
-              isActive("/bookmarks") 
-                ? "text-primary" 
-                : "text-foreground group-hover:text-primary"
-            }`}>Bookmarks</span>
-          </Link>
-        </Button>
 
-        <Button
-          variant="ghost"
-          className={`h-12 min-w-0 flex-1 justify-center gap-1 px-1 text-left transition-all duration-300 hover:bg-accent/60 lg:h-14 lg:w-full lg:justify-start lg:gap-2 lg:px-4 hover-lift group ${
-            isActive("/chatbot") ? "bg-primary/10 border border-primary/20" : ""
-          }`}
-          title="EduHive Chatbot"
-          asChild
-        >
-          <Link href="/chatbot" className="flex items-center gap-1 lg:gap-4">
-            <div className={`p-1.5 lg:p-2 rounded-premium-sm transition-colors duration-300 ${
-              isActive("/chatbot") 
-                ? "bg-primary/20" 
-                : "bg-muted/50 group-hover:bg-primary/20"
-            }`}>
-              <Bot className={`size-5 transition-all duration-300 ${
-                isActive("/chatbot") 
-                  ? "text-primary scale-110" 
-                  : "text-muted-foreground group-hover:text-primary group-hover:scale-110"
-              }`} />
-            </div>
-            <span className={`hidden lg:inline font-semibold transition-colors duration-300 ${
-              isActive("/chatbot") 
-                ? "text-primary" 
-                : "text-foreground group-hover:text-primary"
-            }`}>EduHive Chatbot</span>
-          </Link>
-        </Button>
+        <MenuLink
+          href="/bookmarks"
+          label="Bookmarks"
+          icon={Bookmark}
+          active={isActive("/bookmarks")}
+          desktopOnly
+        />
 
-        <Button
-          variant="ghost"
-          className={`h-12 min-w-0 flex-1 justify-center gap-1 px-1 text-left transition-all duration-300 hover:bg-accent/60 lg:h-14 lg:w-full lg:justify-start lg:gap-2 lg:px-4 hover-lift group ${
-            isActive("/hiveq") ? "bg-primary/10 border border-primary/20" : ""
-          }`}
-          title="HiveQ"
-          asChild
-        >
-          <Link href="/hiveq" className="flex items-center gap-1 lg:gap-4">
-            <div className={`p-1.5 lg:p-2 rounded-premium-sm transition-colors duration-300 ${
-              isActive("/hiveq")
-                ? "bg-primary/20" 
-                : "bg-muted/50 group-hover:bg-primary/20"
-            }`}>
-              <BrainCircuit className={`size-5 transition-all duration-300 ${
-                isActive("/hiveq")
-                  ? "text-primary scale-110" 
-                  : "text-muted-foreground group-hover:text-primary group-hover:scale-110"
-              }`} />
+        <MenuLink
+          href="/chatbot"
+          label="EduHive Chatbot"
+          icon={Bot}
+          active={isActive("/chatbot")}
+          desktopOnly
+        />
+
+        <MenuLink
+          href="/hiveq"
+          label="HiveQ"
+          icon={BrainCircuit}
+          active={isActive("/hiveq")}
+        />
+
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button
+              variant="ghost"
+              className={cn(
+                menuButtonClassName,
+                "lg:hidden",
+                isMoreActive && "border-primary/20 bg-primary/10",
+              )}
+              title="More"
+              aria-label="More navigation"
+              aria-current={isMoreActive ? "page" : undefined}
+            >
+              <div
+                className={cn(
+                  "rounded-premium-sm bg-muted/50 group-hover:bg-primary/20 p-1.5 transition-colors duration-200",
+                  isMoreActive && "bg-primary/20",
+                )}
+              >
+                <Ellipsis
+                  data-icon="inline-start"
+                  className={cn(
+                    "text-muted-foreground group-hover:text-primary size-5 transition-colors duration-200",
+                    isMoreActive && "text-primary",
+                  )}
+                />
+              </div>
+              <span
+                className={cn(
+                  "text-muted-foreground group-hover:text-primary text-[9px] leading-none font-medium tracking-[-0.03em] transition-colors duration-200 min-[360px]:text-[10px]",
+                  isMoreActive && "text-primary",
+                )}
+              >
+                More
+              </span>
+            </Button>
+          </SheetTrigger>
+
+          <SheetContent
+            side="bottom"
+            className="rounded-t-premium-lg border-border/60 bg-card shadow-dramatic pb-[calc(1rem+env(safe-area-inset-bottom))]"
+          >
+            <div className="mx-auto w-full max-w-lg">
+              <SheetHeader className="px-4 pt-5 pb-2 text-left">
+                <SheetTitle className="text-lg">More</SheetTitle>
+                <SheetDescription>
+                  Study tools and saved content.
+                </SheetDescription>
+              </SheetHeader>
+
+              <div className="grid gap-2 px-4 pb-2">
+                <SheetClose asChild>
+                  <Link
+                    href="/bookmarks"
+                    aria-current={isActive("/bookmarks") ? "page" : undefined}
+                    className={cn(
+                      "rounded-premium border-border/70 bg-background/60 hover:border-primary/30 hover:bg-accent focus-visible:ring-ring/50 flex min-h-16 items-center gap-3 border p-3.5 text-left transition-colors focus-visible:ring-2 focus-visible:ring-offset-2",
+                      isActive("/bookmarks") &&
+                        "border-primary/30 bg-primary/10",
+                    )}
+                  >
+                    <span
+                      className={cn(
+                        "rounded-premium-sm bg-muted text-muted-foreground p-2.5",
+                        isActive("/bookmarks") && "bg-primary/20 text-primary",
+                      )}
+                    >
+                      <Bookmark className="size-5" aria-hidden="true" />
+                    </span>
+                    <span className="grid gap-0.5">
+                      <span className="text-foreground font-semibold">
+                        Bookmarks
+                      </span>
+                      <span className="text-muted-foreground text-xs">
+                        Posts you saved
+                      </span>
+                    </span>
+                  </Link>
+                </SheetClose>
+
+                <SheetClose asChild>
+                  <Link
+                    href="/chatbot"
+                    aria-current={isActive("/chatbot") ? "page" : undefined}
+                    className={cn(
+                      "rounded-premium border-border/70 bg-background/60 hover:border-primary/30 hover:bg-accent focus-visible:ring-ring/50 flex min-h-16 items-center gap-3 border p-3.5 text-left transition-colors focus-visible:ring-2 focus-visible:ring-offset-2",
+                      isActive("/chatbot") && "border-primary/30 bg-primary/10",
+                    )}
+                  >
+                    <span
+                      className={cn(
+                        "rounded-premium-sm bg-muted text-muted-foreground p-2.5",
+                        isActive("/chatbot") && "bg-primary/20 text-primary",
+                      )}
+                    >
+                      <Bot className="size-5" aria-hidden="true" />
+                    </span>
+                    <span className="grid gap-0.5">
+                      <span className="text-foreground font-semibold">
+                        EduHive Chatbot
+                      </span>
+                      <span className="text-muted-foreground text-xs">
+                        Ask the AI tutor
+                      </span>
+                    </span>
+                  </Link>
+                </SheetClose>
+              </div>
             </div>
-            <span className={`hidden lg:inline font-semibold transition-colors duration-300 ${
-              isActive("/hiveq")
-                ? "text-primary" 
-                : "text-foreground group-hover:text-primary"
-            }`}>HiveQ</span>
-          </Link>
-        </Button>
+          </SheetContent>
+        </Sheet>
       </div>
     </nav>
   );

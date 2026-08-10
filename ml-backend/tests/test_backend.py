@@ -1,12 +1,18 @@
+import io
 import os
 import unittest
+import zipfile
+from unittest.mock import patch
 
+from fastapi import HTTPException
+from fastapi.testclient import TestClient
 from pydantic import ValidationError
 
-from app.main import _validate_distribution, health_check
+from app.main import app, _validate_distribution, health_check, require_internal_api_key
 from app.models import Question, TextGenerationRequest
 from app.services.questgen_service import QuestgenService, allocate_question_counts
 from app.services.summarizer import Summarizer
+from app.utils.file_parser import FileParser
 
 
 class DistributionTests(unittest.TestCase):
@@ -97,15 +103,82 @@ class LightweightRuntimeTests(unittest.TestCase):
         self.assertLessEqual(len(summary.split()), 80)
         self.assertIn("Photosynthesis", summary)
 
-    def test_health_check_does_not_require_provider_call(self):
-        old_key = os.environ.pop("GEMINI_API_KEY", None)
-        try:
-            response = health_check()
-            self.assertEqual(response["status"], "healthy")
-            self.assertFalse(response["provider_configured"])
-        finally:
-            if old_key is not None:
-                os.environ["GEMINI_API_KEY"] = old_key
+    def test_health_check_does_not_disclose_provider_configuration(self):
+        response = health_check()
+        self.assertEqual(response["status"], "healthy")
+        self.assertNotIn("provider", response)
+        self.assertNotIn("provider_configured", response)
+
+    def test_generation_key_fails_closed_and_uses_constant_time_comparison(self):
+        with patch.dict(os.environ, {}, clear=True):
+            with self.assertRaises(HTTPException) as missing:
+                require_internal_api_key(None)
+            self.assertEqual(missing.exception.status_code, 503)
+
+        key = "k" * 32
+        with patch.dict(os.environ, {"HIVEQ_INTERNAL_API_KEY": key}, clear=True):
+            with self.assertRaises(HTTPException) as invalid:
+                require_internal_api_key("wrong")
+            self.assertEqual(invalid.exception.status_code, 401)
+            self.assertIsNone(require_internal_api_key(key))
+
+    def test_generation_endpoint_rejects_requests_without_internal_key(self):
+        with patch.dict(
+            os.environ,
+            {"HIVEQ_INTERNAL_API_KEY": "k" * 32},
+            clear=True,
+        ):
+            response = TestClient(app).post(
+                "/generate-from-text/",
+                json={
+                    "text_input": "A sufficiently long source sentence. " * 8,
+                    "total_questions": 5,
+                    "mcq_percentage": 0.5,
+                    "true_false_percentage": 0.5,
+                    "fill_in_percentage": 0.0,
+                },
+            )
+        self.assertEqual(response.status_code, 401)
+
+
+class FileParserSecurityTests(unittest.TestCase):
+    def setUp(self):
+        self.parser = FileParser()
+
+    def test_detects_content_from_magic_bytes_instead_of_client_mime(self):
+        self.assertEqual(
+            self.parser._detect_type(b"%PDF-1.7\nminimal"),
+            "application/pdf",
+        )
+        self.assertEqual(
+            self.parser._detect_type(b"plain UTF-8 study notes"),
+            "text/plain",
+        )
+
+        archive_bytes = io.BytesIO()
+        with zipfile.ZipFile(archive_bytes, "w") as archive:
+            archive.writestr("[Content_Types].xml", "types")
+            archive.writestr("word/document.xml", "document")
+        self.assertEqual(
+            self.parser._detect_type(archive_bytes.getvalue()),
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        )
+
+    def test_rejects_binary_data_and_excessive_extracted_text(self):
+        with self.assertRaisesRegex(ValueError, "Binary files"):
+            self.parser._detect_type(b"binary\x00payload")
+
+        self.parser.max_extracted_chars = 10
+        with self.assertRaisesRegex(ValueError, "character limit"):
+            self.parser._ensure_text_limit(11)
+
+    def test_parses_text_inside_disposable_worker_process(self):
+        text, metadata = self.parser._parse_isolated(
+            b"Photosynthesis turns light into stored chemical energy.",
+            "text/plain",
+        )
+        self.assertIn("Photosynthesis", text)
+        self.assertEqual(metadata["type"], "text")
 
 
 if __name__ == "__main__":

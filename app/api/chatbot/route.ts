@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const rateLimit = checkTutorRateLimit(user.id);
+  const rateLimit = await checkTutorRateLimit(user.id);
   if (!rateLimit.allowed) {
     return NextResponse.json(
       { error: "Too many tutor requests. Please try again shortly." },

@@ -3,10 +3,10 @@ from __future__ import annotations
 import json
 import logging
 import os
+import secrets
 from typing import Annotated
 
-from fastapi import FastAPI, File, Form, HTTPException, UploadFile
-from fastapi.middleware.cors import CORSMiddleware
+from fastapi import Depends, FastAPI, File, Form, Header, HTTPException, UploadFile
 
 from .models import GeneratedQuestionsResponse, TextGenerationRequest
 from .services.pdf_text_cleaner import PDFTextCleaner, ProcessingMode
@@ -19,11 +19,15 @@ from .utils.file_parser import FileParser
 
 logger = logging.getLogger(__name__)
 APP_VERSION = "2.0.0"
+IS_PRODUCTION = os.getenv("ENVIRONMENT", "development").lower() == "production"
 
 app = FastAPI(
     title="HiveQ Question Generation API",
     version=APP_VERSION,
     description="Lightweight document parsing and Gemini-backed quiz generation.",
+    docs_url=None if IS_PRODUCTION else "/docs",
+    redoc_url=None if IS_PRODUCTION else "/redoc",
+    openapi_url=None if IS_PRODUCTION else "/openapi.json",
 )
 file_parser = FileParser()
 pdf_cleaner = PDFTextCleaner(
@@ -36,19 +40,17 @@ pdf_cleaner = PDFTextCleaner(
 )
 
 
-def _cors_origins() -> list[str]:
-    configured = os.getenv("CORS_ORIGINS", "http://localhost:3000")
-    return [origin.strip().rstrip("/") for origin in configured.split(",") if origin.strip()]
+def require_internal_api_key(
+    provided_key: Annotated[str | None, Header(alias="X-HiveQ-API-Key")] = None,
+) -> None:
+    """Fail closed unless the trusted Next.js proxy supplies the shared key."""
+    expected_key = os.getenv("HIVEQ_INTERNAL_API_KEY", "")
+    if len(expected_key) < 32:
+        logger.error("HiveQ is disabled because HIVEQ_INTERNAL_API_KEY is not configured")
+        raise HTTPException(status_code=503, detail="Question generation is unavailable")
 
-
-origins = _cors_origins()
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials="*" not in origins,
-    allow_methods=["GET", "POST", "OPTIONS"],
-    allow_headers=["*"],
-)
+    if provided_key is None or not secrets.compare_digest(provided_key, expected_key):
+        raise HTTPException(status_code=401, detail="Unauthorized")
 
 
 def _validate_distribution(distribution: object) -> dict[str, float]:
@@ -117,6 +119,7 @@ async def process_and_generate(
     "/generate-from-text/",
     response_model=GeneratedQuestionsResponse,
     tags=["Question Generation"],
+    dependencies=[Depends(require_internal_api_key)],
 )
 async def create_questions_from_text(request: TextGenerationRequest) -> GeneratedQuestionsResponse:
     return await process_and_generate(
@@ -134,6 +137,7 @@ async def create_questions_from_text(request: TextGenerationRequest) -> Generate
     "/generate-from-file/",
     response_model=GeneratedQuestionsResponse,
     tags=["Question Generation"],
+    dependencies=[Depends(require_internal_api_key)],
 )
 async def create_questions_from_file(
     file: Annotated[UploadFile, File()],
@@ -182,6 +186,4 @@ def health_check() -> dict:
         "status": "healthy",
         "service": "hiveq-api",
         "version": APP_VERSION,
-        "provider": "gemini",
-        "provider_configured": questgen_instance.is_configured,
     }

@@ -5,7 +5,6 @@ import { BrainCircuit } from "lucide-react";
 import { toast } from "sonner";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { getQuestgenUrl } from "@/lib/questgen";
 
 import { InputSection, type QuizSource } from "./components/1-input-section";
 import { ConfigurationSection } from "./components/2-configuration-section";
@@ -23,6 +22,7 @@ export default function HiveQPage() {
   const [resetVersion, setResetVersion] = useState(0);
   const [activeView, setActiveView] = useState<HiveQView>("build");
   const [isLoading, setIsLoading] = useState(false);
+  const [generationVersion, setGenerationVersion] = useState(0);
   const [generatedQuestions, setGeneratedQuestions] =
     useState<GeneratedResponse | null>(null);
 
@@ -86,7 +86,7 @@ export default function HiveQPage() {
     try {
       let response: Response;
       if (source.type === "text") {
-        response = await fetch(getQuestgenUrl("/generate-from-text/"), {
+        response = await fetch("/api/hiveq/text", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -109,7 +109,7 @@ export default function HiveQPage() {
             fill_in: fillInPercentage / 100,
           }),
         );
-        response = await fetch(getQuestgenUrl("/generate-from-file/"), {
+        response = await fetch("/api/hiveq/file", {
           method: "POST",
           body: formData,
         });
@@ -124,6 +124,7 @@ export default function HiveQPage() {
 
       const data: GeneratedResponse = await response.json();
       setGeneratedQuestions(data);
+      setGenerationVersion((version) => version + 1);
       setActiveView("quiz");
       toast.success(`Generated ${data.questions.length} questions.`);
     } catch (error) {
@@ -200,6 +201,7 @@ export default function HiveQPage() {
         <TabsContent value="quiz">
           {generatedQuestions && (
             <ResultsSection
+              key={generationVersion}
               generatedQuestions={generatedQuestions}
               onEditSetup={() => setActiveView("build")}
             />

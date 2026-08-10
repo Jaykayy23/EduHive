@@ -6,19 +6,35 @@ import { ReportReason, ReportStatus } from "@/lib/types"
 import { revalidatePath } from "next/cache"
 import { z } from "zod"
 import { isAdminUser } from "@/lib/admin"
+import { claimRateLimit } from "@/lib/rate-limit"
 
-const reportSchema = z.object({
-  reportedPostId: z.string().optional(),
-  reportedCommentId: z.string().optional(),
-  reason: z.nativeEnum(ReportReason),
-  comments: z.string().max(500).optional(),
-})
+const reportSchema = z
+  .object({
+    reportedPostId: z.string().trim().min(1).max(128).optional(),
+    reportedCommentId: z.string().trim().min(1).max(128).optional(),
+    reason: z.nativeEnum(ReportReason),
+    comments: z.string().trim().max(500).optional(),
+  })
+  .refine(
+    (value) => Boolean(value.reportedPostId) !== Boolean(value.reportedCommentId),
+    { message: "Report exactly one post or comment." },
+  )
 
 export async function submitReport(formData: FormData) {
   const { user } = await validateRequest()
 
   if (!user) {
     return { error: "Unauthorized" }
+  }
+
+  const rateLimit = await claimRateLimit({
+    namespace: "report:create",
+    identifier: user.id,
+    limit: 5,
+    windowMs: 60 * 60 * 1_000,
+  })
+  if (!rateLimit.allowed) {
+    return { error: "Report limit reached. Please try again later." }
   }
 
   const reportedPostId = formData.get("reportedPostId") as string | undefined
@@ -39,11 +55,17 @@ export async function submitReport(formData: FormData) {
 
   const { data } = parsed
 
-  if (!data.reportedPostId && !data.reportedCommentId) {
-    return { error: "Either reportedPostId or reportedCommentId must be provided." }
-  }
-
   try {
+    const existingReport = await prisma.report.findFirst({
+      where: {
+        reporterId: user.id,
+        reportedPostId: data.reportedPostId,
+        reportedCommentId: data.reportedCommentId,
+      },
+      select: { id: true },
+    })
+    if (existingReport) return { success: true }
+
     await prisma.report.create({
       data: {
         reportedPostId: data.reportedPostId,

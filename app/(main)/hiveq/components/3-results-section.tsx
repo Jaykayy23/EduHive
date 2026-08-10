@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import {
   ArrowLeft,
   ArrowRight,
@@ -111,30 +111,22 @@ export function ResultsSection({
   generatedQuestions,
   onEditSetup,
 }: ResultsSectionProps) {
-  const [quizQuestions, setQuizQuestions] = useState<QuizQuestion[]>([]);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [userAnswers, setUserAnswers] = useState<
-    Record<number, string | boolean>
-  >({});
-  const [fillInInputs, setFillInInputs] = useState<Record<number, string>>({});
-  const [showScoreModal, setShowScoreModal] = useState(false);
-
-  useEffect(() => {
-    const preparedQuestions = generatedQuestions.questions.map((question) =>
+  const [quizQuestions, setQuizQuestions] = useState<QuizQuestion[]>(() =>
+    generatedQuestions.questions.map((question) =>
       question.question_type.toLowerCase() === "mcq"
         ? {
             ...question,
             displayOptions: shuffleArray(getMultipleChoiceOptions(question)),
           }
         : question,
-    );
-
-    setQuizQuestions(preparedQuestions);
-    setCurrentQuestionIndex(0);
-    setUserAnswers({});
-    setFillInInputs({});
-    setShowScoreModal(false);
-  }, [generatedQuestions]);
+    ),
+  );
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [userAnswers, setUserAnswers] = useState<
+    Record<number, string | boolean>
+  >({});
+  const [fillInInputs, setFillInInputs] = useState<Record<number, string>>({});
+  const [showScoreModal, setShowScoreModal] = useState(false);
 
   const currentQuestion = quizQuestions[currentQuestionIndex];
   const answeredCount = Object.keys(userAnswers).length;

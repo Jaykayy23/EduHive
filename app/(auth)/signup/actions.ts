@@ -14,6 +14,9 @@ import { hash } from "@node-rs/argon2";
 import { generateIdFromEntropySize } from "lucia";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 import { redirect } from "next/navigation";
+import { claimRateLimit, getRequestIp } from "@/lib/rate-limit";
+
+const SIGNUP_WINDOW_MS = 60 * 60 * 1_000;
 
 export async function signUp(
   credentials: SignUpValues,
@@ -22,6 +25,23 @@ export async function signUp(
     const parsed = signUpSchema.parse(credentials);
     const username = parsed.username.trim();
     const email = normalizeEmail(parsed.email);
+    const ipLimit = await claimRateLimit({
+      namespace: "signup:ip",
+      identifier: await getRequestIp(),
+      limit: 5,
+      windowMs: SIGNUP_WINDOW_MS,
+    });
+    const emailLimit = await claimRateLimit({
+      namespace: "signup:email",
+      identifier: email,
+      limit: 3,
+      windowMs: SIGNUP_WINDOW_MS,
+    });
+    if (!ipLimit.allowed || !emailLimit.allowed) {
+      return {
+        error: "Too many signup attempts. Please wait before trying again.",
+      };
+    }
 
     const existingUsername = await prisma.user.findFirst({
       where: {

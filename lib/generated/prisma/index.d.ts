@@ -2402,6 +2402,7 @@ export namespace Prisma {
     likes: number
     bookmarks: number
     comments: number
+    media: number
     receivedNotifications: number
     issuedNotifications: number
     achievements: number
@@ -2419,6 +2420,7 @@ export namespace Prisma {
     likes?: boolean | UserCountOutputTypeCountLikesArgs
     bookmarks?: boolean | UserCountOutputTypeCountBookmarksArgs
     comments?: boolean | UserCountOutputTypeCountCommentsArgs
+    media?: boolean | UserCountOutputTypeCountMediaArgs
     receivedNotifications?: boolean | UserCountOutputTypeCountReceivedNotificationsArgs
     issuedNotifications?: boolean | UserCountOutputTypeCountIssuedNotificationsArgs
     achievements?: boolean | UserCountOutputTypeCountAchievementsArgs
@@ -2486,6 +2488,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountCommentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CommentWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountMediaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MediaWhereInput
   }
 
   /**
@@ -2924,6 +2933,7 @@ export namespace Prisma {
     likes?: boolean | User$likesArgs<ExtArgs>
     bookmarks?: boolean | User$bookmarksArgs<ExtArgs>
     comments?: boolean | User$commentsArgs<ExtArgs>
+    media?: boolean | User$mediaArgs<ExtArgs>
     receivedNotifications?: boolean | User$receivedNotificationsArgs<ExtArgs>
     issuedNotifications?: boolean | User$issuedNotificationsArgs<ExtArgs>
     achievements?: boolean | User$achievementsArgs<ExtArgs>
@@ -2970,6 +2980,7 @@ export namespace Prisma {
     likes?: boolean | User$likesArgs<ExtArgs>
     bookmarks?: boolean | User$bookmarksArgs<ExtArgs>
     comments?: boolean | User$commentsArgs<ExtArgs>
+    media?: boolean | User$mediaArgs<ExtArgs>
     receivedNotifications?: boolean | User$receivedNotificationsArgs<ExtArgs>
     issuedNotifications?: boolean | User$issuedNotificationsArgs<ExtArgs>
     achievements?: boolean | User$achievementsArgs<ExtArgs>
@@ -2993,6 +3004,7 @@ export namespace Prisma {
       likes: Prisma.$LikePayload<ExtArgs>[]
       bookmarks: Prisma.$BookmarkPayload<ExtArgs>[]
       comments: Prisma.$CommentPayload<ExtArgs>[]
+      media: Prisma.$MediaPayload<ExtArgs>[]
       receivedNotifications: Prisma.$NotificationPayload<ExtArgs>[]
       issuedNotifications: Prisma.$NotificationPayload<ExtArgs>[]
       achievements: Prisma.$UserAchievementPayload<ExtArgs>[]
@@ -3385,6 +3397,7 @@ export namespace Prisma {
     likes<T extends User$likesArgs<ExtArgs> = {}>(args?: Subset<T, User$likesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LikePayload<ExtArgs>, T, "findMany"> | Null>
     bookmarks<T extends User$bookmarksArgs<ExtArgs> = {}>(args?: Subset<T, User$bookmarksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookmarkPayload<ExtArgs>, T, "findMany"> | Null>
     comments<T extends User$commentsArgs<ExtArgs> = {}>(args?: Subset<T, User$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany"> | Null>
+    media<T extends User$mediaArgs<ExtArgs> = {}>(args?: Subset<T, User$mediaArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MediaPayload<ExtArgs>, T, "findMany"> | Null>
     receivedNotifications<T extends User$receivedNotificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$receivedNotificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany"> | Null>
     issuedNotifications<T extends User$issuedNotificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$issuedNotificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany"> | Null>
     achievements<T extends User$achievementsArgs<ExtArgs> = {}>(args?: Subset<T, User$achievementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserAchievementPayload<ExtArgs>, T, "findMany"> | Null>
@@ -3912,6 +3925,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CommentScalarFieldEnum | CommentScalarFieldEnum[]
+  }
+
+  /**
+   * User.media
+   */
+  export type User$mediaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Media
+     */
+    select?: MediaSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MediaInclude<ExtArgs> | null
+    where?: MediaWhereInput
+    orderBy?: MediaOrderByWithRelationInput | MediaOrderByWithRelationInput[]
+    cursor?: MediaWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MediaScalarFieldEnum | MediaScalarFieldEnum[]
   }
 
   /**
@@ -9726,6 +9759,7 @@ export namespace Prisma {
 
   export type MediaMinAggregateOutputType = {
     id: string | null
+    ownerId: string | null
     postId: string | null
     type: $Enums.MediaType | null
     url: string | null
@@ -9734,6 +9768,7 @@ export namespace Prisma {
 
   export type MediaMaxAggregateOutputType = {
     id: string | null
+    ownerId: string | null
     postId: string | null
     type: $Enums.MediaType | null
     url: string | null
@@ -9742,6 +9777,7 @@ export namespace Prisma {
 
   export type MediaCountAggregateOutputType = {
     id: number
+    ownerId: number
     postId: number
     type: number
     url: number
@@ -9752,6 +9788,7 @@ export namespace Prisma {
 
   export type MediaMinAggregateInputType = {
     id?: true
+    ownerId?: true
     postId?: true
     type?: true
     url?: true
@@ -9760,6 +9797,7 @@ export namespace Prisma {
 
   export type MediaMaxAggregateInputType = {
     id?: true
+    ownerId?: true
     postId?: true
     type?: true
     url?: true
@@ -9768,6 +9806,7 @@ export namespace Prisma {
 
   export type MediaCountAggregateInputType = {
     id?: true
+    ownerId?: true
     postId?: true
     type?: true
     url?: true
@@ -9849,6 +9888,7 @@ export namespace Prisma {
 
   export type MediaGroupByOutputType = {
     id: string
+    ownerId: string | null
     postId: string | null
     type: $Enums.MediaType
     url: string
@@ -9874,24 +9914,29 @@ export namespace Prisma {
 
   export type MediaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    ownerId?: boolean
     postId?: boolean
     type?: boolean
     url?: boolean
     createdAt?: boolean
+    owner?: boolean | Media$ownerArgs<ExtArgs>
     post?: boolean | Media$postArgs<ExtArgs>
   }, ExtArgs["result"]["media"]>
 
   export type MediaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    ownerId?: boolean
     postId?: boolean
     type?: boolean
     url?: boolean
     createdAt?: boolean
+    owner?: boolean | Media$ownerArgs<ExtArgs>
     post?: boolean | Media$postArgs<ExtArgs>
   }, ExtArgs["result"]["media"]>
 
   export type MediaSelectScalar = {
     id?: boolean
+    ownerId?: boolean
     postId?: boolean
     type?: boolean
     url?: boolean
@@ -9899,19 +9944,23 @@ export namespace Prisma {
   }
 
   export type MediaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    owner?: boolean | Media$ownerArgs<ExtArgs>
     post?: boolean | Media$postArgs<ExtArgs>
   }
   export type MediaIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    owner?: boolean | Media$ownerArgs<ExtArgs>
     post?: boolean | Media$postArgs<ExtArgs>
   }
 
   export type $MediaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Media"
     objects: {
+      owner: Prisma.$UserPayload<ExtArgs> | null
       post: Prisma.$PostPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      ownerId: string | null
       postId: string | null
       type: $Enums.MediaType
       url: string
@@ -10280,6 +10329,7 @@ export namespace Prisma {
    */
   export interface Prisma__MediaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    owner<T extends Media$ownerArgs<ExtArgs> = {}>(args?: Subset<T, Media$ownerArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     post<T extends Media$postArgs<ExtArgs> = {}>(args?: Subset<T, Media$postArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -10311,6 +10361,7 @@ export namespace Prisma {
    */ 
   interface MediaFieldRefs {
     readonly id: FieldRef<"Media", 'String'>
+    readonly ownerId: FieldRef<"Media", 'String'>
     readonly postId: FieldRef<"Media", 'String'>
     readonly type: FieldRef<"Media", 'MediaType'>
     readonly url: FieldRef<"Media", 'String'>
@@ -10630,6 +10681,21 @@ export namespace Prisma {
      * Filter which Media to delete
      */
     where?: MediaWhereInput
+  }
+
+  /**
+   * Media.owner
+   */
+  export type Media$ownerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
   }
 
   /**
@@ -20495,6 +20561,7 @@ export namespace Prisma {
 
   export const MediaScalarFieldEnum: {
     id: 'id',
+    ownerId: 'ownerId',
     postId: 'postId',
     type: 'type',
     url: 'url',
@@ -20723,6 +20790,7 @@ export namespace Prisma {
 
   export const MediaOrderByRelevanceFieldEnum: {
     id: 'id',
+    ownerId: 'ownerId',
     postId: 'postId',
     url: 'url'
   };
@@ -21021,6 +21089,7 @@ export namespace Prisma {
     likes?: LikeListRelationFilter
     bookmarks?: BookmarkListRelationFilter
     comments?: CommentListRelationFilter
+    media?: MediaListRelationFilter
     receivedNotifications?: NotificationListRelationFilter
     issuedNotifications?: NotificationListRelationFilter
     achievements?: UserAchievementListRelationFilter
@@ -21050,6 +21119,7 @@ export namespace Prisma {
     likes?: LikeOrderByRelationAggregateInput
     bookmarks?: BookmarkOrderByRelationAggregateInput
     comments?: CommentOrderByRelationAggregateInput
+    media?: MediaOrderByRelationAggregateInput
     receivedNotifications?: NotificationOrderByRelationAggregateInput
     issuedNotifications?: NotificationOrderByRelationAggregateInput
     achievements?: UserAchievementOrderByRelationAggregateInput
@@ -21083,6 +21153,7 @@ export namespace Prisma {
     likes?: LikeListRelationFilter
     bookmarks?: BookmarkListRelationFilter
     comments?: CommentListRelationFilter
+    media?: MediaListRelationFilter
     receivedNotifications?: NotificationListRelationFilter
     issuedNotifications?: NotificationListRelationFilter
     achievements?: UserAchievementListRelationFilter
@@ -21451,19 +21522,23 @@ export namespace Prisma {
     OR?: MediaWhereInput[]
     NOT?: MediaWhereInput | MediaWhereInput[]
     id?: StringFilter<"Media"> | string
+    ownerId?: StringNullableFilter<"Media"> | string | null
     postId?: StringNullableFilter<"Media"> | string | null
     type?: EnumMediaTypeFilter<"Media"> | $Enums.MediaType
     url?: StringFilter<"Media"> | string
     createdAt?: DateTimeFilter<"Media"> | Date | string
+    owner?: XOR<UserNullableRelationFilter, UserWhereInput> | null
     post?: XOR<PostNullableRelationFilter, PostWhereInput> | null
   }
 
   export type MediaOrderByWithRelationInput = {
     id?: SortOrder
+    ownerId?: SortOrderInput | SortOrder
     postId?: SortOrderInput | SortOrder
     type?: SortOrder
     url?: SortOrder
     createdAt?: SortOrder
+    owner?: UserOrderByWithRelationInput
     post?: PostOrderByWithRelationInput
     _relevance?: MediaOrderByRelevanceInput
   }
@@ -21473,15 +21548,18 @@ export namespace Prisma {
     AND?: MediaWhereInput | MediaWhereInput[]
     OR?: MediaWhereInput[]
     NOT?: MediaWhereInput | MediaWhereInput[]
+    ownerId?: StringNullableFilter<"Media"> | string | null
     postId?: StringNullableFilter<"Media"> | string | null
     type?: EnumMediaTypeFilter<"Media"> | $Enums.MediaType
     url?: StringFilter<"Media"> | string
     createdAt?: DateTimeFilter<"Media"> | Date | string
+    owner?: XOR<UserNullableRelationFilter, UserWhereInput> | null
     post?: XOR<PostNullableRelationFilter, PostWhereInput> | null
   }, "id">
 
   export type MediaOrderByWithAggregationInput = {
     id?: SortOrder
+    ownerId?: SortOrderInput | SortOrder
     postId?: SortOrderInput | SortOrder
     type?: SortOrder
     url?: SortOrder
@@ -21496,6 +21574,7 @@ export namespace Prisma {
     OR?: MediaScalarWhereWithAggregatesInput[]
     NOT?: MediaScalarWhereWithAggregatesInput | MediaScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Media"> | string
+    ownerId?: StringNullableWithAggregatesFilter<"Media"> | string | null
     postId?: StringNullableWithAggregatesFilter<"Media"> | string | null
     type?: EnumMediaTypeWithAggregatesFilter<"Media"> | $Enums.MediaType
     url?: StringWithAggregatesFilter<"Media"> | string
@@ -22185,6 +22264,7 @@ export namespace Prisma {
     likes?: LikeCreateNestedManyWithoutUserInput
     bookmarks?: BookmarkCreateNestedManyWithoutUserInput
     comments?: CommentCreateNestedManyWithoutUserInput
+    media?: MediaCreateNestedManyWithoutOwnerInput
     receivedNotifications?: NotificationCreateNestedManyWithoutRecipientInput
     issuedNotifications?: NotificationCreateNestedManyWithoutIssuerInput
     achievements?: UserAchievementCreateNestedManyWithoutUserInput
@@ -22214,6 +22294,7 @@ export namespace Prisma {
     likes?: LikeUncheckedCreateNestedManyWithoutUserInput
     bookmarks?: BookmarkUncheckedCreateNestedManyWithoutUserInput
     comments?: CommentUncheckedCreateNestedManyWithoutUserInput
+    media?: MediaUncheckedCreateNestedManyWithoutOwnerInput
     receivedNotifications?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
     issuedNotifications?: NotificationUncheckedCreateNestedManyWithoutIssuerInput
     achievements?: UserAchievementUncheckedCreateNestedManyWithoutUserInput
@@ -22243,6 +22324,7 @@ export namespace Prisma {
     likes?: LikeUpdateManyWithoutUserNestedInput
     bookmarks?: BookmarkUpdateManyWithoutUserNestedInput
     comments?: CommentUpdateManyWithoutUserNestedInput
+    media?: MediaUpdateManyWithoutOwnerNestedInput
     receivedNotifications?: NotificationUpdateManyWithoutRecipientNestedInput
     issuedNotifications?: NotificationUpdateManyWithoutIssuerNestedInput
     achievements?: UserAchievementUpdateManyWithoutUserNestedInput
@@ -22272,6 +22354,7 @@ export namespace Prisma {
     likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
     bookmarks?: BookmarkUncheckedUpdateManyWithoutUserNestedInput
     comments?: CommentUncheckedUpdateManyWithoutUserNestedInput
+    media?: MediaUncheckedUpdateManyWithoutOwnerNestedInput
     receivedNotifications?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
     issuedNotifications?: NotificationUncheckedUpdateManyWithoutIssuerNestedInput
     achievements?: UserAchievementUncheckedUpdateManyWithoutUserNestedInput
@@ -22631,11 +22714,13 @@ export namespace Prisma {
     type: $Enums.MediaType
     url: string
     createdAt?: Date | string
+    owner?: UserCreateNestedOneWithoutMediaInput
     post?: PostCreateNestedOneWithoutAttachmentsInput
   }
 
   export type MediaUncheckedCreateInput = {
     id?: string
+    ownerId?: string | null
     postId?: string | null
     type: $Enums.MediaType
     url: string
@@ -22647,11 +22732,13 @@ export namespace Prisma {
     type?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
     url?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    owner?: UserUpdateOneWithoutMediaNestedInput
     post?: PostUpdateOneWithoutAttachmentsNestedInput
   }
 
   export type MediaUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    ownerId?: NullableStringFieldUpdateOperationsInput | string | null
     postId?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
     url?: StringFieldUpdateOperationsInput | string
@@ -22660,6 +22747,7 @@ export namespace Prisma {
 
   export type MediaCreateManyInput = {
     id?: string
+    ownerId?: string | null
     postId?: string | null
     type: $Enums.MediaType
     url: string
@@ -22675,6 +22763,7 @@ export namespace Prisma {
 
   export type MediaUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    ownerId?: NullableStringFieldUpdateOperationsInput | string | null
     postId?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
     url?: StringFieldUpdateOperationsInput | string
@@ -23420,6 +23509,12 @@ export namespace Prisma {
     none?: CommentWhereInput
   }
 
+  export type MediaListRelationFilter = {
+    every?: MediaWhereInput
+    some?: MediaWhereInput
+    none?: MediaWhereInput
+  }
+
   export type NotificationListRelationFilter = {
     every?: NotificationWhereInput
     some?: NotificationWhereInput
@@ -23482,6 +23577,10 @@ export namespace Prisma {
   }
 
   export type CommentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MediaOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -23797,16 +23896,6 @@ export namespace Prisma {
     followingId?: SortOrder
   }
 
-  export type MediaListRelationFilter = {
-    every?: MediaWhereInput
-    some?: MediaWhereInput
-    none?: MediaWhereInput
-  }
-
-  export type MediaOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type PostOrderByRelevanceInput = {
     fields: PostOrderByRelevanceFieldEnum | PostOrderByRelevanceFieldEnum[]
     sort: SortOrder
@@ -23841,6 +23930,11 @@ export namespace Prisma {
     not?: NestedEnumMediaTypeFilter<$PrismaModel> | $Enums.MediaType
   }
 
+  export type UserNullableRelationFilter = {
+    is?: UserWhereInput | null
+    isNot?: UserWhereInput | null
+  }
+
   export type PostNullableRelationFilter = {
     is?: PostWhereInput | null
     isNot?: PostWhereInput | null
@@ -23854,6 +23948,7 @@ export namespace Prisma {
 
   export type MediaCountOrderByAggregateInput = {
     id?: SortOrder
+    ownerId?: SortOrder
     postId?: SortOrder
     type?: SortOrder
     url?: SortOrder
@@ -23862,6 +23957,7 @@ export namespace Prisma {
 
   export type MediaMaxOrderByAggregateInput = {
     id?: SortOrder
+    ownerId?: SortOrder
     postId?: SortOrder
     type?: SortOrder
     url?: SortOrder
@@ -23870,6 +23966,7 @@ export namespace Prisma {
 
   export type MediaMinOrderByAggregateInput = {
     id?: SortOrder
+    ownerId?: SortOrder
     postId?: SortOrder
     type?: SortOrder
     url?: SortOrder
@@ -24492,6 +24589,13 @@ export namespace Prisma {
     connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
   }
 
+  export type MediaCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<MediaCreateWithoutOwnerInput, MediaUncheckedCreateWithoutOwnerInput> | MediaCreateWithoutOwnerInput[] | MediaUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: MediaCreateOrConnectWithoutOwnerInput | MediaCreateOrConnectWithoutOwnerInput[]
+    createMany?: MediaCreateManyOwnerInputEnvelope
+    connect?: MediaWhereUniqueInput | MediaWhereUniqueInput[]
+  }
+
   export type NotificationCreateNestedManyWithoutRecipientInput = {
     create?: XOR<NotificationCreateWithoutRecipientInput, NotificationUncheckedCreateWithoutRecipientInput> | NotificationCreateWithoutRecipientInput[] | NotificationUncheckedCreateWithoutRecipientInput[]
     connectOrCreate?: NotificationCreateOrConnectWithoutRecipientInput | NotificationCreateOrConnectWithoutRecipientInput[]
@@ -24600,6 +24704,13 @@ export namespace Prisma {
     connectOrCreate?: CommentCreateOrConnectWithoutUserInput | CommentCreateOrConnectWithoutUserInput[]
     createMany?: CommentCreateManyUserInputEnvelope
     connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+  }
+
+  export type MediaUncheckedCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<MediaCreateWithoutOwnerInput, MediaUncheckedCreateWithoutOwnerInput> | MediaCreateWithoutOwnerInput[] | MediaUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: MediaCreateOrConnectWithoutOwnerInput | MediaCreateOrConnectWithoutOwnerInput[]
+    createMany?: MediaCreateManyOwnerInputEnvelope
+    connect?: MediaWhereUniqueInput | MediaWhereUniqueInput[]
   }
 
   export type NotificationUncheckedCreateNestedManyWithoutRecipientInput = {
@@ -24783,6 +24894,20 @@ export namespace Prisma {
     update?: CommentUpdateWithWhereUniqueWithoutUserInput | CommentUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: CommentUpdateManyWithWhereWithoutUserInput | CommentUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
+  }
+
+  export type MediaUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<MediaCreateWithoutOwnerInput, MediaUncheckedCreateWithoutOwnerInput> | MediaCreateWithoutOwnerInput[] | MediaUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: MediaCreateOrConnectWithoutOwnerInput | MediaCreateOrConnectWithoutOwnerInput[]
+    upsert?: MediaUpsertWithWhereUniqueWithoutOwnerInput | MediaUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: MediaCreateManyOwnerInputEnvelope
+    set?: MediaWhereUniqueInput | MediaWhereUniqueInput[]
+    disconnect?: MediaWhereUniqueInput | MediaWhereUniqueInput[]
+    delete?: MediaWhereUniqueInput | MediaWhereUniqueInput[]
+    connect?: MediaWhereUniqueInput | MediaWhereUniqueInput[]
+    update?: MediaUpdateWithWhereUniqueWithoutOwnerInput | MediaUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: MediaUpdateManyWithWhereWithoutOwnerInput | MediaUpdateManyWithWhereWithoutOwnerInput[]
+    deleteMany?: MediaScalarWhereInput | MediaScalarWhereInput[]
   }
 
   export type NotificationUpdateManyWithoutRecipientNestedInput = {
@@ -24999,6 +25124,20 @@ export namespace Prisma {
     update?: CommentUpdateWithWhereUniqueWithoutUserInput | CommentUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: CommentUpdateManyWithWhereWithoutUserInput | CommentUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
+  }
+
+  export type MediaUncheckedUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<MediaCreateWithoutOwnerInput, MediaUncheckedCreateWithoutOwnerInput> | MediaCreateWithoutOwnerInput[] | MediaUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: MediaCreateOrConnectWithoutOwnerInput | MediaCreateOrConnectWithoutOwnerInput[]
+    upsert?: MediaUpsertWithWhereUniqueWithoutOwnerInput | MediaUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: MediaCreateManyOwnerInputEnvelope
+    set?: MediaWhereUniqueInput | MediaWhereUniqueInput[]
+    disconnect?: MediaWhereUniqueInput | MediaWhereUniqueInput[]
+    delete?: MediaWhereUniqueInput | MediaWhereUniqueInput[]
+    connect?: MediaWhereUniqueInput | MediaWhereUniqueInput[]
+    update?: MediaUpdateWithWhereUniqueWithoutOwnerInput | MediaUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: MediaUpdateManyWithWhereWithoutOwnerInput | MediaUpdateManyWithWhereWithoutOwnerInput[]
+    deleteMany?: MediaScalarWhereInput | MediaScalarWhereInput[]
   }
 
   export type NotificationUncheckedUpdateManyWithoutRecipientNestedInput = {
@@ -25443,6 +25582,12 @@ export namespace Prisma {
     deleteMany?: ReportScalarWhereInput | ReportScalarWhereInput[]
   }
 
+  export type UserCreateNestedOneWithoutMediaInput = {
+    create?: XOR<UserCreateWithoutMediaInput, UserUncheckedCreateWithoutMediaInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMediaInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type PostCreateNestedOneWithoutAttachmentsInput = {
     create?: XOR<PostCreateWithoutAttachmentsInput, PostUncheckedCreateWithoutAttachmentsInput>
     connectOrCreate?: PostCreateOrConnectWithoutAttachmentsInput
@@ -25451,6 +25596,16 @@ export namespace Prisma {
 
   export type EnumMediaTypeFieldUpdateOperationsInput = {
     set?: $Enums.MediaType
+  }
+
+  export type UserUpdateOneWithoutMediaNestedInput = {
+    create?: XOR<UserCreateWithoutMediaInput, UserUncheckedCreateWithoutMediaInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMediaInput
+    upsert?: UserUpsertWithoutMediaInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMediaInput, UserUpdateWithoutMediaInput>, UserUncheckedUpdateWithoutMediaInput>
   }
 
   export type PostUpdateOneWithoutAttachmentsNestedInput = {
@@ -26367,6 +26522,32 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type MediaCreateWithoutOwnerInput = {
+    id?: string
+    type: $Enums.MediaType
+    url: string
+    createdAt?: Date | string
+    post?: PostCreateNestedOneWithoutAttachmentsInput
+  }
+
+  export type MediaUncheckedCreateWithoutOwnerInput = {
+    id?: string
+    postId?: string | null
+    type: $Enums.MediaType
+    url: string
+    createdAt?: Date | string
+  }
+
+  export type MediaCreateOrConnectWithoutOwnerInput = {
+    where: MediaWhereUniqueInput
+    create: XOR<MediaCreateWithoutOwnerInput, MediaUncheckedCreateWithoutOwnerInput>
+  }
+
+  export type MediaCreateManyOwnerInputEnvelope = {
+    data: MediaCreateManyOwnerInput | MediaCreateManyOwnerInput[]
+    skipDuplicates?: boolean
+  }
+
   export type NotificationCreateWithoutRecipientInput = {
     id?: string
     type: $Enums.NotificationType
@@ -26785,6 +26966,34 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Comment"> | Date | string
   }
 
+  export type MediaUpsertWithWhereUniqueWithoutOwnerInput = {
+    where: MediaWhereUniqueInput
+    update: XOR<MediaUpdateWithoutOwnerInput, MediaUncheckedUpdateWithoutOwnerInput>
+    create: XOR<MediaCreateWithoutOwnerInput, MediaUncheckedCreateWithoutOwnerInput>
+  }
+
+  export type MediaUpdateWithWhereUniqueWithoutOwnerInput = {
+    where: MediaWhereUniqueInput
+    data: XOR<MediaUpdateWithoutOwnerInput, MediaUncheckedUpdateWithoutOwnerInput>
+  }
+
+  export type MediaUpdateManyWithWhereWithoutOwnerInput = {
+    where: MediaScalarWhereInput
+    data: XOR<MediaUpdateManyMutationInput, MediaUncheckedUpdateManyWithoutOwnerInput>
+  }
+
+  export type MediaScalarWhereInput = {
+    AND?: MediaScalarWhereInput | MediaScalarWhereInput[]
+    OR?: MediaScalarWhereInput[]
+    NOT?: MediaScalarWhereInput | MediaScalarWhereInput[]
+    id?: StringFilter<"Media"> | string
+    ownerId?: StringNullableFilter<"Media"> | string | null
+    postId?: StringNullableFilter<"Media"> | string | null
+    type?: EnumMediaTypeFilter<"Media"> | $Enums.MediaType
+    url?: StringFilter<"Media"> | string
+    createdAt?: DateTimeFilter<"Media"> | Date | string
+  }
+
   export type NotificationUpsertWithWhereUniqueWithoutRecipientInput = {
     where: NotificationWhereUniqueInput
     update: XOR<NotificationUpdateWithoutRecipientInput, NotificationUncheckedUpdateWithoutRecipientInput>
@@ -26995,6 +27204,7 @@ export namespace Prisma {
     likes?: LikeCreateNestedManyWithoutUserInput
     bookmarks?: BookmarkCreateNestedManyWithoutUserInput
     comments?: CommentCreateNestedManyWithoutUserInput
+    media?: MediaCreateNestedManyWithoutOwnerInput
     receivedNotifications?: NotificationCreateNestedManyWithoutRecipientInput
     issuedNotifications?: NotificationCreateNestedManyWithoutIssuerInput
     achievements?: UserAchievementCreateNestedManyWithoutUserInput
@@ -27023,6 +27233,7 @@ export namespace Prisma {
     likes?: LikeUncheckedCreateNestedManyWithoutUserInput
     bookmarks?: BookmarkUncheckedCreateNestedManyWithoutUserInput
     comments?: CommentUncheckedCreateNestedManyWithoutUserInput
+    media?: MediaUncheckedCreateNestedManyWithoutOwnerInput
     receivedNotifications?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
     issuedNotifications?: NotificationUncheckedCreateNestedManyWithoutIssuerInput
     achievements?: UserAchievementUncheckedCreateNestedManyWithoutUserInput
@@ -27067,6 +27278,7 @@ export namespace Prisma {
     likes?: LikeUpdateManyWithoutUserNestedInput
     bookmarks?: BookmarkUpdateManyWithoutUserNestedInput
     comments?: CommentUpdateManyWithoutUserNestedInput
+    media?: MediaUpdateManyWithoutOwnerNestedInput
     receivedNotifications?: NotificationUpdateManyWithoutRecipientNestedInput
     issuedNotifications?: NotificationUpdateManyWithoutIssuerNestedInput
     achievements?: UserAchievementUpdateManyWithoutUserNestedInput
@@ -27095,6 +27307,7 @@ export namespace Prisma {
     likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
     bookmarks?: BookmarkUncheckedUpdateManyWithoutUserNestedInput
     comments?: CommentUncheckedUpdateManyWithoutUserNestedInput
+    media?: MediaUncheckedUpdateManyWithoutOwnerNestedInput
     receivedNotifications?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
     issuedNotifications?: NotificationUncheckedUpdateManyWithoutIssuerNestedInput
     achievements?: UserAchievementUncheckedUpdateManyWithoutUserNestedInput
@@ -27123,6 +27336,7 @@ export namespace Prisma {
     likes?: LikeCreateNestedManyWithoutUserInput
     bookmarks?: BookmarkCreateNestedManyWithoutUserInput
     comments?: CommentCreateNestedManyWithoutUserInput
+    media?: MediaCreateNestedManyWithoutOwnerInput
     receivedNotifications?: NotificationCreateNestedManyWithoutRecipientInput
     issuedNotifications?: NotificationCreateNestedManyWithoutIssuerInput
     achievements?: UserAchievementCreateNestedManyWithoutUserInput
@@ -27151,6 +27365,7 @@ export namespace Prisma {
     likes?: LikeUncheckedCreateNestedManyWithoutUserInput
     bookmarks?: BookmarkUncheckedCreateNestedManyWithoutUserInput
     comments?: CommentUncheckedCreateNestedManyWithoutUserInput
+    media?: MediaUncheckedCreateNestedManyWithoutOwnerInput
     receivedNotifications?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
     issuedNotifications?: NotificationUncheckedCreateNestedManyWithoutIssuerInput
     achievements?: UserAchievementUncheckedCreateNestedManyWithoutUserInput
@@ -27195,6 +27410,7 @@ export namespace Prisma {
     likes?: LikeUpdateManyWithoutUserNestedInput
     bookmarks?: BookmarkUpdateManyWithoutUserNestedInput
     comments?: CommentUpdateManyWithoutUserNestedInput
+    media?: MediaUpdateManyWithoutOwnerNestedInput
     receivedNotifications?: NotificationUpdateManyWithoutRecipientNestedInput
     issuedNotifications?: NotificationUpdateManyWithoutIssuerNestedInput
     achievements?: UserAchievementUpdateManyWithoutUserNestedInput
@@ -27223,6 +27439,7 @@ export namespace Prisma {
     likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
     bookmarks?: BookmarkUncheckedUpdateManyWithoutUserNestedInput
     comments?: CommentUncheckedUpdateManyWithoutUserNestedInput
+    media?: MediaUncheckedUpdateManyWithoutOwnerNestedInput
     receivedNotifications?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
     issuedNotifications?: NotificationUncheckedUpdateManyWithoutIssuerNestedInput
     achievements?: UserAchievementUncheckedUpdateManyWithoutUserNestedInput
@@ -27251,6 +27468,7 @@ export namespace Prisma {
     likes?: LikeCreateNestedManyWithoutUserInput
     bookmarks?: BookmarkCreateNestedManyWithoutUserInput
     comments?: CommentCreateNestedManyWithoutUserInput
+    media?: MediaCreateNestedManyWithoutOwnerInput
     receivedNotifications?: NotificationCreateNestedManyWithoutRecipientInput
     issuedNotifications?: NotificationCreateNestedManyWithoutIssuerInput
     achievements?: UserAchievementCreateNestedManyWithoutUserInput
@@ -27279,6 +27497,7 @@ export namespace Prisma {
     likes?: LikeUncheckedCreateNestedManyWithoutUserInput
     bookmarks?: BookmarkUncheckedCreateNestedManyWithoutUserInput
     comments?: CommentUncheckedCreateNestedManyWithoutUserInput
+    media?: MediaUncheckedCreateNestedManyWithoutOwnerInput
     receivedNotifications?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
     issuedNotifications?: NotificationUncheckedCreateNestedManyWithoutIssuerInput
     achievements?: UserAchievementUncheckedCreateNestedManyWithoutUserInput
@@ -27323,6 +27542,7 @@ export namespace Prisma {
     likes?: LikeUpdateManyWithoutUserNestedInput
     bookmarks?: BookmarkUpdateManyWithoutUserNestedInput
     comments?: CommentUpdateManyWithoutUserNestedInput
+    media?: MediaUpdateManyWithoutOwnerNestedInput
     receivedNotifications?: NotificationUpdateManyWithoutRecipientNestedInput
     issuedNotifications?: NotificationUpdateManyWithoutIssuerNestedInput
     achievements?: UserAchievementUpdateManyWithoutUserNestedInput
@@ -27351,6 +27571,7 @@ export namespace Prisma {
     likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
     bookmarks?: BookmarkUncheckedUpdateManyWithoutUserNestedInput
     comments?: CommentUncheckedUpdateManyWithoutUserNestedInput
+    media?: MediaUncheckedUpdateManyWithoutOwnerNestedInput
     receivedNotifications?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
     issuedNotifications?: NotificationUncheckedUpdateManyWithoutIssuerNestedInput
     achievements?: UserAchievementUncheckedUpdateManyWithoutUserNestedInput
@@ -27379,6 +27600,7 @@ export namespace Prisma {
     likes?: LikeCreateNestedManyWithoutUserInput
     bookmarks?: BookmarkCreateNestedManyWithoutUserInput
     comments?: CommentCreateNestedManyWithoutUserInput
+    media?: MediaCreateNestedManyWithoutOwnerInput
     receivedNotifications?: NotificationCreateNestedManyWithoutRecipientInput
     issuedNotifications?: NotificationCreateNestedManyWithoutIssuerInput
     achievements?: UserAchievementCreateNestedManyWithoutUserInput
@@ -27407,6 +27629,7 @@ export namespace Prisma {
     likes?: LikeUncheckedCreateNestedManyWithoutUserInput
     bookmarks?: BookmarkUncheckedCreateNestedManyWithoutUserInput
     comments?: CommentUncheckedCreateNestedManyWithoutUserInput
+    media?: MediaUncheckedCreateNestedManyWithoutOwnerInput
     receivedNotifications?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
     issuedNotifications?: NotificationUncheckedCreateNestedManyWithoutIssuerInput
     achievements?: UserAchievementUncheckedCreateNestedManyWithoutUserInput
@@ -27440,6 +27663,7 @@ export namespace Prisma {
     likes?: LikeCreateNestedManyWithoutUserInput
     bookmarks?: BookmarkCreateNestedManyWithoutUserInput
     comments?: CommentCreateNestedManyWithoutUserInput
+    media?: MediaCreateNestedManyWithoutOwnerInput
     receivedNotifications?: NotificationCreateNestedManyWithoutRecipientInput
     issuedNotifications?: NotificationCreateNestedManyWithoutIssuerInput
     achievements?: UserAchievementCreateNestedManyWithoutUserInput
@@ -27468,6 +27692,7 @@ export namespace Prisma {
     likes?: LikeUncheckedCreateNestedManyWithoutUserInput
     bookmarks?: BookmarkUncheckedCreateNestedManyWithoutUserInput
     comments?: CommentUncheckedCreateNestedManyWithoutUserInput
+    media?: MediaUncheckedCreateNestedManyWithoutOwnerInput
     receivedNotifications?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
     issuedNotifications?: NotificationUncheckedCreateNestedManyWithoutIssuerInput
     achievements?: UserAchievementUncheckedCreateNestedManyWithoutUserInput
@@ -27512,6 +27737,7 @@ export namespace Prisma {
     likes?: LikeUpdateManyWithoutUserNestedInput
     bookmarks?: BookmarkUpdateManyWithoutUserNestedInput
     comments?: CommentUpdateManyWithoutUserNestedInput
+    media?: MediaUpdateManyWithoutOwnerNestedInput
     receivedNotifications?: NotificationUpdateManyWithoutRecipientNestedInput
     issuedNotifications?: NotificationUpdateManyWithoutIssuerNestedInput
     achievements?: UserAchievementUpdateManyWithoutUserNestedInput
@@ -27540,6 +27766,7 @@ export namespace Prisma {
     likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
     bookmarks?: BookmarkUncheckedUpdateManyWithoutUserNestedInput
     comments?: CommentUncheckedUpdateManyWithoutUserNestedInput
+    media?: MediaUncheckedUpdateManyWithoutOwnerNestedInput
     receivedNotifications?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
     issuedNotifications?: NotificationUncheckedUpdateManyWithoutIssuerNestedInput
     achievements?: UserAchievementUncheckedUpdateManyWithoutUserNestedInput
@@ -27579,6 +27806,7 @@ export namespace Prisma {
     likes?: LikeUpdateManyWithoutUserNestedInput
     bookmarks?: BookmarkUpdateManyWithoutUserNestedInput
     comments?: CommentUpdateManyWithoutUserNestedInput
+    media?: MediaUpdateManyWithoutOwnerNestedInput
     receivedNotifications?: NotificationUpdateManyWithoutRecipientNestedInput
     issuedNotifications?: NotificationUpdateManyWithoutIssuerNestedInput
     achievements?: UserAchievementUpdateManyWithoutUserNestedInput
@@ -27607,6 +27835,7 @@ export namespace Prisma {
     likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
     bookmarks?: BookmarkUncheckedUpdateManyWithoutUserNestedInput
     comments?: CommentUncheckedUpdateManyWithoutUserNestedInput
+    media?: MediaUncheckedUpdateManyWithoutOwnerNestedInput
     receivedNotifications?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
     issuedNotifications?: NotificationUncheckedUpdateManyWithoutIssuerNestedInput
     achievements?: UserAchievementUncheckedUpdateManyWithoutUserNestedInput
@@ -27635,6 +27864,7 @@ export namespace Prisma {
     likes?: LikeCreateNestedManyWithoutUserInput
     bookmarks?: BookmarkCreateNestedManyWithoutUserInput
     comments?: CommentCreateNestedManyWithoutUserInput
+    media?: MediaCreateNestedManyWithoutOwnerInput
     receivedNotifications?: NotificationCreateNestedManyWithoutRecipientInput
     issuedNotifications?: NotificationCreateNestedManyWithoutIssuerInput
     achievements?: UserAchievementCreateNestedManyWithoutUserInput
@@ -27663,6 +27893,7 @@ export namespace Prisma {
     likes?: LikeUncheckedCreateNestedManyWithoutUserInput
     bookmarks?: BookmarkUncheckedCreateNestedManyWithoutUserInput
     comments?: CommentUncheckedCreateNestedManyWithoutUserInput
+    media?: MediaUncheckedCreateNestedManyWithoutOwnerInput
     receivedNotifications?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
     issuedNotifications?: NotificationUncheckedCreateNestedManyWithoutIssuerInput
     achievements?: UserAchievementUncheckedCreateNestedManyWithoutUserInput
@@ -27682,10 +27913,12 @@ export namespace Prisma {
     type: $Enums.MediaType
     url: string
     createdAt?: Date | string
+    owner?: UserCreateNestedOneWithoutMediaInput
   }
 
   export type MediaUncheckedCreateWithoutPostInput = {
     id?: string
+    ownerId?: string | null
     type: $Enums.MediaType
     url: string
     createdAt?: Date | string
@@ -27855,6 +28088,7 @@ export namespace Prisma {
     likes?: LikeUpdateManyWithoutUserNestedInput
     bookmarks?: BookmarkUpdateManyWithoutUserNestedInput
     comments?: CommentUpdateManyWithoutUserNestedInput
+    media?: MediaUpdateManyWithoutOwnerNestedInput
     receivedNotifications?: NotificationUpdateManyWithoutRecipientNestedInput
     issuedNotifications?: NotificationUpdateManyWithoutIssuerNestedInput
     achievements?: UserAchievementUpdateManyWithoutUserNestedInput
@@ -27883,6 +28117,7 @@ export namespace Prisma {
     likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
     bookmarks?: BookmarkUncheckedUpdateManyWithoutUserNestedInput
     comments?: CommentUncheckedUpdateManyWithoutUserNestedInput
+    media?: MediaUncheckedUpdateManyWithoutOwnerNestedInput
     receivedNotifications?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
     issuedNotifications?: NotificationUncheckedUpdateManyWithoutIssuerNestedInput
     achievements?: UserAchievementUncheckedUpdateManyWithoutUserNestedInput
@@ -27906,17 +28141,6 @@ export namespace Prisma {
   export type MediaUpdateManyWithWhereWithoutPostInput = {
     where: MediaScalarWhereInput
     data: XOR<MediaUpdateManyMutationInput, MediaUncheckedUpdateManyWithoutPostInput>
-  }
-
-  export type MediaScalarWhereInput = {
-    AND?: MediaScalarWhereInput | MediaScalarWhereInput[]
-    OR?: MediaScalarWhereInput[]
-    NOT?: MediaScalarWhereInput | MediaScalarWhereInput[]
-    id?: StringFilter<"Media"> | string
-    postId?: StringNullableFilter<"Media"> | string | null
-    type?: EnumMediaTypeFilter<"Media"> | $Enums.MediaType
-    url?: StringFilter<"Media"> | string
-    createdAt?: DateTimeFilter<"Media"> | Date | string
   }
 
   export type LikeUpsertWithWhereUniqueWithoutPostInput = {
@@ -27999,6 +28223,69 @@ export namespace Prisma {
     data: XOR<ReportUpdateManyMutationInput, ReportUncheckedUpdateManyWithoutReportedPostInput>
   }
 
+  export type UserCreateWithoutMediaInput = {
+    id: string
+    username: string
+    displayName: string
+    email?: string | null
+    passwordHash?: string | null
+    googleId?: string | null
+    avatarUrl?: string | null
+    bio?: string | null
+    emailVerifiedAt?: Date | string | null
+    createdAt?: Date | string
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    emailVerificationToken?: EmailVerificationTokenCreateNestedOneWithoutUserInput
+    passwordResetToken?: PasswordResetTokenCreateNestedOneWithoutUserInput
+    posts?: PostCreateNestedManyWithoutUserInput
+    following?: FollowCreateNestedManyWithoutFollowerInput
+    followers?: FollowCreateNestedManyWithoutFollowingInput
+    likes?: LikeCreateNestedManyWithoutUserInput
+    bookmarks?: BookmarkCreateNestedManyWithoutUserInput
+    comments?: CommentCreateNestedManyWithoutUserInput
+    receivedNotifications?: NotificationCreateNestedManyWithoutRecipientInput
+    issuedNotifications?: NotificationCreateNestedManyWithoutIssuerInput
+    achievements?: UserAchievementCreateNestedManyWithoutUserInput
+    chatSessions?: ChatSessionCreateNestedManyWithoutUserInput
+    reports?: ReportCreateNestedManyWithoutReporterInput
+    hostedConferences?: VideoConferenceCreateNestedManyWithoutHostInput
+    conferenceParticipations?: ConferenceParticipantCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutMediaInput = {
+    id: string
+    username: string
+    displayName: string
+    email?: string | null
+    passwordHash?: string | null
+    googleId?: string | null
+    avatarUrl?: string | null
+    bio?: string | null
+    emailVerifiedAt?: Date | string | null
+    createdAt?: Date | string
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    emailVerificationToken?: EmailVerificationTokenUncheckedCreateNestedOneWithoutUserInput
+    passwordResetToken?: PasswordResetTokenUncheckedCreateNestedOneWithoutUserInput
+    posts?: PostUncheckedCreateNestedManyWithoutUserInput
+    following?: FollowUncheckedCreateNestedManyWithoutFollowerInput
+    followers?: FollowUncheckedCreateNestedManyWithoutFollowingInput
+    likes?: LikeUncheckedCreateNestedManyWithoutUserInput
+    bookmarks?: BookmarkUncheckedCreateNestedManyWithoutUserInput
+    comments?: CommentUncheckedCreateNestedManyWithoutUserInput
+    receivedNotifications?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
+    issuedNotifications?: NotificationUncheckedCreateNestedManyWithoutIssuerInput
+    achievements?: UserAchievementUncheckedCreateNestedManyWithoutUserInput
+    chatSessions?: ChatSessionUncheckedCreateNestedManyWithoutUserInput
+    reports?: ReportUncheckedCreateNestedManyWithoutReporterInput
+    hostedConferences?: VideoConferenceUncheckedCreateNestedManyWithoutHostInput
+    conferenceParticipations?: ConferenceParticipantUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutMediaInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutMediaInput, UserUncheckedCreateWithoutMediaInput>
+  }
+
   export type PostCreateWithoutAttachmentsInput = {
     id?: string
     content: string
@@ -28026,6 +28313,75 @@ export namespace Prisma {
   export type PostCreateOrConnectWithoutAttachmentsInput = {
     where: PostWhereUniqueInput
     create: XOR<PostCreateWithoutAttachmentsInput, PostUncheckedCreateWithoutAttachmentsInput>
+  }
+
+  export type UserUpsertWithoutMediaInput = {
+    update: XOR<UserUpdateWithoutMediaInput, UserUncheckedUpdateWithoutMediaInput>
+    create: XOR<UserCreateWithoutMediaInput, UserUncheckedCreateWithoutMediaInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutMediaInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutMediaInput, UserUncheckedUpdateWithoutMediaInput>
+  }
+
+  export type UserUpdateWithoutMediaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    displayName?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    emailVerificationToken?: EmailVerificationTokenUpdateOneWithoutUserNestedInput
+    passwordResetToken?: PasswordResetTokenUpdateOneWithoutUserNestedInput
+    posts?: PostUpdateManyWithoutUserNestedInput
+    following?: FollowUpdateManyWithoutFollowerNestedInput
+    followers?: FollowUpdateManyWithoutFollowingNestedInput
+    likes?: LikeUpdateManyWithoutUserNestedInput
+    bookmarks?: BookmarkUpdateManyWithoutUserNestedInput
+    comments?: CommentUpdateManyWithoutUserNestedInput
+    receivedNotifications?: NotificationUpdateManyWithoutRecipientNestedInput
+    issuedNotifications?: NotificationUpdateManyWithoutIssuerNestedInput
+    achievements?: UserAchievementUpdateManyWithoutUserNestedInput
+    chatSessions?: ChatSessionUpdateManyWithoutUserNestedInput
+    reports?: ReportUpdateManyWithoutReporterNestedInput
+    hostedConferences?: VideoConferenceUpdateManyWithoutHostNestedInput
+    conferenceParticipations?: ConferenceParticipantUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutMediaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    displayName?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    emailVerificationToken?: EmailVerificationTokenUncheckedUpdateOneWithoutUserNestedInput
+    passwordResetToken?: PasswordResetTokenUncheckedUpdateOneWithoutUserNestedInput
+    posts?: PostUncheckedUpdateManyWithoutUserNestedInput
+    following?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
+    followers?: FollowUncheckedUpdateManyWithoutFollowingNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
+    bookmarks?: BookmarkUncheckedUpdateManyWithoutUserNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutUserNestedInput
+    receivedNotifications?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+    issuedNotifications?: NotificationUncheckedUpdateManyWithoutIssuerNestedInput
+    achievements?: UserAchievementUncheckedUpdateManyWithoutUserNestedInput
+    chatSessions?: ChatSessionUncheckedUpdateManyWithoutUserNestedInput
+    reports?: ReportUncheckedUpdateManyWithoutReporterNestedInput
+    hostedConferences?: VideoConferenceUncheckedUpdateManyWithoutHostNestedInput
+    conferenceParticipations?: ConferenceParticipantUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PostUpsertWithoutAttachmentsInput = {
@@ -28082,6 +28438,7 @@ export namespace Prisma {
     followers?: FollowCreateNestedManyWithoutFollowingInput
     likes?: LikeCreateNestedManyWithoutUserInput
     bookmarks?: BookmarkCreateNestedManyWithoutUserInput
+    media?: MediaCreateNestedManyWithoutOwnerInput
     receivedNotifications?: NotificationCreateNestedManyWithoutRecipientInput
     issuedNotifications?: NotificationCreateNestedManyWithoutIssuerInput
     achievements?: UserAchievementCreateNestedManyWithoutUserInput
@@ -28110,6 +28467,7 @@ export namespace Prisma {
     followers?: FollowUncheckedCreateNestedManyWithoutFollowingInput
     likes?: LikeUncheckedCreateNestedManyWithoutUserInput
     bookmarks?: BookmarkUncheckedCreateNestedManyWithoutUserInput
+    media?: MediaUncheckedCreateNestedManyWithoutOwnerInput
     receivedNotifications?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
     issuedNotifications?: NotificationUncheckedCreateNestedManyWithoutIssuerInput
     achievements?: UserAchievementUncheckedCreateNestedManyWithoutUserInput
@@ -28213,6 +28571,7 @@ export namespace Prisma {
     followers?: FollowUpdateManyWithoutFollowingNestedInput
     likes?: LikeUpdateManyWithoutUserNestedInput
     bookmarks?: BookmarkUpdateManyWithoutUserNestedInput
+    media?: MediaUpdateManyWithoutOwnerNestedInput
     receivedNotifications?: NotificationUpdateManyWithoutRecipientNestedInput
     issuedNotifications?: NotificationUpdateManyWithoutIssuerNestedInput
     achievements?: UserAchievementUpdateManyWithoutUserNestedInput
@@ -28241,6 +28600,7 @@ export namespace Prisma {
     followers?: FollowUncheckedUpdateManyWithoutFollowingNestedInput
     likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
     bookmarks?: BookmarkUncheckedUpdateManyWithoutUserNestedInput
+    media?: MediaUncheckedUpdateManyWithoutOwnerNestedInput
     receivedNotifications?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
     issuedNotifications?: NotificationUncheckedUpdateManyWithoutIssuerNestedInput
     achievements?: UserAchievementUncheckedUpdateManyWithoutUserNestedInput
@@ -28320,6 +28680,7 @@ export namespace Prisma {
     followers?: FollowCreateNestedManyWithoutFollowingInput
     bookmarks?: BookmarkCreateNestedManyWithoutUserInput
     comments?: CommentCreateNestedManyWithoutUserInput
+    media?: MediaCreateNestedManyWithoutOwnerInput
     receivedNotifications?: NotificationCreateNestedManyWithoutRecipientInput
     issuedNotifications?: NotificationCreateNestedManyWithoutIssuerInput
     achievements?: UserAchievementCreateNestedManyWithoutUserInput
@@ -28348,6 +28709,7 @@ export namespace Prisma {
     followers?: FollowUncheckedCreateNestedManyWithoutFollowingInput
     bookmarks?: BookmarkUncheckedCreateNestedManyWithoutUserInput
     comments?: CommentUncheckedCreateNestedManyWithoutUserInput
+    media?: MediaUncheckedCreateNestedManyWithoutOwnerInput
     receivedNotifications?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
     issuedNotifications?: NotificationUncheckedCreateNestedManyWithoutIssuerInput
     achievements?: UserAchievementUncheckedCreateNestedManyWithoutUserInput
@@ -28421,6 +28783,7 @@ export namespace Prisma {
     followers?: FollowUpdateManyWithoutFollowingNestedInput
     bookmarks?: BookmarkUpdateManyWithoutUserNestedInput
     comments?: CommentUpdateManyWithoutUserNestedInput
+    media?: MediaUpdateManyWithoutOwnerNestedInput
     receivedNotifications?: NotificationUpdateManyWithoutRecipientNestedInput
     issuedNotifications?: NotificationUpdateManyWithoutIssuerNestedInput
     achievements?: UserAchievementUpdateManyWithoutUserNestedInput
@@ -28449,6 +28812,7 @@ export namespace Prisma {
     followers?: FollowUncheckedUpdateManyWithoutFollowingNestedInput
     bookmarks?: BookmarkUncheckedUpdateManyWithoutUserNestedInput
     comments?: CommentUncheckedUpdateManyWithoutUserNestedInput
+    media?: MediaUncheckedUpdateManyWithoutOwnerNestedInput
     receivedNotifications?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
     issuedNotifications?: NotificationUncheckedUpdateManyWithoutIssuerNestedInput
     achievements?: UserAchievementUncheckedUpdateManyWithoutUserNestedInput
@@ -28512,6 +28876,7 @@ export namespace Prisma {
     followers?: FollowCreateNestedManyWithoutFollowingInput
     likes?: LikeCreateNestedManyWithoutUserInput
     comments?: CommentCreateNestedManyWithoutUserInput
+    media?: MediaCreateNestedManyWithoutOwnerInput
     receivedNotifications?: NotificationCreateNestedManyWithoutRecipientInput
     issuedNotifications?: NotificationCreateNestedManyWithoutIssuerInput
     achievements?: UserAchievementCreateNestedManyWithoutUserInput
@@ -28540,6 +28905,7 @@ export namespace Prisma {
     followers?: FollowUncheckedCreateNestedManyWithoutFollowingInput
     likes?: LikeUncheckedCreateNestedManyWithoutUserInput
     comments?: CommentUncheckedCreateNestedManyWithoutUserInput
+    media?: MediaUncheckedCreateNestedManyWithoutOwnerInput
     receivedNotifications?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
     issuedNotifications?: NotificationUncheckedCreateNestedManyWithoutIssuerInput
     achievements?: UserAchievementUncheckedCreateNestedManyWithoutUserInput
@@ -28613,6 +28979,7 @@ export namespace Prisma {
     followers?: FollowUpdateManyWithoutFollowingNestedInput
     likes?: LikeUpdateManyWithoutUserNestedInput
     comments?: CommentUpdateManyWithoutUserNestedInput
+    media?: MediaUpdateManyWithoutOwnerNestedInput
     receivedNotifications?: NotificationUpdateManyWithoutRecipientNestedInput
     issuedNotifications?: NotificationUpdateManyWithoutIssuerNestedInput
     achievements?: UserAchievementUpdateManyWithoutUserNestedInput
@@ -28641,6 +29008,7 @@ export namespace Prisma {
     followers?: FollowUncheckedUpdateManyWithoutFollowingNestedInput
     likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
     comments?: CommentUncheckedUpdateManyWithoutUserNestedInput
+    media?: MediaUncheckedUpdateManyWithoutOwnerNestedInput
     receivedNotifications?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
     issuedNotifications?: NotificationUncheckedUpdateManyWithoutIssuerNestedInput
     achievements?: UserAchievementUncheckedUpdateManyWithoutUserNestedInput
@@ -28705,6 +29073,7 @@ export namespace Prisma {
     likes?: LikeCreateNestedManyWithoutUserInput
     bookmarks?: BookmarkCreateNestedManyWithoutUserInput
     comments?: CommentCreateNestedManyWithoutUserInput
+    media?: MediaCreateNestedManyWithoutOwnerInput
     issuedNotifications?: NotificationCreateNestedManyWithoutIssuerInput
     achievements?: UserAchievementCreateNestedManyWithoutUserInput
     chatSessions?: ChatSessionCreateNestedManyWithoutUserInput
@@ -28733,6 +29102,7 @@ export namespace Prisma {
     likes?: LikeUncheckedCreateNestedManyWithoutUserInput
     bookmarks?: BookmarkUncheckedCreateNestedManyWithoutUserInput
     comments?: CommentUncheckedCreateNestedManyWithoutUserInput
+    media?: MediaUncheckedCreateNestedManyWithoutOwnerInput
     issuedNotifications?: NotificationUncheckedCreateNestedManyWithoutIssuerInput
     achievements?: UserAchievementUncheckedCreateNestedManyWithoutUserInput
     chatSessions?: ChatSessionUncheckedCreateNestedManyWithoutUserInput
@@ -28766,6 +29136,7 @@ export namespace Prisma {
     likes?: LikeCreateNestedManyWithoutUserInput
     bookmarks?: BookmarkCreateNestedManyWithoutUserInput
     comments?: CommentCreateNestedManyWithoutUserInput
+    media?: MediaCreateNestedManyWithoutOwnerInput
     receivedNotifications?: NotificationCreateNestedManyWithoutRecipientInput
     achievements?: UserAchievementCreateNestedManyWithoutUserInput
     chatSessions?: ChatSessionCreateNestedManyWithoutUserInput
@@ -28794,6 +29165,7 @@ export namespace Prisma {
     likes?: LikeUncheckedCreateNestedManyWithoutUserInput
     bookmarks?: BookmarkUncheckedCreateNestedManyWithoutUserInput
     comments?: CommentUncheckedCreateNestedManyWithoutUserInput
+    media?: MediaUncheckedCreateNestedManyWithoutOwnerInput
     receivedNotifications?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
     achievements?: UserAchievementUncheckedCreateNestedManyWithoutUserInput
     chatSessions?: ChatSessionUncheckedCreateNestedManyWithoutUserInput
@@ -28867,6 +29239,7 @@ export namespace Prisma {
     likes?: LikeUpdateManyWithoutUserNestedInput
     bookmarks?: BookmarkUpdateManyWithoutUserNestedInput
     comments?: CommentUpdateManyWithoutUserNestedInput
+    media?: MediaUpdateManyWithoutOwnerNestedInput
     issuedNotifications?: NotificationUpdateManyWithoutIssuerNestedInput
     achievements?: UserAchievementUpdateManyWithoutUserNestedInput
     chatSessions?: ChatSessionUpdateManyWithoutUserNestedInput
@@ -28895,6 +29268,7 @@ export namespace Prisma {
     likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
     bookmarks?: BookmarkUncheckedUpdateManyWithoutUserNestedInput
     comments?: CommentUncheckedUpdateManyWithoutUserNestedInput
+    media?: MediaUncheckedUpdateManyWithoutOwnerNestedInput
     issuedNotifications?: NotificationUncheckedUpdateManyWithoutIssuerNestedInput
     achievements?: UserAchievementUncheckedUpdateManyWithoutUserNestedInput
     chatSessions?: ChatSessionUncheckedUpdateManyWithoutUserNestedInput
@@ -28934,6 +29308,7 @@ export namespace Prisma {
     likes?: LikeUpdateManyWithoutUserNestedInput
     bookmarks?: BookmarkUpdateManyWithoutUserNestedInput
     comments?: CommentUpdateManyWithoutUserNestedInput
+    media?: MediaUpdateManyWithoutOwnerNestedInput
     receivedNotifications?: NotificationUpdateManyWithoutRecipientNestedInput
     achievements?: UserAchievementUpdateManyWithoutUserNestedInput
     chatSessions?: ChatSessionUpdateManyWithoutUserNestedInput
@@ -28962,6 +29337,7 @@ export namespace Prisma {
     likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
     bookmarks?: BookmarkUncheckedUpdateManyWithoutUserNestedInput
     comments?: CommentUncheckedUpdateManyWithoutUserNestedInput
+    media?: MediaUncheckedUpdateManyWithoutOwnerNestedInput
     receivedNotifications?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
     achievements?: UserAchievementUncheckedUpdateManyWithoutUserNestedInput
     chatSessions?: ChatSessionUncheckedUpdateManyWithoutUserNestedInput
@@ -29067,6 +29443,7 @@ export namespace Prisma {
     likes?: LikeCreateNestedManyWithoutUserInput
     bookmarks?: BookmarkCreateNestedManyWithoutUserInput
     comments?: CommentCreateNestedManyWithoutUserInput
+    media?: MediaCreateNestedManyWithoutOwnerInput
     receivedNotifications?: NotificationCreateNestedManyWithoutRecipientInput
     issuedNotifications?: NotificationCreateNestedManyWithoutIssuerInput
     chatSessions?: ChatSessionCreateNestedManyWithoutUserInput
@@ -29095,6 +29472,7 @@ export namespace Prisma {
     likes?: LikeUncheckedCreateNestedManyWithoutUserInput
     bookmarks?: BookmarkUncheckedCreateNestedManyWithoutUserInput
     comments?: CommentUncheckedCreateNestedManyWithoutUserInput
+    media?: MediaUncheckedCreateNestedManyWithoutOwnerInput
     receivedNotifications?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
     issuedNotifications?: NotificationUncheckedCreateNestedManyWithoutIssuerInput
     chatSessions?: ChatSessionUncheckedCreateNestedManyWithoutUserInput
@@ -29166,6 +29544,7 @@ export namespace Prisma {
     likes?: LikeUpdateManyWithoutUserNestedInput
     bookmarks?: BookmarkUpdateManyWithoutUserNestedInput
     comments?: CommentUpdateManyWithoutUserNestedInput
+    media?: MediaUpdateManyWithoutOwnerNestedInput
     receivedNotifications?: NotificationUpdateManyWithoutRecipientNestedInput
     issuedNotifications?: NotificationUpdateManyWithoutIssuerNestedInput
     chatSessions?: ChatSessionUpdateManyWithoutUserNestedInput
@@ -29194,6 +29573,7 @@ export namespace Prisma {
     likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
     bookmarks?: BookmarkUncheckedUpdateManyWithoutUserNestedInput
     comments?: CommentUncheckedUpdateManyWithoutUserNestedInput
+    media?: MediaUncheckedUpdateManyWithoutOwnerNestedInput
     receivedNotifications?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
     issuedNotifications?: NotificationUncheckedUpdateManyWithoutIssuerNestedInput
     chatSessions?: ChatSessionUncheckedUpdateManyWithoutUserNestedInput
@@ -29255,6 +29635,7 @@ export namespace Prisma {
     likes?: LikeCreateNestedManyWithoutUserInput
     bookmarks?: BookmarkCreateNestedManyWithoutUserInput
     comments?: CommentCreateNestedManyWithoutUserInput
+    media?: MediaCreateNestedManyWithoutOwnerInput
     receivedNotifications?: NotificationCreateNestedManyWithoutRecipientInput
     issuedNotifications?: NotificationCreateNestedManyWithoutIssuerInput
     achievements?: UserAchievementCreateNestedManyWithoutUserInput
@@ -29283,6 +29664,7 @@ export namespace Prisma {
     likes?: LikeUncheckedCreateNestedManyWithoutUserInput
     bookmarks?: BookmarkUncheckedCreateNestedManyWithoutUserInput
     comments?: CommentUncheckedCreateNestedManyWithoutUserInput
+    media?: MediaUncheckedCreateNestedManyWithoutOwnerInput
     receivedNotifications?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
     issuedNotifications?: NotificationUncheckedCreateNestedManyWithoutIssuerInput
     achievements?: UserAchievementUncheckedCreateNestedManyWithoutUserInput
@@ -29327,6 +29709,7 @@ export namespace Prisma {
     likes?: LikeUpdateManyWithoutUserNestedInput
     bookmarks?: BookmarkUpdateManyWithoutUserNestedInput
     comments?: CommentUpdateManyWithoutUserNestedInput
+    media?: MediaUpdateManyWithoutOwnerNestedInput
     receivedNotifications?: NotificationUpdateManyWithoutRecipientNestedInput
     issuedNotifications?: NotificationUpdateManyWithoutIssuerNestedInput
     achievements?: UserAchievementUpdateManyWithoutUserNestedInput
@@ -29355,6 +29738,7 @@ export namespace Prisma {
     likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
     bookmarks?: BookmarkUncheckedUpdateManyWithoutUserNestedInput
     comments?: CommentUncheckedUpdateManyWithoutUserNestedInput
+    media?: MediaUncheckedUpdateManyWithoutOwnerNestedInput
     receivedNotifications?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
     issuedNotifications?: NotificationUncheckedUpdateManyWithoutIssuerNestedInput
     achievements?: UserAchievementUncheckedUpdateManyWithoutUserNestedInput
@@ -29433,6 +29817,7 @@ export namespace Prisma {
     likes?: LikeCreateNestedManyWithoutUserInput
     bookmarks?: BookmarkCreateNestedManyWithoutUserInput
     comments?: CommentCreateNestedManyWithoutUserInput
+    media?: MediaCreateNestedManyWithoutOwnerInput
     receivedNotifications?: NotificationCreateNestedManyWithoutRecipientInput
     issuedNotifications?: NotificationCreateNestedManyWithoutIssuerInput
     achievements?: UserAchievementCreateNestedManyWithoutUserInput
@@ -29461,6 +29846,7 @@ export namespace Prisma {
     likes?: LikeUncheckedCreateNestedManyWithoutUserInput
     bookmarks?: BookmarkUncheckedCreateNestedManyWithoutUserInput
     comments?: CommentUncheckedCreateNestedManyWithoutUserInput
+    media?: MediaUncheckedCreateNestedManyWithoutOwnerInput
     receivedNotifications?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
     issuedNotifications?: NotificationUncheckedCreateNestedManyWithoutIssuerInput
     achievements?: UserAchievementUncheckedCreateNestedManyWithoutUserInput
@@ -29567,6 +29953,7 @@ export namespace Prisma {
     likes?: LikeUpdateManyWithoutUserNestedInput
     bookmarks?: BookmarkUpdateManyWithoutUserNestedInput
     comments?: CommentUpdateManyWithoutUserNestedInput
+    media?: MediaUpdateManyWithoutOwnerNestedInput
     receivedNotifications?: NotificationUpdateManyWithoutRecipientNestedInput
     issuedNotifications?: NotificationUpdateManyWithoutIssuerNestedInput
     achievements?: UserAchievementUpdateManyWithoutUserNestedInput
@@ -29595,6 +29982,7 @@ export namespace Prisma {
     likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
     bookmarks?: BookmarkUncheckedUpdateManyWithoutUserNestedInput
     comments?: CommentUncheckedUpdateManyWithoutUserNestedInput
+    media?: MediaUncheckedUpdateManyWithoutOwnerNestedInput
     receivedNotifications?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
     issuedNotifications?: NotificationUncheckedUpdateManyWithoutIssuerNestedInput
     achievements?: UserAchievementUncheckedUpdateManyWithoutUserNestedInput
@@ -29623,6 +30011,7 @@ export namespace Prisma {
     likes?: LikeCreateNestedManyWithoutUserInput
     bookmarks?: BookmarkCreateNestedManyWithoutUserInput
     comments?: CommentCreateNestedManyWithoutUserInput
+    media?: MediaCreateNestedManyWithoutOwnerInput
     receivedNotifications?: NotificationCreateNestedManyWithoutRecipientInput
     issuedNotifications?: NotificationCreateNestedManyWithoutIssuerInput
     achievements?: UserAchievementCreateNestedManyWithoutUserInput
@@ -29651,6 +30040,7 @@ export namespace Prisma {
     likes?: LikeUncheckedCreateNestedManyWithoutUserInput
     bookmarks?: BookmarkUncheckedCreateNestedManyWithoutUserInput
     comments?: CommentUncheckedCreateNestedManyWithoutUserInput
+    media?: MediaUncheckedCreateNestedManyWithoutOwnerInput
     receivedNotifications?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
     issuedNotifications?: NotificationUncheckedCreateNestedManyWithoutIssuerInput
     achievements?: UserAchievementUncheckedCreateNestedManyWithoutUserInput
@@ -29719,6 +30109,7 @@ export namespace Prisma {
     likes?: LikeUpdateManyWithoutUserNestedInput
     bookmarks?: BookmarkUpdateManyWithoutUserNestedInput
     comments?: CommentUpdateManyWithoutUserNestedInput
+    media?: MediaUpdateManyWithoutOwnerNestedInput
     receivedNotifications?: NotificationUpdateManyWithoutRecipientNestedInput
     issuedNotifications?: NotificationUpdateManyWithoutIssuerNestedInput
     achievements?: UserAchievementUpdateManyWithoutUserNestedInput
@@ -29747,6 +30138,7 @@ export namespace Prisma {
     likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
     bookmarks?: BookmarkUncheckedUpdateManyWithoutUserNestedInput
     comments?: CommentUncheckedUpdateManyWithoutUserNestedInput
+    media?: MediaUncheckedUpdateManyWithoutOwnerNestedInput
     receivedNotifications?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
     issuedNotifications?: NotificationUncheckedUpdateManyWithoutIssuerNestedInput
     achievements?: UserAchievementUncheckedUpdateManyWithoutUserNestedInput
@@ -29824,6 +30216,7 @@ export namespace Prisma {
     likes?: LikeCreateNestedManyWithoutUserInput
     bookmarks?: BookmarkCreateNestedManyWithoutUserInput
     comments?: CommentCreateNestedManyWithoutUserInput
+    media?: MediaCreateNestedManyWithoutOwnerInput
     receivedNotifications?: NotificationCreateNestedManyWithoutRecipientInput
     issuedNotifications?: NotificationCreateNestedManyWithoutIssuerInput
     achievements?: UserAchievementCreateNestedManyWithoutUserInput
@@ -29852,6 +30245,7 @@ export namespace Prisma {
     likes?: LikeUncheckedCreateNestedManyWithoutUserInput
     bookmarks?: BookmarkUncheckedCreateNestedManyWithoutUserInput
     comments?: CommentUncheckedCreateNestedManyWithoutUserInput
+    media?: MediaUncheckedCreateNestedManyWithoutOwnerInput
     receivedNotifications?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
     issuedNotifications?: NotificationUncheckedCreateNestedManyWithoutIssuerInput
     achievements?: UserAchievementUncheckedCreateNestedManyWithoutUserInput
@@ -29935,6 +30329,7 @@ export namespace Prisma {
     likes?: LikeUpdateManyWithoutUserNestedInput
     bookmarks?: BookmarkUpdateManyWithoutUserNestedInput
     comments?: CommentUpdateManyWithoutUserNestedInput
+    media?: MediaUpdateManyWithoutOwnerNestedInput
     receivedNotifications?: NotificationUpdateManyWithoutRecipientNestedInput
     issuedNotifications?: NotificationUpdateManyWithoutIssuerNestedInput
     achievements?: UserAchievementUpdateManyWithoutUserNestedInput
@@ -29963,6 +30358,7 @@ export namespace Prisma {
     likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
     bookmarks?: BookmarkUncheckedUpdateManyWithoutUserNestedInput
     comments?: CommentUncheckedUpdateManyWithoutUserNestedInput
+    media?: MediaUncheckedUpdateManyWithoutOwnerNestedInput
     receivedNotifications?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
     issuedNotifications?: NotificationUncheckedUpdateManyWithoutIssuerNestedInput
     achievements?: UserAchievementUncheckedUpdateManyWithoutUserNestedInput
@@ -30004,6 +30400,14 @@ export namespace Prisma {
     id?: string
     content: string
     postId: string
+    createdAt?: Date | string
+  }
+
+  export type MediaCreateManyOwnerInput = {
+    id?: string
+    postId?: string | null
+    type: $Enums.MediaType
+    url: string
     createdAt?: Date | string
   }
 
@@ -30190,6 +30594,30 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     postId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MediaUpdateWithoutOwnerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
+    url?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    post?: PostUpdateOneWithoutAttachmentsNestedInput
+  }
+
+  export type MediaUncheckedUpdateWithoutOwnerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    postId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
+    url?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MediaUncheckedUpdateManyWithoutOwnerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    postId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
+    url?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -30389,6 +30817,7 @@ export namespace Prisma {
 
   export type MediaCreateManyPostInput = {
     id?: string
+    ownerId?: string | null
     type: $Enums.MediaType
     url: string
     createdAt?: Date | string
@@ -30435,10 +30864,12 @@ export namespace Prisma {
     type?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
     url?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    owner?: UserUpdateOneWithoutMediaNestedInput
   }
 
   export type MediaUncheckedUpdateWithoutPostInput = {
     id?: StringFieldUpdateOperationsInput | string
+    ownerId?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
     url?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -30446,6 +30877,7 @@ export namespace Prisma {
 
   export type MediaUncheckedUpdateManyWithoutPostInput = {
     id?: StringFieldUpdateOperationsInput | string
+    ownerId?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
     url?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

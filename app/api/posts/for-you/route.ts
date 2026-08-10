@@ -1,33 +1,41 @@
-import { validateRequest } from "@/app/auth"
-import prisma from "@/lib/prisma"
-import { getPostDataInclude, type PostsPage, ACADEMIC_SUBJECTS } from "@/lib/types"
-import type { NextRequest } from "next/server"
-import type { Prisma } from "@/lib/generated/prisma"
+import { validateRequest } from "@/app/auth";
+import prisma from "@/lib/prisma";
+import {
+  getPostDataInclude,
+  type PostsPage,
+  ACADEMIC_SUBJECTS,
+} from "@/lib/types";
+import type { NextRequest } from "next/server";
+import type { Prisma } from "@/lib/generated/prisma";
+import { buildSubjectRelevanceQuery } from "@/lib/personalization";
 
 export async function GET(req: NextRequest) {
   try {
-    const cursor = req.nextUrl.searchParams.get("cursor") || undefined
-    const subject = req.nextUrl.searchParams.get("subject") || undefined
+    const cursor = req.nextUrl.searchParams.get("cursor") || undefined;
+    const subject = req.nextUrl.searchParams.get("subject") || undefined;
 
-    const pageSize = 10
-    const { user } = await validateRequest()
+    const pageSize = 10;
+    const { user } = await validateRequest();
 
     if (!user) {
-      return Response.json({ error: "Unauthorized" }, { status: 401 })
+      return Response.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    // Build where clause based on subject filter
-    let whereClause: Prisma.PostWhereInput = {}
+    // Build where clause based on an explicit subject filter.
+    let whereClause: Prisma.PostWhereInput = {};
 
     if (subject && subject !== "all") {
       // Check if the subject is valid
-      const validSubject = ACADEMIC_SUBJECTS.find((s) => s.id === subject)
+      const validSubject = ACADEMIC_SUBJECTS.find((s) => s.id === subject);
       if (!validSubject) {
-        return Response.json({ error: "Invalid subject filter" }, { status: 400 })
+        return Response.json(
+          { error: "Invalid subject filter" },
+          { status: 400 },
+        );
       }
 
       // Create search terms for the subject
-      const subjectTerms = getSubjectSearchTerms(subject)
+      const subjectTerms = getSubjectSearchTerms(subject);
 
       // Use simpler ILIKE queries instead of full-text search
       whereClause = {
@@ -37,28 +45,51 @@ export async function GET(req: NextRequest) {
             mode: "insensitive" as const,
           },
         })),
-      }
+      };
     }
+
+    const preferences = subject
+      ? null
+      : await prisma.userPreference.findUnique({
+          where: { userId: user.id },
+          select: { subjects: true },
+        });
+    const relevanceQuery = buildSubjectRelevanceQuery(
+      preferences?.subjects ?? [],
+    );
+    const orderBy: Prisma.PostOrderByWithRelationInput[] = relevanceQuery
+      ? [
+          {
+            _relevance: {
+              fields: ["content"],
+              search: relevanceQuery,
+              sort: "desc",
+            },
+          },
+          { createdAt: "desc" },
+          { id: "desc" },
+        ]
+      : [{ createdAt: "desc" }, { id: "desc" }];
 
     const posts = await prisma.post.findMany({
       where: whereClause,
       include: getPostDataInclude(user.id),
-      orderBy: { createdAt: "desc" },
+      orderBy,
       take: pageSize + 1,
       cursor: cursor ? { id: cursor } : undefined,
-    })
+    });
 
-    const nextCursor = posts.length > pageSize ? posts[pageSize].id : null
+    const nextCursor = posts.length > pageSize ? posts[pageSize].id : null;
 
     const data: PostsPage = {
       posts: posts.slice(0, pageSize),
       nextCursor,
-    }
+    };
 
-    return Response.json(data)
+    return Response.json(data);
   } catch (error) {
-    console.error("For-you API error:", error)
-    return Response.json({ error: "Internal server error" }, { status: 500 })
+    console.error("For-you API error:", error);
+    return Response.json({ error: "Internal server error" }, { status: 500 });
   }
 }
 
@@ -235,7 +266,7 @@ function getSubjectSearchTerms(subject: string): string[] {
       "neuroscience",
       "cbt",
     ],
-  }
+  };
 
-  return searchTermsMap[subject] || [subject.replace("-", " ")]
+  return searchTermsMap[subject] || [subject.replace("-", " ")];
 }

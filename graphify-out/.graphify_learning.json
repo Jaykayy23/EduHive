@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-07T23:43:33.189786+00:00",
+  "generated_at": "2026-08-10T16:46:34.015056+00:00",
   "nodes": {
     "agents_skills_migrate_radix_to_base_overlays_popover": {
       "code_fingerprint": "238c2b529c55c4ff0ff36ad93de9f452e615cd7912b32bd290a0ffe8aa8053f2",
@@ -12,7 +12,7 @@
           "q": "Where are the dark mode theme tokens defined, and which components depend on background, card, popover, muted, border, and sidebar colors?"
         }
       ],
-      "score": 0.991237678,
+      "score": 0.93106603,
       "source_file": ".agents/skills/migrate-radix-to-base/overlays.md",
       "status": "tentative",
       "uses": 1
@@ -28,7 +28,7 @@
           "q": "Where are the dark mode theme tokens defined, and which components depend on background, card, popover, muted, border, and sidebar colors?"
         }
       ],
-      "score": 0.991237678,
+      "score": 0.93106603,
       "source_file": ".agents/skills/shadcn/customization.md",
       "status": "tentative",
       "uses": 1
@@ -44,8 +44,24 @@
           "q": "undo this redesign and revert back to the previous design before this"
         }
       ],
-      "score": 0.99991926,
+      "score": 0.939220609,
       "source_file": "app/(main)/bookmarks/Bookmarks.tsx",
+      "status": "tentative",
+      "uses": 1
+    },
+    "app_main_hiveq_page_hiveqpage": {
+      "code_fingerprint": "33203f6d822090230e0ffedc88298781f28dc273cddb01685c005eb478166a20",
+      "label": "HiveQPage()",
+      "last": "2026-08-07T23:45:44.280776+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-07T23:45:44.280776+00:00",
+          "outcome": "useful",
+          "q": "use the hiveq icon on the menu bar for the one on the page"
+        }
+      ],
+      "score": 0.939329377,
+      "source_file": "app/(main)/hiveq/page.tsx",
       "status": "tentative",
       "uses": 1
     },
@@ -60,7 +76,7 @@
           "q": "undo this redesign and revert back to the previous design before this"
         }
       ],
-      "score": 0.99991926,
+      "score": 0.939220609,
       "source_file": "app/(main)/home/page.tsx",
       "status": "tentative",
       "uses": 1
@@ -76,7 +92,7 @@
           "q": "you are an expert frontend developer and ui/ux designer, redesign the other pages as well. let me see the design before you apply them"
         }
       ],
-      "score": 0.998761645,
+      "score": 0.938133266,
       "source_file": "app/(main)/HomePageContent.tsx",
       "status": "tentative",
       "uses": 1
@@ -84,18 +100,23 @@
     "app_main_menubar_menubar": {
       "code_fingerprint": "6c230189f8cebf712be0e50e24189290fc3fc454c1a7827cbc182bdc8369c5c2",
       "label": "MenuBar()",
-      "last": "2026-08-07T23:38:31.252214+00:00",
+      "last": "2026-08-07T23:45:44.280776+00:00",
       "provenance": [
+        {
+          "date": "2026-08-07T23:45:44.280776+00:00",
+          "outcome": "useful",
+          "q": "use the hiveq icon on the menu bar for the one on the page"
+        },
         {
           "date": "2026-08-07T23:38:31.252214+00:00",
           "outcome": "useful",
           "q": "undo this redesign and revert back to the previous design before this"
         }
       ],
-      "score": 0.99991926,
+      "score": 1.878549986,
       "source_file": "app/(main)/MenuBar.tsx",
-      "status": "tentative",
-      "uses": 1
+      "status": "preferred",
+      "uses": 2
     },
     "app_main_messages_chat": {
       "code_fingerprint": "6408599f5e058427c3a78a40eb0eb4759b488fcaa2b095101ab65fc2d0a0f0c8",
@@ -113,7 +134,7 @@
           "q": "Why are features missing from the messages page on mobile?"
         }
       ],
-      "score": 1.990514217,
+      "score": 1.869682935,
       "source_file": "app/(main)/messages/Chat.tsx",
       "status": "preferred",
       "uses": 2
@@ -129,7 +150,7 @@
           "q": "Why are features missing from the messages page on mobile?"
         }
       ],
-      "score": 0.991752573,
+      "score": 0.931549669,
       "source_file": "app/(main)/messages/ChatChannel.tsx",
       "status": "tentative",
       "uses": 1
@@ -145,7 +166,7 @@
           "q": "Why are features missing from the messages page on mobile?"
         }
       ],
-      "score": 0.991752573,
+      "score": 0.931549669,
       "source_file": "app/(main)/messages/ChatSidebar.tsx",
       "status": "tentative",
       "uses": 1
@@ -161,7 +182,7 @@
           "q": "Why are features missing from the messages page on mobile?"
         }
       ],
-      "score": 0.991752573,
+      "score": 0.931549669,
       "source_file": "app/(main)/messages/NewChatDialog.tsx",
       "status": "tentative",
       "uses": 1
@@ -177,7 +198,7 @@
           "q": "undo this redesign and revert back to the previous design before this"
         }
       ],
-      "score": 0.99991926,
+      "score": 0.939220609,
       "source_file": "app/(main)/MessagesButton.tsx",
       "status": "tentative",
       "uses": 1
@@ -198,7 +219,7 @@
           "q": "Why do the subject tabs look displaced on mobile?"
         }
       ],
-      "score": 1.990394471,
+      "score": 1.869570458,
       "source_file": "app/(main)/Navbar.tsx",
       "status": "preferred",
       "uses": 2
@@ -214,7 +235,7 @@
           "q": "undo this redesign and revert back to the previous design before this"
         }
       ],
-      "score": 0.99991926,
+      "score": 0.939220609,
       "source_file": "app/(main)/Navbar.tsx",
       "status": "tentative",
       "uses": 1
@@ -230,7 +251,7 @@
           "q": "you are an expert frontend developer and ui/ux designer, redesign the other pages as well. let me see the design before you apply them"
         }
       ],
-      "score": 0.998761645,
+      "score": 0.938133266,
       "source_file": "components/achievements/AchievementsList.tsx",
       "status": "tentative",
       "uses": 1
@@ -246,7 +267,7 @@
           "q": "Why do the subject tabs look displaced on mobile?"
         }
       ],
-      "score": 0.991632826,
+      "score": 0.931437192,
       "source_file": "components/SubjectFilter.tsx",
       "status": "tentative",
       "uses": 1
@@ -262,7 +283,7 @@
           "q": "Where are the dark mode theme tokens defined, and which components depend on background, card, popover, muted, border, and sidebar colors?"
         }
       ],
-      "score": 0.991237678,
+      "score": 0.93106603,
       "source_file": "components.json",
       "status": "tentative",
       "uses": 1
@@ -283,7 +304,7 @@
           "q": "Where are the dark mode theme tokens defined, and which components depend on background, card, popover, muted, border, and sidebar colors?"
         }
       ],
-      "score": 1.991156938,
+      "score": 1.87028664,
       "source_file": "components/TrendsSidebar.tsx",
       "status": "preferred",
       "uses": 2
@@ -304,7 +325,7 @@
           "q": "Why do the subject tabs look displaced on mobile?"
         }
       ],
-      "score": 1.991552086,
+      "score": 1.870657801,
       "source_file": "components/ui/button.tsx",
       "status": "preferred",
       "uses": 2
@@ -320,7 +341,7 @@
           "q": "Where are the dark mode theme tokens defined, and which components depend on background, card, popover, muted, border, and sidebar colors?"
         }
       ],
-      "score": 0.991237678,
+      "score": 0.93106603,
       "source_file": "components/ui/card.tsx",
       "status": "tentative",
       "uses": 1
@@ -336,13 +357,29 @@
           "q": "with hiveq, the questions being generated for multiple choice, the correct answer is obvious because its appearing twice in the option which shouldnt be so"
         }
       ],
-      "score": 0.998160536,
+      "score": 0.937568647,
       "source_file": "lib/hiveq-options.ts",
       "status": "tentative",
       "uses": 1
     },
+    "lib_hiveq_server": {
+      "code_fingerprint": "3f7d9ce1c56efbbc2c8f774e99cdf05ac9902bfae96cd992e7b5048a6f2039e7",
+      "label": "hiveq-server.ts",
+      "last": "2026-08-10T16:43:11.920543+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-10T16:43:11.920543+00:00",
+          "outcome": "useful",
+          "q": "Set the shared HiveQ key, server URL, production environment, apply the Prisma migration, and redeploy both services"
+        }
+      ],
+      "score": 0.999945958,
+      "source_file": "lib/hiveq-server.ts",
+      "status": "tentative",
+      "uses": 1
+    },
     "ml_backend_app_main": {
-      "code_fingerprint": "2409e8eb057b4cf3687b703a865c56d555fa1cb5d036562fa269d6622896208e",
+      "code_fingerprint": "c28f6bedf92045b9743af05ed5ef31176ae2b4db4ef7cec1c6adb02470285cc2",
       "label": "main.py",
       "last": "2026-08-07T19:56:13.861665+00:00",
       "provenance": [
@@ -352,7 +389,7 @@
           "q": "now hiveQ when i use it, configure question types and hit generate it loads and shows load failed. its not working like its suppose to"
         }
       ],
-      "score": 0.996359243,
+      "score": 0.935876699,
       "source_file": "ml-backend/app/main.py",
       "status": "tentative",
       "uses": 1
@@ -360,8 +397,13 @@
     "ml_backend_app_services_questgen_service_questgenservice": {
       "code_fingerprint": "32972d5c29d762df95f68d4e95c01f6fd144ca34941135d5d5247172bc3767ab",
       "label": "QuestgenService",
-      "last": "2026-08-07T21:53:31.397938+00:00",
+      "last": "2026-08-10T16:43:11.920543+00:00",
       "provenance": [
+        {
+          "date": "2026-08-10T16:43:11.920543+00:00",
+          "outcome": "useful",
+          "q": "Set the shared HiveQ key, server URL, production environment, apply the Prisma migration, and redeploy both services"
+        },
         {
           "date": "2026-08-07T21:53:31.397938+00:00",
           "outcome": "useful",
@@ -378,29 +420,34 @@
           "q": "now hiveQ when i use it, configure question types and hit generate it loads and shows load failed. its not working like its suppose to"
         }
       ],
-      "score": 2.9927559,
+      "score": 3.811030946,
       "source_file": "ml-backend/app/services/questgen_service.py",
       "status": "preferred",
-      "uses": 3
+      "uses": 4
     },
     "ml_backend_readme_deploy_on_render": {
-      "code_fingerprint": "c5207aff8b0783c72a4a0ffb97f27bbe6ef6d807c3cae7e0068187c7ec2405ff",
+      "code_fingerprint": "c08bbbab513eeaf2902e501741d523ea35156f21e4483208fabb3f11cdd6e087",
       "label": "Deploy on Render",
-      "last": "2026-08-07T21:53:31.397938+00:00",
+      "last": "2026-08-10T16:43:11.920543+00:00",
       "provenance": [
+        {
+          "date": "2026-08-10T16:43:11.920543+00:00",
+          "outcome": "useful",
+          "q": "Set the shared HiveQ key, server URL, production environment, apply the Prisma migration, and redeploy both services"
+        },
         {
           "date": "2026-08-07T21:53:31.397938+00:00",
           "outcome": "useful",
           "q": "if i push it to github will it update on render?"
         }
       ],
-      "score": 0.99823612,
+      "score": 1.9375856,
       "source_file": "ml-backend/README.md",
-      "status": "tentative",
-      "uses": 1
+      "status": "preferred",
+      "uses": 2
     },
     "ml_backend_readme_hiveq_api": {
-      "code_fingerprint": "c5207aff8b0783c72a4a0ffb97f27bbe6ef6d807c3cae7e0068187c7ec2405ff",
+      "code_fingerprint": "c08bbbab513eeaf2902e501741d523ea35156f21e4483208fabb3f11cdd6e087",
       "label": "HiveQ API",
       "last": "2026-08-07T19:56:13.861665+00:00",
       "provenance": [
@@ -410,7 +457,7 @@
           "q": "now hiveQ when i use it, configure question types and hit generate it loads and shows load failed. its not working like its suppose to"
         }
       ],
-      "score": 0.996359243,
+      "score": 0.935876699,
       "source_file": "ml-backend/README.md",
       "status": "tentative",
       "uses": 1

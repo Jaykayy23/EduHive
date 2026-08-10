@@ -5,6 +5,7 @@ import Navbar from "./Navbar";
 import MenuBarWrapper from "./MenuBarWrapper";
 import { Suspense } from "react";
 import { BookLoader } from "@/components/ui/book-loader";
+import prisma from "@/lib/prisma";
 
 export default async function Layout({
   children,
@@ -14,6 +15,13 @@ export default async function Layout({
   const session = await validateRequest();
 
   if (!session.user) redirect("/login");
+
+  const preferences = await prisma.userPreference.findUnique({
+    where: { userId: session.user.id },
+    select: { userId: true },
+  });
+
+  if (!preferences) redirect("/onboarding");
 
   return (
     <SessionProvider value={session}>

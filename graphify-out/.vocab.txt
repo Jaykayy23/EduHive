@@ -26,12 +26,14 @@ aggregate
 aggregates
 aggregation
 alert
+alias
 aliases
 all
 alloc
 allocate
 allocates
 allow
+allowed
 always
 analytics
 anchor
@@ -73,6 +75,7 @@ auth
 authentication
 authoring
 authority
+authorize
 avatar
 avg
 avoid
@@ -168,10 +171,12 @@ classes
 clean
 cleaner
 cleaning
+clear
 cli
 client
 clone
 close
+closed
 clsx
 cmp
 cobe
@@ -190,7 +195,6 @@ common
 compare
 compared
 comparison
-compat
 compiler
 component
 components
@@ -214,12 +218,14 @@ conflicts
 connect
 connection
 connector
+constant
 constrained
 construct
 constructor
 consume
 consumer
 container
+containers
 content
 contents
 context
@@ -230,11 +236,11 @@ conversation
 convert
 converted
 convertible
+cookies
 copy
 core
 corner
 correct
-cors
 cos
 cosh
 cosine
@@ -292,6 +298,7 @@ destructive
 detailed
 details
 detect
+detects
 deterministic
 dev
 developer
@@ -302,16 +309,17 @@ dialog
 diff
 differences
 digits
-dirname
 disable
 disabled
 discarded
+disclose
 disclosure
 disconnect
 dispatch
 displaced
 display
 displayed
+disposable
 distribution
 div
 divided
@@ -346,6 +354,7 @@ education
 educational
 eduhive
 edulogo
+effect
 effects
 either
 element
@@ -358,8 +367,12 @@ enable
 enabled
 encoding
 end
+endpoint
 endpoints
+enforce
 engine
+engines
+ensure
 entities
 entry
 enum
@@ -385,6 +398,7 @@ exact
 example
 examples
 exception
+excessive
 exclude
 execute
 exhaustive
@@ -411,7 +425,9 @@ extracted
 extraction
 factory
 fade
+fail
 failed
+fails
 fallback
 false
 family
@@ -423,7 +439,6 @@ field
 fields
 fieldset
 file
-filename
 files
 fill
 filter
@@ -474,6 +489,7 @@ generation
 generative
 generator
 get
+gets
 git
 github
 global
@@ -491,6 +507,7 @@ handle
 handler
 handles
 hard
+hardening
 has
 hash
 hashtag
@@ -527,6 +544,7 @@ hyphenation
 hypot
 icon
 icons
+identify
 idiom
 ids
 image
@@ -614,6 +632,7 @@ like
 liked
 likes
 limit
+limits
 line
 lines
 link
@@ -622,6 +641,7 @@ linkify
 links
 linkwith
 lint
+linux
 list
 literal
 load
@@ -645,6 +665,7 @@ loose
 lte
 lucia
 lucide
+magic
 magiclabs
 main
 make
@@ -683,6 +704,7 @@ metrics
 middleware
 migration
 migrations
+mime
 min
 minus
 misc
@@ -714,6 +736,7 @@ mylogo
 name
 names
 namespace
+nanoid
 narrow
 narrowable
 native
@@ -774,7 +797,6 @@ option
 optional
 options
 order
-origins
 other
 otherwise
 outcome
@@ -785,6 +807,7 @@ overlay
 overlays
 overrides
 overwrite
+owner
 package
 page
 pages
@@ -799,6 +822,7 @@ params
 parent
 parse
 parser
+parses
 part
 participant
 participants
@@ -828,6 +852,7 @@ plugin
 plugins
 plus
 point
+policy
 popover
 popup
 portal
@@ -853,6 +878,7 @@ presets
 prettier
 preview
 previews
+previous
 primary
 primitive
 principles
@@ -908,6 +934,7 @@ ratio
 raw
 react
 read
+reader
 readme
 readonly
 reason
@@ -930,9 +957,11 @@ register
 registries
 registry
 rejected
+rejects
 related
 relation
 relative
+relay
 relevance
 remainder
 remainders
@@ -957,6 +986,7 @@ resizer
 resolution
 resolve
 resolvers
+resource
 resourcehub
 response
 restore
@@ -968,6 +998,7 @@ returned
 returns
 reveal
 reverse
+revert
 rewrites
 rhythm
 rollback
@@ -1004,6 +1035,7 @@ sdl
 search
 second
 section
+security
 see
 seed
 select
@@ -1087,6 +1119,7 @@ statement
 states
 stats
 status
+still
 stop
 strategy
 stream
@@ -1111,6 +1144,7 @@ suggestion
 sum
 summarize
 summarizer
+supplies
 suppose
 surfaces
 swap
@@ -1135,6 +1169,7 @@ target
 targets
 telemetry
 templates
+termination
 terms
 test
 tests
@@ -1191,6 +1226,8 @@ true
 trunc
 truncate
 truncated
+trusted
+trusting
 truth
 truthy
 tsconfig
@@ -1207,6 +1244,7 @@ unchecked
 undefined
 underline
 underscore
+undo
 unicode
 uniform
 unindent
@@ -1215,12 +1253,14 @@ unique
 universal
 university
 unknown
+unless
 unliked
 unpack
 unpacker
 unsafe
 unsaved
 unset
+untrusted
 unwrap
 update
 updates
@@ -1238,6 +1278,7 @@ used
 user
 username
 users
+uses
 using
 utilities
 utils
@@ -1282,11 +1323,13 @@ wide
 width
 will
 window
+windows
 with
 without
 word
 words
 worked
+worker
 workflow
 working
 works

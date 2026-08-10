@@ -1,20 +1,23 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import {
   AlertCircle,
   BookOpen,
+  BookOpenCheck,
   Bot,
   Check,
   ChevronDown,
   Clock,
+  ExternalLink,
   Plus,
   Send,
   Sparkles,
   Trash2,
 } from "lucide-react";
 import { Component as AiLoader } from "@/components/ui/ai-loader";
-import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -36,6 +39,12 @@ import {
 import Linkify from "@/components/Linkify";
 import { tutorModes, type TutorMode } from "@/lib/tutor-modes";
 import { BookLoader } from "@/components/ui/book-loader";
+import {
+  buildPostStudyPrompt,
+  getStudySessionTitle,
+  keepStudyLaunchMessage,
+  type StudyPostContext,
+} from "@/lib/study";
 
 type Message = {
   id: string;
@@ -43,6 +52,7 @@ type Message = {
   isUser: boolean;
   timestamp: Date;
   mode?: TutorMode;
+  kind?: "study-launch";
 };
 
 type Conversation = {
@@ -51,6 +61,8 @@ type Conversation = {
   lastMessage: string;
   timestamp: Date;
   messages: Message[];
+  studySource?: StudyPostContext;
+  studyMode?: TutorMode;
 };
 
 const generateId = () => crypto.randomUUID();
@@ -126,16 +138,52 @@ const parseDate = (value: unknown): Date | null => {
   return Number.isNaN(date.getTime()) ? null : date;
 };
 
-const createConversation = (): Conversation => ({
+const parseStudyPostContext = (value: unknown): StudyPostContext | null => {
+  if (!isRecord(value)) return null;
+  const author = isRecord(value.author)
+    ? value.author
+    : isRecord(value.user)
+      ? value.user
+      : null;
+  if (!author) return null;
+  if (
+    typeof value.id !== "string" ||
+    typeof value.content !== "string" ||
+    typeof author.username !== "string" ||
+    typeof author.displayName !== "string"
+  ) {
+    return null;
+  }
+
+  return {
+    id: value.id,
+    content: value.content,
+    author: {
+      username: author.username,
+      displayName: author.displayName,
+    },
+  };
+};
+
+const createConversation = (
+  studySource?: StudyPostContext,
+  studyMode?: TutorMode,
+): Conversation => ({
   id: generateId(),
-  title: "New Conversation",
+  title:
+    studySource && studyMode
+      ? getStudySessionTitle(studySource, studyMode)
+      : "New Conversation",
   lastMessage: "",
   timestamp: new Date(),
   messages: [],
+  studySource,
+  studyMode,
 });
 
 const getConversationMode = (conversation: Conversation): TutorMode =>
   [...conversation.messages].reverse().find(({ isUser }) => isUser)?.mode ??
+  conversation.studyMode ??
   "explain";
 
 const restoreConversation = (value: unknown): Conversation | null => {
@@ -148,6 +196,19 @@ const restoreConversation = (value: unknown): Conversation | null => {
     typeof value.title !== "string"
   )
     return null;
+
+  let studyMode: TutorMode | undefined;
+  if (value.studyMode !== null && value.studyMode !== undefined) {
+    if (!isTutorMode(value.studyMode)) return null;
+    studyMode = value.studyMode;
+  }
+
+  let studySource: StudyPostContext | undefined;
+  if (value.sourcePost !== null && value.sourcePost !== undefined) {
+    const parsedSource = parseStudyPostContext(value.sourcePost);
+    if (!parsedSource) return null;
+    studySource = parsedSource;
+  }
 
   const messages = value.messages.flatMap((message): Message[] => {
     if (!isRecord(message)) return [];
@@ -162,6 +223,8 @@ const restoreConversation = (value: unknown): Conversation | null => {
     }
 
     if (message.mode !== undefined && !isTutorMode(message.mode)) return [];
+    if (message.kind !== undefined && message.kind !== "study-launch")
+      return [];
 
     return [
       {
@@ -170,6 +233,7 @@ const restoreConversation = (value: unknown): Conversation | null => {
         isUser: message.isUser,
         timestamp: messageTimestamp,
         mode: message.mode,
+        kind: message.kind,
       },
     ];
   });
@@ -182,8 +246,97 @@ const restoreConversation = (value: unknown): Conversation | null => {
     lastMessage: messages.at(-1)?.content ?? "",
     timestamp,
     messages,
+    studySource,
+    studyMode,
   };
 };
+
+async function saveConversation(conversation: Conversation) {
+  const response = await fetch("/api/chat-sessions", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      id: conversation.id,
+      title: conversation.title,
+      messages: conversation.messages,
+      sourcePostId: conversation.studySource?.id,
+      studyMode: conversation.studyMode,
+    }),
+  });
+
+  if (!response.ok) {
+    const data = await response.json().catch(() => null);
+    throw new Error(data?.error || "Unable to save chat history.");
+  }
+}
+
+async function streamTutorResponse(
+  conversationMessages: Message[],
+  selectedMode: TutorMode,
+  onResponseChunk: (content: string) => void,
+) {
+  const tutorContext = keepStudyLaunchMessage(conversationMessages, 11);
+  const response = await fetch("/api/chatbot", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      mode: selectedMode,
+      messages: tutorContext.map((message) => ({
+        role: message.isUser ? "user" : "assistant",
+        content: message.content,
+      })),
+    }),
+  });
+
+  if (!response.ok) {
+    const data = await response.json().catch(() => null);
+    throw new Error(data?.error || "Unable to get a tutor response.");
+  }
+
+  if (!response.body) throw new Error("The tutor returned an empty response.");
+
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder();
+  let responseText = "";
+  let buffer = "";
+
+  const processEvent = (event: string) => {
+    const data = event
+      .split(/\r?\n/)
+      .filter((line) => line.startsWith("data:"))
+      .map((line) => line.slice(5).trimStart())
+      .join("\n");
+
+    if (!data || data === "[DONE]") return;
+
+    try {
+      const delta = getStreamDelta(JSON.parse(data));
+      if (!delta) return;
+
+      responseText += delta;
+      onResponseChunk(responseText);
+    } catch {
+      // Ignore malformed provider events and continue consuming the stream.
+    }
+  };
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+
+    buffer += decoder.decode(value, { stream: true });
+    const events = buffer.split(/\r?\n\r?\n/);
+    buffer = events.pop() ?? "";
+    events.forEach(processEvent);
+  }
+
+  buffer += decoder.decode();
+  if (buffer) processEvent(buffer);
+
+  if (!responseText.trim())
+    throw new Error("The tutor returned an empty response.");
+  return responseText;
+}
 
 const MessageBubble = ({ message }: { message: Message }) => (
   <div
@@ -198,7 +351,11 @@ const MessageBubble = ({ message }: { message: Message }) => (
         </p>
       )}
       <p className="text-xs leading-relaxed whitespace-pre-wrap sm:text-sm">
-        <Linkify>{message.content}</Linkify>
+        {message.kind === "study-launch" ? (
+          `Study this post in ${getModeLabel(message.mode ?? "explain")} mode.`
+        ) : (
+          <Linkify>{message.content}</Linkify>
+        )}
       </p>
       <p
         className={`mt-1 text-xs sm:mt-2 ${message.isUser ? "text-primary-foreground/70" : "text-muted-foreground"}`}
@@ -223,7 +380,9 @@ export default function AcademicChatBot() {
   const [isHistoryLoading, setIsHistoryLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
+  const [studySource, setStudySource] = useState<StudyPostContext | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const didProcessStudyLaunch = useRef(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -250,10 +409,12 @@ export default function AcademicChatBot() {
           setCurrentConversation(restored[0]);
           setMessages(restored[0].messages);
           setMode(getConversationMode(restored[0]));
+          setStudySource(restored[0].studySource ?? null);
         } else {
           const conversation = createConversation();
           setConversations([conversation]);
           setCurrentConversation(conversation);
+          setStudySource(null);
         }
       } catch (loadError) {
         if (!cancelled) {
@@ -261,6 +422,7 @@ export default function AcademicChatBot() {
           const conversation = createConversation();
           setConversations([conversation]);
           setCurrentConversation(conversation);
+          setStudySource(null);
           setError(
             "Your saved history could not be loaded. You can still start a new conversation.",
           );
@@ -280,28 +442,12 @@ export default function AcademicChatBot() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isLoading]);
 
-  const saveConversation = async (conversation: Conversation) => {
-    const response = await fetch("/api/chat-sessions", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        id: conversation.id,
-        title: conversation.title,
-        messages: conversation.messages,
-      }),
-    });
-
-    if (!response.ok) {
-      const data = await response.json().catch(() => null);
-      throw new Error(data?.error || "Unable to save chat history.");
-    }
-  };
-
   const startNewConversation = () => {
     const conversation = createConversation();
     setCurrentConversation(conversation);
     setMessages([]);
     setMode("explain");
+    setStudySource(null);
     setConversations((current) => [
       conversation,
       ...current.filter(({ id }) => id !== conversation.id),
@@ -317,6 +463,7 @@ export default function AcademicChatBot() {
     setCurrentConversation(conversation);
     setMessages(conversation.messages);
     setMode(getConversationMode(conversation));
+    setStudySource(conversation.studySource ?? null);
     setError(null);
     setIsHistoryOpen(false);
   };
@@ -331,6 +478,7 @@ export default function AcademicChatBot() {
       const replacement = createConversation();
       setCurrentConversation(replacement);
       setMessages([]);
+      setStudySource(null);
       setConversations((current) => [replacement, ...current]);
     }
 
@@ -349,157 +497,182 @@ export default function AcademicChatBot() {
     }
   };
 
-  const handleUserInput = async (
-    conversationMessages: Message[],
-    selectedMode: TutorMode,
-    onResponseChunk: (content: string) => void,
-  ) => {
-    const response = await fetch("/api/chatbot", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        mode: selectedMode,
-        messages: conversationMessages.slice(-11).map((message) => ({
-          role: message.isUser ? "user" : "assistant",
-          content: message.content,
-        })),
-      }),
-    });
-
-    if (!response.ok) {
-      const data = await response.json().catch(() => null);
-      throw new Error(data?.error || "Unable to get a tutor response.");
-    }
-
-    if (!response.body)
-      throw new Error("The tutor returned an empty response.");
-
-    const reader = response.body.getReader();
-    const decoder = new TextDecoder();
-    let responseText = "";
-    let buffer = "";
-
-    const processEvent = (event: string) => {
-      const data = event
-        .split(/\r?\n/)
-        .filter((line) => line.startsWith("data:"))
-        .map((line) => line.slice(5).trimStart())
-        .join("\n");
-
-      if (!data || data === "[DONE]") return;
-
-      try {
-        const delta = getStreamDelta(JSON.parse(data));
-        if (!delta) return;
-
-        responseText += delta;
-        onResponseChunk(responseText);
-      } catch {
-        // Ignore malformed provider events and continue consuming the stream.
-      }
-    };
-
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-
-      buffer += decoder.decode(value, { stream: true });
-      const events = buffer.split(/\r?\n\r?\n/);
-      buffer = events.pop() ?? "";
-      events.forEach(processEvent);
-    }
-
-    buffer += decoder.decode();
-    if (buffer) processEvent(buffer);
-
-    if (!responseText.trim())
-      throw new Error("The tutor returned an empty response.");
-    return responseText;
-  };
-
-  const handleSend = async () => {
-    const question = input.trim();
-    const originalConversation = currentConversation;
-    const selectedMode = mode;
-    if (!question || isLoading || !originalConversation) return;
-
-    const userMessage: Message = {
-      id: generateId(),
-      content: question,
-      isUser: true,
-      timestamp: new Date(),
-      mode: selectedMode,
-    };
-    const updatedMessages = [...messages, userMessage];
-
-    setMessages(updatedMessages);
-    setInput("");
-    setIsLoading(true);
-    setError(null);
-
-    try {
-      const botMessageId = generateId();
-      const botTimestamp = new Date();
-      const reply = await handleUserInput(
-        updatedMessages,
-        selectedMode,
-        (partialResponse) => {
-          setMessages([
-            ...updatedMessages,
-            {
-              id: botMessageId,
-              content: partialResponse,
-              isUser: false,
-              timestamp: botTimestamp,
-            },
-          ]);
-        },
-      );
-      const botMessage: Message = {
-        id: botMessageId,
-        content: reply,
-        isUser: false,
-        timestamp: botTimestamp,
-      };
-      const finalMessages = [...updatedMessages, botMessage].slice(-100);
-      const conversation: Conversation = {
-        id: originalConversation.id,
-        title:
-          originalConversation.messages.length === 0
-            ? question.slice(0, 120)
-            : originalConversation.title,
-        lastMessage: botMessage.content,
+  const sendQuestion = useCallback(
+    async ({
+      question,
+      originalConversation,
+      previousMessages,
+      selectedMode,
+      kind,
+    }: {
+      question: string;
+      originalConversation: Conversation;
+      previousMessages: Message[];
+      selectedMode: TutorMode;
+      kind?: Message["kind"];
+    }) => {
+      const userMessage: Message = {
+        id: generateId(),
+        content: question,
+        isUser: true,
         timestamp: new Date(),
-        messages: finalMessages,
+        mode: selectedMode,
+        kind,
       };
+      const updatedMessages = [...previousMessages, userMessage];
 
-      setMessages(finalMessages);
-      setCurrentConversation(conversation);
-      setConversations((current) => [
-        conversation,
-        ...current.filter(({ id }) => id !== conversation.id),
-      ]);
+      setMessages(updatedMessages);
+      setInput("");
+      setIsLoading(true);
+      setError(null);
 
       try {
-        await saveConversation(conversation);
-      } catch (saveError) {
-        console.error("Chat save error:", saveError);
+        const botMessageId = generateId();
+        const botTimestamp = new Date();
+        const reply = await streamTutorResponse(
+          updatedMessages,
+          selectedMode,
+          (partialResponse) => {
+            setMessages([
+              ...updatedMessages,
+              {
+                id: botMessageId,
+                content: partialResponse,
+                isUser: false,
+                timestamp: botTimestamp,
+              },
+            ]);
+          },
+        );
+        const botMessage: Message = {
+          id: botMessageId,
+          content: reply,
+          isUser: false,
+          timestamp: botTimestamp,
+        };
+        const finalMessages = keepStudyLaunchMessage(
+          [...updatedMessages, botMessage],
+          100,
+        );
+        const conversation: Conversation = {
+          id: originalConversation.id,
+          title:
+            originalConversation.messages.length === 0 &&
+            originalConversation.title === "New Conversation"
+              ? question.slice(0, 120)
+              : originalConversation.title,
+          lastMessage: botMessage.content,
+          timestamp: new Date(),
+          messages: finalMessages,
+          studySource: originalConversation.studySource,
+          studyMode: originalConversation.studySource
+            ? (originalConversation.studyMode ?? selectedMode)
+            : undefined,
+        };
+
+        setMessages(finalMessages);
+        setCurrentConversation(conversation);
+        setStudySource(conversation.studySource ?? null);
+        setConversations((current) => [
+          conversation,
+          ...current.filter(({ id }) => id !== conversation.id),
+        ]);
+
+        try {
+          await saveConversation(conversation);
+        } catch (saveError) {
+          console.error("Chat save error:", saveError);
+          setError(
+            "The response is shown, but it could not be saved to your history.",
+          );
+        }
+      } catch (chatError) {
+        console.error("Tutor error:", chatError);
+        setMessages(previousMessages);
+        setInput(kind === "study-launch" ? "" : question);
         setError(
-          "The response is shown, but it could not be saved to your history.",
+          chatError instanceof Error
+            ? chatError.message
+            : "Something went wrong. Please try again.",
+        );
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [],
+  );
+
+  useEffect(() => {
+    if (isHistoryLoading || didProcessStudyLaunch.current) return;
+
+    const searchParams = new URLSearchParams(window.location.search);
+    const postId = searchParams.get("study");
+    if (!postId) return;
+
+    didProcessStudyLaunch.current = true;
+    const requestedMode = searchParams.get("mode");
+    const launchMode = isTutorMode(requestedMode) ? requestedMode : "summarize";
+
+    const launchStudySession = async () => {
+      try {
+        const response = await fetch(
+          `/api/posts/${encodeURIComponent(postId)}/study-context`,
+          { cache: "no-store" },
+        );
+        const payload: unknown = await response.json();
+        if (!response.ok) {
+          throw new Error(
+            isRecord(payload) && typeof payload.error === "string"
+              ? payload.error
+              : "Unable to load the source post.",
+          );
+        }
+
+        const source = parseStudyPostContext(payload);
+        if (!source) throw new Error("The source post could not be read.");
+
+        const conversation = createConversation(source, launchMode);
+        const question = buildPostStudyPrompt(source, launchMode);
+        setCurrentConversation(conversation);
+        setMessages([]);
+        setMode(launchMode);
+        setStudySource(source);
+        setConversations((current) => [
+          conversation,
+          ...current.filter(({ id }) => id !== conversation.id),
+        ]);
+        window.history.replaceState(null, "", "/chatbot");
+
+        await sendQuestion({
+          question,
+          originalConversation: conversation,
+          previousMessages: [],
+          selectedMode: launchMode,
+          kind: "study-launch",
+        });
+      } catch (launchError) {
+        console.error("Study launch error:", launchError);
+        setError(
+          launchError instanceof Error
+            ? launchError.message
+            : "Unable to start this study session.",
         );
       }
-    } catch (chatError) {
-      console.error("Tutor error:", chatError);
-      setMessages(originalConversation.messages);
-      setInput(question);
-      setError(
-        chatError instanceof Error
-          ? chatError.message
-          : "Something went wrong. Please try again.",
-      );
-    } finally {
-      setIsLoading(false);
-    }
+    };
+
+    void launchStudySession();
+  }, [isHistoryLoading, sendQuestion]);
+
+  const handleSend = () => {
+    const question = input.trim();
+    if (!question || isLoading || !currentConversation) return;
+
+    void sendQuestion({
+      question,
+      originalConversation: currentConversation,
+      previousMessages: messages,
+      selectedMode: mode,
+    });
   };
 
   const isBusy = isLoading || isHistoryLoading;
@@ -534,6 +707,24 @@ export default function AcademicChatBot() {
 
       <div className="bg-background flex-1 overflow-y-auto p-3 sm:p-6">
         <div className="mx-auto max-w-4xl">
+          {studySource && (
+            <Alert className="border-primary/20 bg-primary/5 mb-4">
+              <BookOpenCheck className="text-primary" />
+              <AlertTitle>
+                Studying a post by {studySource.author.displayName}
+              </AlertTitle>
+              <AlertDescription className="space-y-2">
+                <p className="line-clamp-2">{studySource.content}</p>
+                <Button asChild variant="link" size="sm" className="h-auto p-0">
+                  <Link href={`/posts/${studySource.id}`}>
+                    Open source post
+                    <ExternalLink data-icon="inline-end" />
+                  </Link>
+                </Button>
+              </AlertDescription>
+            </Alert>
+          )}
+
           {isHistoryLoading ? (
             <div className="text-muted-foreground py-12 text-center text-sm">
               Loading your saved conversations...
@@ -566,9 +757,7 @@ export default function AcademicChatBot() {
             </Alert>
           )}
 
-          {isLoading && (
-            <AiLoader className="mb-4 max-w-fit" />
-          )}
+          {isLoading && <AiLoader className="mb-4 max-w-fit" />}
           <div ref={messagesEndRef} />
         </div>
       </div>
@@ -591,7 +780,10 @@ export default function AcademicChatBot() {
                   <ChevronDown className="text-muted-foreground size-3.5" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="start" className="w-[calc(100vw-1.5rem)] max-w-80 p-1.5">
+              <DropdownMenuContent
+                align="start"
+                className="w-[calc(100vw-1.5rem)] max-w-80 p-1.5"
+              >
                 <DropdownMenuLabel>Choose response mode</DropdownMenuLabel>
                 <p className="text-muted-foreground px-2 pb-2 text-xs">
                   The selected mode controls the next tutor response.

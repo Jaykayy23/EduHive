@@ -1,8 +1,15 @@
 import { PostData } from "@/lib/types";
 import { useState } from "react";
 import DeletePostDialog from "./DeletePostDialog";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
+import { cn } from "@/lib/utils";
 import { MoreHorizontal, Trash2 } from "lucide-react";
 
 interface PostMoreButtonProps {
@@ -14,31 +21,39 @@ export default function PostMoreButton({
   post,
   className,
 }: PostMoreButtonProps) {
-    const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
-    return <>
-    <DropdownMenu>
+  return (
+    <>
+      <DropdownMenu>
         <DropdownMenuTrigger asChild>
-            <Button size="icon" variant="ghost" className={className}>
-                <MoreHorizontal className="size-5 text-muted-foreground" />
-            </Button>
+          <Button
+            size="icon-sm"
+            variant="ghost"
+            className={cn("hover:translate-y-0 hover:shadow-none", className)}
+            aria-label="Post options"
+          >
+            <MoreHorizontal className="text-muted-foreground" />
+          </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent>
-            <DropdownMenuItem onClick={() => setShowDeleteDialog(true)}>
-                <span className="flex items-center gap-3 text-destructive">
-                    <Trash2 className="size-4" />
-                    Delete
-                </span>
+        <DropdownMenuContent align="end">
+          <DropdownMenuGroup>
+            <DropdownMenuItem
+              variant="destructive"
+              onClick={() => setShowDeleteDialog(true)}
+            >
+              <Trash2 />
+              Delete post
             </DropdownMenuItem>
+          </DropdownMenuGroup>
         </DropdownMenuContent>
-    </DropdownMenu>
-    
-    <DeletePostDialog 
-        post= {post}
-        open= {showDeleteDialog}
+      </DropdownMenu>
+
+      <DeletePostDialog
+        post={post}
+        open={showDeleteDialog}
         onClose={() => setShowDeleteDialog(false)}
-    
-    />
-    
+      />
     </>
+  );
 }

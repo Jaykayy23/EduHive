@@ -8,7 +8,7 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import { Bookmark } from "lucide-react";
-import { toast, useSonner } from "sonner";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 
 interface BookmarkButtonProps {
@@ -20,8 +20,6 @@ export default function BookmarkButton({
   postId,
   initialState,
 }: BookmarkButtonProps) {
-  const {} = useSonner();
-
   const queryClient = useQueryClient();
   const queryKey: QueryKey = ["bookmark-info", postId];
 
@@ -62,10 +60,13 @@ export default function BookmarkButton({
       type="button"
       variant="ghost"
       size="icon-sm"
+      className="hover:translate-y-0 hover:shadow-none"
       onClick={() => mutate()}
+      aria-pressed={data.isBookmarkedByUser}
       aria-label={
         data.isBookmarkedByUser ? "Remove bookmark" : "Bookmark this post"
       }
+      title={data.isBookmarkedByUser ? "Remove bookmark" : "Save post"}
     >
       <Bookmark
         className={cn(data.isBookmarkedByUser && "fill-primary text-primary")}

@@ -47,14 +47,14 @@ export default function FollowingFeed() {
   if (status === "error") {
     return (
       <p className="text-destructive text-center">
-        An error occured while loading posts.
+        An error occurred while loading posts.
       </p>
     );
   }
 
   return (
     <InfiniteScrollContainer
-      className="space-y-5"
+      className="flex flex-col gap-4"
       onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()}
     >
       {posts.map((post) => (

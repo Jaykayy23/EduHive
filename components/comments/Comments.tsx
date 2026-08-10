@@ -32,7 +32,7 @@ export default function Comments({ post }: CommentsProps) {
   const comments = data?.pages.flatMap((page) => page.comments) || [];
 
   return (
-    <div className="space-y-3">
+    <div className="flex flex-col gap-4">
       <CommentInput postId={post.id} />
       {hasNextPage && (
         <Button
@@ -50,10 +50,10 @@ export default function Comments({ post }: CommentsProps) {
       )}
       {status === "error" && (
         <p className="text-destructive text-center">
-          An error occured while loading comments.
+          An error occurred while loading comments.
         </p>
       )}
-      <div className="divide-y">
+      <div className="flex flex-col gap-3">
         {comments.map((comment) => (
           <Comment key={comment.id} comment={comment} />
         ))}

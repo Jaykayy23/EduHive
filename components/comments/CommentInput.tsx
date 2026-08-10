@@ -36,16 +36,17 @@ export default function CommentInput({ postId }: CommentInputProps) {
         placeholder="Write a comment..."
         value={input}
         onChange={(e) => setInput(e.target.value)}
-        autoFocus
+        className="bg-background rounded-full"
       />
       <Button
         type="submit"
-        variant="ghost"
-        size="icon"
+        size="icon-sm"
+        className="shrink-0 rounded-full hover:translate-y-0 hover:shadow-none"
         disabled={!input.trim() || mutation.isPending}
+        aria-label="Post comment"
       >
         {!mutation.isPending ? (
-          <SendHorizonal />
+          <SendHorizonal data-icon="inline-start" />
         ) : (
           <BookLoader size="1.25rem" />
         )}

@@ -68,7 +68,7 @@ export default function ForYouFeed({ selectedSubject }: ForYouFeedProps) {
 
   return (
     <InfiniteScrollContainer
-      className="space-y-5"
+      className="flex flex-col gap-4"
       onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()}
     >
       {posts.map((post) => (

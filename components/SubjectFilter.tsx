@@ -18,7 +18,7 @@ export default function SubjectFilterComponent({
   return (
     <div
       className={cn(
-        "bg-card/80 relative overflow-hidden rounded-xl border shadow-sm backdrop-blur-sm sm:sticky sm:top-[5.25rem] sm:z-10",
+        "bg-card/90 border-border/70 relative overflow-hidden rounded-xl border shadow-xs backdrop-blur-sm sm:sticky sm:top-[5.25rem] sm:z-10",
         className,
       )}
     >
@@ -32,10 +32,10 @@ export default function SubjectFilterComponent({
             key={subject.id}
             type="button"
             size="sm"
-            variant={selectedSubject === subject.id ? "default" : "secondary"}
+            variant={selectedSubject === subject.id ? "default" : "ghost"}
             onClick={() => onSubjectChange(subject.id)}
             aria-pressed={selectedSubject === subject.id}
-            className="snap-start rounded-full px-3 sm:px-4"
+            className="snap-start rounded-full px-3 hover:translate-y-0 hover:shadow-none sm:px-4"
           >
             <span aria-hidden="true" className="text-base">
               {subject.emoji}

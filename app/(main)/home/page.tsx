@@ -1,23 +1,20 @@
-import PostEditor from "@/components/posts/editor/PostEditor"
-import TrendsSidebar from "@/components/TrendsSidebar"
-import HomePageContent from "../HomePageContent"
+import PostEditor from "@/components/posts/editor/PostEditor";
+import TrendsSidebar from "@/components/TrendsSidebar";
+import HomePageContent from "../HomePageContent";
 
 export default function Home() {
   return (
-    <div className="w-full min-w-0 flex flex-col lg:flex-row gap-4 sm:gap-6 lg:gap-8">
-      <div className="w-full min-w-0 space-y-4 sm:space-y-6 lg:space-y-8">
-        <div className="animate-slideInLeft">
-          <PostEditor />
-        </div>
-        <div className="animate-fadeIn" style={{ animationDelay: '0.2s' }}>
-          <HomePageContent />
-        </div>
+    <div className="grid w-full min-w-0 gap-4 sm:gap-6 xl:grid-cols-[minmax(0,1fr)_20rem] xl:gap-8">
+      <div className="flex min-w-0 flex-col gap-4 sm:gap-6">
+        <PostEditor />
+        <HomePageContent />
       </div>
-      <div className="hidden lg:block w-80 flex-shrink-0">
-        <div className="animate-slideInRight" style={{ animationDelay: '0.3s' }}>
+
+      <aside className="hidden xl:block" aria-label="Trending topics">
+        <div className="sticky top-20">
           <TrendsSidebar />
         </div>
-      </div>
+      </aside>
     </div>
-  )
+  );
 }

@@ -102,7 +102,12 @@ export default function StudyPostButton({
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
-        <Button type="button" size="sm" variant="ghost">
+        <Button
+          type="button"
+          size="sm"
+          variant="secondary"
+          className="hover:translate-y-0 hover:shadow-none"
+        >
           <BookOpenCheck data-icon="inline-start" />
           Study
         </Button>

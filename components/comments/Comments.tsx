@@ -33,7 +33,7 @@ export default function Comments({ post }: CommentsProps) {
 
   return (
     <div className="space-y-3">
-      <CommentInput post={post} />
+      <CommentInput postId={post.id} />
       {hasNextPage && (
         <Button
           variant="link"

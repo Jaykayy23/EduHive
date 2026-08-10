@@ -7,17 +7,41 @@ import { verify } from "@node-rs/argon2";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { claimRateLimit, getRequestIp } from "@/lib/rate-limit";
+
+const LOGIN_WINDOW_MS = 15 * 60 * 1_000;
 
 export async function login(
   credentials: LoginValues,
 ): Promise<{ error: string }> {
   try {
     const { username, password } = loginSchema.parse(credentials);
+    const normalizedUsername = username.toLowerCase();
+    const ip = await getRequestIp();
+    const ipLimit = await claimRateLimit({
+      namespace: "login:ip",
+      identifier: ip,
+      limit: 10,
+      windowMs: LOGIN_WINDOW_MS,
+    });
+    const accountLimit = await claimRateLimit({
+      namespace: "login:account",
+      identifier: normalizedUsername,
+      limit: 30,
+      windowMs: LOGIN_WINDOW_MS,
+    });
+    if (!ipLimit.allowed || !accountLimit.allowed) {
+      return {
+        error: `Too many login attempts. Try again in ${Math.ceil(
+          Math.max(ipLimit.retryAfterSeconds, accountLimit.retryAfterSeconds) / 60,
+        )} minute(s).`,
+      };
+    }
 
     const existingUser = await prisma.user.findFirst({
       where: {
         username: {
-          equals: username,
+          equals: normalizedUsername,
           mode: "insensitive",
         },
       },

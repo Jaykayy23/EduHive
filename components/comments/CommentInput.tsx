@@ -1,4 +1,3 @@
-import { PostData } from "@/lib/types";
 import { useState } from "react";
 import { useSubmitCommentMutation } from "./mutations";
 import { Input } from "../ui/input";
@@ -7,13 +6,13 @@ import { SendHorizonal } from "lucide-react";
 import { BookLoader } from "@/components/ui/book-loader";
 
 interface CommentInputProps {
-  post: PostData;
+  postId: string;
 }
 
-export default function CommentInput({ post }: CommentInputProps) {
+export default function CommentInput({ postId }: CommentInputProps) {
   const [input, setInput] = useState("");
 
-  const mutation = useSubmitCommentMutation(post.id);
+  const mutation = useSubmitCommentMutation(postId);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -22,7 +21,7 @@ export default function CommentInput({ post }: CommentInputProps) {
 
     mutation.mutate(
       {
-        post,
+        postId,
         content: input,
       },
       {

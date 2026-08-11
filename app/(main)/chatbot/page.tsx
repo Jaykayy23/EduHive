@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import {
   AlertCircle,
+  ArrowUp,
   BookOpen,
   BookOpenCheck,
   Bot,
@@ -11,26 +12,48 @@ import {
   ChevronDown,
   Clock,
   ExternalLink,
+  MessageCircle,
   Plus,
-  Send,
   Sparkles,
   Trash2,
 } from "lucide-react";
-import { Component as AiLoader } from "@/components/ui/ai-loader";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
+import { Bubble, BubbleContent } from "@/components/ui/bubble";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
+import {
+  Empty,
+  EmptyContent,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from "@/components/ui/empty";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupText,
+  InputGroupTextarea,
+} from "@/components/ui/input-group";
+import {
+  Message as ChatMessage,
+  MessageContent,
+  MessageFooter,
+  MessageHeader,
+} from "@/components/ui/message";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
+import { Spinner } from "@/components/ui/spinner";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -38,7 +61,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Linkify from "@/components/Linkify";
 import { tutorModes, type TutorMode } from "@/lib/tutor-modes";
-import { BookLoader } from "@/components/ui/book-loader";
 import {
   buildPostStudyPrompt,
   getStudySessionTitle,
@@ -113,6 +135,25 @@ const learningModes: Array<{
     description: "A worked process with assumptions and decision points.",
   },
 ];
+
+const starterPrompts = [
+  {
+    label: "Explain it",
+    prompt: "Explain a difficult concept in simple language with one example.",
+  },
+  {
+    label: "Quiz me",
+    prompt: "Quiz me on a topic I am studying and adapt to my answers.",
+  },
+  {
+    label: "Study plan",
+    prompt: "Build a focused study plan for my next learning goal.",
+  },
+  {
+    label: "Compare ideas",
+    prompt: "Help me compare two related ideas and remember the difference.",
+  },
+] as const;
 
 const isTutorMode = (value: unknown): value is TutorMode =>
   typeof value === "string" && tutorModes.includes(value as TutorMode);
@@ -339,34 +380,41 @@ async function streamTutorResponse(
 }
 
 const MessageBubble = ({ message }: { message: Message }) => (
-  <div
-    className={`animate-fadeIn mb-3 flex sm:mb-4 ${message.isUser ? "justify-end" : "justify-start"}`}
+  <ChatMessage
+    align={message.isUser ? "end" : "start"}
+    className="animate-fadeIn"
   >
-    <div
-      className={`rounded-modern-lg shadow-soft max-w-[85%] px-3 py-2 sm:max-w-[80%] sm:px-4 sm:py-3 ${message.isUser ? "bg-primary text-primary-foreground rounded-br-sm" : "border-border/50 bg-card text-card-foreground rounded-bl-sm border"}`}
-    >
-      {message.isUser && message.mode && message.mode !== "explain" && (
-        <p className="text-primary-foreground/70 mb-1 text-xs font-medium">
-          {getModeLabel(message.mode)}
-        </p>
-      )}
-      <p className="text-xs leading-relaxed whitespace-pre-wrap sm:text-sm">
-        {message.kind === "study-launch" ? (
-          `Study this post in ${getModeLabel(message.mode ?? "explain")} mode.`
-        ) : (
-          <Linkify>{message.content}</Linkify>
+    <MessageContent className="max-w-2xl">
+      <MessageHeader>
+        <span>{message.isUser ? "You" : "EduHive tutor"}</span>
+        {message.isUser && message.mode && message.mode !== "explain" && (
+          <span className="text-muted-foreground ml-2">
+            {getModeLabel(message.mode)}
+          </span>
         )}
-      </p>
-      <p
-        className={`mt-1 text-xs sm:mt-2 ${message.isUser ? "text-primary-foreground/70" : "text-muted-foreground"}`}
+      </MessageHeader>
+      <Bubble
+        align={message.isUser ? "end" : "start"}
+        variant={message.isUser ? "default" : "ghost"}
       >
+        <BubbleContent>
+          <p className="whitespace-pre-wrap">
+            {message.kind === "study-launch" ? (
+              `Study this post in ${getModeLabel(message.mode ?? "explain")} mode.`
+            ) : (
+              <Linkify>{message.content}</Linkify>
+            )}
+          </p>
+        </BubbleContent>
+      </Bubble>
+      <MessageFooter>
         {message.timestamp.toLocaleTimeString([], {
           hour: "2-digit",
           minute: "2-digit",
         })}
-      </p>
-    </div>
-  </div>
+      </MessageFooter>
+    </MessageContent>
+  </ChatMessage>
 );
 
 export default function AcademicChatBot() {
@@ -439,7 +487,12 @@ export default function AcademicChatBot() {
   }, []);
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    messagesEndRef.current?.scrollIntoView({
+      behavior: prefersReducedMotion ? "auto" : "smooth",
+    });
   }, [messages, isLoading]);
 
   const startNewConversation = () => {
@@ -678,219 +731,329 @@ export default function AcademicChatBot() {
   const isBusy = isLoading || isHistoryLoading;
 
   return (
-    <div className="rounded-modern-lg border-border/50 bg-background shadow-medium animate-fadeIn flex h-[calc(100svh-12rem)] min-h-96 flex-col border sm:h-[calc(100svh-10rem)] lg:h-[calc(100svh-8rem)]">
-      <div className="rounded-t-modern-lg border-border/50 bg-card/80 sticky top-0 z-10 flex flex-col gap-3 border-b px-4 py-3 backdrop-blur-sm sm:flex-row sm:items-center sm:justify-between sm:gap-0 sm:px-6 sm:py-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2 sm:space-x-3">
-            <div className="rounded-modern bg-primary/10 p-1.5 sm:p-2">
-              <Sparkles className="text-primary h-5 w-5 sm:h-6 sm:w-6" />
+    <div className="animate-fadeIn rounded-modern-lg border-border/60 bg-card shadow-medium grid h-[calc(100dvh-12rem)] min-h-96 grid-cols-1 overflow-hidden border sm:h-[calc(100dvh-10rem)] lg:h-[calc(100dvh-8rem)] xl:grid-cols-[15rem_minmax(0,1fr)]">
+      <aside className="border-border/60 bg-muted/20 hidden min-h-0 flex-col border-r xl:flex">
+        <div className="flex flex-col gap-4 p-4">
+          <div className="flex items-center gap-3">
+            <div className="rounded-modern bg-primary text-primary-foreground flex size-9 items-center justify-center">
+              <Sparkles className="size-4" />
             </div>
-            <h1 className="text-foreground text-lg font-bold sm:text-2xl">
-              EduHive AI Tutor
+            <div className="min-w-0">
+              <p className="text-sm font-semibold">EduHive tutor</p>
+              <p className="text-muted-foreground text-xs">Your study space</p>
+            </div>
+          </div>
+          <Button onClick={startNewConversation} disabled={isBusy}>
+            <Plus data-icon="inline-start" />
+            New chat
+          </Button>
+        </div>
+        <Separator />
+        <div className="flex items-center justify-between px-4 pt-4 pb-2">
+          <p className="text-muted-foreground text-xs font-medium">
+            Conversations
+          </p>
+          <span className="text-muted-foreground text-xs tabular-nums">
+            {conversations.length}
+          </span>
+        </div>
+        <ScrollArea className="min-h-0 flex-1">
+          <nav
+            aria-label="Conversation history"
+            className="flex flex-col gap-1 px-2 pb-4"
+          >
+            {isHistoryLoading ? (
+              <div className="text-muted-foreground flex items-center gap-2 px-2 py-4 text-sm">
+                <Spinner />
+                Loading history
+              </div>
+            ) : (
+              conversations.map((conversation) => (
+                <div key={conversation.id} className="flex items-center gap-1">
+                  <Button
+                    variant={
+                      currentConversation?.id === conversation.id
+                        ? "secondary"
+                        : "ghost"
+                    }
+                    size="sm"
+                    onClick={() => loadConversation(conversation.id)}
+                    className="min-w-0 flex-1 justify-start"
+                  >
+                    <MessageCircle data-icon="inline-start" />
+                    <span className="truncate">{conversation.title}</span>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="icon-sm"
+                    onClick={() => void deleteConversation(conversation)}
+                    aria-label={`Delete ${conversation.title}`}
+                  >
+                    <Trash2 />
+                  </Button>
+                </div>
+              ))
+            )}
+          </nav>
+        </ScrollArea>
+        <Separator />
+        <div className="text-muted-foreground p-4 text-xs leading-relaxed">
+          Choose a response mode before sending to change how the tutor helps.
+        </div>
+      </aside>
+
+      <section className="flex min-h-0 min-w-0 flex-col">
+        <header className="border-border/60 flex h-16 shrink-0 items-center justify-between border-b px-4 sm:px-5">
+          <div className="min-w-0">
+            <p className="text-muted-foreground text-xs font-medium">
+              AI tutor
+            </p>
+            <h1 className="truncate text-base font-semibold sm:text-lg">
+              {currentConversation?.title ?? "New conversation"}
             </h1>
           </div>
-          <div className="text-success flex items-center space-x-1 sm:space-x-2">
-            <div className="bg-success h-1.5 w-1.5 animate-pulse rounded-full sm:h-2 sm:w-2" />
-            <span className="text-xs font-medium sm:text-sm">Online</span>
-          </div>
-        </div>
-        <Button
-          onClick={() => setIsHistoryOpen(true)}
-          variant="outline"
-          disabled={isBusy}
-          className="hover:bg-accent/50 flex items-center space-x-2 text-sm sm:text-base"
-        >
-          <BookOpen className="h-3 w-3 sm:h-4 sm:w-4" />
-          <span>History</span>
-        </Button>
-      </div>
-
-      <div className="bg-background flex-1 overflow-y-auto p-3 sm:p-6">
-        <div className="mx-auto max-w-4xl">
-          {studySource && (
-            <Alert className="border-primary/20 bg-primary/5 mb-4">
-              <BookOpenCheck className="text-primary" />
-              <AlertTitle>
-                Studying a post by {studySource.author.displayName}
-              </AlertTitle>
-              <AlertDescription className="space-y-2">
-                <p className="line-clamp-2">{studySource.content}</p>
-                <Button asChild variant="link" size="sm" className="h-auto p-0">
-                  <Link href={`/posts/${studySource.id}`}>
-                    Open source post
-                    <ExternalLink data-icon="inline-end" />
-                  </Link>
-                </Button>
-              </AlertDescription>
-            </Alert>
-          )}
-
-          {isHistoryLoading ? (
-            <div className="text-muted-foreground py-12 text-center text-sm">
-              Loading your saved conversations...
+          <div className="flex items-center gap-2">
+            <div className="text-muted-foreground hidden items-center gap-2 text-xs sm:flex">
+              <Sparkles className="text-primary size-4" />
+              Ready for a question
             </div>
-          ) : messages.length === 0 ? (
-            <div className="text-muted-foreground flex h-full flex-col items-center justify-center px-4">
-              <div className="rounded-modern-lg bg-primary/10 mb-4 p-3 sm:mb-6 sm:p-4">
-                <Bot size={32} className="text-primary sm:h-12 sm:w-12" />
-              </div>
-              <h2 className="text-foreground mb-2 text-center text-lg font-semibold sm:text-2xl">
-                What would you like to learn?
-              </h2>
-              <p className="text-muted-foreground max-w-md text-center text-sm sm:text-base">
-                Ask a question and EduHive will explain it step by step, with
-                examples and a short knowledge check.
-              </p>
-            </div>
-          ) : (
-            messages.map((message) => (
-              <MessageBubble key={message.id} message={message} />
-            ))
-          )}
-
-          {error && (
-            <Alert className="border-destructive/20 bg-destructive/10 mb-4">
-              <AlertCircle className="text-destructive h-4 w-4" />
-              <AlertDescription className="text-destructive">
-                {error}
-              </AlertDescription>
-            </Alert>
-          )}
-
-          {isLoading && <AiLoader className="mb-4 max-w-fit" />}
-          <div ref={messagesEndRef} />
-        </div>
-      </div>
-
-      <div className="rounded-b-modern-lg border-border/50 bg-card/80 sticky bottom-0 z-10 border-t backdrop-blur-sm">
-        <div className="mx-auto max-w-4xl p-3 sm:p-4">
-          <div className="flex items-end space-x-2 sm:space-x-3">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  aria-label="Choose learning mode"
-                  disabled={isBusy}
-                  type="button"
-                  variant="outline"
-                  className="h-9 shrink-0 gap-1.5 px-2.5 text-xs sm:h-11 sm:px-3 sm:text-sm"
-                >
-                  <Sparkles className="text-primary size-3.5 sm:size-4" />
-                  <span className="hidden sm:inline">{getModeLabel(mode)}</span>
-                  <span className="sm:hidden">Mode</span>
-                  <ChevronDown className="text-muted-foreground size-3.5" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent
-                align="start"
-                className="w-[calc(100vw-1.5rem)] max-w-80 p-1.5"
-              >
-                <DropdownMenuLabel>Choose response mode</DropdownMenuLabel>
-                <p className="text-muted-foreground px-2 pb-2 text-xs">
-                  The selected mode controls the next tutor response.
-                </p>
-                <DropdownMenuSeparator />
-                {learningModes.map((learningMode) => (
-                  <DropdownMenuItem
-                    key={learningMode.value}
-                    onSelect={() => setMode(learningMode.value)}
-                    className="min-h-14 items-start gap-3 px-2 py-2"
-                  >
-                    <div className="min-w-0 flex-1">
-                      <p className="font-medium">{learningMode.label}</p>
-                      <p className="text-muted-foreground mt-0.5 text-xs leading-snug">
-                        {learningMode.description}
-                      </p>
-                    </div>
-                    {mode === learningMode.value && (
-                      <Check className="text-primary mt-0.5 size-4" />
-                    )}
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-            <Input
-              value={input}
-              onChange={(event) => setInput(event.target.value)}
-              onKeyDown={(event) =>
-                event.key === "Enter" && !event.shiftKey && handleSend()
-              }
-              placeholder="Ask a question..."
-              maxLength={4000}
-              className="border-border/50 bg-background/50 focus:border-primary/50 focus:bg-background focus:ring-primary/20 h-9 flex-1 text-sm transition-all duration-200 focus:ring-2 sm:h-11 sm:text-base"
-              disabled={isBusy}
-            />
             <Button
-              onClick={handleSend}
-              disabled={!input.trim() || isBusy}
-              className="h-9 min-w-[36px] flex-shrink-0 px-3 sm:h-11 sm:min-w-[44px] sm:px-4"
-              aria-label={isLoading ? "Sending message..." : "Send message"}
+              onClick={() => setIsHistoryOpen(true)}
+              variant="outline"
+              size="sm"
+              disabled={isBusy}
+              className="xl:hidden"
             >
-              {isLoading ? (
-                <BookLoader size="1rem" />
-              ) : (
-                <Send className="h-4 w-4" />
-              )}
+              <BookOpen data-icon="inline-start" />
+              History
             </Button>
           </div>
-          <div className="text-muted-foreground mt-3 flex items-center justify-between text-xs">
-            <span>Press Enter to send</span>
-            <div className="flex items-center space-x-1">
-              <Bot className="h-3 w-3" />
-              <span>Powered by EduHive AI</span>
-            </div>
+        </header>
+
+        <div className="bg-muted/10 relative min-h-0 flex-1 overflow-y-auto">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 [background-image:linear-gradient(to_right,var(--border)_1px,transparent_1px),linear-gradient(to_bottom,var(--border)_1px,transparent_1px)] [background-size:32px_32px] opacity-30"
+          />
+          <div className="relative mx-auto flex min-h-full max-w-3xl flex-col px-4 py-6 sm:px-6 sm:py-8">
+            {studySource && (
+              <Alert className="mb-6">
+                <BookOpenCheck />
+                <AlertTitle>
+                  Studying a post by {studySource.author.displayName}
+                </AlertTitle>
+                <AlertDescription className="flex flex-col gap-2">
+                  <p className="line-clamp-2">{studySource.content}</p>
+                  <Button asChild variant="link" size="sm">
+                    <Link href={`/posts/${studySource.id}`}>
+                      Open source post
+                      <ExternalLink data-icon="inline-end" />
+                    </Link>
+                  </Button>
+                </AlertDescription>
+              </Alert>
+            )}
+
+            {isHistoryLoading ? (
+              <Empty className="gap-4 p-4 md:p-6">
+                <EmptyHeader>
+                  <EmptyMedia variant="icon">
+                    <Spinner />
+                  </EmptyMedia>
+                  <EmptyTitle>Opening your study space</EmptyTitle>
+                  <EmptyDescription>
+                    Loading saved conversations and your latest tutor session.
+                  </EmptyDescription>
+                </EmptyHeader>
+              </Empty>
+            ) : messages.length === 0 ? (
+              <Empty className="gap-4 p-4 md:p-6">
+                <EmptyHeader>
+                  <EmptyMedia variant="icon">
+                    <Bot />
+                  </EmptyMedia>
+                  <EmptyTitle>What are you learning today?</EmptyTitle>
+                  <EmptyDescription>
+                    Ask a question, test your recall, or turn a difficult topic
+                    into a focused study plan.
+                  </EmptyDescription>
+                </EmptyHeader>
+                <EmptyContent className="max-w-xl">
+                  <div className="grid w-full grid-cols-2 gap-2 sm:grid-cols-4">
+                    {starterPrompts.map((starter) => (
+                      <Button
+                        key={starter.label}
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setInput(starter.prompt)}
+                      >
+                        {starter.label}
+                      </Button>
+                    ))}
+                  </div>
+                </EmptyContent>
+              </Empty>
+            ) : (
+              <div className="flex flex-col gap-7">
+                {messages.map((message) => (
+                  <MessageBubble key={message.id} message={message} />
+                ))}
+              </div>
+            )}
+
+            {error && (
+              <Alert variant="destructive" className="mt-6">
+                <AlertCircle />
+                <AlertTitle>The tutor hit a snag</AlertTitle>
+                <AlertDescription>{error}</AlertDescription>
+              </Alert>
+            )}
+
+            {isLoading && (
+              <div
+                className="text-muted-foreground mt-6 flex items-center gap-3 text-sm"
+                aria-live="polite"
+              >
+                <Spinner />
+                <div>
+                  <p className="text-foreground font-medium">Thinking</p>
+                  <p>Building a clear response from your study context.</p>
+                </div>
+              </div>
+            )}
+            <div ref={messagesEndRef} />
           </div>
         </div>
-      </div>
+
+        <form
+          className="border-border/60 bg-card shrink-0 border-t p-3 sm:p-4"
+          onSubmit={(event) => {
+            event.preventDefault();
+            handleSend();
+          }}
+        >
+          <div className="mx-auto max-w-3xl">
+            <label htmlFor="tutor-prompt" className="sr-only">
+              Ask the EduHive tutor
+            </label>
+            <InputGroup data-disabled={isBusy}>
+              <InputGroupTextarea
+                id="tutor-prompt"
+                value={input}
+                onChange={(event) => setInput(event.target.value)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" && !event.shiftKey) {
+                    event.preventDefault();
+                    handleSend();
+                  }
+                }}
+                placeholder="Ask about anything you are learning..."
+                maxLength={4000}
+                rows={2}
+                disabled={isBusy}
+              />
+              <InputGroupAddon align="block-end" className="justify-between">
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <InputGroupButton
+                      aria-label="Choose learning mode"
+                      disabled={isBusy}
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                    >
+                      <Sparkles data-icon="inline-start" />
+                      {getModeLabel(mode)}
+                      <ChevronDown data-icon="inline-end" />
+                    </InputGroupButton>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="start" className="max-w-80">
+                    <DropdownMenuLabel>Choose response mode</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuGroup>
+                      {learningModes.map((learningMode) => (
+                        <DropdownMenuItem
+                          key={learningMode.value}
+                          onSelect={() => setMode(learningMode.value)}
+                          className="min-h-14 items-start gap-3"
+                        >
+                          <div className="min-w-0 flex-1">
+                            <p className="font-medium">{learningMode.label}</p>
+                            <p className="text-muted-foreground mt-0.5 text-xs leading-snug">
+                              {learningMode.description}
+                            </p>
+                          </div>
+                          {mode === learningMode.value && <Check />}
+                        </DropdownMenuItem>
+                      ))}
+                    </DropdownMenuGroup>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+                <div className="flex items-center gap-2">
+                  <InputGroupText className="hidden sm:flex">
+                    Enter to send
+                  </InputGroupText>
+                  <InputGroupButton
+                    type="submit"
+                    size="icon-sm"
+                    variant="default"
+                    disabled={!input.trim() || isBusy}
+                    aria-label={isLoading ? "Sending message" : "Send message"}
+                  >
+                    {isLoading ? <Spinner /> : <ArrowUp />}
+                  </InputGroupButton>
+                </div>
+              </InputGroupAddon>
+            </InputGroup>
+            <p className="text-muted-foreground mt-2 text-center text-xs">
+              Shift + Enter adds a new line. Check important answers against
+              your course materials.
+            </p>
+          </div>
+        </form>
+      </section>
 
       <Dialog open={isHistoryOpen} onOpenChange={setIsHistoryOpen}>
-        <DialogContent className="border-border/50 bg-card/95 flex max-h-[80vh] flex-col backdrop-blur-sm sm:max-w-md">
+        <DialogContent className="flex max-h-[80vh] flex-col sm:max-w-md">
           <DialogHeader>
-            <DialogTitle className="text-foreground">
-              Conversation History
-            </DialogTitle>
+            <DialogTitle>Conversation history</DialogTitle>
           </DialogHeader>
-          <div className="mb-4 flex items-center justify-between">
-            <Button size="sm" onClick={startNewConversation} variant="gradient">
-              <Plus className="mr-2 h-4 w-4" />
-              New Chat
+          <div className="flex items-center justify-between">
+            <Button size="sm" onClick={startNewConversation}>
+              <Plus data-icon="inline-start" />
+              New chat
             </Button>
             <span className="text-muted-foreground text-sm">
               {conversations.length} conversation
               {conversations.length === 1 ? "" : "s"}
             </span>
           </div>
-          <Separator className="bg-border/50" />
+          <Separator />
           <ScrollArea className="flex-1 py-2">
-            <div className="space-y-2">
+            <div className="flex flex-col gap-1 pr-3">
               {conversations.map((conversation) => (
-                <div
-                  key={conversation.id}
-                  className={`rounded-modern hover:bg-accent/50 flex cursor-pointer items-center justify-between border p-3 transition-colors duration-200 ${currentConversation?.id === conversation.id ? "border-primary/20 bg-primary/10" : "border-border/30 bg-card/50"}`}
-                  onClick={() => loadConversation(conversation.id)}
-                >
-                  <div className="min-w-0 flex-1">
-                    <p className="text-foreground truncate font-medium">
-                      {conversation.title}
-                    </p>
-                    <p className="text-muted-foreground truncate text-xs">
-                      {conversation.lastMessage || "No messages yet"}
-                    </p>
-                    <div className="text-muted-foreground mt-1 flex items-center text-xs">
-                      <Clock className="mr-1 h-3 w-3" />
-                      {conversation.timestamp.toLocaleString()}
-                    </div>
-                  </div>
+                <div key={conversation.id} className="flex items-center gap-1">
+                  <Button
+                    variant={
+                      currentConversation?.id === conversation.id
+                        ? "secondary"
+                        : "ghost"
+                    }
+                    size="sm"
+                    onClick={() => loadConversation(conversation.id)}
+                    className="min-w-0 flex-1 justify-start"
+                  >
+                    <Clock data-icon="inline-start" />
+                    <span className="truncate">{conversation.title}</span>
+                  </Button>
                   <Button
                     variant="ghost"
-                    size="icon"
-                    className="text-muted-foreground hover:bg-destructive/10 hover:text-destructive h-6 w-6"
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      void deleteConversation(conversation);
-                    }}
+                    size="icon-sm"
+                    onClick={() => void deleteConversation(conversation)}
                     aria-label={`Delete ${conversation.title}`}
                   >
-                    <Trash2 className="h-4 w-4" />
+                    <Trash2 />
                   </Button>
                 </div>
               ))}

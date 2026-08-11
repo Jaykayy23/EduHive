@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-10T16:46:34.015056+00:00",
+  "generated_at": "2026-08-11T12:17:48.496608+00:00",
   "nodes": {
     "agents_skills_migrate_radix_to_base_overlays_popover": {
       "code_fingerprint": "238c2b529c55c4ff0ff36ad93de9f452e615cd7912b32bd290a0ffe8aa8053f2",
@@ -12,7 +12,7 @@
           "q": "Where are the dark mode theme tokens defined, and which components depend on background, card, popover, muted, border, and sidebar colors?"
         }
       ],
-      "score": 0.93106603,
+      "score": 0.913732213,
       "source_file": ".agents/skills/migrate-radix-to-base/overlays.md",
       "status": "tentative",
       "uses": 1
@@ -28,7 +28,7 @@
           "q": "Where are the dark mode theme tokens defined, and which components depend on background, card, popover, muted, border, and sidebar colors?"
         }
       ],
-      "score": 0.93106603,
+      "score": 0.913732213,
       "source_file": ".agents/skills/shadcn/customization.md",
       "status": "tentative",
       "uses": 1
@@ -44,13 +44,13 @@
           "q": "undo this redesign and revert back to the previous design before this"
         }
       ],
-      "score": 0.939220609,
+      "score": 0.921734977,
       "source_file": "app/(main)/bookmarks/Bookmarks.tsx",
       "status": "tentative",
       "uses": 1
     },
     "app_main_hiveq_page_hiveqpage": {
-      "code_fingerprint": "33203f6d822090230e0ffedc88298781f28dc273cddb01685c005eb478166a20",
+      "code_fingerprint": "92dca6cc8e34777ad7d5f735dccf88f7fc8c991446227b1f7f89f50d192219cd",
       "label": "HiveQPage()",
       "last": "2026-08-07T23:45:44.280776+00:00",
       "provenance": [
@@ -60,13 +60,13 @@
           "q": "use the hiveq icon on the menu bar for the one on the page"
         }
       ],
-      "score": 0.939329377,
+      "score": 0.92184172,
       "source_file": "app/(main)/hiveq/page.tsx",
       "status": "tentative",
       "uses": 1
     },
     "app_main_home_page_home": {
-      "code_fingerprint": "03e2fe1df51b9a41ca2735ecdfde2e4bf99ce01f9848f512412d45fc108e9314",
+      "code_fingerprint": "e902835d5c35ffded25fc8b20b4481eb0383dc5893a7feddb2ff084402e86e27",
       "label": "Home()",
       "last": "2026-08-07T23:38:31.252214+00:00",
       "provenance": [
@@ -76,13 +76,13 @@
           "q": "undo this redesign and revert back to the previous design before this"
         }
       ],
-      "score": 0.939220609,
+      "score": 0.921734977,
       "source_file": "app/(main)/home/page.tsx",
       "status": "tentative",
       "uses": 1
     },
     "app_main_homepagecontent": {
-      "code_fingerprint": "8e898a7af9cff71d1cf7368db98ea9521df00348dc30e83bdef92021a4e58cf1",
+      "code_fingerprint": "97721db959b124170f04e73ffd3aa36734740a147510e32096ec0a4a16a59dd5",
       "label": "HomePageContent.tsx",
       "last": "2026-08-07T22:26:19.532578+00:00",
       "provenance": [
@@ -92,13 +92,13 @@
           "q": "you are an expert frontend developer and ui/ux designer, redesign the other pages as well. let me see the design before you apply them"
         }
       ],
-      "score": 0.938133266,
+      "score": 0.920667876,
       "source_file": "app/(main)/HomePageContent.tsx",
       "status": "tentative",
       "uses": 1
     },
     "app_main_menubar_menubar": {
-      "code_fingerprint": "6c230189f8cebf712be0e50e24189290fc3fc454c1a7827cbc182bdc8369c5c2",
+      "code_fingerprint": "95966815f9cbe700de89605b8efd22a12d0eda32fbf2608a42a0b8379b303bf8",
       "label": "MenuBar()",
       "last": "2026-08-07T23:45:44.280776+00:00",
       "provenance": [
@@ -113,7 +113,7 @@
           "q": "undo this redesign and revert back to the previous design before this"
         }
       ],
-      "score": 1.878549986,
+      "score": 1.843576697,
       "source_file": "app/(main)/MenuBar.tsx",
       "status": "preferred",
       "uses": 2
@@ -134,7 +134,7 @@
           "q": "Why are features missing from the messages page on mobile?"
         }
       ],
-      "score": 1.869682935,
+      "score": 1.834874724,
       "source_file": "app/(main)/messages/Chat.tsx",
       "status": "preferred",
       "uses": 2
@@ -150,13 +150,13 @@
           "q": "Why are features missing from the messages page on mobile?"
         }
       ],
-      "score": 0.931549669,
+      "score": 0.914206848,
       "source_file": "app/(main)/messages/ChatChannel.tsx",
       "status": "tentative",
       "uses": 1
     },
     "app_main_messages_chatsidebar": {
-      "code_fingerprint": "ffa2124a17d4d39de14fb16b06a66b0ec4998d5f3bc0e1ce597c12e3811297bb",
+      "code_fingerprint": "0134d7b0392a98b2ca00c823c785fbdf17f9bc79775a91fc46f220cc9c926141",
       "label": "ChatSidebar.tsx",
       "last": "2026-08-07T15:07:24.336436+00:00",
       "provenance": [
@@ -166,7 +166,7 @@
           "q": "Why are features missing from the messages page on mobile?"
         }
       ],
-      "score": 0.931549669,
+      "score": 0.914206848,
       "source_file": "app/(main)/messages/ChatSidebar.tsx",
       "status": "tentative",
       "uses": 1
@@ -182,13 +182,13 @@
           "q": "Why are features missing from the messages page on mobile?"
         }
       ],
-      "score": 0.931549669,
+      "score": 0.914206848,
       "source_file": "app/(main)/messages/NewChatDialog.tsx",
       "status": "tentative",
       "uses": 1
     },
     "app_main_messagesbutton": {
-      "code_fingerprint": "c542a7653cfd7f076aa416805655b35da38ad1cf08b384108d6b0122376c13ec",
+      "code_fingerprint": "0101e47b2e78741c943b167d17e9602b694a93adcd1e5a403135662bb1fc653c",
       "label": "MessagesButton.tsx",
       "last": "2026-08-07T23:38:31.252214+00:00",
       "provenance": [
@@ -198,7 +198,7 @@
           "q": "undo this redesign and revert back to the previous design before this"
         }
       ],
-      "score": 0.939220609,
+      "score": 0.921734977,
       "source_file": "app/(main)/MessagesButton.tsx",
       "status": "tentative",
       "uses": 1
@@ -219,7 +219,7 @@
           "q": "Why do the subject tabs look displaced on mobile?"
         }
       ],
-      "score": 1.869570458,
+      "score": 1.834764341,
       "source_file": "app/(main)/Navbar.tsx",
       "status": "preferred",
       "uses": 2
@@ -235,7 +235,7 @@
           "q": "undo this redesign and revert back to the previous design before this"
         }
       ],
-      "score": 0.939220609,
+      "score": 0.921734977,
       "source_file": "app/(main)/Navbar.tsx",
       "status": "tentative",
       "uses": 1
@@ -251,13 +251,13 @@
           "q": "you are an expert frontend developer and ui/ux designer, redesign the other pages as well. let me see the design before you apply them"
         }
       ],
-      "score": 0.938133266,
+      "score": 0.920667876,
       "source_file": "components/achievements/AchievementsList.tsx",
       "status": "tentative",
       "uses": 1
     },
     "components_subjectfilter": {
-      "code_fingerprint": "8af4acc5957686a578a1bea50ea85f325d362a674cc8230415f7f21c8149e93f",
+      "code_fingerprint": "2ddb4293726402f02a68ef1a28e94d71bd44dcca96d62382d0c07b3b7146098c",
       "label": "SubjectFilter.tsx",
       "last": "2026-08-07T14:59:52.798601+00:00",
       "provenance": [
@@ -267,7 +267,7 @@
           "q": "Why do the subject tabs look displaced on mobile?"
         }
       ],
-      "score": 0.931437192,
+      "score": 0.914096465,
       "source_file": "components/SubjectFilter.tsx",
       "status": "tentative",
       "uses": 1
@@ -283,7 +283,7 @@
           "q": "Where are the dark mode theme tokens defined, and which components depend on background, card, popover, muted, border, and sidebar colors?"
         }
       ],
-      "score": 0.93106603,
+      "score": 0.913732213,
       "source_file": "components.json",
       "status": "tentative",
       "uses": 1
@@ -304,7 +304,7 @@
           "q": "Where are the dark mode theme tokens defined, and which components depend on background, card, popover, muted, border, and sidebar colors?"
         }
       ],
-      "score": 1.87028664,
+      "score": 1.83546719,
       "source_file": "components/TrendsSidebar.tsx",
       "status": "preferred",
       "uses": 2
@@ -325,7 +325,7 @@
           "q": "Why do the subject tabs look displaced on mobile?"
         }
       ],
-      "score": 1.870657801,
+      "score": 1.835831442,
       "source_file": "components/ui/button.tsx",
       "status": "preferred",
       "uses": 2
@@ -341,7 +341,7 @@
           "q": "Where are the dark mode theme tokens defined, and which components depend on background, card, popover, muted, border, and sidebar colors?"
         }
       ],
-      "score": 0.93106603,
+      "score": 0.913732213,
       "source_file": "components/ui/card.tsx",
       "status": "tentative",
       "uses": 1
@@ -357,29 +357,34 @@
           "q": "with hiveq, the questions being generated for multiple choice, the correct answer is obvious because its appearing twice in the option which shouldnt be so"
         }
       ],
-      "score": 0.937568647,
+      "score": 0.920113769,
       "source_file": "lib/hiveq-options.ts",
       "status": "tentative",
       "uses": 1
     },
     "lib_hiveq_server": {
-      "code_fingerprint": "3f7d9ce1c56efbbc2c8f774e99cdf05ac9902bfae96cd992e7b5048a6f2039e7",
+      "code_fingerprint": "db50dad0aeae7cb360b62473f7dfe26acdf54a8ccf18bfebcba65f798ce3f47a",
       "label": "hiveq-server.ts",
-      "last": "2026-08-10T16:43:11.920543+00:00",
+      "last": "2026-08-10T18:19:16.954667+00:00",
       "provenance": [
+        {
+          "date": "2026-08-10T18:19:16.954667+00:00",
+          "outcome": "useful",
+          "q": "Proceed with production deployment"
+        },
         {
           "date": "2026-08-10T16:43:11.920543+00:00",
           "outcome": "useful",
           "q": "Set the shared HiveQ key, server URL, production environment, apply the Prisma migration, and redeploy both services"
         }
       ],
-      "score": 0.999945958,
+      "score": 1.964173639,
       "source_file": "lib/hiveq-server.ts",
-      "status": "tentative",
-      "uses": 1
+      "status": "preferred",
+      "uses": 2
     },
     "ml_backend_app_main": {
-      "code_fingerprint": "c28f6bedf92045b9743af05ed5ef31176ae2b4db4ef7cec1c6adb02470285cc2",
+      "code_fingerprint": "0edc5a209f2bac21bb8c1dc9006ac8466160a7d22fe01d83de1ddd4e5fbaf428",
       "label": "main.py",
       "last": "2026-08-07T19:56:13.861665+00:00",
       "provenance": [
@@ -389,7 +394,7 @@
           "q": "now hiveQ when i use it, configure question types and hit generate it loads and shows load failed. its not working like its suppose to"
         }
       ],
-      "score": 0.935876699,
+      "score": 0.91845332,
       "source_file": "ml-backend/app/main.py",
       "status": "tentative",
       "uses": 1
@@ -397,8 +402,13 @@
     "ml_backend_app_services_questgen_service_questgenservice": {
       "code_fingerprint": "32972d5c29d762df95f68d4e95c01f6fd144ca34941135d5d5247172bc3767ab",
       "label": "QuestgenService",
-      "last": "2026-08-10T16:43:11.920543+00:00",
+      "last": "2026-08-10T18:19:16.954667+00:00",
       "provenance": [
+        {
+          "date": "2026-08-10T18:19:16.954667+00:00",
+          "outcome": "useful",
+          "q": "Proceed with production deployment"
+        },
         {
           "date": "2026-08-10T16:43:11.920543+00:00",
           "outcome": "useful",
@@ -420,16 +430,21 @@
           "q": "now hiveQ when i use it, configure question types and hit generate it loads and shows load failed. its not working like its suppose to"
         }
       ],
-      "score": 3.811030946,
+      "score": 4.722924171,
       "source_file": "ml-backend/app/services/questgen_service.py",
       "status": "preferred",
-      "uses": 4
+      "uses": 5
     },
     "ml_backend_readme_deploy_on_render": {
-      "code_fingerprint": "c08bbbab513eeaf2902e501741d523ea35156f21e4483208fabb3f11cdd6e087",
+      "code_fingerprint": "3a3d70ca31399ed4f56d7c39df8bb1fc3b26f167e4a8dd6a4225a0d723d421b7",
       "label": "Deploy on Render",
-      "last": "2026-08-10T16:43:11.920543+00:00",
+      "last": "2026-08-10T18:19:16.954667+00:00",
       "provenance": [
+        {
+          "date": "2026-08-10T18:19:16.954667+00:00",
+          "outcome": "useful",
+          "q": "Proceed with production deployment"
+        },
         {
           "date": "2026-08-10T16:43:11.920543+00:00",
           "outcome": "useful",
@@ -441,13 +456,13 @@
           "q": "if i push it to github will it update on render?"
         }
       ],
-      "score": 1.9375856,
+      "score": 2.884357082,
       "source_file": "ml-backend/README.md",
       "status": "preferred",
-      "uses": 2
+      "uses": 3
     },
     "ml_backend_readme_hiveq_api": {
-      "code_fingerprint": "c08bbbab513eeaf2902e501741d523ea35156f21e4483208fabb3f11cdd6e087",
+      "code_fingerprint": "3a3d70ca31399ed4f56d7c39df8bb1fc3b26f167e4a8dd6a4225a0d723d421b7",
       "label": "HiveQ API",
       "last": "2026-08-07T19:56:13.861665+00:00",
       "provenance": [
@@ -457,7 +472,7 @@
           "q": "now hiveQ when i use it, configure question types and hit generate it loads and shows load failed. its not working like its suppose to"
         }
       ],
-      "score": 0.935876699,
+      "score": 0.91845332,
       "source_file": "ml-backend/README.md",
       "status": "tentative",
       "uses": 1

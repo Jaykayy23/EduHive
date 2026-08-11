@@ -1,227 +1,227 @@
 # Graph Report - EduHive_  (2026-08-11)
 
 ## Corpus Check
-- 309 files · ~670,717 words
+- 315 files · ~672,131 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 7206 nodes · 12578 edges · 323 communities (170 shown, 153 thin omitted)
-- Extraction: 94% EXTRACTED · 6% INFERRED · 0% AMBIGUOUS · INFERRED: 783 edges (avg confidence: 0.65)
+- 7268 nodes · 12513 edges · 320 communities (167 shown, 153 thin omitted)
+- Extraction: 96% EXTRACTED · 4% INFERRED · 0% AMBIGUOUS · INFERRED: 495 edges (avg confidence: 0.66)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `ceb4aa39`
+- Built from commit: `1508cefd`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
-- index d ts
-- AccelerateEngineConfig Subsystem
-- Tn Subsystem
-- react native js
-- edge js
-- edge esm js
-- Decimal Subsystem
-- Decimal Subsystem
-- useFollowerInfo ts
-- At Subsystem
-- page tsx
-- route ts
-- GoogleSignInButton tsx
-- index browser js
-- ko Subsystem
-- addErrorMessage Subsystem
-- useDebounce ts
-- buildQueryError Subsystem
-- a Subsystem
-- addErrorMessage Subsystem
-- addItem Subsystem
-- a Subsystem
-- ba Subsystem
-- addErrorMessage Subsystem
-- bl Subsystem
-- addErrorMessage Subsystem
-- addErrorMessage Subsystem
-- route ts
-- InputSection Subsystem
-- addItem Subsystem
-- vo Subsystem
-- CleaningDiagnostics Subsystem
-- bo Subsystem
-- actions ts
-- ap Subsystem
-- Be Subsystem
-- vl Subsystem
-- AcademicChatBot Subsystem
-- Aa Subsystem
-- qe Subsystem
-- ac Subsystem
-- cobe Subsystem
-- eslint Subsystem
-- addMarginSymbol Subsystem
-- ac Subsystem
-- addMarginSymbol Subsystem
-- applyPendingMigrations Subsystem
-- de Subsystem
-- aa Subsystem
-- dom Subsystem
-- ai Subsystem
-- aa Subsystem
-- AchievementBadge tsx
-- ReportActions tsx
-- Ba Subsystem
-- dm Subsystem
-- BaseModel Subsystem
-- a Subsystem
-- An Subsystem
-- index browser d ts
-- dc Subsystem
-- route ts
-- Bd Subsystem
-- components json
-- Prisma UserClient
-- Any Subsystem
-- AchievementDelegate Subsystem
-- BookmarkDelegate Subsystem
-- ChatSessionDelegate Subsystem
-- CommentDelegate Subsystem
-- ConferenceParticipantDelegate Subsystem
-- FollowDelegate Subsystem
-- LikeDelegate Subsystem
-- MediaDelegate Subsystem
-- NotificationDelegate Subsystem
-- PostDelegate Subsystem
-- ReportDelegate Subsystem
-- SessionDelegate Subsystem
-- UserAchievementDelegate Subsystem
-- UserDelegate Subsystem
-- VideoConferenceDelegate Subsystem
-- Er Subsystem
-- addMarginSymbol Subsystem
-- a Subsystem
-- addMarginSymbol Subsystem
-- En Subsystem
-- addItem Subsystem
-- MenuBar.tsx
-- Ae Subsystem
-- summarizer py
-- extractHostAndApiKey Subsystem
-- B Subsystem
+- index.d.ts
+- library.d.ts
+- library.js
+- react-native.js
+- runtime/edge.js
+- edge-esm.js
+- Decimal
+- Decimal
+- PostEditor.tsx
+- runtime/wasm.js
+- qo
+- types.ts
+- e
+- n
+- ha
+- addErrorMessage
+- cn
+- request
+- .slice
+- addErrorMessage
+- dropdown-menu.tsx
+- chatbot/page.tsx
+- T
+- addErrorMessage
+- T
+- addErrorMessage
+- t
+- chatbot/route.ts
+- 3-results-section.tsx
+- ha
+- EmailVerificationTokenDelegate
+- PDFTextCleaner
+- PasswordResetTokenDelegate
+- dropdown-menu (Radix `DropdownMenu` → Base UI `Menu`)
+- r
+- T
+- si
+- PrismaClient
+- constructor
+- slice
+- fo
+- dependencies
+- devDependencies
 - write
-- to
-- DriverAdapter Subsystem
-- Span Subsystem
-- Aa Subsystem
-- questgen service py
-- Prisma PostClient
-- MergedExtensionsList Subsystem
-- layout tsx
-- chatbot utils ts
-- sql Subsystem
-- Engine Subsystem
-- package json
-- AnyNull Subsystem
-- ErrorWithBatchIndex Subsystem
-- RequestHandler Subsystem
-- alloc Subsystem
-- NodeHeaders Subsystem
-- EduHive Graphify workflow
-- Graphify watch mode
-- educational dataset ts
-- Prisma CommentClient
-- Prisma NotificationClient
-- Prisma ReportClient
-- package json
-- Fe Subsystem
-- edge js
-- Prisma AchievementClient
-- Prisma BookmarkClient
-- Prisma ConferenceParticipantClient
-- Prisma FollowClient
-- Prisma LikeClient
-- Prisma UserAchievementClient
-- Prisma VideoConferenceClient
-- exports Subsystem
-- Sql Subsystem
-- TracingHelper Subsystem
-- ensure nltk data
+- OnboardingForm.tsx
+- write
+- chatbot-utils.ts
+- r
+- di
+- compilerOptions
+- r
+- sa
+- toolbar
+- pu
+- requestInternal
+- ReportActions.tsx
+- main.py
+- toString
+- index.js
+- index-browser.d.ts
+- e
+- constructor
+- write
+- components.json
+- Prisma__UserClient
+- FileParser
+- AchievementDelegate
+- BookmarkDelegate
+- ChatSessionDelegate
+- CommentDelegate
+- ConferenceParticipantDelegate
+- FollowDelegate
+- LikeDelegate
+- MediaDelegate
+- NotificationDelegate
+- PostDelegate
+- ReportDelegate
+- SessionDelegate
+- UserAchievementDelegate
+- UserDelegate
+- VideoConferenceDelegate
+- slice
+- write
+- bo
+- write
+- .slice
+- select
+- r
+- @lucia-auth/adapter-prisma
+- Summarizer
+- requestInternal
+- validateRequest
+- pi
+- Yr
+- Queryable
+- Span
+- Ta
+- QuestgenService
+- Prisma__PostClient
+- MergedExtensionsList
+- app/layout.tsx
+- Prisma__EmailVerificationTokenClient
+- ./sql
+- Engine
+- package.json
+- NullTypesEnumValue
+- PrismaClientKnownRequestError
+- RequestHandler
+- Per-component notes
+- NodeHeaders
+- Graph traversal
+- Graphify pipeline
+- educational-dataset.ts
+- Prisma__CommentClient
+- Prisma__NotificationClient
+- Prisma__ReportClient
+- prisma/package.json
+- UserPreferenceDelegate
+- prisma/edge.js
+- Prisma__AchievementClient
+- Prisma__BookmarkClient
+- Prisma__ConferenceParticipantClient
+- Prisma__FollowClient
+- Prisma__LikeClient
+- Prisma__UserAchievementClient
+- Prisma__VideoConferenceClient
+- exports
+- Sql
+- TracingHelper
+- r
 - Google Generative AI SDK
-- eslint config mjs
-- Prisma ChatSessionClient
-- Prisma MediaClient
-- Prisma SessionClient
-- default Subsystem
-- extension Subsystem
-- index Subsystem
-- index browser
-- react native
-- runtime binary
-- runtime library
-- wasm Subsystem
-- MiddlewareHandler Subsystem
-- PrismaPromise 2
-- TraceState Subsystem
-- utils ts
-- Context Subsystem
-- DataLoader Subsystem
-- MetricsClient Subsystem
-- TypedSql Subsystem
-- PrismaClientInitializationError Subsystem
-- PrismaClientRustPanicError Subsystem
-- PrismaClientValidationError Subsystem
-- Skip Subsystem
-- seed achievements ts
-- send-verification-email.tsx
+- eslint.config.mjs
+- PrismaPromise
+- Prisma__MediaClient
+- Prisma__SessionClient
+- ./edge
+- ./extension
+- ./index
+- ./index-browser
+- ./react-native
+- ./runtime/binary
+- ./runtime/library
+- ./wasm
+- MiddlewareHandler
+- PrismaPromise_2
+- TraceState
+- button.tsx
+- Context
+- DataLoader
+- MetricsClient
+- TypedSql
+- PrismaClientInitializationError
+- PrismaClientRustPanicError
+- PrismaClientValidationError
+- Skip
+- seed-achievements.ts
 - Qt
+- ky
 - hiveq-server.ts
-- Fr
-- clsx Subsystem
-- date fns
-- hookform resolvers
-- ky Subsystem
-- AnyNull Subsystem
-- DbNull Subsystem
-- JsonNull Subsystem
-- CallSite Subsystem
-- DecimalJsLike Subsystem
-- ErrorRegistry Subsystem
-- JsonConvertible Subsystem
+- Q: use the hiveq icon on the menu bar for the one on the page
+- LandingPageExperience.tsx
+- test_backend.py
+- Q: how do i access the admin page
+- prisma/index-browser.js
+- AnyNull
+- DbNull
+- JsonNull
+- CallSite
+- DecimalJsLike
+- ErrorRegistry
+- JsonConvertible
 - cobe
-- lucide react
-- magiclabs ui
-- motion Subsystem
-- next Subsystem
-- next config ts
-- next themes
-- route.ts
-- radix ui react checkbox
-- radix ui react dropdown
-- radix ui react label
-- radix ui react select
-- radix ui react separator
-- get
-- radix ui react tooltip
-- react cropper
+- oi
+- @magiclabs/ui
+- @radix-ui/react-slider
+- Commands
+- next.config.ts
+- wp
+- prisma/wasm.js
+- V
+- @radix-ui/react-avatar
+- Prisma__ChatSessionClient
+- Q: undo this redesign and revert back to the previous design before this
+- Q: if i push it to github will it update on render?
+- @radix-ui/react-dropdown-menu
+- Q: with hiveq, the questions being generated for multiple choice, the correct answer is obvious because its appearing twice in the option which shouldnt be so
+- @radix-ui/react-slot
+- Q: Proceed with production deployment
 - Q: Set the shared HiveQ key, server URL, production environment, apply the Prisma migration, and redeploy both services
-- react icons
-- react image file resizer
-- react intersection observer
+- Prisma__UserPreferenceClient
+- @radix-ui/react-tabs
+- react-cropper
 - framer-motion
-- sonner Subsystem
-- stream chat
+- lucide-react
+- next-themes
 - @node-rs/argon2
-- tanstack react query
-- tiptap pm
-- tiptap react
-- tiptap starter kit
-- uploadthing Subsystem
-- uploadthing react
-- clsx
-- postcss config mjs
+- uploadthing
+- @react-email/render
+- zod
+- @tiptap/extension-placeholder
+- @tiptap/react
+- @tiptap/starter-kit
+- postcss.config.mjs
 - Back navigation icon
 - Unliked heart icon
 - Unsaved bookmark icon
-- vercel json
+- vercel.json
 - Graph export formats
 - Extraction Spec
 - Document file icon
@@ -234,7 +234,7 @@
 - File upload media icon
 - Filter icon
 - Follow user icon
-- Add image to gallery
+- Add image to gallery icon
 - Google authentication icon
 - Home navigation icon
 - Loading spinner
@@ -245,38 +245,37 @@
 - Search icon
 - Wallpaper image icon
 - Avatar Placeholder
-- Chatgpt Image May 14
+- Chatgpt Image May 14, 2025, 12 17 46 Pm
 - Eduhive Logo
-- Edulogo Subsystem
-- Landing Subsystem
+- Edulogo
+- Landing
 - Login Image
-- Logo Subsystem
-- Mylogo Subsystem
+- Logo
+- Mylogo
 - Pexels Pixabay 355887
-- Profile Subsystem
-- Resourcehub Subsystem
+- Profile
+- Resourcehub
 - Resourcehub High Resolution Logo
 - Side Img
 - Signup Image
-- Welcome Subsystem
-- Next Subsystem
-- Vercel Subsystem
-- Window Subsystem
-- Fe
-- class-variance-authority
+- Welcome
+- Next
+- Vercel
+- Window
+- radix-ui
 - AuthEmailRateLimitDelegate
-- actions.ts
-- send-verification-email.tsx
-- Qt
-- validation.ts
-- actions.ts
-- page.tsx
-- index-browser.js
+- shadcn/SKILL.md
+- Customization & Theming
+- Q: Why do the subject tabs look displaced on mobile?
+- Component Composition
+- verify-email/actions.ts
+- Styling & Customization
+- Q: you are an expert frontend developer and ui/ux designer, redesign the other pages as well. let me see the design before you apply them
 - @radix-ui/react-checkbox
-- index-browser.js
-- Prisma__PasswordResetTokenClient
-- wasm.js
-- auth-flows.test.mjs
+- @vercel/analytics
+- @radix-ui/react-select
+- styles.d.ts
+- from
 - alert-dialog
 - Tools
 - toast
@@ -294,31 +293,29 @@
 - Forms & Inputs
 - Critical Rules
 - Class-string rewrites (layer 2)
-- display-misc.md
+- No Base UI counterpart
 - avatar
 - Radix UI -> Base UI migration
 - Consumer-side prop changes (call sites, not wrappers)
 - Progress.Indicator → Progress.Indicator
-- Separator.Root → Separator
-- index-browser.js
-- wasm.js
+- display-misc.md
+- Q: Where are the dark mode theme tokens defined, and which components depend on background, card, popover, muted, border, and sidebar colors?
 - (new) Fieldset.Root and Fieldset.Legend
 - overlays.md
-- @radix-ui/react-dropdown-menu
-- @radix-ui/react-dropdown-menu
+- Q: now hiveQ when i use it, configure question types and hit generate it loads and shows load failed. its not working like its suppose to
+- @radix-ui/react-label
 - react-hook-form
 - react-linkify-it
 - HiveQ API
 - Q: Why are features missing from the messages page on mobile?
-- class-variance-authority
-- next
-- @radix-ui/react-avatar
-- Fe
-- @radix-ui/react-separator
+- @stream-io/video-react-sdk
+- @hookform/resolvers
+- @tiptap/pm
+- constructor
+- date-fns
 - react-image-file-resizer
-- stream-chat-react
 - @tanstack/react-query-devtools
-- @tiptap/react
+- @radix-ui/react-alert-dialog
 - @radix-ui/react-dialog
 - resend
 - sonner
@@ -326,386 +323,375 @@
 - clsx
 
 ## God Nodes (most connected - your core abstractions)
-1. `n()` - 171 edges
-2. `cn()` - 158 edges
-3. `i()` - 136 edges
-4. `Decimal` - 117 edges
-5. `Decimal` - 117 edges
-6. `validateRequest` - 95 edges
-7. `r()` - 51 edges
-8. `r()` - 43 edges
-9. `r()` - 43 edges
-10. `T()` - 42 edges
+1. `cn()` - 190 edges
+2. `Decimal` - 117 edges
+3. `Decimal` - 117 edges
+4. `n()` - 115 edges
+5. `validateRequest` - 95 edges
+6. `i()` - 81 edges
+7. `T()` - 42 edges
+8. `T()` - 42 edges
+9. `T()` - 42 edges
+10. `Button()` - 38 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `Gemini API configuration` --semantically_similar_to--> `Google Generative AI SDK`  [INFERRED] [semantically similar]
   README.md → ml-backend/requirements.txt
-- `Page()` --calls--> `hashAuthToken()`  [EXTRACTED]
-  app/(recovery)/reset-password/[token]/page.tsx → lib/auth/tokens.ts
+- `EditProfileButtonProps` --references--> `UserData`  [EXTRACTED]
+  app/(main)/users/[username]/EditProfileButton.tsx → lib/types.ts
+- `MediaPreviews()` --calls--> `cn()`  [EXTRACTED]
+  components/posts/Post.tsx → lib/utils.ts
+- `MediaPreview()` --calls--> `cn()`  [EXTRACTED]
+  components/posts/Post.tsx → lib/utils.ts
 - `AttachmentPreviews()` --calls--> `cn()`  [EXTRACTED]
   components/posts/editor/PostEditor.tsx → lib/utils.ts
-- `AttachmentPreview()` --calls--> `cn()`  [EXTRACTED]
-  components/posts/editor/PostEditor.tsx → lib/utils.ts
-- `FieldSeparator()` --calls--> `cn()`  [EXTRACTED]
-  components/ui/field.tsx → lib/utils.ts
 
 ## Import Cycles
 - 3-file cycle: `components/Linkify.tsx -> components/UserLinkwithTooltip.tsx -> components/UserTooltip.tsx -> components/Linkify.tsx`
 
-## Communities (323 total, 153 thin omitted)
+## Communities (320 total, 153 thin omitted)
 
-### Community 0 - "index d ts"
+### Community 0 - "index.d.ts"
 Cohesion: 0.00
-Nodes (2056): Achievement, Achievement$userAchievementsArgs, AchievementAggregateArgs, AchievementArgs, AchievementAvgAggregateInputType, AchievementAvgAggregateOutputType, AchievementAvgOrderByAggregateInput, AchievementCategory (+2048 more)
+Nodes (2057): Achievement, Achievement$userAchievementsArgs, AchievementAggregateArgs, AchievementArgs, AchievementAvgAggregateInputType, AchievementAvgAggregateOutputType, AchievementAvgOrderByAggregateInput, AchievementCategory (+2049 more)
 
-### Community 1 - "AccelerateEngineConfig Subsystem"
+### Community 1 - "library.d.ts"
 Cohesion: 0.01
 Nodes (305): AccelerateEngineConfig, Action, ActiveConnectorType, Aggregate, AllModelsToStringIndex, ApplyOmit, Args, Args_3 (+297 more)
 
-### Community 2 - "Tn Subsystem"
-Cohesion: 0.03
-Nodes (51): ac(), As(), Bu(), build(), buildCaptureSettings(), Cd(), createEngineSpan(), ei() (+43 more)
-
-### Community 3 - "react native js"
+### Community 2 - "library.js"
 Cohesion: 0.02
-Nodes (70): ai(), ap(), applyPendingMigrations(), ar(), As(), buildQueryError(), Ce(), consumeError() (+62 more)
+Nodes (80): As(), Au(), bs(), Bu(), build(), buildCaptureSettings(), Cd(), Cn() (+72 more)
 
-### Community 4 - "edge js"
-Cohesion: 0.03
-Nodes (51): bc(), build(), buildCaptureSettings(), ce(), Cl(), createEngineSpan(), Eo(), ep() (+43 more)
-
-### Community 5 - "edge esm js"
+### Community 3 - "react-native.js"
 Cohesion: 0.02
-Nodes (65): build(), buildCaptureSettings(), $c(), Cc(), ce(), createEngineSpan(), di(), Ea() (+57 more)
+Nodes (62): Al(), ap(), As(), at(), Bc(), bs(), Ce(), Dc() (+54 more)
 
-### Community 8 - "useFollowerInfo ts"
-Cohesion: 0.21
-Nodes (15): At, applyPendingMigrations(), buildQueryError(), consumeError(), dispatchBatches(), getExternalAdapterError(), ja(), metrics() (+7 more)
-
-### Community 9 - "At Subsystem"
+### Community 4 - "runtime/edge.js"
 Cohesion: 0.03
-Nodes (48): _a(), Ar(), as(), at(), bo(), ca(), Ce(), constructor() (+40 more)
+Nodes (58): build(), buildCaptureSettings(), cc(), ce(), Cl(), constructor(), createEngineSpan(), ds() (+50 more)
 
-### Community 10 - "page tsx"
+### Community 5 - "edge-esm.js"
+Cohesion: 0.03
+Nodes (61): Aa(), ac(), ba(), build(), buildCaptureSettings(), ce(), createEngineSpan(), di() (+53 more)
+
+### Community 8 - "PostEditor.tsx"
+Cohesion: 0.09
+Nodes (22): HomePageContent(), Chat(), ChatChannel(), ChatChannelProps, CustomChannelHeaderProps, ChatSidebar(), ChatSidebarProps, MenuHeaderProps (+14 more)
+
+### Community 9 - "runtime/wasm.js"
+Cohesion: 0.03
+Nodes (57): al(), as(), bo(), buildQueryError(), ca(), constructor(), consumeError(), createEngineSpan() (+49 more)
+
+### Community 10 - "qo"
 Cohesion: 0.13
-Nodes (27): An(), Cn(), Dr(), ds(), findField(), fu(), getAllBatchQueryCallbacks(), getArgumentName() (+19 more)
+Nodes (26): An(), Cn(), ds(), findField(), fu(), getAllBatchQueryCallbacks(), getArgumentName(), getArgumentPath() (+18 more)
 
-### Community 11 - "route ts"
-Cohesion: 0.05
-Nodes (59): POST(), useFollowerInfo(), HomePageContent(), ChatSidebar(), ChatSidebarProps, MenuHeaderProps, generateMetadata(), getPost (+51 more)
+### Community 11 - "types.ts"
+Cohesion: 0.04
+Nodes (94): POST(), useFollowerInfo(), Bookmarks(), metadata, ForYouFeedProps, MessagesButtonProps, Notication(), NotificationProps (+86 more)
 
-### Community 12 - "GoogleSignInButton tsx"
-Cohesion: 0.14
-Nodes (20): bo(), Bs(), Cr(), Do(), dt(), el(), _getName(), ht() (+12 more)
+### Community 12 - "e"
+Cohesion: 0.09
+Nodes (26): ac(), Bs(), _c(), e(), es(), Fc(), gt(), hc() (+18 more)
 
-### Community 13 - "index browser js"
-Cohesion: 0.05
-Nodes (40): {
-  Decimal,
-  objectEnumValues,
-  makeStrictEnum,
-  Public,
-  getRuntime,
-  skip
-}, Prisma, PrismaClient, Ae(), an(), B(), be(), bn() (+32 more)
+### Community 13 - "n"
+Cohesion: 0.06
+Nodes (50): Ae(), an(), B(), be(), bn(), constructor(), e(), Ee() (+42 more)
 
-### Community 14 - "ko Subsystem"
+### Community 14 - "ha"
 Cohesion: 0.15
 Nodes (16): _a(), Dn(), Fi(), ha(), hi(), Ja(), kd(), kn() (+8 more)
 
-### Community 15 - "addErrorMessage Subsystem"
+### Community 15 - "addErrorMessage"
 Cohesion: 0.10
-Nodes (51): qe(), addErrorMessage(), addField(), addSuggestion(), asObject(), bo(), br(), Bt() (+43 more)
+Nodes (49): addErrorMessage(), addField(), addSuggestion(), asObject(), bo(), br(), Bt(), bu() (+41 more)
 
-### Community 16 - "useDebounce ts"
-Cohesion: 0.03
-Nodes (106): MenuBarProps, MenuLink(), MenuLinkProps, ChatChannel(), ChatChannelProps, CustomChannelHeaderProps, NavbarProps, Notication() (+98 more)
+### Community 16 - "cn"
+Cohesion: 0.04
+Nodes (75): MenuBar(), MenuBarProps, MenuLink(), MenuLinkProps, MessagesButton(), NotificationsButton(), AiLoaderProps, Component() (+67 more)
 
-### Community 17 - "buildQueryError Subsystem"
-Cohesion: 0.10
-Nodes (32): buildQueryError(), cm(), consumeError(), ct(), dispatchBatches(), fd(), Ft(), getExternalAdapterError() (+24 more)
+### Community 17 - "request"
+Cohesion: 0.07
+Nodes (42): buildQueryError(), cm(), consumeError(), createEngineSpan(), ct(), dispatchBatches(), fd(), fm() (+34 more)
 
-### Community 18 - "a Subsystem"
+### Community 18 - ".slice"
+Cohesion: 0.08
+Nodes (36): a(), ai(), Ba(), enabled(), eu(), Fa(), fo(), g() (+28 more)
+
+### Community 19 - "addErrorMessage"
 Cohesion: 0.13
-Nodes (20): Ba(), enabled(), Fa(), fo(), hi(), indentedCurrentLine(), ke(), kt() (+12 more)
+Nodes (46): addErrorMessage(), addField(), addSuggestion(), Ao(), Ar(), asObject(), Au(), bu() (+38 more)
 
-### Community 19 - "addErrorMessage Subsystem"
-Cohesion: 0.12
-Nodes (48): addErrorMessage(), addField(), addSuggestion(), Ao(), Ar(), asObject(), Au(), bu() (+40 more)
-
-### Community 20 - "addItem Subsystem"
-Cohesion: 0.18
-Nodes (11): _c(), Fc(), Gr(), gt(), hc(), isRawAction(), ms(), rc() (+3 more)
-
-### Community 21 - "a Subsystem"
+### Community 20 - "dropdown-menu.tsx"
 Cohesion: 0.11
-Nodes (20): GET(), Conversation, getModeLabel(), learningModes, Message, MessageBubble(), AiLoaderProps, Component() (+12 more)
+Nodes (27): ReportTable(), Comment(), CommentProps, CommentMoreButton(), CommentMoreButtonProps, DeleteCommentDialog(), DeleteCommentDialogProps, DeletePostDialog() (+19 more)
 
-### Community 22 - "ba Subsystem"
+### Community 21 - "chatbot/page.tsx"
+Cohesion: 0.08
+Nodes (42): GET(), AcademicChatBot(), Conversation, createConversation(), generateId(), getConversationMode(), getModeLabel(), getStreamDelta() (+34 more)
+
+### Community 22 - "T"
 Cohesion: 0.06
 Nodes (18): ba(), ci(), ha(), Hr(), ii(), Je(), ni(), Oe() (+10 more)
 
-### Community 23 - "addErrorMessage Subsystem"
-Cohesion: 0.12
-Nodes (49): addErrorMessage(), addField(), addSuggestion(), Ao(), asObject(), Au(), bu(), co() (+41 more)
+### Community 23 - "addErrorMessage"
+Cohesion: 0.14
+Nodes (44): addErrorMessage(), addField(), addSuggestion(), Ao(), asObject(), Au(), bu(), co() (+36 more)
 
-### Community 24 - "bl Subsystem"
-Cohesion: 0.06
-Nodes (10): bl(), bt(), fi(), gi(), hi(), ne(), pi(), Ra() (+2 more)
+### Community 24 - "T"
+Cohesion: 0.07
+Nodes (8): bt(), fi(), gi(), hi(), pi(), Ra(), re(), T()
 
-### Community 25 - "addErrorMessage Subsystem"
+### Community 25 - "addErrorMessage"
 Cohesion: 0.14
 Nodes (43): addErrorMessage(), addField(), addSuggestion(), asObject(), Bp(), dp(), Fp(), getDeepField() (+35 more)
 
-### Community 26 - "addErrorMessage Subsystem"
-Cohesion: 0.13
-Nodes (42): addErrorMessage(), addField(), addSuggestion(), asObject(), Bs(), ds(), dt(), ei() (+34 more)
+### Community 26 - "t"
+Cohesion: 0.12
+Nodes (46): addErrorMessage(), addField(), addSuggestion(), asObject(), Bs(), ds(), dt(), ei() (+38 more)
 
-### Community 27 - "route ts"
-Cohesion: 0.21
-Nodes (12): getMaxTokens(), getNvidiaTimeoutMs(), getProviderErrorMessage(), NVIDIA_TRANSIENT_STATUS_CODES, POST(), wait(), getTutorModeInstructions(), SUBJECT_KEYWORDS (+4 more)
+### Community 27 - "chatbot/route.ts"
+Cohesion: 0.14
+Nodes (17): getMaxTokens(), getNvidiaTimeoutMs(), getProviderErrorMessage(), maxDuration, NVIDIA_TRANSIENT_STATUS_CODES, POST(), runtime, wait() (+9 more)
 
-### Community 28 - "InputSection Subsystem"
-Cohesion: 0.05
-Nodes (62): useDebounce(), allocateQuestionCounts(), ConfigurationSection(), ConfigurationSectionProps, escapeHtml(), formatQuestionType(), isAnswerCorrect(), QuizQuestion (+54 more)
-
-### Community 29 - "addItem Subsystem"
-Cohesion: 0.15
-Nodes (19): ai(), be(), Ca(), cr(), de(), en(), ha(), li() (+11 more)
-
-### Community 31 - "CleaningDiagnostics Subsystem"
+### Community 28 - "3-results-section.tsx"
 Cohesion: 0.07
-Nodes (27): Enum, CleaningDiagnostics, PDFTextCleaner, ProcessingMode, pdf_text_cleaner.py - The Most Comprehensive PDF Text Cleaner for AI & Education, Configure mode-specific settings., Clean PDF-extracted text with advanced processing.                  Args:, Process large documents in parallel chunks. (+19 more)
+Nodes (49): metadata, dynamic, FollowingFeed(), ForYouFeed(), InputSection(), InputSectionProps, QuizSource, allocateQuestionCounts() (+41 more)
 
-### Community 33 - "actions ts"
+### Community 29 - "ha"
+Cohesion: 0.12
+Nodes (23): ai(), be(), bl(), Ca(), cr(), de(), en(), enabled() (+15 more)
+
+### Community 31 - "PDFTextCleaner"
+Cohesion: 0.07
+Nodes (24): CleaningDiagnostics, PDFTextCleaner, Configure mode-specific settings., Clean PDF-extracted text with advanced processing. Args: raw_text: Extracted…, Process large documents in parallel chunks., Process a single text chunk through the full pipeline., Normalize Unicode, HTML entities, and control characters., Remove headers, footers, page numbers, etc. (+16 more)
+
+### Community 33 - "dropdown-menu (Radix `DropdownMenu` → Base UI `Menu`)"
 Cohesion: 0.04
 Nodes (48): Arrow / Item / Group / Label / CheckboxItem / RadioGroup / RadioItem / ItemIndicator / Separator / Sub / SubTrigger / SubContent, Arrow → Menu.Arrow, Base UI only, data attributes, CSS variables, Base UI only props worth knowing (Menu), Base UI only props worth knowing (NavigationMenu), CheckboxItem → Menu.CheckboxItem, Content → ContextMenu.Portal > Positioner > Popup, Content → Menu.Portal > Menu.Positioner > Menu.Popup (+40 more)
 
-### Community 34 - "ap Subsystem"
+### Community 34 - "r"
 Cohesion: 0.11
-Nodes (30): de(), Dl(), da(), e(), fe(), getAllBatchQueryCallbacks(), getOrCreate(), has() (+22 more)
+Nodes (22): dr(), bi(), e(), getAllBatchQueryCallbacks(), getAllQueryCallbacks(), getOrCreate(), isEmpty(), ji() (+14 more)
 
-### Community 35 - "Be Subsystem"
-Cohesion: 0.06
-Nodes (23): Aa(), Be(), bi(), Ca(), de(), di(), Ei(), fi() (+15 more)
-
-### Community 36 - "vl Subsystem"
+### Community 35 - "T"
 Cohesion: 0.08
-Nodes (28): kl(), Ne(), addItem(), al(), ao(), be(), Bt(), Ct() (+20 more)
+Nodes (8): Be(), bi(), ec(), Ei(), gn(), re(), T(), xi()
 
-### Community 37 - "AcademicChatBot Subsystem"
-Cohesion: 0.05
-Nodes (14): AcademicChatBot(), createConversation(), generateId(), getConversationMode(), getStreamDelta(), isRecord(), isTutorMode(), parseDate() (+6 more)
+### Community 36 - "si"
+Cohesion: 0.10
+Nodes (25): kl(), Ne(), addItem(), ao(), be(), Bt(), Ct(), es() (+17 more)
 
-### Community 38 - "Aa Subsystem"
-Cohesion: 0.09
-Nodes (24): Tn(), constructor(), Dl(), e(), extractHostAndApiKey(), fo(), get(), getAllBatchQueryCallbacks() (+16 more)
+### Community 38 - "constructor"
+Cohesion: 0.07
+Nodes (30): Tn(), addItem(), Am(), Bl(), Br(), constructor(), Dl(), e() (+22 more)
 
-### Community 39 - "qe Subsystem"
-Cohesion: 0.09
-Nodes (30): Ls(), be(), bl(), bn(), cu(), dr(), enabled(), eo() (+22 more)
+### Community 39 - "slice"
+Cohesion: 0.08
+Nodes (32): Ls(), be(), bl(), bn(), cu(), enabled(), eo(), Fa() (+24 more)
 
-### Community 40 - "ac Subsystem"
-Cohesion: 0.17
-Nodes (26): ac(), bs(), cc(), Cn(), findField(), fo(), Fr(), getArgumentName() (+18 more)
+### Community 40 - "fo"
+Cohesion: 0.16
+Nodes (27): a(), ac(), cc(), Cn(), findField(), fo(), Fr(), g() (+19 more)
 
-### Community 41 - "cobe Subsystem"
+### Community 41 - "dependencies"
 Cohesion: 0.06
-Nodes (33): class-variance-authority, lucia, motion, next, dependencies, class-variance-authority, lucia, motion (+25 more)
+Nodes (35): arctic, class-variance-authority, lucia, motion, next, dependencies, arctic, class-variance-authority (+27 more)
 
-### Community 42 - "eslint Subsystem"
+### Community 42 - "devDependencies"
 Cohesion: 0.07
 Nodes (29): eslint, eslint-config-next, eslint-config-prettier, @eslint/eslintrc, devDependencies, eslint, eslint-config-next, eslint-config-prettier (+21 more)
 
-### Community 43 - "addMarginSymbol Subsystem"
-Cohesion: 0.20
-Nodes (18): addMarginSymbol(), afterNextNewline(), cs(), getCurrentLineLength(), getPrintWidth(), indent(), newLine(), Rs() (+10 more)
+### Community 43 - "write"
+Cohesion: 0.12
+Nodes (26): addMarginSymbol(), afterNextNewline(), ci(), cs(), getCurrentLineLength(), getPrintWidth(), handleAndLogRequestError(), handleRequestError() (+18 more)
 
-### Community 44 - "ac Subsystem"
-Cohesion: 0.07
-Nodes (47): GET(), savePersonalization(), OnboardingFormProps, stepContent, emptyPreferences, metadata, OnboardingPage(), Checkbox() (+39 more)
+### Community 44 - "OnboardingForm.tsx"
+Cohesion: 0.08
+Nodes (39): GET(), OnboardingForm(), OnboardingFormProps, stepContent, emptyPreferences, metadata, OnboardingPage(), Checkbox() (+31 more)
 
-### Community 45 - "addMarginSymbol Subsystem"
-Cohesion: 0.22
+### Community 45 - "write"
+Cohesion: 0.24
 Nodes (16): addMarginSymbol(), afterNextNewline(), getCurrentLineLength(), getPrintWidth(), indent(), newLine(), setColor(), underline() (+8 more)
 
-### Community 46 - "applyPendingMigrations Subsystem"
-Cohesion: 0.05
-Nodes (30): metadata, ForYouFeedProps, Chat(), metadata, useInitializeChatClient(), MessagesButton(), MessagesButtonProps, metadata (+22 more)
+### Community 46 - "chatbot-utils.ts"
+Cohesion: 0.20
+Nodes (3): ChatMessage, ChatSession, Reference
 
-### Community 47 - "de Subsystem"
-Cohesion: 0.06
-Nodes (56): an(), Au(), bs(), cc(), Ce(), Cn(), Cu(), dc() (+48 more)
+### Community 47 - "r"
+Cohesion: 0.08
+Nodes (41): ac(), an(), Ce(), Et(), fr(), Fu(), getOrCreate(), Gl() (+33 more)
 
-### Community 48 - "aa Subsystem"
-Cohesion: 0.15
-Nodes (31): aa(), bi(), concat(), de(), di(), Dr(), fi(), findField() (+23 more)
+### Community 48 - "di"
+Cohesion: 0.19
+Nodes (26): aa(), concat(), de(), di(), Dr(), fi(), findField(), getArgumentName() (+18 more)
 
-### Community 49 - "dom Subsystem"
+### Community 49 - "compilerOptions"
 Cohesion: 0.07
 Nodes (27): dom, dom.iterable, esnext, .next/dev/types/**/*.ts, next-env.d.ts, .next/types/**/*.ts, node_modules, **/*.ts (+19 more)
 
-### Community 50 - "ai Subsystem"
-Cohesion: 0.13
-Nodes (23): addItem(), cl(), Da(), extractHostAndApiKey(), get(), _getName(), getOrCreate(), Go() (+15 more)
+### Community 50 - "r"
+Cohesion: 0.09
+Nodes (31): addItem(), cl(), Da(), extractHostAndApiKey(), ft(), get(), _getName(), getOrCreate() (+23 more)
 
-### Community 51 - "aa Subsystem"
-Cohesion: 0.10
-Nodes (37): aa(), ad(), addItem(), Am(), Br(), ed(), findField(), getArgumentName() (+29 more)
+### Community 51 - "sa"
+Cohesion: 0.17
+Nodes (26): aa(), ad(), ed(), findField(), getArgumentName(), getArgumentPath(), getComputedFields(), getOutputTypeDescription() (+18 more)
 
-### Community 52 - "AchievementBadge tsx"
+### Community 52 - "toolbar"
 Cohesion: 0.04
 Nodes (46): accordion, Accordion.Content → Accordion.Panel, Accordion.Header → Accordion.Header, Accordion.Item → Accordion.Item, Accordion.Root → Accordion.Root, Accordion.Trigger → Accordion.Trigger, Base UI only props worth knowing, Base UI only props worth knowing (+38 more)
 
-### Community 53 - "ReportActions tsx"
+### Community 53 - "pu"
+Cohesion: 0.22
+Nodes (10): fromContent(), getLocation(), kl(), lineAt(), ln(), mapLineAt(), mapLines(), prependSymbolAt() (+2 more)
+
+### Community 54 - "requestInternal"
+Cohesion: 0.24
+Nodes (14): bt(), emit(), forEach(), handleError(), ir(), json(), lc(), propagateResponseExtensions() (+6 more)
+
+### Community 55 - "ReportActions.tsx"
 Cohesion: 0.12
-Nodes (20): Ae(), Ao(), Gc(), getAllClientExtensions(), getAllComputedFields(), getAllModelExtensions(), getLocation(), hc() (+12 more)
+Nodes (25): ReportActions(), ReportActionsProps, ReportTableProps, AlertDialog(), AlertDialogAction(), AlertDialogCancel(), AlertDialogContent(), AlertDialogDescription() (+17 more)
 
-### Community 54 - "Ba Subsystem"
-Cohesion: 0.09
-Nodes (44): a(), ai(), bt(), cc(), constructor(), cs(), dispatchBatches(), ds() (+36 more)
+### Community 56 - "main.py"
+Cohesion: 0.13
+Nodes (18): Enum, File, Form, ge, get, le, create_questions_from_file(), create_questions_from_text() (+10 more)
 
-### Community 55 - "dm Subsystem"
-Cohesion: 0.30
-Nodes (9): ReportActions(), AdminCandidate, getAdminUserIds(), isAdminUser(), ReportStatus, deleteReport(), deleteReportedContent(), reportSchema (+1 more)
+### Community 57 - "toString"
+Cohesion: 0.07
+Nodes (37): ap(), cc(), ci(), cp(), dc(), en(), enabled(), ep() (+29 more)
 
-### Community 56 - "BaseModel Subsystem"
+### Community 58 - "index.js"
 Cohesion: 0.11
-Nodes (23): BaseModel, File, Form, ge, le, create_questions_from_file(), create_questions_from_text(), process_and_generate() (+15 more)
+Nodes (16): AchievementBadge(), AchievementBadgeProps, AchievementNotificationProps, AchievementsData, Achievement, ACHIEVEMENT_CATEGORIES, RARITY_COLORS, RARITY_NAMES (+8 more)
 
-### Community 57 - "a Subsystem"
-Cohesion: 0.09
-Nodes (27): ap(), Bl(), ci(), cp(), enabled(), ep(), Fe(), getGlobalOmit() (+19 more)
-
-### Community 58 - "An Subsystem"
-Cohesion: 0.08
-Nodes (27): metadata, InputSection(), InputSectionProps, QuizSource, HiveQView, SubjectFilterType, AchievementBadge(), AchievementBadgeProps (+19 more)
-
-### Community 59 - "index browser d ts"
+### Community 59 - "index-browser.d.ts"
 Cohesion: 0.10
 Nodes (18): AnyNull, Args, Config, Constructor, DbNull, Exact, GetRuntimeOutput, Instance (+10 more)
 
-### Community 60 - "dc Subsystem"
-Cohesion: 0.06
-Nodes (38): Br(), Ct(), dc(), Do(), e(), Ee(), Es(), fc() (+30 more)
+### Community 60 - "e"
+Cohesion: 0.07
+Nodes (38): as(), Br(), cs(), Ct(), dc(), Do(), e(), Ee() (+30 more)
 
-### Community 61 - "route ts"
+### Community 61 - "constructor"
 Cohesion: 0.09
-Nodes (33): dm(), Do(), Fu(), ii(), In(), ju(), ko(), li() (+25 more)
+Nodes (24): $c(), constructor(), dispatchBatches(), ei(), _getNamespace(), handleAndLogRequestError(), handleRequestError(), Hs() (+16 more)
 
-### Community 62 - "Bd Subsystem"
-Cohesion: 0.09
-Nodes (25): Al(), An(), at(), cp(), Fs(), gr(), gt(), handleAndLogRequestError() (+17 more)
+### Community 62 - "write"
+Cohesion: 0.08
+Nodes (38): vo(), addMarginSymbol(), afterNextNewline(), An(), au(), cp(), Fs(), getCurrentLineLength() (+30 more)
 
-### Community 63 - "components json"
+### Community 63 - "components.json"
 Cohesion: 0.11
 Nodes (17): aliases, components, hooks, lib, ui, utils, iconLibrary, rsc (+9 more)
 
-### Community 65 - "Any Subsystem"
-Cohesion: 0.17
+### Community 65 - "FileParser"
+Cohesion: 0.16
 Nodes (13): BytesIO, _apply_worker_resource_limits(), FileParser, _parse_document_worker(), Any, UploadFile, Apply hard limits in Linux containers; Windows still gets hard termination., Identify the parser from file bytes instead of trusting client MIME data. (+5 more)
 
-### Community 81 - "Er Subsystem"
+### Community 81 - "slice"
 Cohesion: 0.10
-Nodes (28): Er(), vl(), xr(), Z(), ae(), byteLength(), cn(), D() (+20 more)
+Nodes (30): Er(), vl(), xr(), Z(), ae(), byteLength(), cn(), D() (+22 more)
 
-### Community 83 - "addMarginSymbol Subsystem"
+### Community 83 - "write"
 Cohesion: 0.24
 Nodes (16): addMarginSymbol(), afterNextNewline(), getCurrentLineLength(), getPrintWidth(), indent(), newLine(), setColor(), underline() (+8 more)
 
-### Community 84 - "a Subsystem"
-Cohesion: 0.19
-Nodes (20): findField(), getAllComputedFields(), getArgumentName(), getArgumentPath(), getComputedFields(), getOrCreate(), getOutputTypeDescription(), getSelectionPath() (+12 more)
+### Community 84 - "bo"
+Cohesion: 0.14
+Nodes (29): addItem(), bo(), Cr(), cs(), Do(), findField(), getAllComputedFields(), getArgumentName() (+21 more)
 
-### Community 85 - "addMarginSymbol Subsystem"
+### Community 85 - "write"
 Cohesion: 0.24
 Nodes (16): addMarginSymbol(), afterNextNewline(), getCurrentLineLength(), getPrintWidth(), indent(), newLine(), setColor(), underline() (+8 more)
 
-### Community 86 - "En Subsystem"
-Cohesion: 0.13
-Nodes (21): Aa(), ba(), enabled(), hn(), hr(), Ia(), ii(), indentedCurrentLine() (+13 more)
+### Community 86 - ".slice"
+Cohesion: 0.12
+Nodes (28): a(), ci(), Dr(), fo(), g(), gn(), h(), hn() (+20 more)
 
-### Community 87 - "addItem Subsystem"
+### Community 87 - "select"
 Cohesion: 0.04
 Nodes (44): Base UI only props worth knowing (checkbox), Base UI only props worth knowing (radio-group), Base UI only props worth knowing (select), Base UI only props worth knowing (slider), Base UI only props worth knowing (switch), checkbox, Checkbox.Indicator → Checkbox.Indicator, Checkbox.Root → Checkbox.Root (+36 more)
 
-### Community 88 - "MenuBar.tsx"
-Cohesion: 0.25
-Nodes (9): Fr(), handleAndLogRequestError(), handleRequestError(), Nr(), renderAllMessages(), sanitizeMessage(), st(), uu() (+1 more)
+### Community 88 - "r"
+Cohesion: 0.07
+Nodes (37): Aa(), dc(), di(), dispatchBatches(), dt(), el(), Fr(), getOrCreate() (+29 more)
 
-### Community 90 - "summarizer py"
-Cohesion: 0.12
-Nodes (9): alias, Header, health_check(), Fail closed unless the trusted Next.js proxy supplies the shared key., require_internal_api_key(), Small deterministic text reducer used for long uploaded documents., Extract representative sentences with no model or network dependency., Summarizer (+1 more)
+### Community 90 - "Summarizer"
+Cohesion: 0.14
+Nodes (8): alias, Header, Fail closed unless the trusted Next.js proxy supplies the shared key., require_internal_api_key(), Small deterministic text reducer used for long uploaded documents., Extract representative sentences with no model or network dependency., Summarizer, LightweightRuntimeTests
 
-### Community 91 - "extractHostAndApiKey Subsystem"
-Cohesion: 0.08
-Nodes (46): a(), ac(), as(), bs(), ci(), constructor(), cs(), dispatchBatches() (+38 more)
+### Community 91 - "requestInternal"
+Cohesion: 0.24
+Nodes (14): bs(), Cc(), handleError(), json(), nr(), propagateResponseExtensions(), Qe(), requestInternal() (+6 more)
 
-### Community 92 - "B Subsystem"
+### Community 92 - "validateRequest"
 Cohesion: 0.05
-Nodes (66): GET(), GET(), POST(), DELETE(), GET(), GET(), PATCH(), GET() (+58 more)
+Nodes (69): GET(), GET(), POST(), DELETE(), GET(), GET(), PATCH(), GET() (+61 more)
 
-### Community 93 - "write"
-Cohesion: 0.06
-Nodes (51): ac(), addItem(), Da(), dc(), e(), ec(), Ee(), emit() (+43 more)
+### Community 93 - "pi"
+Cohesion: 0.11
+Nodes (23): Ca(), Da(), de(), ep(), fi(), getGlobalOmit(), Ia(), ja() (+15 more)
 
-### Community 94 - "to"
+### Community 94 - "Yr"
 Cohesion: 0.13
 Nodes (19): Bd(), da(), ea(), Gd(), getAllClientExtensions(), getAllComputedFields(), getAllModelExtensions(), getAllQueryCallbacks() (+11 more)
 
-### Community 95 - "DriverAdapter Subsystem"
+### Community 95 - "Queryable"
 Cohesion: 0.17
 Nodes (5): DriverAdapter, ErrorCapturingDriverAdapter, Queryable, $transaction(), TransactionContext
 
-### Community 97 - "Aa Subsystem"
-Cohesion: 0.20
-Nodes (11): Aa(), Ca(), Da(), fi(), Kr(), La(), nr(), Pa() (+3 more)
+### Community 97 - "Ta"
+Cohesion: 0.18
+Nodes (13): Aa(), Ca(), Da(), fi(), Kr(), La(), Na(), nr() (+5 more)
 
-### Community 98 - "questgen service py"
-Cohesion: 0.19
-Nodes (6): allocate_question_counts(), Any, QuestgenService, Convert fractional weights into exact counts using largest remainders., Generate validated quiz questions without any local model downloads., Question
+### Community 98 - "QuestgenService"
+Cohesion: 0.12
+Nodes (10): Any, QuestgenService, QuestionGenerationConfigurationError, QuestionGenerationError, Raised when the hosted question-generation service is not configured., Raised when the provider cannot return usable questions., Generate validated quiz questions without any local model downloads., FileParserSecurityTests (+2 more)
 
-### Community 101 - "layout tsx"
-Cohesion: 0.24
-Nodes (6): geistMono, geistSans, metadata, ReactQueryDevtools, ReactQueryProvider(), Toaster()
+### Community 101 - "app/layout.tsx"
+Cohesion: 0.16
+Nodes (8): fileRouter, {GET, POST}, geistMono, geistSans, metadata, ReactQueryDevtools, ReactQueryProvider(), Toaster()
 
-### Community 103 - "sql Subsystem"
+### Community 103 - "./sql"
 Cohesion: 0.20
 Nodes (10): ./sql, default, node, types, default, node, types, default (+2 more)
 
-### Community 105 - "package json"
+### Community 105 - "package.json"
 Cohesion: 0.12
 Nodes (16): engines, node, name, overrides, effect, nanoid, private, scripts (+8 more)
 
-### Community 106 - "AnyNull Subsystem"
+### Community 106 - "NullTypesEnumValue"
 Cohesion: 0.22
 Nodes (5): AnyNull, DbNull, JsonNull, NullTypesEnumValue, ObjectEnumValue
 
-### Community 107 - "ErrorWithBatchIndex Subsystem"
+### Community 107 - "PrismaClientKnownRequestError"
 Cohesion: 0.22
 Nodes (4): ErrorWithBatchIndex, NotFoundError, PrismaClientKnownRequestError, PrismaClientUnknownRequestError
 
-### Community 109 - "alloc Subsystem"
+### Community 109 - "Per-component notes"
 Cohesion: 0.08
 Nodes (24): accordion, asChild -> render, breadcrumb / marker (Slot users), Coverage matrix, CSS custom properties, Data attributes / class hooks, dialog / alert-dialog / sheet, Doc-validation TODOs (before specs are final) (+16 more)
 
-### Community 111 - "EduHive Graphify workflow"
+### Community 111 - "Graph traversal"
 Cohesion: 0.29
 Nodes (7): EduHive Graphify workflow, URL ingestion, Graphify MCP server, Graphify post-commit hook, Constrained query expansion, Graph traversal, Incremental graph update
 
-### Community 112 - "Graphify watch mode"
+### Community 112 - "Graphify pipeline"
 Cohesion: 0.29
 Nodes (7): Graphify watch mode, Cross-repository graph merge, Media transcription, AST structural extraction, Graphify outputs, Graphify pipeline, Semantic extraction
 
-### Community 113 - "educational dataset ts"
+### Community 113 - "educational-dataset.ts"
 Cohesion: 0.33
 Nodes (5): academicReferences, educationalTips, getReferences(), getReferencesForSubject(), universityEducationalDataset
 
-### Community 117 - "package json"
+### Community 117 - "prisma/package.json"
 Cohesion: 0.29
 Nodes (6): browser, main, name, sideEffects, types, version
 
-### Community 119 - "edge js"
+### Community 119 - "prisma/edge.js"
 Cohesion: 0.33
 Nodes (5): config, Prisma, PrismaClient, {
   PrismaClientKnownRequestError,
@@ -731,115 +717,133 @@ Nodes (5): config, Prisma, PrismaClient, {
   getRuntime
 }, empty()
 
-### Community 127 - "exports Subsystem"
+### Community 127 - "exports"
 Cohesion: 0.33
 Nodes (6): exports, ./generator-build, ./package.json, default, import, require
 
-### Community 130 - "ensure nltk data"
-Cohesion: 0.10
-Nodes (27): addItem(), co(), ec(), _getName(), getOrCreate(), has(), is(), jc() (+19 more)
+### Community 130 - "r"
+Cohesion: 0.07
+Nodes (40): addItem(), Ae(), Ao(), co(), de(), Dl(), ec(), Gc() (+32 more)
 
 ### Community 131 - "Google Generative AI SDK"
 Cohesion: 0.33
 Nodes (6): Google Generative AI SDK, ML backend dependencies, Questgen.ai, EduHive AI tutor, Gemini API configuration, EduHive Next.js project
 
-### Community 133 - "Prisma ChatSessionClient"
+### Community 133 - "PrismaPromise"
 Cohesion: 0.20
 Nodes (3): Prisma__AuthEmailRateLimitClient, Prisma__PasswordResetTokenClient, PrismaPromise
 
-### Community 136 - "default Subsystem"
+### Community 136 - "./edge"
 Cohesion: 0.40
 Nodes (5): default, import, require, types, ./edge
 
-### Community 137 - "extension Subsystem"
+### Community 137 - "./extension"
 Cohesion: 0.40
 Nodes (5): ./extension, default, import, require, types
 
-### Community 138 - "index Subsystem"
+### Community 138 - "./index"
 Cohesion: 0.40
 Nodes (5): ./index, default, import, require, types
 
-### Community 139 - "index browser"
+### Community 139 - "./index-browser"
 Cohesion: 0.40
 Nodes (5): ./index-browser, default, import, require, types
 
-### Community 140 - "react native"
+### Community 140 - "./react-native"
 Cohesion: 0.40
 Nodes (5): ./react-native, default, import, require, types
 
-### Community 141 - "runtime binary"
+### Community 141 - "./runtime/binary"
 Cohesion: 0.40
 Nodes (5): ./runtime/binary, default, import, require, types
 
-### Community 142 - "runtime library"
+### Community 142 - "./runtime/library"
 Cohesion: 0.40
 Nodes (5): ./runtime/library, default, import, require, types
 
-### Community 143 - "wasm Subsystem"
+### Community 143 - "./wasm"
 Cohesion: 0.40
 Nodes (5): ./wasm, default, import, require, types
 
-### Community 147 - "utils ts"
-Cohesion: 0.07
-Nodes (36): ResendVerificationForm(), firstValue(), Page(), PageProps, AvatarInputProps, EditProfileDialog(), useUpdateProfileMutation(), ForgotPasswordForm() (+28 more)
+### Community 147 - "button.tsx"
+Cohesion: 0.06
+Nodes (55): login(), useDebounce(), NewChatDialog(), NewChatDialogProps, SelectedUserTagProps, UserResultProps, Navbar(), NavbarProps (+47 more)
 
-### Community 157 - "send-verification-email.tsx"
-Cohesion: 0.23
-Nodes (9): ResetPasswordProps, VerifyEmailProps, getAppUrl(), getEmailFrom(), getResendClient(), sendPasswordResetEmail(), SendPasswordResetEmailOptions, sendVerificationEmail() (+1 more)
+### Community 157 - "Qt"
+Cohesion: 0.18
+Nodes (15): bc(), gc(), getAllClientExtensions(), getAllModelExtensions(), N(), no(), ns(), po() (+7 more)
 
 ### Community 161 - "hiveq-server.ts"
-Cohesion: 0.31
-Nodes (9): allowedFileTypes, distributionSchema, POST(), POST(), textRequestSchema, authorizeHiveqRequest(), relayHiveqResponse(), requestHiveq() (+1 more)
+Cohesion: 0.21
+Nodes (13): allowedFileTypes, distributionSchema, maxDuration, POST(), runtime, maxDuration, POST(), runtime (+5 more)
 
-### Community 162 - "Fr"
+### Community 162 - "Q: use the hiveq icon on the menu bar for the one on the page"
 Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: use the hiveq icon on the menu bar for the one on the page, Source Nodes
 
-### Community 164 - "date fns"
+### Community 163 - "LandingPageExperience.tsx"
 Cohesion: 0.29
-Nodes (7): Question, A generated quiz question returned to the HiveQ frontend., choice_key(), normalize_choice_text(), Remove presentation-only differences from a generated answer choice., Build a comparison key without changing the displayed choice., QuestionNormalizationTests
+Nodes (6): LandingPage(), metadata, LandingPageExperience(), productPromises, reveal, rhythm
 
-### Community 165 - "hookform resolvers"
-Cohesion: 0.24
-Nodes (11): login(), lucia, AuthEmailKind, AuthEmailScope, buildAuthEmailRateLimitKey(), buildRateLimitKey(), claimRateLimit(), getRequestIp() (+3 more)
+### Community 164 - "test_backend.py"
+Cohesion: 0.14
+Nodes (17): BaseModel, CleaningDiagnostics, GeneratedQuestionBatch, Question, A generated quiz question returned to the HiveQ frontend., Structured response schema sent to Gemini., TextGenerationRequest, allocate_question_counts() (+9 more)
 
-### Community 166 - "ky Subsystem"
-Cohesion: 0.20
-Nodes (18): vo(), addMarginSymbol(), afterNextNewline(), au(), getCurrentLineLength(), getPrintWidth(), indent(), newLine() (+10 more)
+### Community 165 - "Q: how do i access the admin page"
+Cohesion: 0.40
+Nodes (4): Answer, Outcome, Q: how do i access the admin page, Source Nodes
 
-### Community 176 - "lucide react"
-Cohesion: 0.15
-Nodes (17): En(), ai(), ea(), et(), ga(), ge(), getAllClientExtensions(), getAllComputedFields() (+9 more)
+### Community 166 - "prisma/index-browser.js"
+Cohesion: 0.40
+Nodes (3): {
+  Decimal,
+  objectEnumValues,
+  makeStrictEnum,
+  Public,
+  getRuntime,
+  skip
+}, Prisma, PrismaClient
 
-### Community 179 - "next Subsystem"
+### Community 176 - "oi"
+Cohesion: 0.09
+Nodes (25): En(), _a(), ai(), Ar(), da(), ea(), et(), fe() (+17 more)
+
+### Community 179 - "Commands"
 Cohesion: 0.12
 Nodes (17): `add` — Add components, `apply` — Apply a preset to an existing project, `build` — Build a custom registry, Commands, Contents, `diff` — Check for updates, `docs` — Get component documentation URLs, Dry-Run Mode (+9 more)
 
-### Community 181 - "next themes"
-Cohesion: 0.16
-Nodes (14): fromContent(), handleAndLogRequestError(), handleRequestError(), lineAt(), mapLineAt(), mapLines(), Ot(), prependSymbolAt() (+6 more)
+### Community 181 - "wp"
+Cohesion: 0.20
+Nodes (12): fromContent(), handleRequestError(), lineAt(), mapLineAt(), mapLines(), Ot(), prependSymbolAt(), read() (+4 more)
 
-### Community 182 - "route.ts"
-Cohesion: 0.35
-Nodes (9): clearGoogleOAuthCookies(), createSessionResponse(), GET(), provisionStreamUserSafely(), redirectToLogin(), createGoogleOAuthClient(), GET(), provisionStreamUser() (+1 more)
+### Community 182 - "prisma/wasm.js"
+Cohesion: 0.40
+Nodes (3): {
+  Decimal,
+  objectEnumValues,
+  makeStrictEnum,
+  Public,
+  getRuntime,
+  skip
+}, Prisma, PrismaClient
 
-### Community 183 - "radix ui react checkbox"
+### Community 183 - "V"
 Cohesion: 0.26
 Nodes (15): B(), compare(), copy(), Jo(), Qo(), readIntBE(), readIntLE(), readUIntBE() (+7 more)
 
-### Community 186 - "radix ui react label"
+### Community 186 - "Q: undo this redesign and revert back to the previous design before this"
 Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: undo this redesign and revert back to the previous design before this, Source Nodes
 
-### Community 187 - "radix ui react select"
+### Community 187 - "Q: if i push it to github will it update on render?"
 Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: if i push it to github will it update on render?, Source Nodes
 
-### Community 189 - "get"
+### Community 189 - "Q: with hiveq, the questions being generated for multiple choice, the correct answer is obvious because its appearing twice in the option which shouldnt be so"
 Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: with hiveq, the questions being generated for multiple choice, the correct answer is obvious because its appearing twice in the option which shouldnt be so, Source Nodes
 
-### Community 191 - "react cropper"
+### Community 191 - "Q: Proceed with production deployment"
 Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: Proceed with production deployment, Source Nodes
 
@@ -847,49 +851,37 @@ Nodes (4): Answer, Outcome, Q: Proceed with production deployment, Source Nodes
 Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: Set the shared HiveQ key, server URL, production environment, apply the Prisma migration, and redeploy both services, Source Nodes
 
-### Community 194 - "react image file resizer"
-Cohesion: 0.18
-Nodes (11): ci(), handleAndLogRequestError(), handleRequestError(), Ht(), oi(), Pa(), renderAllMessages(), sanitizeMessage() (+3 more)
-
-### Community 201 - "tiptap pm"
-Cohesion: 0.32
-Nodes (5): resetPassword(), ResetPasswordForm(), Page(), PageProps, passwordSchema
-
-### Community 259 - "class-variance-authority"
-Cohesion: 0.24
-Nodes (6): GoogleSignInButton(), firstValue(), metadata, Page(), PageProps, metadata
-
-### Community 261 - "actions.ts"
+### Community 261 - "shadcn/SKILL.md"
 Cohesion: 0.21
 Nodes (4): Icons, Icons in Button use data-icon attribute, No sizing classes on icons inside components, Pass icons as component objects, not string keys
 
-### Community 262 - "send-verification-email.tsx"
+### Community 262 - "Customization & Theming"
 Cohesion: 0.14
 Nodes (14): 1. Built-in variants, 2. Tailwind classes via `className`, 3. Add a new variant, 4. Wrapper components, Adding Custom Colors, Border Radius, Changing the Theme, Checking for Updates (+6 more)
 
-### Community 263 - "Qt"
+### Community 263 - "Q: Why do the subject tabs look displaced on mobile?"
 Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: Why do the subject tabs look displaced on mobile?, Source Nodes
 
-### Community 264 - "validation.ts"
+### Community 264 - "Component Composition"
 Cohesion: 0.15
 Nodes (13): Avatar always needs AvatarFallback, Button has no isPending or isLoading prop, Callouts use Alert, Card structure, Choosing between overlay components, Component Composition, Contents, Dialog, Sheet, and Drawer always need a Title (+5 more)
 
-### Community 265 - "actions.ts"
-Cohesion: 0.28
-Nodes (15): signUp(), resendVerificationEmail(), verifyEmail(), Page(), PageProps, VerifyEmailForm(), requestPasswordReset(), allowAuthEmailForAccount() (+7 more)
+### Community 265 - "verify-email/actions.ts"
+Cohesion: 0.05
+Nodes (60): clearGoogleOAuthCookies(), createSessionResponse(), GET(), provisionStreamUserSafely(), redirectToLogin(), createGoogleOAuthClient(), GoogleSignInButton(), GET() (+52 more)
 
-### Community 266 - "page.tsx"
+### Community 266 - "Styling & Customization"
 Cohesion: 0.15
 Nodes (13): Built-in variants first, className for layout only, Contents, No manual dark: color overrides, No manual z-index on overlay components, No raw color values for status/state indicators, No space-x-* / space-y-*, Prefer size-* over w-* h-* when equal (+5 more)
 
-### Community 267 - "index-browser.js"
+### Community 267 - "Q: you are an expert frontend developer and ui/ux designer, redesign the other pages as well. let me see the design before you apply them"
 Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: you are an expert frontend developer and ui/ux designer, redesign the other pages as well. let me see the design before you apply them, Source Nodes
 
-### Community 273 - "auth-flows.test.mjs"
-Cohesion: 0.28
-Nodes (9): alloc(), allocUnsafe(), allocUnsafeSlow(), construct(), fill(), from(), le(), nn() (+1 more)
+### Community 273 - "from"
+Cohesion: 0.12
+Nodes (19): alloc(), allocUnsafe(), allocUnsafeSlow(), at(), Ce(), construct(), F(), fill() (+11 more)
 
 ### Community 274 - "alert-dialog"
 Cohesion: 0.17
@@ -959,9 +951,9 @@ Nodes (8): Chat & Messaging → [chat.md](./rules/chat.md), CLI, Component Struc
 Cohesion: 0.29
 Nodes (6): Animation idiom, Class-string rewrites (layer 2), CSS variables, Data-attribute selectors, Disabled-state hooks, Element changes kill pseudo-class variants
 
-### Community 291 - "display-misc.md"
-Cohesion: 0.29
-Nodes (6): AccessibleIcon (radix `AccessibleIcon.Root`: `label` required), AspectRatio (radix `AspectRatio.Root`: `asChild`, `ratio` default `1`), Label (radix `Label.Root`: `asChild`, `htmlFor`), No Base UI counterpart, Radix UI → Base UI props mapping: progress, scroll-area, separator, avatar, toast, form, VisuallyHidden (radix `VisuallyHidden.Root`: `asChild`)
+### Community 291 - "No Base UI counterpart"
+Cohesion: 0.40
+Nodes (5): AccessibleIcon (radix `AccessibleIcon.Root`: `label` required), AspectRatio (radix `AspectRatio.Root`: `asChild`, `ratio` default `1`), Label (radix `Label.Root`: `asChild`, `htmlFor`), No Base UI counterpart, VisuallyHidden (radix `VisuallyHidden.Root`: `asChild`)
 
 ### Community 292 - "avatar"
 Cohesion: 0.29
@@ -979,11 +971,11 @@ Nodes (5): Callback signature rule, Consumer-side prop changes (call sites, not 
 Cohesion: 0.33
 Nodes (6): Base UI only props worth knowing, CSS variables, Data attributes, progress, Progress.Indicator → Progress.Indicator, Progress.Root → Progress.Root
 
-### Community 296 - "Separator.Root → Separator"
-Cohesion: 0.40
-Nodes (5): Base UI only props worth knowing, CSS variables, Data attributes, separator, Separator.Root → Separator
+### Community 296 - "display-misc.md"
+Cohesion: 0.29
+Nodes (6): Base UI only props worth knowing, CSS variables, Data attributes, Radix UI → Base UI props mapping: progress, scroll-area, separator, avatar, toast, form, separator, Separator.Root → Separator
 
-### Community 297 - "index-browser.js"
+### Community 297 - "Q: Where are the dark mode theme tokens defined, and which components depend on background, card, popover, muted, border, and sidebar colors?"
 Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: Where are the dark mode theme tokens defined, and which components depend on background, card, popover, muted, border, and sidebar colors?, Source Nodes
 
@@ -991,7 +983,7 @@ Nodes (4): Answer, Outcome, Q: Where are the dark mode theme tokens defined, and
 Cohesion: 0.50
 Nodes (4): Base UI only props worth knowing (form-wide), CSS variables, Data attributes, (new) Fieldset.Root and Fieldset.Legend
 
-### Community 301 - "@radix-ui/react-dropdown-menu"
+### Community 301 - "Q: now hiveQ when i use it, configure question types and hit generate it loads and shows load failed. its not working like its suppose to"
 Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: now hiveQ when i use it, configure question types and hit generate it loads and shows load failed. its not working like its suppose to, Source Nodes
 
@@ -1003,40 +995,41 @@ Nodes (6): Build with Docker, Configuration, Deploy on Render, HiveQ API, Run lo
 Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: Why are features missing from the messages page on mobile?, Source Nodes
 
-### Community 314 - "Fe"
-Cohesion: 0.09
-Nodes (33): a(), Bc(), constructor(), cs(), Dc(), Dn(), ds(), e() (+25 more)
+### Community 314 - "constructor"
+Cohesion: 0.07
+Nodes (39): applyPendingMigrations(), ar(), buildQueryError(), constructor(), consumeError(), createEngineSpan(), cs(), deref() (+31 more)
 
 ## Knowledge Gaps
-- **3141 isolated node(s):** `metadata`, `PageProps`, `metadata`, `PageProps`, `PageProps` (+3136 more)
+- **3157 isolated node(s):** `metadata`, `PageProps`, `metadata`, `PageProps`, `PageProps` (+3152 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **153 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Work-memory lessons
 
 **Preferred sources** — corroborated by past sessions; start here.
-- `QuestgenService` (4× useful, score=3.811030946)
-- `Deploy on Render` (2× useful, score=1.9375856) _(code changed — re-verify)_
-- `MenuBar()` (2× useful, score=1.878549986) _(code changed — re-verify)_
-- `Button()` (2× useful, score=1.870657801)
-- `TrendsSidebar.tsx` (2× useful, score=1.87028664)
-- `Chat.tsx` (2× useful, score=1.869682935)
-- `Navbar.tsx` (2× useful, score=1.869570458)
+- `QuestgenService` (5× useful, score=4.722924171)
+- `Deploy on Render` (3× useful, score=2.884357082)
+- `hiveq-server.ts` (2× useful, score=1.964173639)
+- `MenuBar()` (2× useful, score=1.843576697)
+- `Button()` (2× useful, score=1.835831442)
+- `TrendsSidebar.tsx` (2× useful, score=1.83546719)
+- `Chat.tsx` (2× useful, score=1.834874724)
+- `Navbar.tsx` (2× useful, score=1.834764341)
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `n()` connect `write` to `Tn Subsystem`, `react native js`, `edge js`, `edge esm js`, `ensure nltk data`, `useFollowerInfo ts`, `At Subsystem`, `page tsx`, `GoogleSignInButton tsx`, `index browser js`, `ko Subsystem`, `addErrorMessage Subsystem`, `buildQueryError Subsystem`, `a Subsystem`, `addErrorMessage Subsystem`, `ba Subsystem`, `addErrorMessage Subsystem`, `bl Subsystem`, `addErrorMessage Subsystem`, `ap Subsystem`, `Be Subsystem`, `vl Subsystem`, `Aa Subsystem`, `qe Subsystem`, `ac Subsystem`, `ky Subsystem`, `addMarginSymbol Subsystem`, `addMarginSymbol Subsystem`, `de Subsystem`, `aa Subsystem`, `lucide react`, `ai Subsystem`, `aa Subsystem`, `next themes`, `Ba Subsystem`, `ReportActions tsx`, `a Subsystem`, `Fe`, `dc Subsystem`, `route ts`, `react image file resizer`, `Er Subsystem`, `addMarginSymbol Subsystem`, `a Subsystem`, `addMarginSymbol Subsystem`, `En Subsystem`, `extractHostAndApiKey Subsystem`, `to`?**
-  _High betweenness centrality (0.053) - this node is a cross-community bridge._
-- **Why does `i()` connect `addErrorMessage Subsystem` to `Tn Subsystem`, `react native js`, `edge js`, `edge esm js`, `ensure nltk data`, `useFollowerInfo ts`, `At Subsystem`, `page tsx`, `GoogleSignInButton tsx`, `index browser js`, `addErrorMessage Subsystem`, `a Subsystem`, `addErrorMessage Subsystem`, `ba Subsystem`, `addErrorMessage Subsystem`, `addErrorMessage Subsystem`, `addItem Subsystem`, `ap Subsystem`, `Aa Subsystem`, `qe Subsystem`, `ac Subsystem`, `de Subsystem`, `aa Subsystem`, `lucide react`, `ai Subsystem`, `aa Subsystem`, `next themes`, `Ba Subsystem`, `ReportActions tsx`, `Fe`, `dc Subsystem`, `route ts`, `react image file resizer`, `Er Subsystem`, `En Subsystem`, `extractHostAndApiKey Subsystem`, `write`, `to`?**
+- **Why does `he()` connect `e` to `library.js`, `edge-esm.js`?**
+  _High betweenness centrality (0.055) - this node is a cross-community bridge._
+- **Why does `n()` connect `n` to `library.js`, `react-native.js`, `runtime/edge.js`, `edge-esm.js`, `r`, `runtime/wasm.js`, `qo`, `e`, `addErrorMessage`, `request`, `.slice`, `addErrorMessage`, `T`, `addErrorMessage`, `T`, `t`, `r`, `si`, `constructor`, `slice`, `fo`, `write`, `write`, `r`, `di`, `oi`, `r`, `sa`, `wp`, `requestInternal`, `toString`, `constructor`, `e`, `constructor`, `write`, `slice`, `write`, `bo`, `write`, `.slice`, `r`, `requestInternal`, `pi`, `Ta`?**
   _High betweenness centrality (0.051) - this node is a cross-community bridge._
-- **Why does `cn()` connect `useDebounce ts` to `route ts`, `ac Subsystem`, `applyPendingMigrations Subsystem`, `B Subsystem`, `utils ts`, `a Subsystem`, `An Subsystem`, `InputSection Subsystem`?**
-  _High betweenness centrality (0.038) - this node is a cross-community bridge._
-- **Are the 170 inferred relationships involving `n()` (e.g. with `Aa()` and `ai()`) actually correct?**
-  _`n()` has 170 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 135 inferred relationships involving `i()` (e.g. with `bo()` and `bu()`) actually correct?**
-  _`i()` has 135 INFERRED edges - model-reasoned connections that need verification._
+- **Why does `cn()` connect `cn` to `PostEditor.tsx`, `types.ts`, `OnboardingForm.tsx`, `button.tsx`, `dropdown-menu.tsx`, `chatbot/page.tsx`, `ReportActions.tsx`, `index.js`, `3-results-section.tsx`?**
+  _High betweenness centrality (0.029) - this node is a cross-community bridge._
+- **Are the 114 inferred relationships involving `n()` (e.g. with `Aa()` and `ai()`) actually correct?**
+  _`n()` has 114 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `metadata`, `PageProps`, `metadata` to the rest of the system?**
-  _3141 weakly-connected nodes found - possible documentation gaps or missing edges._
-- **Should `index d ts` be split into smaller, more focused modules?**
-  _Cohesion score 0.0009722897423432182 - nodes in this community are weakly interconnected._
+  _3157 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Should `index.d.ts` be split into smaller, more focused modules?**
+  _Cohesion score 0.0009718172983479105 - nodes in this community are weakly interconnected._
+- **Should `library.d.ts` be split into smaller, more focused modules?**
+  _Cohesion score 0.006097560975609756 - nodes in this community are weakly interconnected._

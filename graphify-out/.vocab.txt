@@ -105,6 +105,7 @@ bool
 boolean
 border
 bot
+both
 breadcrumb
 broken
 browser
@@ -249,6 +250,9 @@ counterpart
 counts
 coverage
 create
+creategoals
+createstudy
+createsubjects
 critical
 crons
 crop
@@ -287,6 +291,7 @@ depend
 dependencies
 dependency
 deploy
+deployment
 deprecation
 deref
 derived
@@ -381,6 +386,7 @@ enumerate
 enums
 env
 envelope
+environment
 equal
 equals
 equations
@@ -494,6 +500,8 @@ git
 github
 global
 globe
+goal
+goals
 golden
 google
 graph
@@ -601,6 +609,7 @@ joined
 json
 jsx
 jump
+keep
 key
 keys
 keywords
@@ -616,6 +625,7 @@ large
 largest
 last
 latest
+launch
 layer
 layout
 learning
@@ -625,6 +635,7 @@ length
 less
 let
 level
+levels
 lib
 library
 lightweight
@@ -784,6 +795,7 @@ octal
 offset
 omission
 omit
+onboarding
 once
 one
 only
@@ -838,6 +850,8 @@ pdf
 pending
 people
 per
+personalization
+personalized
 pexels
 pick
 pipeline
@@ -868,6 +882,9 @@ pow
 power
 precision
 prefer
+preference
+preferences
+preferred
 prefix
 preflight
 prepend
@@ -886,9 +903,11 @@ print
 prisma
 private
 procedure
+proceed
 process
 processing
 product
+production
 profile
 progress
 project
@@ -944,6 +963,7 @@ recipient
 reconstruct
 record
 recording
+redeploy
 redesign
 redirect
 reducer
@@ -1052,6 +1072,7 @@ separator
 serialize
 server
 service
+services
 session
 sessions
 set
@@ -1119,6 +1140,7 @@ statement
 states
 stats
 status
+step
 still
 stop
 strategy
@@ -1130,6 +1152,7 @@ string
 structural
 structure
 structured
+study
 style
 styles
 styling
@@ -1263,7 +1286,10 @@ unset
 untrusted
 unwrap
 update
+updategoals
 updates
+updatestudy
+updatesubjects
 updating
 upload
 uploaded
@@ -1310,6 +1336,7 @@ wallpaper
 warn
 wasm
 watch
+weekly
 weights
 welcome
 well

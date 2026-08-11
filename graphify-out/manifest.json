@@ -1,13 +1,13 @@
 {
   ".codex/hooks.json": {
     "mtime": 1784541859.8263547,
-    "ast_hash": "3af5c2500293920c5aaa105c2bd233e8",
-    "semantic_hash": "3af5c2500293920c5aaa105c2bd233e8"
+    "ast_hash": "",
+    "semantic_hash": ""
   },
   ".vscode/settings.json": {
     "mtime": 1783957950.305555,
-    "ast_hash": "ea2fea3909743fbcb31ff6a105fdda5b",
-    "semantic_hash": "ea2fea3909743fbcb31ff6a105fdda5b"
+    "ast_hash": "",
+    "semantic_hash": ""
   },
   "app/(auth)/actions.ts": {
     "mtime": 1786144112.9648027,
@@ -120,8 +120,8 @@
     "semantic_hash": ""
   },
   "app/(main)/chatbot/page.tsx": {
-    "mtime": 1786389728.1357377,
-    "ast_hash": "5562c511f31a1bddcbad58b72bb777bd",
+    "mtime": 1786465315.3000324,
+    "ast_hash": "b37da619917c9e316180fc64d6e3874c",
     "semantic_hash": ""
   },
   "app/(main)/home/page.tsx": {
@@ -1361,7 +1361,7 @@
   },
   "prisma/migrations/20260802150000_add_auth_email_tokens/migration.sql": {
     "mtime": 1785684200.515323,
-    "ast_hash": "0538be8996e6fd3c916afd466c25edfe",
+    "ast_hash": "",
     "semantic_hash": ""
   },
   "tests/auth-tokens.test.mjs": {
@@ -1406,7 +1406,7 @@
   },
   "prisma/migrations/20260802170000_add_auth_email_rate_limits/migration.sql": {
     "mtime": 1785686395.1754384,
-    "ast_hash": "c289de0332264b7101addcf548156c57",
+    "ast_hash": "",
     "semantic_hash": ""
   },
   "tests/auth-flows.test.mjs": {
@@ -1416,7 +1416,7 @@
   },
   "prisma/migrations/0_init/migration.sql": {
     "mtime": 1785687356.6997774,
-    "ast_hash": "a28ba81df8fbcf12b3f9cb5445aba0a3",
+    "ast_hash": "",
     "semantic_hash": ""
   },
   "types/styles.d.ts": {
@@ -1426,7 +1426,7 @@
   },
   ".agents/skills/shadcn/evals/evals.json": {
     "mtime": 1785837795.3420541,
-    "ast_hash": "9a6d011eeef9a02a52ff1b43faa80ec9",
+    "ast_hash": "",
     "semantic_hash": ""
   },
   "components/landing/LandingPageExperience.tsx": {
@@ -1436,7 +1436,7 @@
   },
   "skills-lock.json": {
     "mtime": 1785837797.3710797,
-    "ast_hash": "cbaa4e8e73372abd2e8f5cdcd62fed71",
+    "ast_hash": "",
     "semantic_hash": ""
   },
   ".agents/skills/migrate-radix-to-base/SKILL.md": {
@@ -1761,7 +1761,7 @@
   },
   "prisma/migrations/20260810190000_add_personalization_and_study_sources/migration.sql": {
     "mtime": 1786387947.546991,
-    "ast_hash": "da967656e57d0d32d127c94cfcdb9efc",
+    "ast_hash": "",
     "semantic_hash": ""
   },
   "tests/personalized-study.test.mjs": {
@@ -1801,12 +1801,42 @@
   },
   "prisma/migrations/20260810160000_add_media_ownership/migration.sql": {
     "mtime": 1786390534.7186134,
-    "ast_hash": "1eb771104236a443eb7b31ef6392dc90",
+    "ast_hash": "",
     "semantic_hash": ""
   },
   "tests/security-hardening.test.mjs": {
     "mtime": 1786390534.7298174,
     "ast_hash": "bc42fe9bead68bf55b04906b055ef680",
+    "semantic_hash": ""
+  },
+  "components/ui/bubble.tsx": {
+    "mtime": 1786465023.4753458,
+    "ast_hash": "f17d27f4d472b876dba3ac3d8ed9f2e1",
+    "semantic_hash": ""
+  },
+  "components/ui/empty.tsx": {
+    "mtime": 1786465023.4942088,
+    "ast_hash": "1e8df0f00f471caf1e8852a53bffcc8b",
+    "semantic_hash": ""
+  },
+  "components/ui/input-group.tsx": {
+    "mtime": 1786465023.42905,
+    "ast_hash": "cd7010ae8fd866b9ce146c56a6e044d1",
+    "semantic_hash": ""
+  },
+  "components/ui/message.tsx": {
+    "mtime": 1786465023.4479673,
+    "ast_hash": "37f25c3229bc9130285df808fb87ed05",
+    "semantic_hash": ""
+  },
+  "components/ui/spinner.tsx": {
+    "mtime": 1786465023.506986,
+    "ast_hash": "4799669575bae50e8c2b5a1764cb8c89",
+    "semantic_hash": ""
+  },
+  "graphify-out/memory/query_20260811_121858_how_do_i_access_the_admin_page.md": {
+    "mtime": 1786450738.4528031,
+    "ast_hash": "3c01d9df4fef643f3342f26f9d01a33d",
     "semantic_hash": ""
   }
 }

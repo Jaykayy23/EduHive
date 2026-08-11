@@ -39,12 +39,38 @@ export default function Notifications() {
 
   const { mutate } = useMutation({
     mutationFn: () => kyInstance.patch("/api/notifications/mark-as-read"),
-    onSuccess: () => {
+    onMutate: async () => {
+      await queryClient.cancelQueries({
+        queryKey: ["unread-notification-count"],
+      });
+
+      const previousCount = queryClient.getQueryData([
+        "unread-notification-count",
+      ]);
+
       queryClient.setQueryData(["unread-notification-count"], {
         unreadCount: 0,
       });
+
+      return { previousCount };
     },
-    onError(error) {
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: ["unread-notification-count"],
+      });
+    },
+    onError(error, _variables, context) {
+      if (context?.previousCount) {
+        queryClient.setQueryData(
+          ["unread-notification-count"],
+          context.previousCount,
+        );
+      } else {
+        queryClient.invalidateQueries({
+          queryKey: ["unread-notification-count"],
+        });
+      }
+
       console.error("Error marking notifications as read:", error);
     },
   });

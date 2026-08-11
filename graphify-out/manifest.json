@@ -150,8 +150,8 @@
     "semantic_hash": ""
   },
   "app/(main)/messages/ChatSidebar.tsx": {
-    "mtime": 1786145788.841838,
-    "ast_hash": "d20ce167ba30b5c6209d492f9da12b66",
+    "mtime": 1786439417.4442396,
+    "ast_hash": "a0160a44aeb5ec2aab9dff058f3e0080",
     "semantic_hash": ""
   },
   "app/(main)/messages/NewChatDialog.tsx": {
@@ -180,8 +180,8 @@
     "semantic_hash": "9212cfba4d30ada2c293e8ceea7d4139"
   },
   "app/(main)/notifications/Notifications.tsx": {
-    "mtime": 1785506256.65835,
-    "ast_hash": "7b24010da4d32addea34be58b9f178c1",
+    "mtime": 1786439409.8303742,
+    "ast_hash": "b5487ef4fe9edee02aece828a8f0a172",
     "semantic_hash": ""
   },
   "app/(main)/notifications/page.tsx": {

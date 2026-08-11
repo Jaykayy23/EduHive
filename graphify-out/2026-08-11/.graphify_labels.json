@@ -324,5 +324,6 @@
   "322": "sonner",
   "323": "@tanstack/react-query",
   "324": "auth-flows.test.mjs",
-  "325": "security-hardening.test.mjs"
+  "325": "security-hardening.test.mjs",
+  "326": "clsx"
 }

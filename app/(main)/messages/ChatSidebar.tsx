@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { useQueryClient } from "@tanstack/react-query";
 import { ChevronLeft, MailPlus } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
+import { Event as StreamChatEvent } from "stream-chat";
 import {
   ChannelList,
   ChannelPreviewMessenger,
@@ -22,13 +23,39 @@ export default function ChatSidebar({ open, onClose }: ChatSidebarProps) {
 
   const queryClient = useQueryClient();
 
-  const { channel } = useChatContext();
+  const { channel, client } = useChatContext();
 
   useEffect(() => {
-    if (channel?.id) {
+    const syncUnreadCount = (event: StreamChatEvent) => {
+      if (typeof event.total_unread_count === "number") {
+        queryClient.setQueryData(["unread-messages-count"], {
+          unreadCount: event.total_unread_count,
+        });
+        return;
+      }
+
       queryClient.invalidateQueries({ queryKey: ["unread-messages-count"] });
-    }
-  }, [channel?.id, queryClient]);
+    };
+
+    const markReadSubscription = client.on(
+      "notification.mark_read",
+      syncUnreadCount,
+    );
+    const newMessageSubscription = client.on(
+      "notification.message_new",
+      syncUnreadCount,
+    );
+    const markUnreadSubscription = client.on(
+      "notification.mark_unread",
+      syncUnreadCount,
+    );
+
+    return () => {
+      markReadSubscription.unsubscribe();
+      newMessageSubscription.unsubscribe();
+      markUnreadSubscription.unsubscribe();
+    };
+  }, [client, queryClient]);
 
   const ChannelPreviewCustom = useCallback(
     (props: ChannelPreviewUIComponentProps) => (

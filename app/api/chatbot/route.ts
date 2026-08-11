@@ -111,7 +111,6 @@ export async function POST(request: NextRequest) {
           temperature: 1,
           top_p: 0.95,
           max_tokens: getMaxTokens(),
-          chat_template_kwargs: { thinking: false },
           stream: true,
         }),
       };

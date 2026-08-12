@@ -125,8 +125,8 @@
     "semantic_hash": ""
   },
   "app/(main)/home/page.tsx": {
-    "mtime": 1786395313.4130094,
-    "ast_hash": "27248a9bd890d90413cca29ecf4c9811",
+    "mtime": 1786544759.207469,
+    "ast_hash": "8e8b0a4340d417b5eca60ca65ea39023",
     "semantic_hash": ""
   },
   "app/(main)/layout.tsx": {
@@ -410,9 +410,9 @@
     "semantic_hash": "da23d740c90202c1c14b24d9f4d5947e"
   },
   "components/FollowButton.tsx": {
-    "mtime": 1751043386.2561686,
-    "ast_hash": "ba8eb59d1303e5c84f039496f2792862",
-    "semantic_hash": "ba8eb59d1303e5c84f039496f2792862"
+    "mtime": 1786544743.652552,
+    "ast_hash": "6b47b5104c92ea74bafe754970a4fe1b",
+    "semantic_hash": ""
   },
   "components/FollowerCount.tsx": {
     "mtime": 1748198707.228405,
@@ -460,8 +460,8 @@
     "semantic_hash": ""
   },
   "components/TrendsSidebar.tsx": {
-    "mtime": 1786145788.8588371,
-    "ast_hash": "f780737814f5210598e54f49c898f0c4",
+    "mtime": 1786544806.0572083,
+    "ast_hash": "9fa174a8c1b3df9c797ec6db82853f0d",
     "semantic_hash": ""
   },
   "components/UserAvatar.tsx": {
@@ -880,9 +880,9 @@
     "semantic_hash": ""
   },
   "lib/types.ts": {
-    "mtime": 1755126071.3643928,
-    "ast_hash": "272995fefea87cdc3c0dd6e6f3828138",
-    "semantic_hash": "272995fefea87cdc3c0dd6e6f3828138"
+    "mtime": 1786544739.947782,
+    "ast_hash": "128729a135e489be35695539e1ceb603",
+    "semantic_hash": ""
   },
   "lib/uploadthing.ts": {
     "mtime": 1748438332.0113714,
@@ -1847,6 +1847,46 @@
   "graphify-out/memory/query_20260812_140409_also_the_notificstion_unread_count___when_i_have_n.md": {
     "mtime": 1786543449.7807057,
     "ast_hash": "afc4d6fefa3104dccf0a7c6c4fe8bfec",
+    "semantic_hash": ""
+  },
+  "app/(main)/people/PeopleDiscovery.tsx": {
+    "mtime": 1786544753.165848,
+    "ast_hash": "3e11c4d76f0f22e315a20fc2c21a92bf",
+    "semantic_hash": ""
+  },
+  "app/(main)/people/page.tsx": {
+    "mtime": 1786544755.209777,
+    "ast_hash": "3ab5517ef3f56611786ddf6ce96f8ffa",
+    "semantic_hash": ""
+  },
+  "app/api/users/suggestions/route.ts": {
+    "mtime": 1786544750.4120977,
+    "ast_hash": "ba739547ec885dbe0120afdbd14dedad",
+    "semantic_hash": ""
+  },
+  "components/people/PeopleSuggestionsList.tsx": {
+    "mtime": 1786544774.776396,
+    "ast_hash": "64395565b8980ce3f5c15eda0b72b20f",
+    "semantic_hash": ""
+  },
+  "components/people/WhoToFollow.tsx": {
+    "mtime": 1786544747.690493,
+    "ast_hash": "508bce366e529e07a2839b3e3f91f296",
+    "semantic_hash": ""
+  },
+  "lib/user-suggestions.ts": {
+    "mtime": 1786544741.567147,
+    "ast_hash": "1e6c68ec58fb8935e6b9aca620e1c780",
+    "semantic_hash": ""
+  },
+  "tests/people-suggestions.test.mjs": {
+    "mtime": 1786544917.1678648,
+    "ast_hash": "5f318d9e4493b426f1f8eecb22ddd4e7",
+    "semantic_hash": ""
+  },
+  "graphify-out/memory/query_20260812_141620_and_also_on_big_screens_the_who_to_follow_shows__b.md": {
+    "mtime": 1786544180.3688557,
+    "ast_hash": "65e951dce459b98b11b8bd396496a793",
     "semantic_hash": ""
   }
 }

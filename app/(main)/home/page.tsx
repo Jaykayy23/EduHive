@@ -4,6 +4,7 @@ import WhoToFollow from "@/components/people/WhoToFollow";
 import { BookLoader } from "@/components/ui/book-loader";
 import { Suspense } from "react";
 import HomePageContent from "../HomePageContent";
+import TrendingTopics from "@/components/TrendingTopics";
 
 export default function Home() {
   return (
@@ -15,13 +16,16 @@ export default function Home() {
             <WhoToFollow variant="mobile" />
           </Suspense>
         </section>
+        <section className="xl:hidden" aria-label="Trending topics">
+          <Suspense fallback={<BookLoader className="mx-auto" size="2rem" />}>
+            <TrendingTopics variant="mobile" />
+          </Suspense>
+        </section>
         <HomePageContent />
       </div>
 
-      <aside className="hidden xl:block" aria-label="Trending topics">
-        <div className="sticky top-20">
-          <TrendsSidebar />
-        </div>
+      <aside className="hidden xl:block" aria-label="Suggestions and trends">
+        <TrendsSidebar />
       </aside>
     </div>
   );

@@ -14,10 +14,15 @@ const topics = readFileSync(
   new URL("../components/TrendingTopics.tsx", import.meta.url),
   "utf8",
 );
+const discover = readFileSync(
+  new URL("../app/(main)/people/page.tsx", import.meta.url),
+  "utf8",
+);
 
-test("trending topics are available in the compact mobile home layout", () => {
-  assert.match(home, /<TrendingTopics variant="mobile" \/>/);
-  assert.match(topics, /<ScrollBar orientation="horizontal" \/>/);
+test("trending topics live in Discover instead of above the mobile feed", () => {
+  assert.doesNotMatch(home, /TrendingTopics/);
+  assert.match(discover, /<TabsTrigger value="topics">/);
+  assert.match(discover, /<TrendingTopics \/>/);
   assert.match(topics, /LIMIT 5/);
 });
 

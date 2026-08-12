@@ -125,8 +125,8 @@
     "semantic_hash": ""
   },
   "app/(main)/home/page.tsx": {
-    "mtime": 1786544759.207469,
-    "ast_hash": "8e8b0a4340d417b5eca60ca65ea39023",
+    "mtime": 1786545834.2942607,
+    "ast_hash": "848ae5c90c2eefb16817189bc82ef582",
     "semantic_hash": ""
   },
   "app/(main)/layout.tsx": {
@@ -460,8 +460,8 @@
     "semantic_hash": ""
   },
   "components/TrendsSidebar.tsx": {
-    "mtime": 1786544806.0572083,
-    "ast_hash": "9fa174a8c1b3df9c797ec6db82853f0d",
+    "mtime": 1786545817.8881059,
+    "ast_hash": "4fcb1a4db61a9fcb4aee3c05c1a65c11",
     "semantic_hash": ""
   },
   "components/UserAvatar.tsx": {
@@ -1887,6 +1887,21 @@
   "graphify-out/memory/query_20260812_141620_and_also_on_big_screens_the_who_to_follow_shows__b.md": {
     "mtime": 1786544180.3688557,
     "ast_hash": "65e951dce459b98b11b8bd396496a793",
+    "semantic_hash": ""
+  },
+  "components/TrendingTopics.tsx": {
+    "mtime": 1786545832.2579527,
+    "ast_hash": "843708d8a1403b631724c643c81a1d44",
+    "semantic_hash": ""
+  },
+  "tests/trending-topics.test.mjs": {
+    "mtime": 1786545821.5852826,
+    "ast_hash": "60bb8713bc3c1e18a808c7cf7bedf342",
+    "semantic_hash": ""
+  },
+  "graphify-out/memory/query_20260812_144520_also_the_trending_topics__not_on_mobile___and_also.md": {
+    "mtime": 1786545920.0088506,
+    "ast_hash": "90e51c1b07cbca7e42c5b44ab491adf1",
     "semantic_hash": ""
   }
 }

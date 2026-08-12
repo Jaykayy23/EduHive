@@ -1,16 +1,16 @@
 # Graph Report - EduHive_  (2026-08-12)
 
 ## Corpus Check
-- 328 files · ~673,890 words
+- 329 files · ~674,226 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 7312 nodes · 12608 edges · 333 communities (178 shown, 155 thin omitted)
+- 7320 nodes · 12623 edges · 339 communities (185 shown, 154 thin omitted)
 - Extraction: 96% EXTRACTED · 4% INFERRED · 0% AMBIGUOUS · INFERRED: 487 edges (avg confidence: 0.65)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `acc7f273`
+- Built from commit: `0b6d5c9f`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -26,7 +26,7 @@
 - lib/utils.ts
 - runtime/wasm.js
 - qo
-- Post.tsx
+- types.ts
 - [username]/page.tsx
 - n
 - r
@@ -38,13 +38,13 @@
 - chatbot/page.tsx
 - cn
 - T
-- addErrorMessage
+- i
 - T
 - addErrorMessage
 - addErrorMessage
 - chatbot/route.ts
-- PostEditor.tsx
-- bo
+- 3-results-section.tsx
+- e
 - EmailVerificationTokenDelegate
 - PDFTextCleaner
 - PasswordResetTokenDelegate
@@ -59,9 +59,9 @@
 - dependencies
 - devDependencies
 - write
-- validation.ts
+- personalization.ts
 - write
-- NewChatDialog.tsx
+- PostEditor.tsx
 - t
 - di
 - compilerOptions
@@ -69,15 +69,15 @@
 - sa
 - toolbar
 - pu
-- requestInternal
+- .includes
 - reports/actions.ts
 - main.py
 - toString
 - forEach
 - index-browser.d.ts
-- a
+- .includes
 - write
-- MenuBar.tsx
+- OnboardingForm.tsx
 - components.json
 - Prisma__UserClient
 - FileParser
@@ -104,10 +104,10 @@
 - select
 - r
 - @lucia-auth/adapter-prisma
-- Summarizer
+- test_backend.py
 - requestInternal
 - validateRequest
-- ai
+- Aa
 - Qt
 - Queryable
 - Span
@@ -115,7 +115,7 @@
 - QuestgenService
 - Prisma__PostClient
 - MergedExtensionsList
-- app/layout.tsx
+- core.ts
 - Prisma__EmailVerificationTokenClient
 - ./sql
 - Engine
@@ -171,12 +171,12 @@
 - PrismaClientValidationError
 - Skip
 - seed-achievements.ts
-- claimRateLimit
+- validation.ts
 - ky
 - hiveq-server.ts
 - Q: use the hiveq icon on the menu bar for the one on the page
 - LandingPageExperience.tsx
-- test_backend.py
+- Question
 - Q: how do i access the admin page
 - Q: and also on big screens the who to follow shows, but for mobile there is no who to follow, since its a small screen it cant show on the home page. what will be best thing to do. and also, when there is a new user it shows on the who to follow section, but is there a limit to how many that can show at a time because if we have 100 users will all show there? whats the best approach
 - AnyNull
@@ -187,8 +187,8 @@
 - ErrorRegistry
 - JsonConvertible
 - cobe
-- r
-- verify-email/[token]/page.tsx
+- tt
+- prisma.ts
 - @radix-ui/react-slider
 - Commands
 - next.config.ts
@@ -296,12 +296,12 @@
 - Forms & Inputs
 - Critical Rules
 - Class-string rewrites (layer 2)
-- No Base UI counterpart
+- display-misc.md
 - avatar
 - Radix UI -> Base UI migration
 - Consumer-side prop changes (call sites, not wrappers)
 - Progress.Indicator → Progress.Indicator
-- display-misc.md
+- Separator.Root → Separator
 - Q: Where are the dark mode theme tokens defined, and which components depend on background, card, popover, muted, border, and sidebar colors?
 - chatbot-utils.ts
 - (new) Fieldset.Root and Fieldset.Legend
@@ -314,13 +314,13 @@
 - Q: Why are features missing from the messages page on mobile?
 - Q: also the trending topics, not on mobile , and also on large screens where it is u cant scroll to see it u can just see part of it
 - @stream-io/video-react-sdk
-- .includes
-- prisma/index-browser.js
+- button.tsx
+- ha
 - @tiptap/pm
 - constructor
 - date-fns
 - react-image-file-resizer
-- prisma/wasm.js
+- toString
 - @tanstack/react-query-devtools
 - @radix-ui/react-alert-dialog
 - @radix-ui/react-dialog
@@ -328,12 +328,18 @@
 - sonner
 - @tanstack/react-query
 - clsx
-- sent/page.tsx
+- constructor
 - Q: also the notificstion unread count . when i have notification and i open the notification page and tap on what i have there and leave notification it does not mark as read and it still shows i have the same unread notifications which i have already opened
-- forgot-password/page.tsx
+- os
 - @hookform/resolvers
 - notifications.test.mjs
 - trending-topics.test.mjs
+- AchievementBadge.tsx
+- oi
+- achievement-checker.ts
+- user-suggestions.ts
+- require_internal_api_key
+- Q: on the home page on moblie the who to follow and trending topics all show. which makes the home page too long. what is your best approach to this
 
 ## God Nodes (most connected - your core abstractions)
 1. `cn()` - 194 edges
@@ -350,19 +356,19 @@
 ## Surprising Connections (you probably didn't know these)
 - `Gemini API configuration` --semantically_similar_to--> `Google Generative AI SDK`  [INFERRED] [semantically similar]
   README.md → ml-backend/requirements.txt
-- `Page()` --calls--> `hashAuthToken()`  [EXTRACTED]
-  app/(auth)/verify-email/[token]/page.tsx → lib/auth/tokens.ts
-- `MenuLink()` --calls--> `cn()`  [EXTRACTED]
-  app/(main)/MenuBar.tsx → lib/utils.ts
 - `MediaPreviews()` --calls--> `cn()`  [EXTRACTED]
   components/posts/Post.tsx → lib/utils.ts
 - `MediaPreview()` --calls--> `cn()`  [EXTRACTED]
   components/posts/Post.tsx → lib/utils.ts
+- `AttachmentPreviews()` --calls--> `cn()`  [EXTRACTED]
+  components/posts/editor/PostEditor.tsx → lib/utils.ts
+- `AttachmentPreview()` --calls--> `cn()`  [EXTRACTED]
+  components/posts/editor/PostEditor.tsx → lib/utils.ts
 
 ## Import Cycles
 - 3-file cycle: `components/Linkify.tsx -> components/UserLinkwithTooltip.tsx -> components/UserTooltip.tsx -> components/Linkify.tsx`
 
-## Communities (333 total, 155 thin omitted)
+## Communities (339 total, 154 thin omitted)
 
 ### Community 0 - "index.d.ts"
 Cohesion: 0.00
@@ -373,108 +379,115 @@ Cohesion: 0.01
 Nodes (305): AccelerateEngineConfig, Action, ActiveConnectorType, Aggregate, AllModelsToStringIndex, ApplyOmit, Args, Args_3 (+297 more)
 
 ### Community 2 - "library.js"
-Cohesion: 0.02
-Nodes (65): As(), bs(), Bu(), build(), buildCaptureSettings(), Cd(), Cn(), createEngineSpan() (+57 more)
+Cohesion: 0.03
+Nodes (57): As(), bs(), Bu(), build(), buildCaptureSettings(), Cd(), Cn(), createEngineSpan() (+49 more)
 
 ### Community 3 - "react-native.js"
 Cohesion: 0.02
-Nodes (62): Al(), ap(), As(), at(), Bc(), bs(), Ce(), Dc() (+54 more)
+Nodes (54): ai(), ap(), As(), Bc(), bs(), Ce(), Dc(), di() (+46 more)
 
 ### Community 4 - "runtime/edge.js"
 Cohesion: 0.03
-Nodes (58): build(), buildCaptureSettings(), cc(), Cl(), constructor(), createEngineSpan(), ds(), Ee() (+50 more)
+Nodes (55): build(), buildCaptureSettings(), cc(), ce(), Cl(), constructor(), createEngineSpan(), Ee() (+47 more)
 
 ### Community 5 - "edge-esm.js"
 Cohesion: 0.02
-Nodes (79): ac(), Br(), build(), buildCaptureSettings(), $c(), ce(), constructor(), createEngineSpan() (+71 more)
+Nodes (74): Aa(), ac(), ba(), build(), buildCaptureSettings(), $c(), ce(), createEngineSpan() (+66 more)
 
 ### Community 8 - "lib/utils.ts"
-Cohesion: 0.08
-Nodes (39): escapeHtml(), formatQuestionType(), isAnswerCorrect(), QuizQuestion, ResultsSection(), ResultsSectionProps, shuffleArray(), GeneratedResponse (+31 more)
+Cohesion: 0.10
+Nodes (29): logout(), Notication(), NotificationProps, ReportTable(), Comment(), CommentProps, CommentMoreButton(), CommentMoreButtonProps (+21 more)
 
 ### Community 9 - "runtime/wasm.js"
 Cohesion: 0.03
-Nodes (52): al(), as(), bo(), buildQueryError(), ca(), constructor(), consumeError(), createEngineSpan() (+44 more)
+Nodes (59): al(), as(), at(), bo(), buildQueryError(), ca(), Ce(), constructor() (+51 more)
 
 ### Community 10 - "qo"
-Cohesion: 0.15
-Nodes (25): An(), Cn(), findField(), fu(), getArgumentName(), getArgumentPath(), _getName(), getOutputTypeDescription() (+17 more)
+Cohesion: 0.14
+Nodes (23): An(), Dr(), getArgumentName(), getArgumentPath(), _getName(), getSelectionPath(), indentedCurrentLine(), kr() (+15 more)
 
-### Community 11 - "Post.tsx"
+### Community 11 - "types.ts"
 Cohesion: 0.05
-Nodes (52): Bookmarks(), metadata, FollowingFeed(), ForYouFeed(), ForYouFeedProps, HomePageContent(), Notifications(), metadata (+44 more)
+Nodes (51): Bookmarks(), metadata, FollowingFeed(), ForYouFeed(), ForYouFeedProps, HomePageContent(), SubjectFilterType, MessagesButton() (+43 more)
 
 ### Community 12 - "[username]/page.tsx"
-Cohesion: 0.06
-Nodes (49): useFollowerInfo(), Notication(), NotificationProps, generateMetadata(), getPost, Page(), PageProps, UserInfoSidebar() (+41 more)
+Cohesion: 0.10
+Nodes (27): useFollowerInfo(), UserInfoSidebarProps, EditProfileButton(), EditProfileButtonProps, EditProfileDialogProps, PageProps, UserProfile(), UserProfileProps (+19 more)
 
 ### Community 13 - "n"
 Cohesion: 0.05
-Nodes (58): addItem(), as(), emit(), forEach(), ho(), iu(), oc(), pn() (+50 more)
+Nodes (44): {
+  Decimal,
+  objectEnumValues,
+  makeStrictEnum,
+  Public,
+  getRuntime,
+  skip
+}, Prisma, PrismaClient, Ae(), an(), B(), be(), bn() (+36 more)
 
 ### Community 14 - "r"
-Cohesion: 0.13
-Nodes (20): an(), Et(), fromContent(), getOrCreate(), Gl(), ka(), lineAt(), mapLineAt() (+12 more)
+Cohesion: 0.09
+Nodes (32): an(), Do(), Et(), Fu(), getOrCreate(), Gl(), ii(), ka() (+24 more)
 
 ### Community 15 - "addErrorMessage"
-Cohesion: 0.10
-Nodes (49): addErrorMessage(), addField(), addSuggestion(), asObject(), bo(), br(), Bt(), bu() (+41 more)
+Cohesion: 0.11
+Nodes (47): addErrorMessage(), addField(), addSuggestion(), asObject(), bo(), br(), Bt(), bu() (+39 more)
 
 ### Community 16 - "send-verification-email.tsx"
 Cohesion: 0.24
 Nodes (11): ResetPassword(), ResetPasswordProps, VerifyEmail(), VerifyEmailProps, getAppUrl(), getEmailFrom(), getResendClient(), sendPasswordResetEmail() (+3 more)
 
 ### Community 17 - "request"
-Cohesion: 0.09
-Nodes (35): buildQueryError(), cm(), consumeError(), ct(), dispatchBatches(), fd(), Ft(), getExternalAdapterError() (+27 more)
+Cohesion: 0.10
+Nodes (33): buildQueryError(), cm(), consumeError(), ct(), dispatchBatches(), fd(), Ft(), getExternalAdapterError() (+25 more)
 
 ### Community 18 - ".slice"
 Cohesion: 0.08
-Nodes (36): a(), Ba(), ce(), enabled(), Fa(), fo(), g(), go() (+28 more)
+Nodes (37): a(), ai(), Ba(), enabled(), Fa(), fo(), g(), gi() (+29 more)
 
 ### Community 19 - "addErrorMessage"
 Cohesion: 0.12
 Nodes (48): addErrorMessage(), addField(), addSuggestion(), Ao(), Ar(), asObject(), Au(), bu() (+40 more)
 
 ### Community 20 - "chatbot/page.tsx"
-Cohesion: 0.06
-Nodes (54): GET(), AcademicChatBot(), Conversation, createConversation(), generateId(), getConversationMode(), getModeLabel(), getStreamDelta() (+46 more)
+Cohesion: 0.09
+Nodes (38): AcademicChatBot(), Conversation, createConversation(), generateId(), getConversationMode(), getModeLabel(), getStreamDelta(), isRecord() (+30 more)
 
 ### Community 21 - "cn"
 Cohesion: 0.05
-Nodes (87): OnboardingFormProps, stepContent, ReportActionsProps, ReportTableProps, DeleteCommentDialog(), useDeleteCommentMutation(), CropImageDialog(), CropImageDialogProps (+79 more)
+Nodes (57): MenuBarProps, MenuLink(), MenuLinkProps, ReportActionsProps, ReportTableProps, AiLoaderProps, Component(), AlertDialog() (+49 more)
 
 ### Community 22 - "T"
 Cohesion: 0.06
 Nodes (18): ba(), ci(), ha(), Hr(), ii(), Je(), ni(), Oe() (+10 more)
 
-### Community 23 - "addErrorMessage"
-Cohesion: 0.14
-Nodes (45): addErrorMessage(), addField(), addSuggestion(), Ao(), asObject(), Au(), bu(), co() (+37 more)
+### Community 23 - "i"
+Cohesion: 0.12
+Nodes (50): addErrorMessage(), addField(), addSuggestion(), Ao(), asObject(), Au(), bu(), Cn() (+42 more)
 
 ### Community 24 - "T"
-Cohesion: 0.06
-Nodes (22): ai(), be(), bl(), de(), en(), enabled(), fi(), ga() (+14 more)
+Cohesion: 0.07
+Nodes (10): bl(), bt(), fi(), gi(), hi(), ne(), pi(), Ra() (+2 more)
 
 ### Community 25 - "addErrorMessage"
-Cohesion: 0.14
-Nodes (43): addErrorMessage(), addField(), addSuggestion(), asObject(), Bp(), dp(), Fp(), getDeepField() (+35 more)
+Cohesion: 0.13
+Nodes (46): addErrorMessage(), addField(), addSuggestion(), asObject(), Bl(), Bp(), dp(), Fp() (+38 more)
 
 ### Community 26 - "addErrorMessage"
 Cohesion: 0.12
 Nodes (44): addErrorMessage(), addField(), addSuggestion(), asObject(), Bs(), ds(), dt(), ei() (+36 more)
 
 ### Community 27 - "chatbot/route.ts"
-Cohesion: 0.14
-Nodes (17): getMaxTokens(), getNvidiaTimeoutMs(), getProviderErrorMessage(), maxDuration, NVIDIA_TRANSIENT_STATUS_CODES, POST(), runtime, wait() (+9 more)
+Cohesion: 0.09
+Nodes (25): DELETE(), getMaxTokens(), getNvidiaTimeoutMs(), getProviderErrorMessage(), maxDuration, NVIDIA_TRANSIENT_STATUS_CODES, POST(), runtime (+17 more)
 
-### Community 28 - "PostEditor.tsx"
-Cohesion: 0.05
-Nodes (55): metadata, dynamic, InputSection(), InputSectionProps, QuizSource, allocateQuestionCounts(), ConfigurationSection(), ConfigurationSectionProps (+47 more)
+### Community 28 - "3-results-section.tsx"
+Cohesion: 0.07
+Nodes (54): metadata, dynamic, InputSection(), InputSectionProps, QuizSource, allocateQuestionCounts(), ConfigurationSection(), ConfigurationSectionProps (+46 more)
 
-### Community 29 - "bo"
-Cohesion: 0.11
-Nodes (27): ac(), bo(), Bs(), Cr(), Do(), e(), es(), _getName() (+19 more)
+### Community 29 - "e"
+Cohesion: 0.18
+Nodes (13): ac(), e(), es(), jl(), jr(), mo(), oc(), ps() (+5 more)
 
 ### Community 31 - "PDFTextCleaner"
 Cohesion: 0.07
@@ -485,24 +498,24 @@ Cohesion: 0.04
 Nodes (48): Arrow / Item / Group / Label / CheckboxItem / RadioGroup / RadioItem / ItemIndicator / Separator / Sub / SubTrigger / SubContent, Arrow → Menu.Arrow, Base UI only, data attributes, CSS variables, Base UI only props worth knowing (Menu), Base UI only props worth knowing (NavigationMenu), CheckboxItem → Menu.CheckboxItem, Content → ContextMenu.Portal > Positioner > Popup, Content → Menu.Portal > Menu.Positioner > Menu.Popup (+40 more)
 
 ### Community 34 - "t"
-Cohesion: 0.11
-Nodes (27): dr(), bi(), da(), e(), fe(), getActiveContext(), getAllBatchQueryCallbacks(), getAllQueryCallbacks() (+19 more)
+Cohesion: 0.08
+Nodes (39): addItem(), bi(), da(), e(), fe(), getActiveContext(), getAllBatchQueryCallbacks(), getAllQueryCallbacks() (+31 more)
 
 ### Community 35 - "T"
-Cohesion: 0.06
-Nodes (22): Aa(), Be(), bi(), Ca(), de(), di(), Ei(), fi() (+14 more)
+Cohesion: 0.08
+Nodes (6): Be(), bi(), Ei(), re(), T(), xi()
 
 ### Community 36 - "si"
-Cohesion: 0.10
-Nodes (25): kl(), Ne(), addItem(), ao(), be(), Bt(), Ct(), es() (+17 more)
+Cohesion: 0.11
+Nodes (23): vl(), kl(), Ne(), ao(), be(), Bt(), Ct(), es() (+15 more)
 
 ### Community 38 - "constructor"
 Cohesion: 0.10
 Nodes (22): Tn(), constructor(), Dl(), e(), extractHostAndApiKey(), fo(), get(), getAllBatchQueryCallbacks() (+14 more)
 
 ### Community 39 - "slice"
-Cohesion: 0.08
-Nodes (32): Ls(), be(), bl(), bn(), cu(), enabled(), eo(), Fa() (+24 more)
+Cohesion: 0.11
+Nodes (25): be(), bl(), bn(), cu(), dr(), enabled(), eo(), fu() (+17 more)
 
 ### Community 40 - "fo"
 Cohesion: 0.16
@@ -517,24 +530,24 @@ Cohesion: 0.07
 Nodes (29): eslint, eslint-config-next, eslint-config-prettier, @eslint/eslintrc, devDependencies, eslint, eslint-config-next, eslint-config-prettier (+21 more)
 
 ### Community 43 - "write"
-Cohesion: 0.22
-Nodes (17): addMarginSymbol(), afterNextNewline(), copy(), getCurrentLineLength(), getPrintWidth(), indent(), newLine(), setColor() (+9 more)
+Cohesion: 0.20
+Nodes (18): addMarginSymbol(), afterNextNewline(), cs(), getCurrentLineLength(), getPrintWidth(), indent(), newLine(), Rs() (+10 more)
 
-### Community 44 - "validation.ts"
-Cohesion: 0.10
-Nodes (31): GET(), OnboardingForm(), emptyPreferences, metadata, OnboardingPage(), ACADEMIC_LEVEL_IDS, ACADEMIC_LEVELS, AcademicLevel (+23 more)
+### Community 44 - "personalization.ts"
+Cohesion: 0.13
+Nodes (25): GET(), savePersonalization(), OnboardingForm(), OnboardingFormProps, emptyPreferences, metadata, OnboardingPage(), ACADEMIC_LEVELS (+17 more)
 
 ### Community 45 - "write"
 Cohesion: 0.24
 Nodes (16): addMarginSymbol(), afterNextNewline(), getCurrentLineLength(), getPrintWidth(), indent(), newLine(), setColor(), underline() (+8 more)
 
-### Community 46 - "NewChatDialog.tsx"
-Cohesion: 0.10
-Nodes (19): useDebounce(), Chat(), ChatChannel(), ChatChannelProps, CustomChannelHeaderProps, ChatSidebar(), ChatSidebarProps, MenuHeaderProps (+11 more)
+### Community 46 - "PostEditor.tsx"
+Cohesion: 0.13
+Nodes (17): Chat(), ChatSidebar(), ChatSidebarProps, MenuHeaderProps, metadata, useInitializeChatClient(), SessionContext, useSession() (+9 more)
 
 ### Community 47 - "t"
-Cohesion: 0.12
-Nodes (21): ac(), Ce(), El(), fr(), is(), jt(), middlewareArgsToRequestArgs(), ns() (+13 more)
+Cohesion: 0.14
+Nodes (19): ac(), Ce(), El(), fr(), is(), jt(), ns(), pd() (+11 more)
 
 ### Community 48 - "di"
 Cohesion: 0.19
@@ -545,56 +558,56 @@ Cohesion: 0.07
 Nodes (27): dom, dom.iterable, esnext, .next/dev/types/**/*.ts, next-env.d.ts, .next/types/**/*.ts, node_modules, **/*.ts (+19 more)
 
 ### Community 50 - "r"
-Cohesion: 0.09
-Nodes (28): cl(), Dr(), ft(), getOrCreate(), has(), Hs(), ic(), indentedCurrentLine() (+20 more)
+Cohesion: 0.11
+Nodes (24): addItem(), cl(), Da(), extractHostAndApiKey(), get(), getOrCreate(), Go(), has() (+16 more)
 
 ### Community 51 - "sa"
-Cohesion: 0.08
-Nodes (43): aa(), ad(), addItem(), Am(), Bl(), Br(), ed(), Fe() (+35 more)
+Cohesion: 0.09
+Nodes (41): aa(), ad(), addItem(), Am(), Br(), ed(), Fe(), findField() (+33 more)
 
 ### Community 52 - "toolbar"
 Cohesion: 0.04
 Nodes (46): accordion, Accordion.Content → Accordion.Panel, Accordion.Header → Accordion.Header, Accordion.Item → Accordion.Item, Accordion.Root → Accordion.Root, Accordion.Trigger → Accordion.Trigger, Base UI only props worth knowing, Base UI only props worth knowing (+38 more)
 
 ### Community 53 - "pu"
-Cohesion: 0.22
-Nodes (10): fromContent(), getLocation(), kl(), lineAt(), ln(), mapLineAt(), mapLines(), prependSymbolAt() (+2 more)
+Cohesion: 0.17
+Nodes (13): fromContent(), getLocation(), kc(), kl(), lineAt(), ln(), mapLineAt(), mapLines() (+5 more)
 
-### Community 54 - "requestInternal"
-Cohesion: 0.24
-Nodes (14): bt(), emit(), forEach(), handleError(), ir(), json(), lc(), propagateResponseExtensions() (+6 more)
+### Community 54 - ".includes"
+Cohesion: 0.09
+Nodes (29): bt(), _c(), dispatchBatches(), extractHostAndApiKey(), Fc(), Gr(), gt(), handleAndLogRequestError() (+21 more)
 
 ### Community 55 - "reports/actions.ts"
-Cohesion: 0.26
-Nodes (10): ReportActions(), AdminCandidate, getAdminUserIds(), isAdminUser(), ReportReason, ReportStatus, deleteReport(), deleteReportedContent() (+2 more)
+Cohesion: 0.33
+Nodes (8): ReportActions(), AdminCandidate, getAdminUserIds(), isAdminUser(), deleteReport(), deleteReportedContent(), reportSchema, updateReportStatus()
 
 ### Community 56 - "main.py"
 Cohesion: 0.13
 Nodes (18): Enum, File, Form, ge, get, le, create_questions_from_file(), create_questions_from_text() (+10 more)
 
 ### Community 57 - "toString"
-Cohesion: 0.08
-Nodes (34): ap(), cc(), ci(), cp(), dc(), en(), enabled(), ep() (+26 more)
+Cohesion: 0.06
+Nodes (45): ap(), cc(), ci(), cp(), dc(), en(), enabled(), ep() (+37 more)
 
 ### Community 58 - "forEach"
-Cohesion: 0.10
-Nodes (26): Au(), Bd(), da(), dd(), ea(), forEach(), Gd(), getAllClientExtensions() (+18 more)
+Cohesion: 0.09
+Nodes (27): Au(), Bd(), da(), dd(), ea(), forEach(), Gd(), getAllClientExtensions() (+19 more)
 
 ### Community 59 - "index-browser.d.ts"
 Cohesion: 0.10
 Nodes (18): AnyNull, Args, Config, Constructor, DbNull, Exact, GetRuntimeOutput, Instance (+10 more)
 
-### Community 60 - "a"
-Cohesion: 0.08
-Nodes (32): a(), Ca(), ci(), cr(), Do(), Ee(), fc(), gc() (+24 more)
+### Community 60 - ".includes"
+Cohesion: 0.09
+Nodes (31): as(), Br(), Ct(), dc(), Do(), Ee(), Es(), fc() (+23 more)
 
 ### Community 61 - "write"
-Cohesion: 0.08
-Nodes (38): vo(), addMarginSymbol(), afterNextNewline(), An(), au(), cp(), Fs(), getCurrentLineLength() (+30 more)
+Cohesion: 0.12
+Nodes (27): vo(), addMarginSymbol(), afterNextNewline(), cp(), getCurrentLineLength(), getPrintWidth(), gt(), handleRequestError() (+19 more)
 
-### Community 62 - "MenuBar.tsx"
-Cohesion: 0.13
-Nodes (18): MenuBarProps, MenuLink(), MenuLinkProps, MessagesButton(), MessagesButtonProps, NotificationsButton(), NotificationsButtonProps, Sheet() (+10 more)
+### Community 62 - "OnboardingForm.tsx"
+Cohesion: 0.12
+Nodes (23): stepContent, studyOptions, StudyPostButton(), StudyPostButtonProps, Checkbox(), Field(), FieldContent(), FieldDescription() (+15 more)
 
 ### Community 63 - "components.json"
 Cohesion: 0.11
@@ -605,16 +618,16 @@ Cohesion: 0.16
 Nodes (13): BytesIO, _apply_worker_resource_limits(), FileParser, _parse_document_worker(), Any, UploadFile, Apply hard limits in Linux containers; Windows still gets hard termination., Identify the parser from file bytes instead of trusting client MIME data. (+5 more)
 
 ### Community 81 - "slice"
-Cohesion: 0.09
-Nodes (32): Er(), vl(), xr(), Z(), ae(), byteLength(), cn(), cs() (+24 more)
+Cohesion: 0.11
+Nodes (27): Er(), Z(), ae(), byteLength(), cn(), D(), equals(), gr() (+19 more)
 
 ### Community 83 - "write"
 Cohesion: 0.24
 Nodes (16): addMarginSymbol(), afterNextNewline(), getCurrentLineLength(), getPrintWidth(), indent(), newLine(), setColor(), underline() (+8 more)
 
 ### Community 84 - "ju"
-Cohesion: 0.19
-Nodes (22): cs(), findField(), getAllComputedFields(), getArgumentName(), getArgumentPath(), getComputedFields(), getOrCreate(), getOutputTypeDescription() (+14 more)
+Cohesion: 0.20
+Nodes (21): cs(), findField(), getAllComputedFields(), getArgumentName(), getArgumentPath(), getComputedFields(), getOutputTypeDescription(), getSelectionPath() (+13 more)
 
 ### Community 85 - "write"
 Cohesion: 0.24
@@ -622,7 +635,7 @@ Nodes (16): addMarginSymbol(), afterNextNewline(), getCurrentLineLength(), getPr
 
 ### Community 86 - ".slice"
 Cohesion: 0.11
-Nodes (28): Aa(), ba(), bt(), fo(), g(), gn(), h(), hn() (+20 more)
+Nodes (30): a(), ci(), findField(), fo(), g(), gn(), h(), hn() (+22 more)
 
 ### Community 87 - "select"
 Cohesion: 0.04
@@ -630,27 +643,27 @@ Nodes (44): Base UI only props worth knowing (checkbox), Base UI only props wort
 
 ### Community 88 - "r"
 Cohesion: 0.08
-Nodes (29): addItem(), dc(), dispatchBatches(), dt(), ec(), Fr(), gn(), h() (+21 more)
+Nodes (35): addItem(), bo(), Bs(), Cr(), dc(), Do(), dt(), ec() (+27 more)
 
-### Community 90 - "Summarizer"
-Cohesion: 0.14
-Nodes (8): alias, Header, Fail closed unless the trusted Next.js proxy supplies the shared key., require_internal_api_key(), Small deterministic text reducer used for long uploaded documents., Extract representative sentences with no model or network dependency., Summarizer, LightweightRuntimeTests
+### Community 90 - "test_backend.py"
+Cohesion: 0.12
+Nodes (10): TextGenerationRequest, allocate_question_counts(), Convert fractional weights into exact counts using largest remainders., Small deterministic text reducer used for long uploaded documents., Extract representative sentences with no model or network dependency., Summarizer, DistributionTests, FileParserSecurityTests (+2 more)
 
 ### Community 91 - "requestInternal"
-Cohesion: 0.10
-Nodes (26): bs(), Cc(), dc(), Es(), extractHostAndApiKey(), handleError(), isRawAction(), json() (+18 more)
+Cohesion: 0.18
+Nodes (17): bs(), Cc(), handleError(), json(), nr(), propagateResponseExtensions(), Qe(), requestInternal() (+9 more)
 
 ### Community 92 - "validateRequest"
-Cohesion: 0.04
-Nodes (78): POST(), GET(), GET(), POST(), DELETE(), GET(), GET(), PATCH() (+70 more)
+Cohesion: 0.06
+Nodes (45): GET(), GET(), POST(), PATCH(), GET(), GET(), GET(), GET() (+37 more)
 
-### Community 93 - "ai"
-Cohesion: 0.15
-Nodes (14): ai(), Da(), getGlobalOmit(), gi(), Ia(), ja(), ka(), ln() (+6 more)
+### Community 93 - "Aa"
+Cohesion: 0.10
+Nodes (26): Aa(), Ca(), Da(), de(), di(), fi(), getGlobalOmit(), Ia() (+18 more)
 
 ### Community 94 - "Qt"
-Cohesion: 0.17
-Nodes (16): bc(), gc(), getAllClientExtensions(), getAllModelExtensions(), N(), no(), ns(), po() (+8 more)
+Cohesion: 0.11
+Nodes (22): bc(), ds(), gc(), getAllClientExtensions(), getAllModelExtensions(), getAllQueryCallbacks(), gs(), hs() (+14 more)
 
 ### Community 95 - "Queryable"
 Cohesion: 0.17
@@ -661,12 +674,12 @@ Cohesion: 0.18
 Nodes (13): Aa(), Ca(), Da(), fi(), Kr(), La(), Na(), nr() (+5 more)
 
 ### Community 98 - "QuestgenService"
-Cohesion: 0.12
-Nodes (10): Any, QuestgenService, QuestionGenerationConfigurationError, QuestionGenerationError, Raised when the hosted question-generation service is not configured., Raised when the provider cannot return usable questions., Generate validated quiz questions without any local model downloads., FileParserSecurityTests (+2 more)
+Cohesion: 0.17
+Nodes (9): Any, QuestgenService, QuestionGenerationConfigurationError, QuestionGenerationError, Raised when the hosted question-generation service is not configured., Raised when the provider cannot return usable questions., Generate validated quiz questions without any local model downloads., Question (+1 more)
 
-### Community 101 - "app/layout.tsx"
-Cohesion: 0.16
-Nodes (8): fileRouter, {GET, POST}, geistMono, geistSans, metadata, ReactQueryDevtools, ReactQueryProvider(), Toaster()
+### Community 101 - "core.ts"
+Cohesion: 0.13
+Nodes (11): AppFileRouter, f, fileRouter, {GET, POST}, geistMono, geistSans, metadata, ReactQueryDevtools (+3 more)
 
 ### Community 103 - "./sql"
 Cohesion: 0.20
@@ -735,8 +748,8 @@ Cohesion: 0.33
 Nodes (6): exports, ./generator-build, ./package.json, default, import, require
 
 ### Community 130 - "r"
-Cohesion: 0.07
-Nodes (40): addItem(), Ae(), Ao(), co(), de(), Dl(), ec(), Gc() (+32 more)
+Cohesion: 0.09
+Nodes (27): Ls(), addItem(), co(), de(), Dl(), ec(), fn(), _getName() (+19 more)
 
 ### Community 131 - "Google Generative AI SDK"
 Cohesion: 0.33
@@ -779,12 +792,12 @@ Cohesion: 0.40
 Nodes (5): ./wasm, default, import, require, types
 
 ### Community 147 - "EditProfileDialog.tsx"
-Cohesion: 0.09
-Nodes (30): GoogleSignInButton(), LoginForm(), firstValue(), metadata, Page(), PageProps, metadata, SignUpForm() (+22 more)
+Cohesion: 0.06
+Nodes (57): useDebounce(), NewChatDialog(), NewChatDialogProps, SelectedUserTagProps, UserResultProps, AvatarInputProps, deleteComment(), CommentsProps (+49 more)
 
-### Community 157 - "claimRateLimit"
-Cohesion: 0.22
-Nodes (12): login(), AuthEmailKind, AuthEmailScope, buildAuthEmailRateLimitKey(), buildRateLimitKey(), claimRateLimit(), getRequestIp(), HeaderReader (+4 more)
+### Community 157 - "validation.ts"
+Cohesion: 0.09
+Nodes (27): login(), lucia, updateUserProfile(), EditProfileDialog(), useUpdateProfileMutation(), submitComment(), submitPost(), buildAuthEmailRateLimitKey() (+19 more)
 
 ### Community 161 - "hiveq-server.ts"
 Cohesion: 0.21
@@ -798,9 +811,9 @@ Nodes (4): Answer, Outcome, Q: use the hiveq icon on the menu bar for the one on
 Cohesion: 0.29
 Nodes (6): LandingPage(), metadata, LandingPageExperience(), productPromises, reveal, rhythm
 
-### Community 164 - "test_backend.py"
-Cohesion: 0.14
-Nodes (17): BaseModel, CleaningDiagnostics, GeneratedQuestionBatch, Question, A generated quiz question returned to the HiveQ frontend., Structured response schema sent to Gemini., TextGenerationRequest, allocate_question_counts() (+9 more)
+### Community 164 - "Question"
+Cohesion: 0.19
+Nodes (12): BaseModel, CleaningDiagnostics, GeneratedQuestionBatch, Question, A generated quiz question returned to the HiveQ frontend., Structured response schema sent to Gemini., choice_key(), normalize_choice_text() (+4 more)
 
 ### Community 165 - "Q: how do i access the admin page"
 Cohesion: 0.40
@@ -810,29 +823,29 @@ Nodes (4): Answer, Outcome, Q: how do i access the admin page, Source Nodes
 Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: and also on big screens the who to follow shows, but for mobile there is no who to follow, since its a small screen it cant show on the home page. what will be best thing to do. and also, when there is a new user it shows on the who to follow section, but is there a limit to how many that can show at a time because if we have 100 users will all show there? whats the best approach, Source Nodes
 
-### Community 176 - "r"
-Cohesion: 0.08
-Nodes (31): En(), ai(), ea(), et(), ga(), ge(), getAllClientExtensions(), getAllComputedFields() (+23 more)
+### Community 176 - "tt"
+Cohesion: 0.13
+Nodes (19): En(), _a(), ai(), Ar(), ea(), et(), ga(), ge() (+11 more)
 
-### Community 177 - "verify-email/[token]/page.tsx"
-Cohesion: 0.47
-Nodes (4): verifyEmail(), Page(), PageProps, VerifyEmailForm()
+### Community 177 - "prisma.ts"
+Cohesion: 0.09
+Nodes (18): GET(), getSubjectSearchTerms(), GET(), config, fs, path, Prisma, PrismaClient (+10 more)
 
 ### Community 179 - "Commands"
 Cohesion: 0.12
 Nodes (17): `add` — Add components, `apply` — Apply a preset to an existing project, `build` — Build a custom registry, Commands, Contents, `diff` — Check for updates, `docs` — Get component documentation URLs, Dry-Run Mode (+9 more)
 
 ### Community 181 - "ha"
-Cohesion: 0.11
-Nodes (21): _a(), Dn(), Fi(), ha(), handleRequestError(), hi(), Ja(), kd() (+13 more)
+Cohesion: 0.12
+Nodes (20): _a(), Dn(), Fi(), ha(), handleRequestError(), hi(), Ja(), kd() (+12 more)
 
 ### Community 182 - "people-suggestions.test.mjs"
-Cohesion: 0.50
-Nodes (3): discoverRoute, home, suggestions
+Cohesion: 0.33
+Nodes (5): discoverPage, discoverRoute, home, menu, suggestions
 
 ### Community 183 - "V"
-Cohesion: 0.29
-Nodes (14): B(), compare(), Jo(), Qo(), readIntBE(), readIntLE(), readUIntBE(), readUIntLE() (+6 more)
+Cohesion: 0.26
+Nodes (15): B(), compare(), copy(), Jo(), Qo(), readIntBE(), readIntLE(), readUIntBE() (+7 more)
 
 ### Community 186 - "Q: undo this redesign and revert back to the previous design before this"
 Cohesion: 0.40
@@ -855,12 +868,12 @@ Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: Set the shared HiveQ key, server URL, production environment, apply the Prisma migration, and redeploy both services, Source Nodes
 
 ### Community 206 - "callback/google/route.ts"
-Cohesion: 0.35
-Nodes (9): clearGoogleOAuthCookies(), createSessionResponse(), GET(), provisionStreamUserSafely(), redirectToLogin(), createGoogleOAuthClient(), GET(), provisionStreamUser() (+1 more)
+Cohesion: 0.13
+Nodes (18): clearGoogleOAuthCookies(), createSessionResponse(), GET(), provisionStreamUserSafely(), redirectToLogin(), GET(), GET(), createGoogleOAuthClient() (+10 more)
 
 ### Community 259 - "za"
-Cohesion: 0.14
-Nodes (21): dm(), Fu(), ii(), In(), ju(), li(), loadLibrary(), Mo() (+13 more)
+Cohesion: 0.22
+Nodes (11): dm(), In(), ju(), li(), loadLibrary(), Mo(), nt(), pm() (+3 more)
 
 ### Community 261 - "shadcn/SKILL.md"
 Cohesion: 0.21
@@ -879,8 +892,8 @@ Cohesion: 0.15
 Nodes (13): Avatar always needs AvatarFallback, Button has no isPending or isLoading prop, Callouts use Alert, Card structure, Choosing between overlay components, Component Composition, Contents, Dialog, Sheet, and Drawer always need a Title (+5 more)
 
 ### Community 265 - "verify-email/actions.ts"
-Cohesion: 0.20
-Nodes (20): signUp(), resendVerificationEmail(), requestPasswordReset(), resetPassword(), ResetPasswordForm(), Page(), PageProps, allowAuthEmailForAccount() (+12 more)
+Cohesion: 0.11
+Nodes (31): signUp(), resendVerificationEmail(), verifyEmail(), ResendVerificationForm(), firstValue(), Page(), PageProps, Page() (+23 more)
 
 ### Community 266 - "Styling & Customization"
 Cohesion: 0.15
@@ -891,8 +904,8 @@ Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: you are an expert frontend developer and ui/ux designer, redesign the other pages as well. let me see the design before you apply them, Source Nodes
 
 ### Community 273 - "from"
-Cohesion: 0.10
-Nodes (21): _a(), alloc(), allocUnsafe(), allocUnsafeSlow(), Ar(), at(), Ce(), construct() (+13 more)
+Cohesion: 0.28
+Nodes (9): alloc(), allocUnsafe(), allocUnsafeSlow(), construct(), fill(), from(), le(), nn() (+1 more)
 
 ### Community 274 - "alert-dialog"
 Cohesion: 0.17
@@ -962,9 +975,9 @@ Nodes (8): Chat & Messaging → [chat.md](./rules/chat.md), CLI, Component Struc
 Cohesion: 0.29
 Nodes (6): Animation idiom, Class-string rewrites (layer 2), CSS variables, Data-attribute selectors, Disabled-state hooks, Element changes kill pseudo-class variants
 
-### Community 291 - "No Base UI counterpart"
-Cohesion: 0.40
-Nodes (5): AccessibleIcon (radix `AccessibleIcon.Root`: `label` required), AspectRatio (radix `AspectRatio.Root`: `asChild`, `ratio` default `1`), Label (radix `Label.Root`: `asChild`, `htmlFor`), No Base UI counterpart, VisuallyHidden (radix `VisuallyHidden.Root`: `asChild`)
+### Community 291 - "display-misc.md"
+Cohesion: 0.29
+Nodes (6): AccessibleIcon (radix `AccessibleIcon.Root`: `label` required), AspectRatio (radix `AspectRatio.Root`: `asChild`, `ratio` default `1`), Label (radix `Label.Root`: `asChild`, `htmlFor`), No Base UI counterpart, Radix UI → Base UI props mapping: progress, scroll-area, separator, avatar, toast, form, VisuallyHidden (radix `VisuallyHidden.Root`: `asChild`)
 
 ### Community 292 - "avatar"
 Cohesion: 0.29
@@ -982,9 +995,9 @@ Nodes (5): Callback signature rule, Consumer-side prop changes (call sites, not 
 Cohesion: 0.33
 Nodes (6): Base UI only props worth knowing, CSS variables, Data attributes, progress, Progress.Indicator → Progress.Indicator, Progress.Root → Progress.Root
 
-### Community 296 - "display-misc.md"
-Cohesion: 0.29
-Nodes (6): Base UI only props worth knowing, CSS variables, Data attributes, Radix UI → Base UI props mapping: progress, scroll-area, separator, avatar, toast, form, separator, Separator.Root → Separator
+### Community 296 - "Separator.Root → Separator"
+Cohesion: 0.40
+Nodes (5): Base UI only props worth knowing, CSS variables, Data attributes, separator, Separator.Root → Separator
 
 ### Community 297 - "Q: Where are the dark mode theme tokens defined, and which components depend on background, card, popover, muted, border, and sidebar colors?"
 Cohesion: 0.40
@@ -1014,79 +1027,94 @@ Nodes (4): Answer, Outcome, Q: Why are features missing from the messages page o
 Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: also the trending topics, not on mobile , and also on large screens where it is u cant scroll to see it u can just see part of it, Source Nodes
 
-### Community 310 - ".includes"
-Cohesion: 0.29
-Nodes (7): _c(), Fc(), gt(), hc(), isRawAction(), rc(), text()
+### Community 310 - "button.tsx"
+Cohesion: 0.10
+Nodes (16): GoogleSignInButton(), LoginForm(), firstValue(), metadata, Page(), PageProps, metadata, SignUpForm() (+8 more)
 
-### Community 312 - "prisma/index-browser.js"
-Cohesion: 0.40
-Nodes (3): {
-  Decimal,
-  objectEnumValues,
-  makeStrictEnum,
-  Public,
-  getRuntime,
-  skip
-}, Prisma, PrismaClient
+### Community 312 - "ha"
+Cohesion: 0.14
+Nodes (21): ai(), be(), Ca(), cr(), de(), en(), enabled(), ga() (+13 more)
 
 ### Community 314 - "constructor"
-Cohesion: 0.07
-Nodes (39): applyPendingMigrations(), ar(), buildQueryError(), constructor(), consumeError(), createEngineSpan(), cs(), deref() (+31 more)
+Cohesion: 0.06
+Nodes (40): applyPendingMigrations(), ar(), buildQueryError(), constructor(), consumeError(), createEngineSpan(), cs(), deref() (+32 more)
 
-### Community 317 - "prisma/wasm.js"
-Cohesion: 0.40
-Nodes (3): {
-  Decimal,
-  objectEnumValues,
-  makeStrictEnum,
-  Public,
-  getRuntime,
-  skip
-}, Prisma, PrismaClient
+### Community 317 - "toString"
+Cohesion: 0.10
+Nodes (20): Al(), An(), at(), au(), ds(), Fs(), gr(), highlight() (+12 more)
 
-### Community 327 - "sent/page.tsx"
-Cohesion: 0.50
-Nodes (4): ResendVerificationForm(), firstValue(), Page(), PageProps
+### Community 327 - "constructor"
+Cohesion: 0.10
+Nodes (20): constructor(), ds(), e(), Ea(), ei(), fl(), getAllBatchQueryCallbacks(), getGlobalOmit() (+12 more)
 
 ### Community 328 - "Q: also the notificstion unread count . when i have notification and i open the notification page and tap on what i have there and leave notification it does not mark as read and it still shows i have the same unread notifications which i have already opened"
 Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: also the notificstion unread count . when i have notification and i open the notification page and tap on what i have there and leave notification it does not mark as read and it still shows i have the same unread notifications which i have already opened, Source Nodes
 
+### Community 329 - "os"
+Cohesion: 0.13
+Nodes (20): Ae(), Ao(), Gc(), getAllClientExtensions(), getAllComputedFields(), getAllModelExtensions(), getAllQueryCallbacks(), hc() (+12 more)
+
 ### Community 332 - "trending-topics.test.mjs"
-Cohesion: 0.50
-Nodes (3): home, sidebar, topics
+Cohesion: 0.40
+Nodes (4): discover, home, sidebar, topics
+
+### Community 333 - "AchievementBadge.tsx"
+Cohesion: 0.23
+Nodes (9): AchievementBadge(), AchievementBadgeProps, AchievementNotificationProps, AchievementsData, Achievement, ACHIEVEMENT_CATEGORIES, RARITY_COLORS, RARITY_NAMES (+1 more)
+
+### Community 334 - "oi"
+Cohesion: 0.18
+Nodes (11): ci(), handleAndLogRequestError(), handleRequestError(), Ht(), oi(), Pa(), renderAllMessages(), sanitizeMessage() (+3 more)
+
+### Community 335 - "achievement-checker.ts"
+Cohesion: 0.36
+Nodes (6): POST(), AchievementDefinition, achievementDefinitions, checkUserAchievements(), getUserStats(), UserStats
+
+### Community 336 - "user-suggestions.ts"
+Cohesion: 0.36
+Nodes (6): GET(), WhoToFollow(), DISCOVER_SUGGESTION_PAGE_SIZE, getUserSuggestions(), GetUserSuggestionsOptions, HOME_SUGGESTION_LIMIT
+
+### Community 337 - "require_internal_api_key"
+Cohesion: 0.40
+Nodes (4): alias, Header, Fail closed unless the trusted Next.js proxy supplies the shared key., require_internal_api_key()
+
+### Community 338 - "Q: on the home page on moblie the who to follow and trending topics all show. which makes the home page too long. what is your best approach to this"
+Cohesion: 0.40
+Nodes (4): Answer, Outcome, Q: on the home page on moblie the who to follow and trending topics all show. which makes the home page too long. what is your best approach to this, Source Nodes
 
 ## Knowledge Gaps
-- **3177 isolated node(s):** `metadata`, `PageProps`, `metadata`, `PageProps`, `PageProps` (+3172 more)
+- **3183 isolated node(s):** `metadata`, `PageProps`, `metadata`, `PageProps`, `PageProps` (+3178 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **155 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **154 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Work-memory lessons
 
 **Preferred sources** — corroborated by past sessions; start here.
-- `QuestgenService` (5× useful, score=4.604345798)
-- `Deploy on Render` (3× useful, score=2.81193958)
-- `TrendsSidebar.tsx` (3× useful, score=2.788963445) _(code changed — re-verify)_
-- `hiveq-server.ts` (2× useful, score=1.914859166)
-- `Home()` (2× useful, score=1.89817229) _(code changed — re-verify)_
-- `MenuBar()` (2× useful, score=1.797290049)
-- `Button()` (2× useful, score=1.789739254)
-- `Chat.tsx` (2× useful, score=1.788806557)
-- `Navbar.tsx` (2× useful, score=1.788698945)
+- `TrendsSidebar.tsx` (5× useful, score=4.787808158)
+- `QuestgenService` (5× useful, score=4.602968391)
+- `Home()` (4× useful, score=3.897283487) _(code changed — re-verify)_
+- `Deploy on Render` (3× useful, score=2.811098378)
+- `TrendingTopics()` (2× useful, score=1.999679042)
+- `WhoToFollow()` (2× useful, score=1.999214058)
+- `hiveq-server.ts` (2× useful, score=1.914286329)
+- `MenuBar()` (2× useful, score=1.796752383) _(code changed — re-verify)_
+- `Button()` (2× useful, score=1.789203847)
+- `Chat.tsx` (2× useful, score=1.788271429)
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `n()` connect `n` to `library.js`, `za`, `runtime/edge.js`, `edge-esm.js`, `react-native.js`, `r`, `runtime/wasm.js`, `qo`, `r`, `addErrorMessage`, `request`, `.slice`, `addErrorMessage`, `T`, `addErrorMessage`, `addErrorMessage`, `bo`, `t`, `T`, `si`, `constructor`, `slice`, `fo`, `write`, `write`, `di`, `r`, `r`, `sa`, `requestInternal`, `toString`, `forEach`, `constructor`, `a`, `write`, `slice`, `write`, `ju`, `write`, `.slice`, `r`, `requestInternal`, `ai`, `Ta`?**
+- **Why does `n()` connect `n` to `library.js`, `za`, `runtime/edge.js`, `edge-esm.js`, `react-native.js`, `r`, `runtime/wasm.js`, `qo`, `r`, `addErrorMessage`, `request`, `.slice`, `addErrorMessage`, `T`, `i`, `T`, `addErrorMessage`, `e`, `t`, `si`, `constructor`, `slice`, `fo`, `write`, `write`, `t`, `di`, `r`, `sa`, `pu`, `toString`, `forEach`, `constructor`, `.includes`, `write`, `constructor`, `os`, `oi`, `slice`, `write`, `ju`, `write`, `.slice`, `r`, `requestInternal`, `Aa`, `Ta`?**
   _High betweenness centrality (0.068) - this node is a cross-community bridge._
-- **Why does `he()` connect `a` to `library.js`, `n`, `requestInternal`, `edge-esm.js`?**
+- **Why does `he()` connect `.includes` to `library.js`, `edge-esm.js`?**
   _High betweenness centrality (0.052) - this node is a cross-community bridge._
-- **Why does `cn()` connect `cn` to `lib/utils.ts`, `Post.tsx`, `[username]/page.tsx`, `PostEditor.tsx`, `NewChatDialog.tsx`, `EditProfileDialog.tsx`, `chatbot/page.tsx`, `validateRequest`, `MenuBar.tsx`?**
+- **Why does `cn()` connect `cn` to `lib/utils.ts`, `types.ts`, `[username]/page.tsx`, `AchievementBadge.tsx`, `PostEditor.tsx`, `callback/google/route.ts`, `EditProfileDialog.tsx`, `chatbot/page.tsx`, `button.tsx`, `3-results-section.tsx`, `OnboardingForm.tsx`?**
   _High betweenness centrality (0.030) - this node is a cross-community bridge._
 - **Are the 106 inferred relationships involving `n()` (e.g. with `Aa()` and `ai()`) actually correct?**
   _`n()` has 106 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `metadata`, `PageProps`, `metadata` to the rest of the system?**
-  _3177 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _3183 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `index.d.ts` be split into smaller, more focused modules?**
   _Cohesion score 0.0009718172983479105 - nodes in this community are weakly interconnected._
 - **Should `library.d.ts` be split into smaller, more focused modules?**

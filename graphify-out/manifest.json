@@ -70,8 +70,8 @@
     "semantic_hash": ""
   },
   "app/(main)/MenuBar.tsx": {
-    "mtime": 1786391163.8867013,
-    "ast_hash": "0483e9b2f5874b71d25d64474c0e4c1a",
+    "mtime": 1786547132.5833764,
+    "ast_hash": "00458e1deffb4f4886691bf46e2c0d8f",
     "semantic_hash": ""
   },
   "app/(main)/MenuBarWrapper.tsx": {
@@ -125,8 +125,8 @@
     "semantic_hash": ""
   },
   "app/(main)/home/page.tsx": {
-    "mtime": 1786545834.2942607,
-    "ast_hash": "848ae5c90c2eefb16817189bc82ef582",
+    "mtime": 1786547096.9775136,
+    "ast_hash": "adaaff17df026b2e54ca55c5b070ae05",
     "semantic_hash": ""
   },
   "app/(main)/layout.tsx": {
@@ -1855,8 +1855,8 @@
     "semantic_hash": ""
   },
   "app/(main)/people/page.tsx": {
-    "mtime": 1786544755.209777,
-    "ast_hash": "3ab5517ef3f56611786ddf6ce96f8ffa",
+    "mtime": 1786547132.5145352,
+    "ast_hash": "b7043493aa3cbd8e7f81302a3050f642",
     "semantic_hash": ""
   },
   "app/api/users/suggestions/route.ts": {
@@ -1880,8 +1880,8 @@
     "semantic_hash": ""
   },
   "tests/people-suggestions.test.mjs": {
-    "mtime": 1786544917.1678648,
-    "ast_hash": "5f318d9e4493b426f1f8eecb22ddd4e7",
+    "mtime": 1786547102.130852,
+    "ast_hash": "13b87ea5249aacc4104de92780feb3c6",
     "semantic_hash": ""
   },
   "graphify-out/memory/query_20260812_141620_and_also_on_big_screens_the_who_to_follow_shows__b.md": {
@@ -1895,13 +1895,18 @@
     "semantic_hash": ""
   },
   "tests/trending-topics.test.mjs": {
-    "mtime": 1786545821.5852826,
-    "ast_hash": "60bb8713bc3c1e18a808c7cf7bedf342",
+    "mtime": 1786547103.5673106,
+    "ast_hash": "baa237bd29e837edb8b2fd8b796b466d",
     "semantic_hash": ""
   },
   "graphify-out/memory/query_20260812_144520_also_the_trending_topics__not_on_mobile___and_also.md": {
     "mtime": 1786545920.0088506,
     "ast_hash": "90e51c1b07cbca7e42c5b44ab491adf1",
+    "semantic_hash": ""
+  },
+  "graphify-out/memory/query_20260812_145705_on_the_home_page_on_moblie_the_who_to_follow_and_t.md": {
+    "mtime": 1786546625.144205,
+    "ast_hash": "afdd10ba51b77103691f471534556176",
     "semantic_hash": ""
   }
 }

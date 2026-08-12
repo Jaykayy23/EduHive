@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-12T14:42:33.904246+00:00",
+  "generated_at": "2026-08-12T15:01:12.746488+00:00",
   "nodes": {
     "agents_skills_migrate_radix_to_base_overlays_popover": {
       "code_fingerprint": "238c2b529c55c4ff0ff36ad93de9f452e615cd7912b32bd290a0ffe8aa8053f2",
@@ -12,7 +12,7 @@
           "q": "Where are the dark mode theme tokens defined, and which components depend on background, card, popover, muted, border, and sidebar colors?"
         }
       ],
-      "score": 0.890791155,
+      "score": 0.890524671,
       "source_file": ".agents/skills/migrate-radix-to-base/overlays.md",
       "status": "tentative",
       "uses": 1
@@ -28,7 +28,7 @@
           "q": "Where are the dark mode theme tokens defined, and which components depend on background, card, popover, muted, border, and sidebar colors?"
         }
       ],
-      "score": 0.890791155,
+      "score": 0.890524671,
       "source_file": ".agents/skills/shadcn/customization.md",
       "status": "tentative",
       "uses": 1
@@ -44,7 +44,7 @@
           "q": "also the notificstion unread count . when i have notification and i open the notification page and tap on what i have there and leave notification it does not mark as read and it still shows i have the same unread notifications which i have already opened"
         }
       ],
-      "score": 0.999384026,
+      "score": 0.999085056,
       "source_file": "app/api/notifications/unread-count/route.ts",
       "status": "tentative",
       "uses": 1
@@ -60,7 +60,7 @@
           "q": "how do i access the admin page"
         }
       ],
-      "score": 0.974911255,
+      "score": 0.974619607,
       "source_file": "app/auth.ts",
       "status": "tentative",
       "uses": 1
@@ -76,7 +76,7 @@
           "q": "undo this redesign and revert back to the previous design before this"
         }
       ],
-      "score": 0.898592993,
+      "score": 0.898324176,
       "source_file": "app/(main)/bookmarks/Bookmarks.tsx",
       "status": "tentative",
       "uses": 1
@@ -92,16 +92,26 @@
           "q": "use the hiveq icon on the menu bar for the one on the page"
         }
       ],
-      "score": 0.898697056,
+      "score": 0.898428207,
       "source_file": "app/(main)/hiveq/page.tsx",
       "status": "tentative",
       "uses": 1
     },
     "app_main_home_page_home": {
-      "code_fingerprint": "d6f49e65dcaa5a22c7b08d6855f40ed18217e31e0071c2443216291dbc492e0e",
+      "code_fingerprint": "57c8f1c10427fb4eddb2a68196348426c10603e5d497b145ad9de567377ed769",
       "label": "Home()",
-      "last": "2026-08-12T14:16:20.368072+00:00",
+      "last": "2026-08-12T14:57:05.143884+00:00",
       "provenance": [
+        {
+          "date": "2026-08-12T14:57:05.143884+00:00",
+          "outcome": "useful",
+          "q": "on the home page on moblie the who to follow and trending topics all show. which makes the home page too long. what is your best approach to this"
+        },
+        {
+          "date": "2026-08-12T14:45:20.008662+00:00",
+          "outcome": "useful",
+          "q": "also the trending topics, not on mobile , and also on large screens where it is u cant scroll to see it u can just see part of it"
+        },
         {
           "date": "2026-08-12T14:16:20.368072+00:00",
           "outcome": "useful",
@@ -113,10 +123,10 @@
           "q": "undo this redesign and revert back to the previous design before this"
         }
       ],
-      "score": 1.89817229,
+      "score": 3.897283487,
       "source_file": "app/(main)/home/page.tsx",
       "status": "preferred",
-      "uses": 2
+      "uses": 4
     },
     "app_main_homepagecontent": {
       "code_fingerprint": "97721db959b124170f04e73ffd3aa36734740a147510e32096ec0a4a16a59dd5",
@@ -129,7 +139,7 @@
           "q": "you are an expert frontend developer and ui/ux designer, redesign the other pages as well. let me see the design before you apply them"
         }
       ],
-      "score": 0.897552684,
+      "score": 0.897284178,
       "source_file": "app/(main)/HomePageContent.tsx",
       "status": "tentative",
       "uses": 1
@@ -150,7 +160,7 @@
           "q": "undo this redesign and revert back to the previous design before this"
         }
       ],
-      "score": 1.797290049,
+      "score": 1.796752383,
       "source_file": "app/(main)/MenuBar.tsx",
       "status": "preferred",
       "uses": 2
@@ -171,7 +181,7 @@
           "q": "Why are features missing from the messages page on mobile?"
         }
       ],
-      "score": 1.788806557,
+      "score": 1.788271429,
       "source_file": "app/(main)/messages/Chat.tsx",
       "status": "preferred",
       "uses": 2
@@ -187,7 +197,7 @@
           "q": "Why are features missing from the messages page on mobile?"
         }
       ],
-      "score": 0.891253873,
+      "score": 0.890987251,
       "source_file": "app/(main)/messages/ChatChannel.tsx",
       "status": "tentative",
       "uses": 1
@@ -203,7 +213,7 @@
           "q": "Why are features missing from the messages page on mobile?"
         }
       ],
-      "score": 0.891253873,
+      "score": 0.890987251,
       "source_file": "app/(main)/messages/ChatSidebar.tsx",
       "status": "tentative",
       "uses": 1
@@ -219,7 +229,7 @@
           "q": "Why are features missing from the messages page on mobile?"
         }
       ],
-      "score": 0.891253873,
+      "score": 0.890987251,
       "source_file": "app/(main)/messages/NewChatDialog.tsx",
       "status": "tentative",
       "uses": 1
@@ -235,7 +245,7 @@
           "q": "undo this redesign and revert back to the previous design before this"
         }
       ],
-      "score": 0.898592993,
+      "score": 0.898324176,
       "source_file": "app/(main)/MessagesButton.tsx",
       "status": "tentative",
       "uses": 1
@@ -256,7 +266,7 @@
           "q": "Why do the subject tabs look displaced on mobile?"
         }
       ],
-      "score": 1.788698945,
+      "score": 1.788163849,
       "source_file": "app/(main)/Navbar.tsx",
       "status": "preferred",
       "uses": 2
@@ -272,7 +282,7 @@
           "q": "undo this redesign and revert back to the previous design before this"
         }
       ],
-      "score": 0.898592993,
+      "score": 0.898324176,
       "source_file": "app/(main)/Navbar.tsx",
       "status": "tentative",
       "uses": 1
@@ -288,7 +298,7 @@
           "q": "also the notificstion unread count . when i have notification and i open the notification page and tap on what i have there and leave notification it does not mark as read and it still shows i have the same unread notifications which i have already opened"
         }
       ],
-      "score": 0.999384026,
+      "score": 0.999085056,
       "source_file": "app/(main)/notifications/Notifications.tsx",
       "status": "tentative",
       "uses": 1
@@ -304,7 +314,7 @@
           "q": "also the notificstion unread count . when i have notification and i open the notification page and tap on what i have there and leave notification it does not mark as read and it still shows i have the same unread notifications which i have already opened"
         }
       ],
-      "score": 0.999384026,
+      "score": 0.999085056,
       "source_file": "app/(main)/NotificationsButton.tsx",
       "status": "tentative",
       "uses": 1
@@ -320,7 +330,7 @@
           "q": "you are an expert frontend developer and ui/ux designer, redesign the other pages as well. let me see the design before you apply them"
         }
       ],
-      "score": 0.897552684,
+      "score": 0.897284178,
       "source_file": "components/achievements/AchievementsList.tsx",
       "status": "tentative",
       "uses": 1
@@ -328,18 +338,23 @@
     "components_people_whotofollow_whotofollow": {
       "code_fingerprint": "01d0e53e6b07d36c4740a923021103ea4d5ee9d5986344213ed70e01bb80b852",
       "label": "WhoToFollow()",
-      "last": "2026-08-12T14:16:20.368072+00:00",
+      "last": "2026-08-12T14:57:05.143884+00:00",
       "provenance": [
+        {
+          "date": "2026-08-12T14:57:05.143884+00:00",
+          "outcome": "useful",
+          "q": "on the home page on moblie the who to follow and trending topics all show. which makes the home page too long. what is your best approach to this"
+        },
         {
           "date": "2026-08-12T14:16:20.368072+00:00",
           "outcome": "useful",
           "q": "and also on big screens the who to follow shows, but for mobile there is no who to follow, since its a small screen it cant show on the home page. what will be best thing to do. and also, when there is a new user it shows on the who to follow section, but is there a limit to how many that can show at a time because if we have 100 users will all show there? whats the best approach"
         }
       ],
-      "score": 0.999579297,
+      "score": 1.999214058,
       "source_file": "components/people/WhoToFollow.tsx",
-      "status": "tentative",
-      "uses": 1
+      "status": "preferred",
+      "uses": 2
     },
     "components_subjectfilter": {
       "code_fingerprint": "2ddb4293726402f02a68ef1a28e94d71bd44dcca96d62382d0c07b3b7146098c",
@@ -352,7 +367,7 @@
           "q": "Why do the subject tabs look displaced on mobile?"
         }
       ],
-      "score": 0.891146261,
+      "score": 0.890879671,
       "source_file": "components/SubjectFilter.tsx",
       "status": "tentative",
       "uses": 1
@@ -368,16 +383,47 @@
           "q": "Where are the dark mode theme tokens defined, and which components depend on background, card, popover, muted, border, and sidebar colors?"
         }
       ],
-      "score": 0.890791155,
+      "score": 0.890524671,
       "source_file": "components.json",
       "status": "tentative",
       "uses": 1
     },
-    "components_trendssidebar": {
-      "code_fingerprint": "e8ba9f93f832ef76be9bcf7700e54f8079c2d6aacef76df87c7422a0b509c2b4",
-      "label": "TrendsSidebar.tsx",
-      "last": "2026-08-12T14:16:20.368072+00:00",
+    "components_trendingtopics_trendingtopics": {
+      "code_fingerprint": "94c1e9681b445558a8155e6d3ea5e1390316ce9a2609064de58858581419e6ad",
+      "label": "TrendingTopics()",
+      "last": "2026-08-12T14:57:05.143884+00:00",
       "provenance": [
+        {
+          "date": "2026-08-12T14:57:05.143884+00:00",
+          "outcome": "useful",
+          "q": "on the home page on moblie the who to follow and trending topics all show. which makes the home page too long. what is your best approach to this"
+        },
+        {
+          "date": "2026-08-12T14:45:20.008662+00:00",
+          "outcome": "useful",
+          "q": "also the trending topics, not on mobile , and also on large screens where it is u cant scroll to see it u can just see part of it"
+        }
+      ],
+      "score": 1.999679042,
+      "source_file": "components/TrendingTopics.tsx",
+      "status": "preferred",
+      "uses": 2
+    },
+    "components_trendssidebar": {
+      "code_fingerprint": "95840268476a24ba94c3216b3cd0610a510247b47f19b7f27530bfdf9c9adab5",
+      "label": "TrendsSidebar.tsx",
+      "last": "2026-08-12T14:57:05.143884+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-12T14:57:05.143884+00:00",
+          "outcome": "useful",
+          "q": "on the home page on moblie the who to follow and trending topics all show. which makes the home page too long. what is your best approach to this"
+        },
+        {
+          "date": "2026-08-12T14:45:20.008662+00:00",
+          "outcome": "useful",
+          "q": "also the trending topics, not on mobile , and also on large screens where it is u cant scroll to see it u can just see part of it"
+        },
         {
           "date": "2026-08-12T14:16:20.368072+00:00",
           "outcome": "useful",
@@ -394,10 +440,10 @@
           "q": "Where are the dark mode theme tokens defined, and which components depend on background, card, popover, muted, border, and sidebar colors?"
         }
       ],
-      "score": 2.788963445,
+      "score": 4.787808158,
       "source_file": "components/TrendsSidebar.tsx",
       "status": "preferred",
-      "uses": 3
+      "uses": 5
     },
     "components_ui_button_button": {
       "code_fingerprint": "d4eb2cd04f8f77fcf416eff794d20233f5301c44fbd4dec1e15a15b459a5dc4a",
@@ -415,7 +461,7 @@
           "q": "Why do the subject tabs look displaced on mobile?"
         }
       ],
-      "score": 1.789739254,
+      "score": 1.789203847,
       "source_file": "components/ui/button.tsx",
       "status": "preferred",
       "uses": 2
@@ -431,7 +477,7 @@
           "q": "Where are the dark mode theme tokens defined, and which components depend on background, card, popover, muted, border, and sidebar colors?"
         }
       ],
-      "score": 0.890791155,
+      "score": 0.890524671,
       "source_file": "components/ui/card.tsx",
       "status": "tentative",
       "uses": 1
@@ -447,7 +493,7 @@
           "q": "with hiveq, the questions being generated for multiple choice, the correct answer is obvious because its appearing twice in the option which shouldnt be so"
         }
       ],
-      "score": 0.897012489,
+      "score": 0.896744144,
       "source_file": "lib/hiveq-options.ts",
       "status": "tentative",
       "uses": 1
@@ -468,7 +514,7 @@
           "q": "Set the shared HiveQ key, server URL, production environment, apply the Prisma migration, and redeploy both services"
         }
       ],
-      "score": 1.914859166,
+      "score": 1.914286329,
       "source_file": "lib/hiveq-server.ts",
       "status": "preferred",
       "uses": 2
@@ -484,7 +530,7 @@
           "q": "also the notificstion unread count . when i have notification and i open the notification page and tap on what i have there and leave notification it does not mark as read and it still shows i have the same unread notifications which i have already opened"
         }
       ],
-      "score": 0.999384026,
+      "score": 0.999085056,
       "source_file": "lib/types.ts",
       "status": "tentative",
       "uses": 1
@@ -500,7 +546,7 @@
           "q": "now hiveQ when i use it, configure question types and hit generate it loads and shows load failed. its not working like its suppose to"
         }
       ],
-      "score": 0.895393729,
+      "score": 0.895125869,
       "source_file": "ml-backend/app/main.py",
       "status": "tentative",
       "uses": 1
@@ -536,7 +582,7 @@
           "q": "now hiveQ when i use it, configure question types and hit generate it loads and shows load failed. its not working like its suppose to"
         }
       ],
-      "score": 4.604345798,
+      "score": 4.602968391,
       "source_file": "ml-backend/app/services/questgen_service.py",
       "status": "preferred",
       "uses": 5
@@ -562,7 +608,7 @@
           "q": "if i push it to github will it update on render?"
         }
       ],
-      "score": 2.81193958,
+      "score": 2.811098378,
       "source_file": "ml-backend/README.md",
       "status": "preferred",
       "uses": 3
@@ -578,7 +624,7 @@
           "q": "now hiveQ when i use it, configure question types and hit generate it loads and shows load failed. its not working like its suppose to"
         }
       ],
-      "score": 0.895393729,
+      "score": 0.895125869,
       "source_file": "ml-backend/README.md",
       "status": "tentative",
       "uses": 1

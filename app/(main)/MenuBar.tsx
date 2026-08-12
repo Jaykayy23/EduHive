@@ -15,6 +15,7 @@ import {
   Bookmark,
   Bot,
   BrainCircuit,
+  Compass,
   Ellipsis,
   Home,
   type LucideIcon,
@@ -102,7 +103,8 @@ export default function MenuBar({
     return pathname.startsWith(href);
   };
 
-  const isMoreActive = isActive("/bookmarks") || isActive("/chatbot");
+  const isMoreActive =
+    isActive("/people") || isActive("/bookmarks") || isActive("/chatbot");
 
   return (
     <nav className={className} role="navigation" aria-label="Main navigation">
@@ -112,6 +114,14 @@ export default function MenuBar({
           label="Home"
           icon={Home}
           active={isActive("/home")}
+        />
+
+        <MenuLink
+          href="/people"
+          label="Discover"
+          icon={Compass}
+          active={isActive("/people")}
+          desktopOnly
         />
 
         <NotificationsButton
@@ -189,11 +199,39 @@ export default function MenuBar({
               <SheetHeader className="px-4 pt-5 pb-2 text-left">
                 <SheetTitle className="text-lg">More</SheetTitle>
                 <SheetDescription>
-                  Study tools and saved content.
+                  Discover the community, study tools, and saved content.
                 </SheetDescription>
               </SheetHeader>
 
               <div className="grid gap-2 px-4 pb-2">
+                <SheetClose asChild>
+                  <Link
+                    href="/people"
+                    aria-current={isActive("/people") ? "page" : undefined}
+                    className={cn(
+                      "rounded-premium border-border/70 bg-background/60 hover:border-primary/30 hover:bg-accent focus-visible:ring-ring/50 flex min-h-16 items-center gap-3 border p-3.5 text-left transition-colors focus-visible:ring-2 focus-visible:ring-offset-2",
+                      isActive("/people") && "border-primary/30 bg-primary/10",
+                    )}
+                  >
+                    <span
+                      className={cn(
+                        "rounded-premium-sm bg-muted text-muted-foreground p-2.5",
+                        isActive("/people") && "bg-primary/20 text-primary",
+                      )}
+                    >
+                      <Compass className="size-5" aria-hidden="true" />
+                    </span>
+                    <span className="grid gap-0.5">
+                      <span className="text-foreground font-semibold">
+                        Discover
+                      </span>
+                      <span className="text-muted-foreground text-xs">
+                        People and trending topics
+                      </span>
+                    </span>
+                  </Link>
+                </SheetClose>
+
                 <SheetClose asChild>
                   <Link
                     href="/bookmarks"

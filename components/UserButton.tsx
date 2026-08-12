@@ -41,7 +41,7 @@ export default function UserButton({ className }: UserButtonProps) {
   const queryClient = useQueryClient();
 
   return (
-    <DropdownMenu>
+    <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
         <button
           className={cn(

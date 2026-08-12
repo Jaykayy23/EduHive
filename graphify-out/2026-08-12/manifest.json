@@ -470,8 +470,8 @@
     "semantic_hash": "38a3722cdd86daca2a7f9fe306f36bde"
   },
   "components/UserButton.tsx": {
-    "mtime": 1786542530.3427868,
-    "ast_hash": "d49ea83067405bd7cf83a7e4e45fd92f",
+    "mtime": 1786388737.8884976,
+    "ast_hash": "74df9a7bb2d9e50801562d2b733fff09",
     "semantic_hash": ""
   },
   "components/UserLinkwithTooltip.tsx": {

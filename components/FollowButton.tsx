@@ -12,9 +12,14 @@ import { checkUserAchievements } from "@/lib/achievement-checker"
 interface FollowButtonProps {
   userId: string
   initialState: FollowerInfo
+  onFollowChange?: (isFollowing: boolean) => void
 }
 
-export default function FollowButton({ userId, initialState }: FollowButtonProps) {
+export default function FollowButton({
+  userId,
+  initialState,
+  onFollowChange,
+}: FollowButtonProps) {
   const {} = useSonner()
   const { user } = useSession()
   const queryClient = useQueryClient()
@@ -22,22 +27,28 @@ export default function FollowButton({ userId, initialState }: FollowButtonProps
   const queryKey: QueryKey = ["follower-info", userId]
 
   const { mutate } = useMutation({
-    mutationFn: () =>
-      data.isFollowedByUser
-        ? kyInstance.delete(`/api/users/${userId}/followers`)
-        : kyInstance.post(`/api/users/${userId}/followers`),
-    onMutate: async () => {
+    mutationFn: (shouldFollow: boolean) =>
+      shouldFollow
+        ? kyInstance.post(`/api/users/${userId}/followers`)
+        : kyInstance.delete(`/api/users/${userId}/followers`),
+    onMutate: async (shouldFollow) => {
       await queryClient.cancelQueries({ queryKey })
       const previousState = queryClient.getQueryData<FollowerInfo>(queryKey)
 
-      queryClient.setQueryData<FollowerInfo>(queryKey, () => ({
-        followers: (previousState?.followers || 0) + (previousState?.isFollowedByUser ? -1 : 1),
-        isFollowedByUser: !previousState?.isFollowedByUser,
+      queryClient.setQueryData<FollowerInfo>(queryKey, (currentState) => ({
+        followers: Math.max(
+          0,
+          (currentState?.followers ?? initialState.followers) +
+            (shouldFollow ? 1 : -1),
+        ),
+        isFollowedByUser: shouldFollow,
       }))
 
       return { previousState }
     },
-    onSuccess: async () => {
+    onSuccess: async (_response, shouldFollow) => {
+      onFollowChange?.(shouldFollow)
+
       // Check for new achievements after following/unfollowing
       try {
         const achievements = await checkUserAchievements(user.id)
@@ -56,7 +67,10 @@ export default function FollowButton({ userId, initialState }: FollowButtonProps
   })
 
   return (
-    <Button variant={data.isFollowedByUser ? "secondary" : "default"} onClick={() => mutate()}>
+    <Button
+      variant={data.isFollowedByUser ? "secondary" : "default"}
+      onClick={() => mutate(!data.isFollowedByUser)}
+    >
       {data.isFollowedByUser ? "Unfollow" : "Follow"}
     </Button>
   )

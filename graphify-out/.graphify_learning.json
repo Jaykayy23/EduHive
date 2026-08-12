@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-12T13:58:11.908555+00:00",
+  "generated_at": "2026-08-12T14:20:23.815651+00:00",
   "nodes": {
     "agents_skills_migrate_radix_to_base_overlays_popover": {
       "code_fingerprint": "238c2b529c55c4ff0ff36ad93de9f452e615cd7912b32bd290a0ffe8aa8053f2",
@@ -12,7 +12,7 @@
           "q": "Where are the dark mode theme tokens defined, and which components depend on background, card, popover, muted, border, and sidebar colors?"
         }
       ],
-      "score": 0.891425504,
+      "score": 0.891108056,
       "source_file": ".agents/skills/migrate-radix-to-base/overlays.md",
       "status": "tentative",
       "uses": 1
@@ -28,8 +28,24 @@
           "q": "Where are the dark mode theme tokens defined, and which components depend on background, card, popover, muted, border, and sidebar colors?"
         }
       ],
-      "score": 0.891425504,
+      "score": 0.891108056,
       "source_file": ".agents/skills/shadcn/customization.md",
+      "status": "tentative",
+      "uses": 1
+    },
+    "app_api_notifications_unread_count_route": {
+      "code_fingerprint": "ca01b65232a89bee21947a69c5a9a34b9e2f0e6db08ce475b9c5600504315aad",
+      "label": "notifications/unread-count/route.ts",
+      "last": "2026-08-12T14:04:09.780402+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-12T14:04:09.780402+00:00",
+          "outcome": "useful",
+          "q": "also the notificstion unread count . when i have notification and i open the notification page and tap on what i have there and leave notification it does not mark as read and it still shows i have the same unread notifications which i have already opened"
+        }
+      ],
+      "score": 0.999739559,
+      "source_file": "app/api/notifications/unread-count/route.ts",
       "status": "tentative",
       "uses": 1
     },
@@ -44,7 +60,7 @@
           "q": "how do i access the admin page"
         }
       ],
-      "score": 0.975605508,
+      "score": 0.975258083,
       "source_file": "app/auth.ts",
       "status": "tentative",
       "uses": 1
@@ -60,7 +76,7 @@
           "q": "undo this redesign and revert back to the previous design before this"
         }
       ],
-      "score": 0.899232898,
+      "score": 0.89891267,
       "source_file": "app/(main)/bookmarks/Bookmarks.tsx",
       "status": "tentative",
       "uses": 1
@@ -76,7 +92,7 @@
           "q": "use the hiveq icon on the menu bar for the one on the page"
         }
       ],
-      "score": 0.899337035,
+      "score": 0.89901677,
       "source_file": "app/(main)/hiveq/page.tsx",
       "status": "tentative",
       "uses": 1
@@ -84,18 +100,23 @@
     "app_main_home_page_home": {
       "code_fingerprint": "e902835d5c35ffded25fc8b20b4481eb0383dc5893a7feddb2ff084402e86e27",
       "label": "Home()",
-      "last": "2026-08-07T23:38:31.252214+00:00",
+      "last": "2026-08-12T14:16:20.368072+00:00",
       "provenance": [
+        {
+          "date": "2026-08-12T14:16:20.368072+00:00",
+          "outcome": "useful",
+          "q": "and also on big screens the who to follow shows, but for mobile there is no who to follow, since its a small screen it cant show on the home page. what will be best thing to do. and also, when there is a new user it shows on the who to follow section, but is there a limit to how many that can show at a time because if we have 100 users will all show there? whats the best approach"
+        },
         {
           "date": "2026-08-07T23:38:31.252214+00:00",
           "outcome": "useful",
           "q": "undo this redesign and revert back to the previous design before this"
         }
       ],
-      "score": 0.899232898,
+      "score": 1.89884757,
       "source_file": "app/(main)/home/page.tsx",
-      "status": "tentative",
-      "uses": 1
+      "status": "preferred",
+      "uses": 2
     },
     "app_main_homepagecontent": {
       "code_fingerprint": "97721db959b124170f04e73ffd3aa36734740a147510e32096ec0a4a16a59dd5",
@@ -108,7 +129,7 @@
           "q": "you are an expert frontend developer and ui/ux designer, redesign the other pages as well. let me see the design before you apply them"
         }
       ],
-      "score": 0.898191848,
+      "score": 0.897871991,
       "source_file": "app/(main)/HomePageContent.tsx",
       "status": "tentative",
       "uses": 1
@@ -129,7 +150,7 @@
           "q": "undo this redesign and revert back to the previous design before this"
         }
       ],
-      "score": 1.798569933,
+      "score": 1.79792944,
       "source_file": "app/(main)/MenuBar.tsx",
       "status": "preferred",
       "uses": 2
@@ -150,7 +171,7 @@
           "q": "Why are features missing from the messages page on mobile?"
         }
       ],
-      "score": 1.7900804,
+      "score": 1.78944293,
       "source_file": "app/(main)/messages/Chat.tsx",
       "status": "preferred",
       "uses": 2
@@ -166,7 +187,7 @@
           "q": "Why are features missing from the messages page on mobile?"
         }
       ],
-      "score": 0.891888551,
+      "score": 0.891570939,
       "source_file": "app/(main)/messages/ChatChannel.tsx",
       "status": "tentative",
       "uses": 1
@@ -182,7 +203,7 @@
           "q": "Why are features missing from the messages page on mobile?"
         }
       ],
-      "score": 0.891888551,
+      "score": 0.891570939,
       "source_file": "app/(main)/messages/ChatSidebar.tsx",
       "status": "tentative",
       "uses": 1
@@ -198,7 +219,7 @@
           "q": "Why are features missing from the messages page on mobile?"
         }
       ],
-      "score": 0.891888551,
+      "score": 0.891570939,
       "source_file": "app/(main)/messages/NewChatDialog.tsx",
       "status": "tentative",
       "uses": 1
@@ -214,7 +235,7 @@
           "q": "undo this redesign and revert back to the previous design before this"
         }
       ],
-      "score": 0.899232898,
+      "score": 0.89891267,
       "source_file": "app/(main)/MessagesButton.tsx",
       "status": "tentative",
       "uses": 1
@@ -235,7 +256,7 @@
           "q": "Why do the subject tabs look displaced on mobile?"
         }
       ],
-      "score": 1.789972711,
+      "score": 1.78933528,
       "source_file": "app/(main)/Navbar.tsx",
       "status": "preferred",
       "uses": 2
@@ -251,8 +272,40 @@
           "q": "undo this redesign and revert back to the previous design before this"
         }
       ],
-      "score": 0.899232898,
+      "score": 0.89891267,
       "source_file": "app/(main)/Navbar.tsx",
+      "status": "tentative",
+      "uses": 1
+    },
+    "app_main_notifications_notifications_notifications": {
+      "code_fingerprint": "9c378c67ce0f2cfe40249def7bbf3f71613987f20488faabc744b7fbb7abab6a",
+      "label": "Notifications()",
+      "last": "2026-08-12T14:04:09.780402+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-12T14:04:09.780402+00:00",
+          "outcome": "useful",
+          "q": "also the notificstion unread count . when i have notification and i open the notification page and tap on what i have there and leave notification it does not mark as read and it still shows i have the same unread notifications which i have already opened"
+        }
+      ],
+      "score": 0.999739559,
+      "source_file": "app/(main)/notifications/Notifications.tsx",
+      "status": "tentative",
+      "uses": 1
+    },
+    "app_main_notificationsbutton_notificationsbutton": {
+      "code_fingerprint": "aad97c372f587c5104601626559dd273b8243770cfd68432adffbf4a5605588e",
+      "label": "NotificationsButton()",
+      "last": "2026-08-12T14:04:09.780402+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-12T14:04:09.780402+00:00",
+          "outcome": "useful",
+          "q": "also the notificstion unread count . when i have notification and i open the notification page and tap on what i have there and leave notification it does not mark as read and it still shows i have the same unread notifications which i have already opened"
+        }
+      ],
+      "score": 0.999739559,
+      "source_file": "app/(main)/NotificationsButton.tsx",
       "status": "tentative",
       "uses": 1
     },
@@ -267,7 +320,7 @@
           "q": "you are an expert frontend developer and ui/ux designer, redesign the other pages as well. let me see the design before you apply them"
         }
       ],
-      "score": 0.898191848,
+      "score": 0.897871991,
       "source_file": "components/achievements/AchievementsList.tsx",
       "status": "tentative",
       "uses": 1
@@ -283,7 +336,7 @@
           "q": "Why do the subject tabs look displaced on mobile?"
         }
       ],
-      "score": 0.891780863,
+      "score": 0.891463289,
       "source_file": "components/SubjectFilter.tsx",
       "status": "tentative",
       "uses": 1
@@ -299,7 +352,7 @@
           "q": "Where are the dark mode theme tokens defined, and which components depend on background, card, popover, muted, border, and sidebar colors?"
         }
       ],
-      "score": 0.891425504,
+      "score": 0.891108056,
       "source_file": "components.json",
       "status": "tentative",
       "uses": 1
@@ -307,8 +360,13 @@
     "components_trendssidebar": {
       "code_fingerprint": "d5522f4e4d9bc9373348c7c61f34c42bad49c568238ddf7e22a9e37217543e32",
       "label": "TrendsSidebar.tsx",
-      "last": "2026-08-07T23:38:31.252214+00:00",
+      "last": "2026-08-12T14:16:20.368072+00:00",
       "provenance": [
+        {
+          "date": "2026-08-12T14:16:20.368072+00:00",
+          "outcome": "useful",
+          "q": "and also on big screens the who to follow shows, but for mobile there is no who to follow, since its a small screen it cant show on the home page. what will be best thing to do. and also, when there is a new user it shows on the who to follow section, but is there a limit to how many that can show at a time because if we have 100 users will all show there? whats the best approach"
+        },
         {
           "date": "2026-08-07T23:38:31.252214+00:00",
           "outcome": "useful",
@@ -320,10 +378,42 @@
           "q": "Where are the dark mode theme tokens defined, and which components depend on background, card, popover, muted, border, and sidebar colors?"
         }
       ],
-      "score": 1.790658402,
+      "score": 2.789955626,
       "source_file": "components/TrendsSidebar.tsx",
       "status": "preferred",
-      "uses": 2
+      "uses": 3
+    },
+    "components_trendssidebar_getcacheduserstofollow": {
+      "code_fingerprint": "d5522f4e4d9bc9373348c7c61f34c42bad49c568238ddf7e22a9e37217543e32",
+      "label": "getCachedUsersToFollow()",
+      "last": "2026-08-12T14:16:20.368072+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-12T14:16:20.368072+00:00",
+          "outcome": "useful",
+          "q": "and also on big screens the who to follow shows, but for mobile there is no who to follow, since its a small screen it cant show on the home page. what will be best thing to do. and also, when there is a new user it shows on the who to follow section, but is there a limit to how many that can show at a time because if we have 100 users will all show there? whats the best approach"
+        }
+      ],
+      "score": 0.9999349,
+      "source_file": "components/TrendsSidebar.tsx",
+      "status": "tentative",
+      "uses": 1
+    },
+    "components_trendssidebar_whotofollow": {
+      "code_fingerprint": "d5522f4e4d9bc9373348c7c61f34c42bad49c568238ddf7e22a9e37217543e32",
+      "label": "WhoToFollow()",
+      "last": "2026-08-12T14:16:20.368072+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-12T14:16:20.368072+00:00",
+          "outcome": "useful",
+          "q": "and also on big screens the who to follow shows, but for mobile there is no who to follow, since its a small screen it cant show on the home page. what will be best thing to do. and also, when there is a new user it shows on the who to follow section, but is there a limit to how many that can show at a time because if we have 100 users will all show there? whats the best approach"
+        }
+      ],
+      "score": 0.9999349,
+      "source_file": "components/TrendsSidebar.tsx",
+      "status": "tentative",
+      "uses": 1
     },
     "components_ui_button_button": {
       "code_fingerprint": "d4eb2cd04f8f77fcf416eff794d20233f5301c44fbd4dec1e15a15b459a5dc4a",
@@ -341,7 +431,7 @@
           "q": "Why do the subject tabs look displaced on mobile?"
         }
       ],
-      "score": 1.791013761,
+      "score": 1.790375959,
       "source_file": "components/ui/button.tsx",
       "status": "preferred",
       "uses": 2
@@ -357,7 +447,7 @@
           "q": "Where are the dark mode theme tokens defined, and which components depend on background, card, popover, muted, border, and sidebar colors?"
         }
       ],
-      "score": 0.891425504,
+      "score": 0.891108056,
       "source_file": "components/ui/card.tsx",
       "status": "tentative",
       "uses": 1
@@ -373,7 +463,7 @@
           "q": "with hiveq, the questions being generated for multiple choice, the correct answer is obvious because its appearing twice in the option which shouldnt be so"
         }
       ],
-      "score": 0.897651268,
+      "score": 0.897331604,
       "source_file": "lib/hiveq-options.ts",
       "status": "tentative",
       "uses": 1
@@ -394,10 +484,26 @@
           "q": "Set the shared HiveQ key, server URL, production environment, apply the Prisma migration, and redeploy both services"
         }
       ],
-      "score": 1.916222773,
+      "score": 1.915540382,
       "source_file": "lib/hiveq-server.ts",
       "status": "preferred",
       "uses": 2
+    },
+    "lib_types_notificationspage": {
+      "code_fingerprint": "91b671d910d2a2337ee1303adc77aa74dfd02b89e12cedca27ce4381ee927fcc",
+      "label": "NotificationsPage",
+      "last": "2026-08-12T14:04:09.780402+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-12T14:04:09.780402+00:00",
+          "outcome": "useful",
+          "q": "also the notificstion unread count . when i have notification and i open the notification page and tap on what i have there and leave notification it does not mark as read and it still shows i have the same unread notifications which i have already opened"
+        }
+      ],
+      "score": 0.999739559,
+      "source_file": "lib/types.ts",
+      "status": "tentative",
+      "uses": 1
     },
     "ml_backend_app_main": {
       "code_fingerprint": "0edc5a209f2bac21bb8c1dc9006ac8466160a7d22fe01d83de1ddd4e5fbaf428",
@@ -410,7 +516,7 @@
           "q": "now hiveQ when i use it, configure question types and hit generate it loads and shows load failed. its not working like its suppose to"
         }
       ],
-      "score": 0.896031356,
+      "score": 0.895712268,
       "source_file": "ml-backend/app/main.py",
       "status": "tentative",
       "uses": 1
@@ -446,7 +552,7 @@
           "q": "now hiveQ when i use it, configure question types and hit generate it loads and shows load failed. its not working like its suppose to"
         }
       ],
-      "score": 4.607624639,
+      "score": 4.605983806,
       "source_file": "ml-backend/app/services/questgen_service.py",
       "status": "preferred",
       "uses": 5
@@ -472,7 +578,7 @@
           "q": "if i push it to github will it update on render?"
         }
       ],
-      "score": 2.813942014,
+      "score": 2.812939935,
       "source_file": "ml-backend/README.md",
       "status": "preferred",
       "uses": 3
@@ -488,7 +594,7 @@
           "q": "now hiveQ when i use it, configure question types and hit generate it loads and shows load failed. its not working like its suppose to"
         }
       ],
-      "score": 0.896031356,
+      "score": 0.895712268,
       "source_file": "ml-backend/README.md",
       "status": "tentative",
       "uses": 1

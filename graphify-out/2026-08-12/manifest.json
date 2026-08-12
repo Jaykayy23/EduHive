@@ -290,9 +290,9 @@
     "semantic_hash": "48a63722463c7c871fd60eaf3f3fcacc"
   },
   "app/api/notifications/mark-as-read/route.ts": {
-    "mtime": 1786144113.0844052,
-    "ast_hash": "6bb59885e84c592bbab1aaaad478f2b7",
-    "semantic_hash": "6bb59885e84c592bbab1aaaad478f2b7"
+    "mtime": 1786543328.8275084,
+    "ast_hash": "b7259893091fa7efc5eff8fb1b3d1ee1",
+    "semantic_hash": ""
   },
   "app/api/notifications/route.ts": {
     "mtime": 1786144113.0877652,
@@ -1837,6 +1837,16 @@
   "graphify-out/memory/query_20260811_121858_how_do_i_access_the_admin_page.md": {
     "mtime": 1786450738.4528031,
     "ast_hash": "3c01d9df4fef643f3342f26f9d01a33d",
+    "semantic_hash": ""
+  },
+  "tests/notifications.test.mjs": {
+    "mtime": 1786543330.762199,
+    "ast_hash": "9e5295ed08f2e57a702291520e27a2f2",
+    "semantic_hash": ""
+  },
+  "graphify-out/memory/query_20260812_140409_also_the_notificstion_unread_count___when_i_have_n.md": {
+    "mtime": 1786543449.7807057,
+    "ast_hash": "afc4d6fefa3104dccf0a7c6c4fe8bfec",
     "semantic_hash": ""
   }
 }

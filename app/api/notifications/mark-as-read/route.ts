@@ -1,4 +1,5 @@
 import { validateRequest } from "@/app/auth";
+import prisma from "@/lib/prisma";
 
 export async function PATCH() {
   try {
@@ -8,7 +9,7 @@ export async function PATCH() {
       return Response.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    await prisma?.notification.updateMany({
+    await prisma.notification.updateMany({
       where: {
         recipientId: user.id,
         read: false,

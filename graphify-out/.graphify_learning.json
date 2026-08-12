@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-11T12:17:48.496608+00:00",
+  "generated_at": "2026-08-12T13:58:11.908555+00:00",
   "nodes": {
     "agents_skills_migrate_radix_to_base_overlays_popover": {
       "code_fingerprint": "238c2b529c55c4ff0ff36ad93de9f452e615cd7912b32bd290a0ffe8aa8053f2",
@@ -12,7 +12,7 @@
           "q": "Where are the dark mode theme tokens defined, and which components depend on background, card, popover, muted, border, and sidebar colors?"
         }
       ],
-      "score": 0.913732213,
+      "score": 0.891425504,
       "source_file": ".agents/skills/migrate-radix-to-base/overlays.md",
       "status": "tentative",
       "uses": 1
@@ -28,8 +28,24 @@
           "q": "Where are the dark mode theme tokens defined, and which components depend on background, card, popover, muted, border, and sidebar colors?"
         }
       ],
-      "score": 0.913732213,
+      "score": 0.891425504,
       "source_file": ".agents/skills/shadcn/customization.md",
+      "status": "tentative",
+      "uses": 1
+    },
+    "app_auth": {
+      "code_fingerprint": "f83e5e26fa9df257b52a281d01313aadfcc19858d8fcbb392c3156d112201e56",
+      "label": "auth.ts",
+      "last": "2026-08-11T12:18:58.450809+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-11T12:18:58.450809+00:00",
+          "outcome": "useful",
+          "q": "how do i access the admin page"
+        }
+      ],
+      "score": 0.975605508,
+      "source_file": "app/auth.ts",
       "status": "tentative",
       "uses": 1
     },
@@ -44,7 +60,7 @@
           "q": "undo this redesign and revert back to the previous design before this"
         }
       ],
-      "score": 0.921734977,
+      "score": 0.899232898,
       "source_file": "app/(main)/bookmarks/Bookmarks.tsx",
       "status": "tentative",
       "uses": 1
@@ -60,7 +76,7 @@
           "q": "use the hiveq icon on the menu bar for the one on the page"
         }
       ],
-      "score": 0.92184172,
+      "score": 0.899337035,
       "source_file": "app/(main)/hiveq/page.tsx",
       "status": "tentative",
       "uses": 1
@@ -76,7 +92,7 @@
           "q": "undo this redesign and revert back to the previous design before this"
         }
       ],
-      "score": 0.921734977,
+      "score": 0.899232898,
       "source_file": "app/(main)/home/page.tsx",
       "status": "tentative",
       "uses": 1
@@ -92,7 +108,7 @@
           "q": "you are an expert frontend developer and ui/ux designer, redesign the other pages as well. let me see the design before you apply them"
         }
       ],
-      "score": 0.920667876,
+      "score": 0.898191848,
       "source_file": "app/(main)/HomePageContent.tsx",
       "status": "tentative",
       "uses": 1
@@ -113,7 +129,7 @@
           "q": "undo this redesign and revert back to the previous design before this"
         }
       ],
-      "score": 1.843576697,
+      "score": 1.798569933,
       "source_file": "app/(main)/MenuBar.tsx",
       "status": "preferred",
       "uses": 2
@@ -134,7 +150,7 @@
           "q": "Why are features missing from the messages page on mobile?"
         }
       ],
-      "score": 1.834874724,
+      "score": 1.7900804,
       "source_file": "app/(main)/messages/Chat.tsx",
       "status": "preferred",
       "uses": 2
@@ -150,7 +166,7 @@
           "q": "Why are features missing from the messages page on mobile?"
         }
       ],
-      "score": 0.914206848,
+      "score": 0.891888551,
       "source_file": "app/(main)/messages/ChatChannel.tsx",
       "status": "tentative",
       "uses": 1
@@ -166,7 +182,7 @@
           "q": "Why are features missing from the messages page on mobile?"
         }
       ],
-      "score": 0.914206848,
+      "score": 0.891888551,
       "source_file": "app/(main)/messages/ChatSidebar.tsx",
       "status": "tentative",
       "uses": 1
@@ -182,7 +198,7 @@
           "q": "Why are features missing from the messages page on mobile?"
         }
       ],
-      "score": 0.914206848,
+      "score": 0.891888551,
       "source_file": "app/(main)/messages/NewChatDialog.tsx",
       "status": "tentative",
       "uses": 1
@@ -198,7 +214,7 @@
           "q": "undo this redesign and revert back to the previous design before this"
         }
       ],
-      "score": 0.921734977,
+      "score": 0.899232898,
       "source_file": "app/(main)/MessagesButton.tsx",
       "status": "tentative",
       "uses": 1
@@ -219,7 +235,7 @@
           "q": "Why do the subject tabs look displaced on mobile?"
         }
       ],
-      "score": 1.834764341,
+      "score": 1.789972711,
       "source_file": "app/(main)/Navbar.tsx",
       "status": "preferred",
       "uses": 2
@@ -235,7 +251,7 @@
           "q": "undo this redesign and revert back to the previous design before this"
         }
       ],
-      "score": 0.921734977,
+      "score": 0.899232898,
       "source_file": "app/(main)/Navbar.tsx",
       "status": "tentative",
       "uses": 1
@@ -251,7 +267,7 @@
           "q": "you are an expert frontend developer and ui/ux designer, redesign the other pages as well. let me see the design before you apply them"
         }
       ],
-      "score": 0.920667876,
+      "score": 0.898191848,
       "source_file": "components/achievements/AchievementsList.tsx",
       "status": "tentative",
       "uses": 1
@@ -267,7 +283,7 @@
           "q": "Why do the subject tabs look displaced on mobile?"
         }
       ],
-      "score": 0.914096465,
+      "score": 0.891780863,
       "source_file": "components/SubjectFilter.tsx",
       "status": "tentative",
       "uses": 1
@@ -283,7 +299,7 @@
           "q": "Where are the dark mode theme tokens defined, and which components depend on background, card, popover, muted, border, and sidebar colors?"
         }
       ],
-      "score": 0.913732213,
+      "score": 0.891425504,
       "source_file": "components.json",
       "status": "tentative",
       "uses": 1
@@ -304,7 +320,7 @@
           "q": "Where are the dark mode theme tokens defined, and which components depend on background, card, popover, muted, border, and sidebar colors?"
         }
       ],
-      "score": 1.83546719,
+      "score": 1.790658402,
       "source_file": "components/TrendsSidebar.tsx",
       "status": "preferred",
       "uses": 2
@@ -325,7 +341,7 @@
           "q": "Why do the subject tabs look displaced on mobile?"
         }
       ],
-      "score": 1.835831442,
+      "score": 1.791013761,
       "source_file": "components/ui/button.tsx",
       "status": "preferred",
       "uses": 2
@@ -341,7 +357,7 @@
           "q": "Where are the dark mode theme tokens defined, and which components depend on background, card, popover, muted, border, and sidebar colors?"
         }
       ],
-      "score": 0.913732213,
+      "score": 0.891425504,
       "source_file": "components/ui/card.tsx",
       "status": "tentative",
       "uses": 1
@@ -357,7 +373,7 @@
           "q": "with hiveq, the questions being generated for multiple choice, the correct answer is obvious because its appearing twice in the option which shouldnt be so"
         }
       ],
-      "score": 0.920113769,
+      "score": 0.897651268,
       "source_file": "lib/hiveq-options.ts",
       "status": "tentative",
       "uses": 1
@@ -378,7 +394,7 @@
           "q": "Set the shared HiveQ key, server URL, production environment, apply the Prisma migration, and redeploy both services"
         }
       ],
-      "score": 1.964173639,
+      "score": 1.916222773,
       "source_file": "lib/hiveq-server.ts",
       "status": "preferred",
       "uses": 2
@@ -394,7 +410,7 @@
           "q": "now hiveQ when i use it, configure question types and hit generate it loads and shows load failed. its not working like its suppose to"
         }
       ],
-      "score": 0.91845332,
+      "score": 0.896031356,
       "source_file": "ml-backend/app/main.py",
       "status": "tentative",
       "uses": 1
@@ -430,7 +446,7 @@
           "q": "now hiveQ when i use it, configure question types and hit generate it loads and shows load failed. its not working like its suppose to"
         }
       ],
-      "score": 4.722924171,
+      "score": 4.607624639,
       "source_file": "ml-backend/app/services/questgen_service.py",
       "status": "preferred",
       "uses": 5
@@ -456,7 +472,7 @@
           "q": "if i push it to github will it update on render?"
         }
       ],
-      "score": 2.884357082,
+      "score": 2.813942014,
       "source_file": "ml-backend/README.md",
       "status": "preferred",
       "uses": 3
@@ -472,7 +488,7 @@
           "q": "now hiveQ when i use it, configure question types and hit generate it loads and shows load failed. its not working like its suppose to"
         }
       ],
-      "score": 0.91845332,
+      "score": 0.896031356,
       "source_file": "ml-backend/README.md",
       "status": "tentative",
       "uses": 1

@@ -1,6 +1,6 @@
 "use server";
 
-import { lucia } from "@/app/auth";
+import { authSessions } from "@/app/auth";
 import { sendVerificationEmail } from "@/lib/email/send-verification-email";
 import {
   EMAIL_VERIFICATION_TOKEN_TTL_MS,
@@ -136,7 +136,7 @@ export async function verifyEmail(
 
       return tx.user.update({
         where: { id: tokenRecord.userId },
-        data: { emailVerifiedAt: now },
+        data: { emailVerifiedAt: now, emailVerified: true },
         select: {
           id: true,
           username: true,
@@ -162,8 +162,8 @@ export async function verifyEmail(
       );
     }
 
-    const session = await lucia.createSession(verifiedUser.id, {});
-    const sessionCookie = lucia.createSessionCookie(session.id);
+    const session = await authSessions.createSession(verifiedUser.id);
+    const sessionCookie = await authSessions.createSessionCookie(session.token);
     const cookieStore = await cookies();
     cookieStore.set(
       sessionCookie.name,

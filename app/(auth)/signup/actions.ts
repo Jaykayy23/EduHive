@@ -11,7 +11,7 @@ import {
 } from "@/lib/auth/tokens";
 import { signUpSchema, SignUpValues } from "@/lib/validation";
 import { hash } from "@node-rs/argon2";
-import { generateIdFromEntropySize } from "lucia";
+import { randomUUID } from "node:crypto";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 import { redirect } from "next/navigation";
 import { claimRateLimit, getRequestIp } from "@/lib/rate-limit";
@@ -75,7 +75,7 @@ export async function signUp(
       outputLen: 32,
       parallelism: 1,
     });
-    const userId = generateIdFromEntropySize(10);
+    const userId = randomUUID();
     const token = generateAuthToken();
     const tokenHash = hashAuthToken(token);
     const expiresAt = getTokenExpiry(EMAIL_VERIFICATION_TOKEN_TTL_MS);
@@ -90,6 +90,14 @@ export async function signUp(
             email,
             passwordHash,
             emailVerifiedAt: null,
+            accounts: {
+              create: {
+                id: randomUUID(),
+                providerId: "credential",
+                accountId: userId,
+                password: passwordHash,
+              },
+            },
           },
         });
 

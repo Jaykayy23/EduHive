@@ -7,6 +7,7 @@ import {
 } from "@/lib/edu-tutor";
 import { validateRequest } from "@/lib/auth-server";
 import { checkTutorRateLimit } from "@/lib/tutor-rate-limit";
+import { getTutorModel } from "@/lib/tutor-provider";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -17,7 +18,6 @@ const DEFAULT_NVIDIA_TIMEOUT_MS = 55_000;
 const MAX_NVIDIA_TIMEOUT_MS = 55_000;
 const NVIDIA_TRANSIENT_STATUS_CODES = new Set([408, 500, 502, 503, 504]);
 const NVIDIA_RETRY_DELAY_MS = 750;
-const DEFAULT_NVIDIA_MODEL = "deepseek-ai/deepseek-v4-pro";
 const DEFAULT_MAX_TOKENS = 1_500;
 
 function getMaxTokens(): number {
@@ -81,7 +81,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const model = process.env.NVIDIA_MODEL || DEFAULT_NVIDIA_MODEL;
+    const model = getTutorModel();
     const abortController = new AbortController();
     const timeout = setTimeout(
       () => abortController.abort(),

@@ -1,5 +1,6 @@
 "use server";
 
+import { applyPasswordReset } from "@/lib/auth/recovery.mjs";
 import { hashAuthToken } from "@/lib/auth/tokens";
 import prisma from "@/lib/prisma";
 import { passwordSchema } from "@/lib/validation";
@@ -34,34 +35,9 @@ export async function resetPassword(
     });
     const now = new Date();
 
-    const resetApplied = await prisma.$transaction(async (tx) => {
-      const consumed = await tx.passwordResetToken.deleteMany({
-        where: {
-          id: tokenRecord.id,
-          expiresAt: { gt: now },
-        },
-      });
-
-      if (consumed.count !== 1) {
-        return false;
-      }
-
-      await tx.user.update({
-        where: { id: tokenRecord.userId },
-        data: {
-          passwordHash,
-          emailVerifiedAt: now,
-        },
-      });
-      await tx.emailVerificationToken.deleteMany({
-        where: { userId: tokenRecord.userId },
-      });
-      await tx.session.deleteMany({
-        where: { userId: tokenRecord.userId },
-      });
-
-      return true;
-    });
+    const resetApplied = await prisma.$transaction((tx) =>
+      applyPasswordReset(tx, tokenRecord, passwordHash, now),
+    );
 
     if (!resetApplied) {
       return { error: "This reset link is invalid or has expired." };

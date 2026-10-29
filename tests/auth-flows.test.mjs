@@ -20,7 +20,7 @@ test("Google OAuth uses the initiating origin for its callback", () => {
 
   assert.match(
     auth,
-    /new URL\("\/api\/auth\/callback\/google", requestUrl\)/,
+    /new URL\(\s*"\/api\/auth\/callback\/google",\s*requestUrl,?\s*\)/,
   );
   assert.match(initiation, /createGoogleOAuthClient\(request\.url\)/);
   assert.match(callback, /createGoogleOAuthClient\(req\.url\)/);
@@ -31,7 +31,10 @@ test("Google OAuth cookies are attached to their redirect responses", () => {
   const initiation = source("app/(auth)/login/google/route.ts");
   const callback = source("app/api/auth/callback/google/route.ts");
 
-  assert.match(initiation, /const response = NextResponse\.redirect\(url, 302\)/);
+  assert.match(
+    initiation,
+    /const response = NextResponse\.redirect\(url, 302\)/,
+  );
   assert.match(
     initiation,
     /response\.cookies\.set\("google_oauth_state", state/,

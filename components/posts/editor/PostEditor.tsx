@@ -14,9 +14,8 @@ import {
 } from "@/components/ui/card";
 import { ACADEMIC_SUBJECTS } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import { Placeholder } from "@tiptap/extension-placeholder";
+import { createPostEditorExtensions } from "@/lib/post-editor";
 import { EditorContent, useEditor } from "@tiptap/react";
-import { StarterKit } from "@tiptap/starter-kit";
 import { useDropzone } from "@uploadthing/react";
 import { Hash, ImageIcon, X } from "lucide-react";
 import Image from "next/image";
@@ -48,17 +47,9 @@ export default function PostEditor() {
   delete rootProps.onClick;
 
   const editor = useEditor({
-    extensions: [
-      StarterKit.configure({
-        bold: false,
-        italic: false,
-      }),
-      Placeholder.configure({
-        placeholder:
-          "Ask a question, share notes, or explain what you learned.",
-      }),
-    ],
+    extensions: createPostEditorExtensions(),
     immediatelyRender: false,
+    shouldRerenderOnTransaction: true,
   });
 
   const input =

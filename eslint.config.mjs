@@ -9,6 +9,7 @@ const eslintConfig = defineConfig([
   prettier,
   globalIgnores([
     ".next/**",
+    "release/**",
     ".venv/**",
     "graphify-out/**",
     "lib/generated/**",

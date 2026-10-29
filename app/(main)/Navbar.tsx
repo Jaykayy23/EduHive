@@ -1,10 +1,9 @@
-
 import SearchField from "@/components/SearchField";
 import UserButton from "@/components/UserButton";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import type { Session, User } from "lucia";
+import type { Session, User } from "@/lib/auth/types";
 
 interface NavbarProps {
   session?: { user: User; session: Session } | { user: null; session: null };
@@ -14,11 +13,14 @@ export default function Navbar({ session }: NavbarProps) {
   const user = session?.user ?? null;
 
   return (
-    <header className="glass-strong sticky top-0 z-40 border-b border-border/30 shadow-dramatic backdrop-blur-premium">
+    <header className="glass-strong border-border/30 shadow-dramatic backdrop-blur-premium sticky top-0 z-40 border-b">
       <div className="mx-auto flex max-w-7xl flex-col gap-2 px-3 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:px-6 sm:py-4 lg:px-8">
         {/* Logo Section */}
         <div className="flex items-center justify-between">
-          <Link href="/" className="group flex items-center space-x-2 sm:space-x-4">
+          <Link
+            href="/"
+            className="group flex items-center space-x-2 sm:space-x-4"
+          >
             <div className="relative">
               <Image
                 src="/images/eduhive-icon.png"
@@ -32,7 +34,7 @@ export default function Navbar({ session }: NavbarProps) {
               EduHive
             </span>
           </Link>
-          
+
           {/* Mobile User Button */}
           {user && (
             <div className="sm:hidden">
@@ -40,14 +42,14 @@ export default function Navbar({ session }: NavbarProps) {
             </div>
           )}
         </div>
-        
+
         {/* Search Field - Visible on all screen sizes */}
         {user && (
           <div className="mx-0 min-w-0 flex-1 sm:mx-6 sm:max-w-lg">
             <SearchField />
           </div>
         )}
-        
+
         {/* Desktop User Actions */}
         {user ? (
           <div className="hidden items-center gap-4 sm:flex">
@@ -55,10 +57,20 @@ export default function Navbar({ session }: NavbarProps) {
           </div>
         ) : (
           <div className="hidden items-center gap-3 sm:flex lg:gap-4">
-            <Button asChild variant="ghost" size="sm" className="hover-lift lg:size-default">
+            <Button
+              asChild
+              variant="ghost"
+              size="sm"
+              className="hover-lift lg:size-default"
+            >
               <Link href="/login">Log In</Link>
             </Button>
-            <Button asChild variant="premium" size="sm" className="hover-glow lg:size-default">
+            <Button
+              asChild
+              variant="premium"
+              size="sm"
+              className="hover-glow lg:size-default"
+            >
               <Link href="/signup">Sign Up</Link>
             </Button>
           </div>

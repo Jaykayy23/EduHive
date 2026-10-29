@@ -19,6 +19,7 @@
 
 # production
 /build
+/release/
 
 # misc
 .DS_Store
@@ -70,3 +71,6 @@ ml-backend/venv
 
 # OS files
 Thumbs.db
+/.auth-test-db/
+/.tmp-auth-audit.json
+/.private-live-checks/

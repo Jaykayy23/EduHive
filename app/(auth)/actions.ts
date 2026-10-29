@@ -1,25 +1,24 @@
-
-"use server"
+"use server";
 
 import { cookies } from "next/headers";
-import { lucia, validateRequest } from "../auth"
+import { authSessions, validateRequest } from "../auth";
 import { redirect } from "next/navigation";
 
 export async function logout() {
-    const {session} = await validateRequest();
-    if (!session) {
-        throw new Error("Unauthorized");
-    }
+  const { session } = await validateRequest();
+  if (!session) {
+    throw new Error("Unauthorized");
+  }
 
-    await lucia.invalidateSession(session.id);
+  await authSessions.invalidateSession(session.id);
 
-    const sessionCookie = lucia.createBlankSessionCookie();
+  const sessionCookie = await authSessions.createBlankSessionCookie();
 
-    const cookieStore = await cookies();
-    cookieStore.set(
-        sessionCookie.name,
-        sessionCookie.value,
-        sessionCookie.attributes,
-    );
-    return redirect("/");
+  const cookieStore = await cookies();
+  cookieStore.set(
+    sessionCookie.name,
+    sessionCookie.value,
+    sessionCookie.attributes,
+  );
+  return redirect("/");
 }

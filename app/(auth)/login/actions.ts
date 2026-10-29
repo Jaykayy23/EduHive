@@ -1,9 +1,9 @@
 "use server";
 
-import { lucia } from "@/app/auth";
+import { authSessions } from "@/app/auth";
 import prisma from "@/lib/prisma";
 import { loginSchema, LoginValues } from "@/lib/validation";
-import { verify } from "@node-rs/argon2";
+import { verifyPassword } from "@/lib/auth/policy";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
@@ -33,7 +33,8 @@ export async function login(
     if (!ipLimit.allowed || !accountLimit.allowed) {
       return {
         error: `Too many login attempts. Try again in ${Math.ceil(
-          Math.max(ipLimit.retryAfterSeconds, accountLimit.retryAfterSeconds) / 60,
+          Math.max(ipLimit.retryAfterSeconds, accountLimit.retryAfterSeconds) /
+            60,
         )} minute(s).`,
       };
     }
@@ -51,12 +52,10 @@ export async function login(
       return { error: "Invalid username or password" };
     }
 
-    const validPassword = await verify(existingUser.passwordHash, password, {
-      memoryCost: 19456,
-      timeCost: 2,
-      outputLen: 32,
-      parallelism: 1,
-    });
+    const validPassword = await verifyPassword(
+      existingUser.passwordHash,
+      password,
+    );
 
     if (!validPassword) {
       return { error: "Invalid username or password" };
@@ -69,8 +68,8 @@ export async function login(
       return { error: "Please verify your email before logging in." };
     }
 
-    const session = await lucia.createSession(existingUser.id, {});
-    const sessionCookie = lucia.createSessionCookie(session.id);
+    const session = await authSessions.createSession(existingUser.id);
+    const sessionCookie = await authSessions.createSessionCookie(session.token);
     const cookieStore = await cookies();
     cookieStore.set(
       sessionCookie.name,

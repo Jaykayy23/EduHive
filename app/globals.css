@@ -1,6 +1,12 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+/* Native font stacks keep installation/build independent of font CDNs. */
+:root {
+  --font-geist-sans: Arial, Helvetica, sans-serif;
+  --font-geist-mono: "Cascadia Code", Consolas, "Liberation Mono", monospace;
+}
+
 @keyframes loader-rotate {
   0% {
     transform: rotate(90deg);

@@ -28,16 +28,18 @@ The final npm audit reports **0 critical, 0 high, 0 moderate, 1 low**. The remai
 
 ## Required before a sale release
 
-- [ ] Configure real `BETTER_AUTH_SECRET`, exact `BETTER_AUTH_URL` and trusted origins in the intended deployment. Follow the [auth cutover guide](authentication.md); Production variables and the additive migration are configured; deployed HTTPS behavior still requires verification. Existing sessions require re-login.
+- [x] Configure real production signing secret and canonical authentication URL; apply the additive migration and account backfill. Production password sessions and reset revocation passed; see live evidence below. Existing legacy sessions require re-login.
 - [ ] Verify signup, verification/resend and password recovery with controlled real inboxes and correct DNS. Check Google OAuth consent/callbacks and cookies through the deployed HTTPS/proxy configuration.
 - [ ] Verify signed-in onboarding, feed/post creation, edit/delete/ownership, bookmarks, notifications, moderation and the browser post editor on the intended deployment.
-- [ ] Verify synthetic UploadThing upload/callback/ownership/cleanup, Stream chat/token/unread behavior, and controlled NVIDIA/Gemini generations. Do not use real student documents as tests.
+- [x] Verify synthetic UploadThing upload/callback/ownership and targeted cleanup, and controlled production NVIDIA/Gemini generations.
+- [ ] Verify peer Stream messaging and unread events. Connection and empty-channel rendering passed. Do not use real student documents as tests.
 - [ ] Verify a deployed backend health check, function/parser timeouts, scheduling, rate limits and provider spending controls.
-- [ ] Rehearse backup restore on a disposable database and document the actual recovery time, storage and retention policy.
+- [x] Rehearse backup restore on a disposable database and record recovery timing.
+- [ ] Confirm an ongoing encrypted backup storage/retention schedule with the owner or buyer; the local rehearsal backup is not a managed backup service.
 - [ ] Confirm source/brand/image rights and any university/collaborator interests; choose commercial terms for an exclusive sale or source-code license. See [provenance](asset-provenance.md) and [transfer](transfer.md).
 - [ ] Review the final source manifest and audit at the exact release being offered, and replace any unverified or non-transferable assets.
 
-The GitHub workflow is supplied for repeatable checks; a remote Actions run has not been executed in this chat. Local fixture results do not establish live provider behavior. The listing must describe these limits honestly.
+The [GitHub Actions run for e3d7154](https://github.com/Jaykayy23/EduHive/actions/runs/40888014007) passed frontend and backend jobs, including install, migration preservation, tests, lint, build, type-checking, anonymous smoke and packaging. Local fixture results do not establish live provider behavior. The listing must describe these limits honestly.
 
 ## Evidence files
 
@@ -47,13 +49,18 @@ The GitHub workflow is supplied for repeatable checks; a remote Actions run has 
 
 The screenshots contain fixed sample material only. The short walkthrough script in [listing material](listing.md) is prepared; a finished narrated video is not included.
 
-## Live configuration checks — 2026-10-29
+## Live configuration checks - 2026-10-29
 
 - Backed up the existing PostgreSQL public schema before applying the additive authentication migration. Restored that backup into an isolated local PostgreSQL database and verified 10 users and 20 tables; restore took approximately 1.33 seconds. This small-fixture timing is not a production recovery-time guarantee. The private backup is excluded from source distribution.
 - Applied the production additive migration and backfilled 10 existing accounts (7 password, 3 Google), preserving existing users. No database reset was used.
-- Configured production authentication origin and signing secret in the existing Vercel project. A new code deployment is required before production authentication acceptance.
-- Controlled synthetic signup delivered a verification email to an owner-controlled inbox. Unverified login was blocked; confirming the email opened authenticated onboarding on localhost against the configured database.
-- Local HiveQ backend health and one real Gemini question generation returned HTTP 200. Stream app-settings and UploadThing file-list authorization succeeded; these do not prove browser chat or upload callbacks.
-- The previously configured NVIDIA model returned HTTP 410. A small request using `nvidia/nemotron-3.5-bolt-e4b` returned HTTP 200 with content; updated the fallback and configured model. Authenticated browser tutor streaming remains an acceptance check.
+- Configured production authentication origin and signing secret in the existing Vercel project. Release e3d7154 was deployed successfully to Production. Password login opened the signed-in feed over HTTPS; all 11 anonymous checks passed on the canonical `https://www.eduhive.xyz` host. The apex redirects there. Authentication and email origins were aligned to the www hostname; deployment `59iVSav5giknJEB65LFWAxz76QYM` completed successfully with those settings. Google account selection and consent completed, and the callback opened the authenticated feed.
+- Controlled synthetic signup delivered a verification email to an owner-controlled inbox. Unverified login was blocked; confirming the email opened authenticated onboarding on localhost against the configured database. Onboarding completed and opened the signed-in feed.
+- Local HiveQ backend health and one real Gemini question generation returned HTTP 200. The production HiveQ UI generated a five-question synthetic quiz through its existing deployed backend. Stream app-settings and UploadThing file-list authorization succeeded; the deployed browser messaging page also connected and displayed the synthetic account's empty channel list. Peer messaging and unread events remain unchecked. Upload callback and cleanup evidence is recorded below.
+- The previously configured NVIDIA model returned HTTP 410. A small request using `nvidia/nemotron-3.5-bolt-e4b` returned HTTP 200 with content; updated the fallback and configured model. The authenticated localhost tutor route then streamed a complete answer and saved the conversation. The deployed HTTPS tutor also returned a complete answer to a second synthetic prompt.
 
 No credentials, recipient address, verification links, database contents or private backups are included in this report. Remaining unchecked release gates above still apply.
+
+- Production password-reset email delivery and link validity were verified. The owner completed the password change; the success page appeared and the previous session was redirected to login. The owner then signed in with the new password and reached the authenticated feed. Reusing the reset link showed the invalid/expired/already-used screen.
+
+- After canonical-origin deployment, Google login returned a redirect to Google with the correct `https://www.eduhive.xyz/api/auth/callback/google`, state and PKCE. Google account selection and consent then completed successfully; the callback returned to the authenticated feed and exposed the signed-in user menu. Logout returned to the landing page, and opening the protected feed then redirected to login.
+- Browser attachment automation was blocked by the extension's file-URL access setting. The owner manually selected the synthetic project icon. The upload callback persisted exactly one image with the synthetic account as owner and no post. The composer showed its preview and became ready to post after adding text; no post was published. With explicit owner approval, UploadThing confirmed deletion and the matching unattached database record was deleted (one removed, zero remaining). The draft was cleared. This verifies targeted manual cleanup; scheduled orphan cleanup remains a separate operational check.

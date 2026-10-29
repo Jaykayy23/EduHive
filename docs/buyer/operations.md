@@ -28,6 +28,14 @@ Get-FileHash C:/secure-backups/eduhive-before-cutover.dump -Algorithm SHA256
 
 Use your provider's required TLS configuration (for example trusted root certificate and `PGSSLMODE=verify-full`). Encrypt and copy the dump offsite, restrict access, and store its checksum separately. Listing an archive does not establish recoverability: restore it to a new isolated DB. Back up provider-managed uploads and chat history separately using permitted export features; the database stores references, not all underlying files/messages. Record object inventory/keys, export time, application release, migration state, secret-store references and DNS/host configuration. Never put dumps or exports into the source package.
 
+## Current seller recovery coverage (verified 2026-10-29)
+
+The owner chose to retain the existing free plan and disclose its limits. Neon reports a rolling **1-day point-in-time recovery window** for the production branch. One manual snapshot was created on **2026-10-29 at 14:37:09 UTC**, with no expiration shown. This is a fixed snapshot: later writes are not added to it. Scheduled snapshots require an upgrade and are **not enabled**. No paid plan or external backup destination was added.
+
+A multi-step snapshot restore created a separate rehearsal branch without changing production connections. Read-only counts matched production: 11 users, 22 posts, 12 auth accounts and 6 completed migrations. The earlier logical-dump restore also passed in isolated local PostgreSQL. These checks verify recovery at those points; they do not establish a measured end-to-end disaster-recovery RTO or guarantee a zero-loss RPO.
+
+Buyer disclosure: this is short-window database recovery plus one fixed manual snapshot, **not automated daily retained backups**. It does not independently back up UploadThing objects or Stream messages. The private local cutover dump is not a managed offsite backup and is excluded from the sale archive. Before accepting important customer data, the operator should choose longer retention, independent encrypted storage and provider-object/chat exports appropriate to its recovery objectives. Monitor the recovery window and snapshot status; take a fresh checkpoint before risky changes rather than deleting the existing snapshot without a replacement plan.
+
 ## Restore rehearsal
 
 Create an empty disposable PostgreSQL DB `eduhive_restore_check` on an isolated server, with no application traffic. Verify the target and choose a restricted test role. The following targets the new database and does not drop tables:

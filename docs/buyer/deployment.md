@@ -27,9 +27,9 @@ Use production values in the host secret store, never committed env files or ima
 
 ## Scheduled cleanup
 
-`vercel.json` schedules `GET /api/clear-uploads` at `0 2 * * *` (02:00 UTC daily). Configure `CRON_SECRET`; cron authorization must match `Bearer <CRON_SECRET>`. Other hosts need a server-side scheduler with the same header. Keep secrets out of URLs/client code.
+`vercel.json` schedules `GET /api/clear-uploads` at `0 2 * * *` (02:00 UTC daily). Configure `CRON_SECRET`; cron authorization must match `Bearer <CRON_SECRET>`. Other hosts need a server-side scheduler with the same header. Keep secrets out of URLs/client code. The existing Vercel Hobby project reports the cron as enabled; its daily execution has a flexible one-hour window.
 
-Test with synthetic unattached uploads first. In production the route deletes unattached media older than 24 hours from UploadThing and then its DB rows. This is destructive, validates UploadThing keys, and is not a backup mechanism. Missing secret returns 503; invalid authorization returns 401. Alert on failed jobs and monitor deleted counts without publishing private URLs.
+Test with synthetic unattached uploads first. In production the route deletes unattached media older than 24 hours from UploadThing and then its DB rows. This is destructive, validates UploadThing keys, and is not a backup mechanism. Missing secret returns 503; invalid authorization returns 401. Alert on failed jobs and monitor deleted counts without publishing private URLs. On 2026-10-29, a Vercel-triggered run logged HTTP 200; anonymous and invalid-bearer requests returned 401. A controlled production test deleted one 48-hour-old orphan, retained a fresh upload, and then explicitly cleaned the remaining synthetic fixture. This does not prove a future unattended run or configure alert delivery.
 
 ## Release acceptance
 

@@ -38,3 +38,9 @@ Crop or redact address-bar secrets, emails, account dashboards, logs and persona
 ## Evidence required before publishing
 
 Attach actual screenshot/video files and current check results for the exact release. Record local vs deployed checks separately. Complete disposable auth migration, backup/restore rehearsal, canonical-domain signup/verification/recovery/Google login, uploads/HiveQ/tutor/chat/admin journeys and mobile checks as applicable. Confirm source/asset/brand rights and provider commercial terms. Keep unresolved items visibly unverified; marketplace acceptance and valuation remain unknown.
+
+## Current operational disclosure
+
+Controlled deployed checks passed for authentication/recovery/Google login, uploads and targeted cleanup, peer messaging/unread counts, HiveQ generation and tutor responses; see [verification](verification.md) for exact coverage and remaining checks. Upload cleanup is enabled daily at 02:00 UTC with the host's scheduling window.
+
+The seller chose to retain free database recovery: a rolling one-day Neon history window and one fixed manual snapshot, restored successfully into a separate rehearsal branch. There are no scheduled retained snapshots or independent uploads/chat backups. Buyers must choose recovery coverage for their own use; do not describe this as a fully managed backup service or promise zero data loss.

@@ -27,7 +27,7 @@ import LoadingButton from "@/components/LoadingButton";
 import Image, { StaticImageData } from "next/image";
 import { useRef, useState } from "react";
 import { Label } from "@/components/ui/label";
-import avatarPlaceholder from "@/public/images/avatar-placeholder.png";
+import avatarPlaceholder from "@/public/images/avatar-placeholder.svg";
 import { Camera } from "lucide-react";
 import CropImageDialog from "@/components/CropImageDialog";
 import Resizer from "react-image-file-resizer";

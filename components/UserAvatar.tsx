@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image"
-import avatarPlaceholder from "@/public/images/avatar-placeholder.png"
+import avatarPlaceholder from "@/public/images/avatar-placeholder.svg"
 import { cn } from "@/lib/utils"
 import { useState } from "react"
 
@@ -20,7 +20,7 @@ export default function UserAvatar({ avatarUrl, size, className }: UserAvatarPro
 
   return (
     <Image
-      src={imgSrc || "/placeholder.svg"}
+      src={imgSrc || avatarPlaceholder}
       alt="User Avatar"
       width={size ?? 48}
       height={size ?? 48}

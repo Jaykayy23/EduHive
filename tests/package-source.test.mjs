@@ -90,6 +90,27 @@ test("Next.js metadata icons are retained without allowing arbitrary app assets"
   assert.equal(paths.includes("app/unexpected-image.png"), false);
 });
 
+test("sale bundle keeps reviewed runtime artwork and license inventories, excluding unverified images and arbitrary JSON", async (t) => {
+  const { root, put } = await fixture(t);
+  const included = [
+    "public/images/eduhive-icon.png",
+    "public/images/study-workspace.svg",
+    "public/images/avatar-placeholder.svg",
+    "docs/buyer/npm-license-inventory.json",
+    "docs/buyer/python-license-inventory.json",
+  ];
+  const excluded = [
+    "public/images/welcome.png",
+    "public/images/landing.jpg",
+    "public/images/unknown-artwork.svg",
+    "docs/buyer/private-records.json",
+  ];
+  for (const name of [...included, ...excluded]) await put(name, "{}");
+  const paths = (await collectSourceFiles(root)).map((entry) => entry.path);
+  for (const name of included) assert.ok(paths.includes(name), name);
+  for (const name of excluded) assert.equal(paths.includes(name), false, name);
+});
+
 test("nested credential artifacts fail closed without leaking content", async (t) => {
   for (const name of [
     "app/nested/credentials.json",

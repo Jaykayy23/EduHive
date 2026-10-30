@@ -73,6 +73,11 @@ const ASSET_EXTENSIONS = new Set([
   ".svg",
   ".ico",
 ]);
+const PUBLIC_ASSETS = new Set([
+  "public/images/eduhive-icon.png",
+  "public/images/study-workspace.svg",
+  "public/images/avatar-placeholder.svg",
+]);
 const SENSITIVE_NAME =
   /(?:^\.env(?:\.|$)|^\.npmrc$|^\.pypirc$|^id_(?:rsa|ed25519)|credentials?|service[-_]?account|private[-_]?key|secrets?|\.(?:pem|key|p12|pfx|jks|sqlite|db|dump|bak)$)/i;
 
@@ -86,10 +91,11 @@ function allowedFile(relative) {
     return true;
   if (relative.startsWith(".github/"))
     return relative === ".github/workflows/verify.yml";
-  if (relative.startsWith("public/")) return ASSET_EXTENSIONS.has(ext);
+  if (relative.startsWith("public/")) return PUBLIC_ASSETS.has(relative);
   if (relative.startsWith("docs/buyer/"))
     return (
       ext === ".md" ||
+      ["docs/buyer/npm-license-inventory.json", "docs/buyer/python-license-inventory.json"].includes(relative) ||
       (relative.startsWith("docs/buyer/screenshots/") &&
         ASSET_EXTENSIONS.has(ext))
     );

@@ -1,6 +1,6 @@
 # EduHive
 
-See [verification and sale-release status](docs/buyer/verification.md) for current test evidence and the remaining live-service and ownership checks before listing.
+See [verification and sale-release status](docs/buyer/verification.md) for current test evidence and remaining checks. Commercial source-sale permission is not yet cleared: the owner identified copied/adapted tutorial code, and university rights remain unknown. See [source attribution](docs/buyer/source-attribution.md).
 
 EduHive combines a student community with study tools: posts, comments, bookmarks, messaging, document-to-quiz generation (HiveQ), and a study tutor. The Next.js application uses PostgreSQL/Prisma; HiveQ runs as a separate Python/FastAPI service. Live AI, email, chat, and storage require buyer-controlled provider accounts.
 

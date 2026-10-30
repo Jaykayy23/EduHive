@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import LoginForm from "./LoginForm";
 import Link from "next/link";
-import loginImage from "@/public/images/welcome.png";
+import loginImage from "@/public/images/study-workspace.svg";
 import GoogleSignInButton from "../GoogleSignInButton";
 
 export const metadata: Metadata = {

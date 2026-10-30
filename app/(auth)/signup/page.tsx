@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import signupImage from "@/public/images/welcome.png";
+import signupImage from "@/public/images/study-workspace.svg";
 import Image from "next/image";
 import Link from "next/link";
 import SignUpForm from "./SignUpForm";

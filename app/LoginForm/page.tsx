@@ -17,7 +17,7 @@ export default function LoginFormPage() {
   return (
     <div
       className="flex flex-col items-center justify-center min-h-screen bg-cover bg-center px-4"
-      style={{ backgroundImage: "url('/images/pexels-pixabay-355887.jpg')" }}
+      style={{ backgroundImage: "url('/images/study-workspace.svg')" }}
     >
       {/* Logo above the form */}
       <div className="mb-8">

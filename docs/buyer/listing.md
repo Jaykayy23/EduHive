@@ -1,5 +1,7 @@
 # Listing material and evidence plan
 
+**Hold commercial source-sale publication until the identified tutorial-code permission and university rights are resolved.** See [source attribution](source-attribution.md).
+
 Draft facts for owner review. This is not a published offer or license grant. Choose exclusive project sale or repeatable source license and define rights/support in a separate agreement before listing. No revenue, users, traffic, valuation, testimonials, university endorsement or production-readiness claims are substantiated here.
 
 ## Factual product description
@@ -44,3 +46,5 @@ Attach actual screenshot/video files and current check results for the exact rel
 Controlled deployed checks passed for authentication/recovery/Google login, uploads and targeted cleanup, peer messaging/unread counts, HiveQ generation and tutor responses; see [verification](verification.md) for exact coverage and remaining checks. Upload cleanup is enabled daily at 02:00 UTC with the host's scheduling window.
 
 The seller chose to retain free database recovery: a rolling one-day Neon history window and one fixed manual snapshot, restored successfully into a separate rehearsal branch. There are no scheduled retained snapshots or independent uploads/chat backups. Buyers must choose recovery coverage for their own use; do not describe this as a fully managed backup service or promise zero data loss.
+
+The owner identifies copied/adapted tutorial code as part of EduHive's origin. Do not describe the whole codebase as independently written from scratch or promise exclusive assignment of third-party rights. Active borrowed images were replaced with original SVGs; tutorial-source permission remains a separate gate. Post editing is not implemented.

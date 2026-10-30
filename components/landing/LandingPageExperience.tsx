@@ -236,8 +236,8 @@ export default function LandingPageExperience() {
                 className="dark:bg-primary/10 relative min-h-[430px] overflow-hidden rounded-2xl bg-[#eef4ff] sm:min-h-[560px]"
               >
                 <Image
-                  src="/images/landing.jpg"
-                  alt="Illustration of a student using a laptop and notebook"
+                  src="/images/study-workspace.svg"
+                  alt="Original illustration of notes, a recall card and a progress chart"
                   fill
                   sizes="(max-width: 767px) 100vw, 55vw"
                   className="object-cover"
@@ -334,7 +334,7 @@ export default function LandingPageExperience() {
                 className="dark:bg-primary/10 relative min-h-[420px] overflow-hidden rounded-2xl bg-[#e7f7f1] sm:min-h-[560px]"
               >
                 <Image
-                  src="/images/welcome.png"
+                  src="/images/study-workspace.svg"
                   alt="Illustration of a focused digital study space"
                   fill
                   sizes="(max-width: 1023px) 100vw, 58vw"

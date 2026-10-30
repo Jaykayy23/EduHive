@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000" fill="none">
+  <title>A study workspace with notes, a recall card and a progress chart</title>
+  <!-- Original geometric artwork created for EduHive, 2026-10-30. No external images, fonts or references. -->
+  <rect width="800" height="1000" fill="#EAF3EE"/>
+  <path d="M-80 220C170 50 210 400 450 260S760 120 900 310M-100 800C120 590 330 910 550 730S800 650 900 800" stroke="#D5E6DA" stroke-width="2"/>
+  <circle cx="650" cy="160" r="130" fill="#DDEBD8"/>
+  <circle cx="110" cy="860" r="180" fill="#D9E9DF"/>
+  <g transform="translate(96 216) rotate(-7 230 300)">
+    <rect x="10" y="16" width="446" height="588" rx="24" fill="#C8DBCF"/>
+    <rect width="446" height="588" rx="24" fill="#FFFEF8"/>
+    <path d="M60 0V588" stroke="#E8D8BD" stroke-width="2"/>
+    <g stroke="#D8E3D9" stroke-width="2">
+      <path d="M86 164H396M86 208H396M86 252H396M86 296H396M86 340H396M86 384H396M86 428H396M86 472H396M86 516H396"/>
+    </g>
+    <text x="88" y="100" font-family="system-ui,sans-serif" font-size="27" font-weight="650" fill="#214D3D">Make it make sense.</text>
+    <path d="M90 160H275M90 204H348M90 248H308" stroke="#547A65" stroke-width="8" stroke-linecap="round"/>
+    <rect x="83" y="319" width="258" height="35" rx="5" fill="#E7EDC8"/>
+    <path d="M94 336H317M90 380H255M90 424H330" stroke="#547A65" stroke-width="7" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(348 422) rotate(8 173 130)">
+    <rect x="8" y="12" width="350" height="260" rx="22" fill="#B9D1C0"/>
+    <rect width="350" height="260" rx="22" fill="#214D3D"/>
+    <text x="30" y="49" font-family="system-ui,sans-serif" font-size="14" letter-spacing="3" fill="#C9DEC0">RECALL</text>
+    <text x="30" y="105" font-family="system-ui,sans-serif" font-size="22" font-weight="600" fill="#FFFEF8">What do you remember?</text>
+    <path d="M32 139H306M32 165H250" stroke="#789A83" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="47" cy="217" r="16" fill="#DCE9B9"/>
+    <path d="M40 217L45 222L54 212" stroke="#214D3D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="76" y="223" font-family="system-ui,sans-serif" font-size="17" fill="#EAF3EE">One idea at a time</text>
+  </g>
+  <g transform="translate(422 735)">
+    <rect width="236" height="118" rx="18" fill="#FFFEF8"/>
+    <text x="22" y="33" font-family="system-ui,sans-serif" font-size="13" letter-spacing="2" fill="#547A65">KEEP GOING</text>
+    <path d="M24 89L65 78L100 84L139 61L174 65L210 45" stroke="#62865D" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="210" cy="45" r="6" fill="#214D3D"/>
+  </g>
+  <path d="M622 227L665 232L613 397L579 413L569 380Z" fill="#D8B364"/>
+  <path d="M579 413L569 380L555 420Z" fill="#214D3D"/>
+  <path d="M622 227L627 211C629 203 636 200 644 202L662 208C669 210 672 216 669 224L665 232Z" fill="#C9816C"/>
+</svg>

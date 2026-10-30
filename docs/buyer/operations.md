@@ -88,4 +88,9 @@ Render workspace usage also showed included monthly limits of 750 free instance 
 
 Google AI Studio's owner project named Eduhive displayed Free tier, Gemini 2.5 Flash quotas of 5 RPM / 250,000 TPM / 20 RPD, and an existing experimental $100 monthly spend cap. The UI warns that cap overages may occur during about ten minutes of processing delay. No budget was edited, credit purchased, billing account linked or plan upgraded. These observations do not independently match the deployed hidden key to the project.
 
-The provider also reports depleted prepay credits and asks for credits to resume service. Resolve that account/project state and recheck a small controlled quiz before describing live generation as currently ready. Do not infer availability from process `/health`, the public fixed sample, or a prior day's successful provider call. NVIDIA account controls are still unverified because its sign-in flow did not open; the owner was asked to sign in manually.
+The provider also reports depleted prepay credits and asks for credits to resume service. Resolve that account/project state and recheck a small controlled quiz before describing live generation as currently ready. Do not infer availability from process `/health`, the public fixed sample, or a prior day's successful provider call. NVIDIA sign-in initially failed; owner-assisted sign-in later enabled the prototype-tier inspection recorded below.
+
+
+## NVIDIA Build prototype coverage - 2026-10-30
+
+Owner-assisted sign-in completed. The account shows up to 40 RPM, subject to model-specific limits and shared-service throttling. NVIDIA Build's Help Center describes free prototype access with rate limits rather than per-token usage charges. No credit balance or paid spend cap is claimed for that prototype tier. Dedicated/partner/self-hosted endpoints require separate cost and service review; do not promise unlimited production use or dedicated capacity from this account. The production secret was not revealed or matched, and no provider setting or credential was changed. The earlier sign-in limitation is resolved.

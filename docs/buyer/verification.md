@@ -127,3 +127,14 @@ Render workspace usage also showed included monthly limits of 750 free instance 
 - NVIDIA Build loaded, but its Login action did not open sign-in on two attempts. A failed Adobe script was visible in console errors; that alone does not establish the login failure's root cause. Owner sign-in assistance was requested. NVIDIA account quotas/credits/spending controls remain unverified. Browser protections were not disabled.
 
 Documentation/package follow-up: all 10 source-packaging regression checks passed on 2026-10-30 with normal Windows filesystem permissions. The sandbox prevented three temporary link fixtures; no application code changed in this follow-up.
+
+
+## NVIDIA account inspection completed - 2026-10-30
+
+After owner sign-in, NVIDIA Build displayed the existing account's personal limit as up to 40 requests per minute. Its rate-limit details warn that model limits differ and shared traffic can throttle requests. This is not dedicated capacity or an availability guarantee.
+
+The visible Help Center describes Build as a free prototyping service without per-token usage charges, governed by request-rate limits. It points users requiring dedicated capacity to partner endpoints or self-hosted NIM deployments; those have separate provider/infrastructure costs and terms. No paid endpoint was selected, account or key created, credential revealed, plan changed or generation request sent during this inspection. The hidden production key was not independently matched to the signed-in account.
+
+Automatic approval review blocked opening the API Keys page because it could expose credentials outside the approved quota/billing inspection. The Help Center provided the relevant prototype-tier billing explanation without key access. No bypass was attempted. The previous NVIDIA sign-in blocker is resolved; a separate paid spend cap was neither identified nor changed, and none is claimed for the free prototype tier.
+
+Current external sale blockers remain: resolve Google AI Studio's depleted-credit warning or establish the correct valid production project and recheck live generation; obtain tutorial-code redistribution permission/applicable license and university rights confirmation; choose commercial transfer/license terms. The NVIDIA account inspection itself no longer needs owner sign-in assistance.

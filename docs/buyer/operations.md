@@ -71,3 +71,21 @@ Back up before schema/auth cutover. Code rollback is safe only when the older co
 | Cleanup fails                   | Check cron authorization/status, UploadThing key extraction and deletion outcome; storage deletion precedes DB row removal. Investigate before retrying repeatedly.                             |
 
 For a leaked credential revoke/rotate it in the provider first, update all dependent environments, redeploy/rebuild as needed, review access logs, and follow the incident notification obligations agreed by the owner. Frontend/backend HiveQ key rotation must be coordinated. Source distribution is not a secret-revocation mechanism.
+
+
+## Observed Render service limits - 2026-10-30
+
+The existing EduHive Docker service is on Render Free: one instance, 0.1 CPU and 512 MB RAM. Render warns that waking after inactivity may delay requests by 50 seconds or more. The application's 55-second HiveQ proxy timeout can therefore leave little time for parsing and generation on a cold request. A warm successful quiz does not establish cold-start reliability. Disclose this to evaluators and rehearse cold-start behavior before promising an availability or latency target. No paid upgrade was made.
+
+The deployed `/health` endpoint returned healthy version 2.0.0. Render's Health Check Path was initially blank. With explicit owner approval it was set to `/health`; the triggered deployment succeeded, with repeated HTTP 200 health checks in Render logs. The repository Blueprint already specifies that path, but an existing manually configured service does not automatically inherit it. Health does not exercise Gemini, authentication or PostgreSQL.
+
+Source HiveQ limits are 10 requests per user and 30 per IP in ten minutes, shared through PostgreSQL. Parser defaults are 15 seconds, 256 MB and two concurrent parsers per instance. Confirm deployed overrides and provider-side quotas/budget alerts separately; application rate limiting is not a monetary spending cap.
+
+Render workspace usage also showed included monthly limits of 750 free instance hours, 5 GB bandwidth and 500 pipeline minutes. These are workspace-wide limits observed on 2026-10-30, not a buyer entitlement or a Gemini/NVIDIA spending cap. The production documentation endpoint returned HTTP 404 in the read-only probe.
+
+
+## Observed Gemini controls and unresolved warning - 2026-10-30
+
+Google AI Studio's owner project named Eduhive displayed Free tier, Gemini 2.5 Flash quotas of 5 RPM / 250,000 TPM / 20 RPD, and an existing experimental $100 monthly spend cap. The UI warns that cap overages may occur during about ten minutes of processing delay. No budget was edited, credit purchased, billing account linked or plan upgraded. These observations do not independently match the deployed hidden key to the project.
+
+The provider also reports depleted prepay credits and asks for credits to resume service. Resolve that account/project state and recheck a small controlled quiz before describing live generation as currently ready. Do not infer availability from process `/health`, the public fixed sample, or a prior day's successful provider call. NVIDIA account controls are still unverified because its sign-in flow did not open; the owner was asked to sign in manually.

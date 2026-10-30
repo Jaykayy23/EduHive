@@ -1,6 +1,6 @@
 # Verification and sale-release status
 
-Recorded 2026-10-29. This is evidence about this source release, not a guarantee of production security, customer demand, or business performance.
+Recorded 2026-10-29; acceptance evidence updated through 2026-10-30. This is evidence about this source release, not a guarantee of production security, customer demand, or business performance.
 
 ## Verified locally
 
@@ -30,9 +30,9 @@ The final npm audit reports **0 critical, 0 high, 0 moderate, 1 low**. The remai
 
 - [x] Configure real production signing secret and canonical authentication URL; apply the additive migration and account backfill. Production password sessions and reset revocation passed; see live evidence below. Existing legacy sessions require re-login.
 - [x] Verify deployed password recovery, session revocation, Google OAuth callback and HTTPS login/logout with controlled accounts.
-- [ ] Repeat canonical-domain signup/verification/resend end-to-end. Local signup/verification with real delivery passed; this is separate from the production reset/Google checks.
+- [x] Verify canonical-domain signup, unverified-login rejection, verification resend/delivery, email confirmation and onboarding with a controlled account. See the 2026-10-30 acceptance evidence below.
 - [x] Verify browser post creation, comment creation and bookmark persistence using a synthetic production post.
-- [ ] Finish post deletion/ownership, notification and allowed/denied moderation checks. Signed-in onboarding passed locally; post editing is not implemented and must not be advertised.
+- [x] Verify browser owner deletion, non-owner controls, notification creation/display/read state, administrator report approval/deletion and non-admin moderation-page denial. These controlled browser checks do not establish every forged-request or concurrency scenario. Post editing is not implemented and must not be advertised.
 - [x] Verify synthetic UploadThing upload/callback/ownership and targeted cleanup, and controlled production NVIDIA/Gemini generations.
 - [x] Verify peer Stream messaging and unread events using a dedicated synthetic channel. Browser receipt/reply and peer receipt passed; unread counts rose on delivery and cleared on reading.
 - [ ] Verify a deployed backend health check, function/parser timeouts, scheduling, rate limits and provider spending controls.
@@ -85,3 +85,45 @@ No credentials, recipient address, verification links, database contents or priv
 Final follow-up source checks on 2026-10-30: 69 Node tests, ESLint, standalone TypeScript, production build and all 11 local anonymous HTTP checks passed. Initial sandbox failures were local HTTP permission restrictions and stale generated dev-route types; the checks passed with normal workspace/network permissions after removing only the generated stale type cache. Original SVG artwork was rendered and visually reviewed. Browser-based live administrator/Render checks remain pending because page navigation still timed out after browser reconnection.
 
 Release follow-up: commit `04ce2be` passed [GitHub CI](https://github.com/Jaykayy23/EduHive/actions/runs/41059108062) and deployed successfully to the intended Vercel production project. All 11 anonymous production checks passed. The public signup page uses the original artwork; deployed SVG bytes match the committed source (Windows working-copy CRLF normalization explains any local byte-hash difference). The clean 317-file evaluation package passed `npm ci`, Prisma generation and a production build without a `.env` or seller provider credentials. No commercial permission is implied by these technical results.
+
+
+## Render inspection resumed - 2026-10-30
+
+- Browser control recovered after the owner restarted Brave. The visible EduHive session was `@jaykayy_gh`, not the configured administrator `@jaykayy`; the owner was asked to switch accounts. No administrator permissions were added or changed.
+- Authorized Google sign-in reached the existing Render workspace and EduHive Docker service. Render shows the backend live at release `e3d7154`, built from the repository's `ml-backend` root. Later frontend-only commits do not trigger this root-scoped service.
+- The deployed `/health` endpoint visibly returned `{"status":"healthy","service":"hiveq-api","version":"2.0.0"}`. This checks process readiness, not model availability. The terminal network probe could not reach the host; browser evidence established the health result.
+- Render's Health Check Path was blank. The repository Blueprint specifies `/health`, but that does not establish the existing service's configuration. The owner subsequently approved setting `/health`; it was saved and triggered a successful deployment. Render logged repeated `GET /health` HTTP 200 responses.
+- Render shows the Free plan with one instance, 0.1 CPU and 512 MB RAM, no autoscaling, and an inactivity wake-up warning of 50 seconds or more. The source proxy's 55-second timeout leaves little cold-start margin; production generation passed previously, but a cold-start generation timeout has not been rehearsed. No paid plan change was made.
+- Source controls include a 55-second HiveQ proxy timeout, database-backed limits of 10 requests/user and 30 requests/IP per 10 minutes, and parser defaults of 15 seconds, 256 MB address-space cap and concurrency 2. These source defaults are not a claim that every deployed environment override or provider spending cap was inspected. Provider budget controls remain unverified.
+- Automatic approval review rejected a proposed anonymous generation-endpoint probe because it might consume provider quota. No such production probe ran in this resumed inspection; subsequent probing was restricted to GET health/documentation requests.
+
+Render workspace usage also showed included monthly limits of 750 free instance hours, 5 GB bandwidth and 500 pipeline minutes. These are workspace-wide limits observed on 2026-10-30, not a buyer entitlement or a Gemini/NVIDIA spending cap. The production documentation endpoint returned HTTP 404 in the read-only probe.
+
+
+## Live acceptance progress - 2026-10-30
+
+- The owner signed into the configured administrator `@jaykayy`. The deployed `/admin/reports` page opened successfully. No role configuration was changed.
+- With explicit owner approval, set the existing Render service Health Check Path to `/health`. Deployment `dep-dbi9jee7bikc73ahhcng` completed successfully in 31.2 seconds, with the trigger “Health check path updated” and repeated successful HTTP checks in Render logs. This applies the existing backend release `e3d7154`; no plan or billing change was made.
+- Rechecked the deployed subject filter as the administrator: forward arrows reached the final Psychology subject, Next disabled at the endpoint, and selecting Psychology displayed the controlled synthetic post. This supplements the prior local check.
+- Created one clearly labelled synthetic post/report, both associated with the existing synthetic account. Its report changed PENDING to APPROVED through the actual production administrator UI. Existing reports were not modified. The permanent deletion action is prepared but pending exact-fixture owner confirmation; the synthetic post/report currently remain. Denied moderation, browser owner deletion, notifications and canonical signup/verification/resend are still unchecked.
+
+
+- Exact-fixture moderation deletion was subsequently approved by the owner. A read-only guard confirmed the controlled owner/content, exactly one synthetic report and zero attachments, likes, comments, bookmarks, linked notifications or study sessions. The actual admin Delete Content action removed the row; database checks confirmed zero remaining records for that post and report. No existing reports were selected.
+
+
+## Canonical authentication, ownership and notifications - 2026-10-30
+
+- Created a second controlled synthetic password account through `https://www.eduhive.xyz/signup`, using the owner-controlled test inbox. Correct credentials before verification were blocked at the verification screen. The resend form returned its uniform response, and the inbox contained the initial and resent verification messages. After the one-minute account cooldown, the resent link opened the canonical confirmation screen, verified the account and entered onboarding. Completing all three onboarding steps opened Home. No credentials or verification links are included here.
+- The verified non-admin account opening `/admin/reports` returned to Home and did not expose the reports table. The configured administrator had separately reached that table and approved/deleted only the synthetic report. No permissions or allowlists were changed. This is route-access evidence; crafted server-action mutation probes were not performed.
+- Created an owner post through the browser and one peer-owned post through fixture setup, using only the two controlled accounts. The peer post exposed Report but no Post options/delete button. The owner post exposed Post options -> Delete post.
+- A seeded unread LIKE notification displayed the expected peer and synthetic owner post. Its navigation badge was 1, then cleared after opening Notifications; the exact notification persisted `read: true`. Separately, liking the peer fixture through the browser persisted one like and created exactly one LIKE notification for that peer. This covers creation and display/read behavior separately; it is not a claim that a second simultaneous recipient browser was exercised.
+- With exact-fixture owner approval and repeat ownership/activity guards, the owner deleted its post through the browser confirmation. The peer post was then removed in a guarded serializable cleanup transaction. Final counts for these fixture IDs were posts 0, likes 0, linked notifications 0. Both controlled test accounts remain for future acceptance checks; no real content or reports were selected.
+
+## Provider dashboard inspection - 2026-10-30
+
+- Authorized read-only inspection of Google AI Studio reached the owner's project named Eduhive. The project Spend and Rate Limit pages identify it as Free tier. Gemini 2.5 Flash showed limits of 5 requests/minute, 250,000 tokens/minute and 20 requests/day. These are observed project quotas, not a production throughput guarantee; the runtime secret was not revealed to independently match the deployed key to this project.
+- The project displayed an existing experimental monthly spend cap of $100, and the unchanged editor confirmed 100 with a Remove spend cap control. The UI warns that overages may occur during approximately ten minutes of processing latency. This is not a strict zero-overrun cap and does not cover other Google Cloud services. No cap, billing setting, credits or plan was changed.
+- The account also displayed “Prepay credits depleted” and instructed purchasing credits to resume service. The account Billing graph initially failed to load, while the project-specific Spend/Rate Limit pages loaded. Therefore current generation availability is not cleared by this dashboard inspection or by yesterday's successful live quiz. The owner must resolve the provider warning or establish that the deployed key uses a different valid project, then authorize/repeat a small synthetic generation check. No paid credit purchase was attempted.
+- NVIDIA Build loaded, but its Login action did not open sign-in on two attempts. A failed Adobe script was visible in console errors; that alone does not establish the login failure's root cause. Owner sign-in assistance was requested. NVIDIA account quotas/credits/spending controls remain unverified. Browser protections were not disabled.
+
+Documentation/package follow-up: all 10 source-packaging regression checks passed on 2026-10-30 with normal Windows filesystem permissions. The sandbox prevented three temporary link fixtures; no application code changed in this follow-up.

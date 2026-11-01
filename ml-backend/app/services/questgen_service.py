@@ -90,7 +90,7 @@ class QuestgenService:
 
     def __init__(self) -> None:
         self._client: Any | None = None
-        self.model = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+        self.model = os.getenv("GEMINI_MODEL", "gemini-3.8-flash")
         self.max_context_chars = int(os.getenv("MAX_CONTEXT_CHARS", "60000"))
 
     @property

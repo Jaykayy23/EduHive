@@ -53,7 +53,7 @@ docker run --rm -p 8000:8000 --env-file .env hiveq-api
 | Variable | Default | Purpose |
 | --- | --- | --- |
 | `GEMINI_API_KEY` | none | Server-side Gemini credential; required for generation |
-| `GEMINI_MODEL` | `gemini-2.5-flash` | Gemini model used for structured quiz output |
+| `GEMINI_MODEL` | `gemini-3.8-flash` | Gemini model used for structured quiz output |
 | `HIVEQ_INTERNAL_API_KEY` | none | Shared 32+ character key required from the Next.js proxy |
 | `ENVIRONMENT` | `development` | Set to `production` to disable API documentation routes |
 | `MAX_UPLOAD_MB` | `10` | Maximum in-memory upload size |

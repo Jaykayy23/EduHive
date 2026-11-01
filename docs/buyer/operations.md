@@ -97,3 +97,10 @@ Owner-assisted sign-in completed. The account shows up to 40 RPM, subject to mod
 
 
 Update 2026-11-01: a controlled five-question quiz generated successfully through the deployed canonical HiveQ UI, and all five questions were inspected. Google's depleted-credit warning remains visible for the named Eduhive project; its connection to the deployed hidden key is not established. Owner-approved project matching is blocked by Google's key-metadata permission denial. Keep the warning and project mapping disclosed; do not treat a project display name as proof of which account serves production.
+
+
+## Current Gemini evaluation setup - 2026-11-01
+
+The owner installed a new Gemini-restricted key from the existing Default Gemini Project into Render, with no billing/credit/plan changes. GEMINI_MODEL is verified as `gemini-3.8-flash`; the old `gemini-2.5-flash` model was rejected for this new user/key path. A fresh canonical browser quiz then returned five inspected water-cycle questions. Default Gemini Project showed Free tier, Set up billing and quotas of 5 RPM / 250,000 TPM / 20 RPD for Gemini 3.8 Flash. These quotas and the lack of a paid billing link define the seller's chosen evaluation setup; recheck them before buyer use.
+
+The separately named Eduhive project's depleted-credit banner remains. Do not buy credits, close accounts or unlink unrelated services merely to remove that banner. The operational generation blocker was resolved through the owner-selected free project and supported model. Retirement of the exposed pre-replacement key remains unverified and is required to close credential rotation. All buyers use their own credentials and provider agreements.

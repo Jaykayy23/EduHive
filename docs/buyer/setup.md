@@ -84,7 +84,7 @@ Keep that terminal running; use another for `npm run dev`. On Linux/macOS, from 
 | Backend variable             | Default / purpose                                                         |
 | ---------------------------- | ------------------------------------------------------------------------- |
 | `GEMINI_API_KEY`             | Required for generation; health can pass without it.                      |
-| `GEMINI_MODEL`               | `gemini-2.5-flash`; confirm access with your account.                     |
+| `GEMINI_MODEL`               | `gemini-3.8-flash`; confirm access with your account.                     |
 | `HIVEQ_INTERNAL_API_KEY`     | Same 32+ character secret as Next.js; internal generation authentication. |
 | `ENVIRONMENT`                | `development`; set `production` to disable API docs endpoints.            |
 | `MAX_UPLOAD_MB`              | `10`; in-memory upload cap.                                               |

@@ -57,3 +57,6 @@ NVIDIA account inspection subsequently completed: the owner account displays up 
 
 
 Update 2026-11-01: a controlled five-question quiz generated successfully through the deployed canonical HiveQ UI, and all five questions were inspected. Google's depleted-credit warning remains visible for the named Eduhive project; its connection to the deployed hidden key is not established. Owner-approved project matching is blocked by Google's key-metadata permission denial. Keep the warning and project mapping disclosed; do not treat a project display name as proof of which account serves production.
+
+
+Latest Gemini evidence, 2026-11-01: the owner installed a new Gemini-only key from the existing free evaluation project, and a fresh five-question live quiz passed after updating the model to `gemini-3.8-flash`. Observed evaluation limits were 5 RPM / 250,000 TPM / 20 RPD, with no billing upgrade or credit purchase. The unrelated project's credit banner remains; it is not a reason to claim the current live check failed. Old-key revocation is still unverified, so credential rotation is not complete. Source/university rights and commercial terms remain separate publication gates.

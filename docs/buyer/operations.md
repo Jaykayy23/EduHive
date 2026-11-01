@@ -94,3 +94,6 @@ The provider also reports depleted prepay credits and asks for credits to resume
 ## NVIDIA Build prototype coverage - 2026-10-30
 
 Owner-assisted sign-in completed. The account shows up to 40 RPM, subject to model-specific limits and shared-service throttling. NVIDIA Build's Help Center describes free prototype access with rate limits rather than per-token usage charges. No credit balance or paid spend cap is claimed for that prototype tier. Dedicated/partner/self-hosted endpoints require separate cost and service review; do not promise unlimited production use or dedicated capacity from this account. The production secret was not revealed or matched, and no provider setting or credential was changed. The earlier sign-in limitation is resolved.
+
+
+Update 2026-11-01: a controlled five-question quiz generated successfully through the deployed canonical HiveQ UI, and all five questions were inspected. Google's depleted-credit warning remains visible for the named Eduhive project; its connection to the deployed hidden key is not established. Owner-approved project matching is blocked by Google's key-metadata permission denial. Keep the warning and project mapping disclosed; do not treat a project display name as proof of which account serves production.

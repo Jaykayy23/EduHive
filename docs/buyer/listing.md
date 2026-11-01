@@ -54,3 +54,6 @@ Before any live-generation availability claim, resolve the 2026-10-30 Google AI 
 
 
 NVIDIA account inspection subsequently completed: the owner account displays up to 40 RPM and the Build Help Center describes free, rate-limited prototype access without per-token usage charges. Model-specific throttling and shared capacity still apply. Do not market that prototype access as dedicated production hosting, unlimited use or a transferable paid entitlement. The earlier NVIDIA sign-in gate is resolved; Gemini availability and source/university rights remain unresolved.
+
+
+Update 2026-11-01: a controlled five-question quiz generated successfully through the deployed canonical HiveQ UI, and all five questions were inspected. Google's depleted-credit warning remains visible for the named Eduhive project; its connection to the deployed hidden key is not established. Owner-approved project matching is blocked by Google's key-metadata permission denial. Keep the warning and project mapping disclosed; do not treat a project display name as proof of which account serves production.

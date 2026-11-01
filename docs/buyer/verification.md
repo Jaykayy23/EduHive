@@ -138,3 +138,21 @@ The visible Help Center describes Build as a free prototyping service without pe
 Automatic approval review blocked opening the API Keys page because it could expose credentials outside the approved quota/billing inspection. The Help Center provided the relevant prototype-tier billing explanation without key access. No bypass was attempted. The previous NVIDIA sign-in blocker is resolved; a separate paid spend cap was neither identified nor changed, and none is claimed for the free prototype tier.
 
 Current external sale blockers remain: resolve Google AI Studio's depleted-credit warning or establish the correct valid production project and recheck live generation; obtain tutorial-code redistribution permission/applicable license and university rights confirmation; choose commercial transfer/license terms. The NVIDIA account inspection itself no longer needs owner sign-in assistance.
+
+
+## Gemini live-generation recheck - 2026-11-01
+
+The owner explicitly requested resolving the credit warning and rechecking live generation. On the canonical production `/hiveq` page, the existing controlled synthetic account submitted 386 characters of harmless photosynthesis notes for five questions. The deployed application returned a new five-question quiz: three multiple-choice and two true/false. All five question views were inspected and matched the source notes. This is fresh deployed provider-path evidence, not the fixed public sample. No provider key, model setting, credit balance, billing link or plan was changed.
+
+Google AI Studio still displayed the depleted-prepay-credit warning. The Projects table identified the project named Eduhive as Free tier with Payment required / No credits, while another existing project showed free access without that status. Consequently the live generation test passed despite the account warning; this does not establish which hidden production key/project was used or that the warning is cleared. Secure comparison of the existing Render key to Google key metadata was requested from the owner before any credential inspection.
+
+Google's [billing documentation](https://ai.google.dev/gemini-api/docs/billing) explains that No credits applies to a linked prepay account lacking a positive balance; keys inherit their project's billing state. Returning a project to free access involves unlinking its billing account; funding a paid project involves purchasing credits. Neither operation was performed. Do not disable billing or fund an unrelated project merely to remove a banner.
+
+The automated JSON-export wait stalled and reset browser control. The generated quiz remained intact afterward and all five views were inspected directly. Export-file delivery is not marked verified by this run, and the live request was not repeated to recover the export. Private screenshots and visible-question evidence are excluded from source distribution.
+
+
+### Production-key project comparison - 2026-11-01
+
+The owner explicitly approved privately comparing the existing Render Gemini key with Google AI Studio key metadata, without printing/replacing/regenerating/sharing credentials or changing billing. The existing GEMINI_API_KEY environment row was located but remained masked. Google AI Studio denied listing key metadata, including the Eduhive project, with a permission-denied error. Because there was no comparison target, Render's key was not revealed. The owner was asked to sign into the existing account that manages the deployed key, or confirm that the current account is already the owner. No IAM grant, new account, API key, billing change or purchase was made.
+
+The five-question production generation check passed; the credit warning itself and the deployed key-to-project mapping remain unresolved. Do not infer that the depleted-credit project is the production project from its display name alone.
